@@ -35,3 +35,7 @@ Thumbs.db
 
 # Test coverage
 coverage/
+
+# Documentation (personal notes)
+PROJECT_DOCUMENTATION.md
+frontend/FRONTEND_DOCUMENTATION.md

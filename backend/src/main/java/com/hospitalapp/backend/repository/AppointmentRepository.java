@@ -106,4 +106,63 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
            "ORDER BY a.createdAt DESC")
     List<Appointment> findAppointmentsCreatedBetween(@Param("startDateTime") LocalDateTime startDateTime,
                                                       @Param("endDateTime") LocalDateTime endDateTime);
+
+    // ==================== DOUBLE BOOKING PREVENTION ====================
+
+    /**
+     * Check if patient already has an appointment at the same date and time (with any doctor)
+     */
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Appointment a " +
+           "WHERE a.patient.id = :patientId AND a.appointmentDate = :date " +
+           "AND a.startTime = :startTime AND a.status = 'SCHEDULED'")
+    boolean existsByPatientDateAndTime(@Param("patientId") Long patientId,
+                                        @Param("date") LocalDate date,
+                                        @Param("startTime") LocalTime startTime);
+
+    /**
+     * Check if patient has overlapping appointment (time range overlap)
+     */
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Appointment a " +
+           "WHERE a.patient.id = :patientId AND a.appointmentDate = :date " +
+           "AND a.status = 'SCHEDULED' " +
+           "AND ((a.startTime < :endTime AND a.endTime > :startTime))")
+    boolean hasOverlappingPatientAppointment(@Param("patientId") Long patientId,
+                                              @Param("date") LocalDate date,
+                                              @Param("startTime") LocalTime startTime,
+                                              @Param("endTime") LocalTime endTime);
+
+    /**
+     * Check if doctor has overlapping appointment (time range overlap)
+     */
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Appointment a " +
+           "WHERE a.doctor.id = :doctorId AND a.appointmentDate = :date " +
+           "AND a.status = 'SCHEDULED' " +
+           "AND ((a.startTime < :endTime AND a.endTime > :startTime))")
+    boolean hasOverlappingDoctorAppointment(@Param("doctorId") Long doctorId,
+                                             @Param("date") LocalDate date,
+                                             @Param("startTime") LocalTime startTime,
+                                             @Param("endTime") LocalTime endTime);
+
+    /**
+     * Check if patient already has an appointment with same doctor on same day
+     */
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Appointment a " +
+           "WHERE a.patient.id = :patientId AND a.doctor.id = :doctorId " +
+           "AND a.appointmentDate = :date AND a.status = 'SCHEDULED'")
+    boolean existsByPatientDoctorAndDate(@Param("patientId") Long patientId,
+                                          @Param("doctorId") Long doctorId,
+                                          @Param("date") LocalDate date);
+
+    /**
+     * Check if patient has overlapping appointment, excluding a specific appointment (for rescheduling)
+     */
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Appointment a " +
+           "WHERE a.patient.id = :patientId AND a.appointmentDate = :date " +
+           "AND a.status = 'SCHEDULED' AND a.id != :excludeAppointmentId " +
+           "AND ((a.startTime < :endTime AND a.endTime > :startTime))")
+    boolean hasOverlappingPatientAppointmentExcluding(@Param("patientId") Long patientId,
+                                                       @Param("date") LocalDate date,
+                                                       @Param("startTime") LocalTime startTime,
+                                                       @Param("endTime") LocalTime endTime,
+                                                       @Param("excludeAppointmentId") Long excludeAppointmentId);
 }

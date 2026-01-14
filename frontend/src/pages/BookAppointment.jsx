@@ -1,0 +1,460 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FiCalendar, FiClock, FiUser, FiCheck, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import api from '../services/api';
+import { Button, Alert, LoadingSpinner } from '../components/ui';
+
+const BookAppointment = () => {
+  const navigate = useNavigate();
+
+  // Steps: 1 = Select Doctor, 2 = Select Date/Time, 3 = Confirm
+  const [step, setStep] = useState(1);
+
+  // Data states
+  const [doctors, setDoctors] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [availableSlots, setAvailableSlots] = useState([]);
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [patientNotes, setPatientNotes] = useState('');
+
+  // UI states
+  const [loading, setLoading] = useState(false);
+  const [slotsLoading, setSlotsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [bookingResult, setBookingResult] = useState(null);
+
+  // Fetch doctors on mount
+  useEffect(() => {
+    fetchDoctors();
+  }, []);
+
+  // Fetch available slots when doctor and date are selected
+  useEffect(() => {
+    if (selectedDoctor && selectedDate) {
+      fetchAvailableSlots();
+    }
+  }, [selectedDoctor, selectedDate]);
+
+  const fetchDoctors = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await api.get('/doctors');
+      setDoctors(response.data);
+
+      // Extract unique departments
+      const uniqueDepartments = [...new Set(response.data.map(d => d.departmentName))];
+      setDepartments(uniqueDepartments);
+    } catch (err) {
+      setError('Failed to load doctors. Please try again.');
+      console.error('Error fetching doctors:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchAvailableSlots = async () => {
+    setSlotsLoading(true);
+    setError(null);
+    setSelectedSlot(null);
+    try {
+      const response = await api.get(`/doctors/${selectedDoctor.id}/available-slots`, {
+        params: { date: selectedDate }
+      });
+      // Filter only available slots
+      const available = response.data.filter(slot => slot.available);
+      setAvailableSlots(available);
+    } catch (err) {
+      setError('Failed to load available slots. Please try again.');
+      console.error('Error fetching slots:', err);
+    } finally {
+      setSlotsLoading(false);
+    }
+  };
+
+  const handleBookAppointment = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await api.post('/appointments', {
+        doctorId: selectedDoctor.id,
+        appointmentDate: selectedDate,
+        startTime: selectedSlot.startTime,
+        patientNotes: patientNotes
+      });
+      setBookingResult(response.data);
+      setSuccess('Appointment booked successfully!');
+      setStep(4); // Success step
+    } catch (err) {
+      const message = err.response?.data?.message || 'Failed to book appointment. Please try again.';
+      setError(message);
+      console.error('Error booking appointment:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Filter doctors by department
+  const filteredDoctors = selectedDepartment
+    ? doctors.filter(d => d.departmentName === selectedDepartment)
+    : doctors;
+
+  // Get minimum date (today) and maximum date (90 days from now)
+  const today = new Date().toISOString().split('T')[0];
+  const maxDate = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+  // Format time for display
+  const formatTime = (timeString) => {
+    const [hours, minutes] = timeString.split(':');
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12;
+    return `${displayHour}:${minutes} ${ampm}`;
+  };
+
+  // Step 1: Select Doctor
+  const renderDoctorSelection = () => (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Select a Doctor</h2>
+
+        {/* Department Filter */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Filter by Department
+          </label>
+          <select
+            value={selectedDepartment}
+            onChange={(e) => setSelectedDepartment(e.target.value)}
+            className="w-full md:w-64 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="">All Departments</option>
+            {departments.map(dept => (
+              <option key={dept} value={dept}>{dept}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="flex justify-center py-12">
+          <LoadingSpinner size="large" />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredDoctors.map(doctor => (
+            <div
+              key={doctor.id}
+              onClick={() => setSelectedDoctor(doctor)}
+              className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                selectedDoctor?.id === doctor.id
+                  ? 'border-blue-500 bg-blue-50'
+                  : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
+              }`}
+            >
+              <div className="flex items-start space-x-3">
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <FiUser className="h-6 w-6 text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900">Dr. {doctor.fullName}</h3>
+                  <p className="text-sm text-gray-600">{doctor.specialty}</p>
+                  <p className="text-sm text-blue-600">{doctor.departmentName}</p>
+                  <p className="text-sm font-medium text-green-600 mt-1">
+                    ${doctor.consultationFee}
+                  </p>
+                </div>
+                {selectedDoctor?.id === doctor.id && (
+                  <FiCheck className="h-5 w-5 text-blue-600" />
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {filteredDoctors.length === 0 && !loading && (
+        <div className="text-center py-12 text-gray-500">
+          No doctors found for the selected department.
+        </div>
+      )}
+    </div>
+  );
+
+  // Step 2: Select Date and Time
+  const renderDateTimeSelection = () => (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-xl font-semibold text-gray-900 mb-2">Select Date & Time</h2>
+        <p className="text-gray-600">
+          Booking with <span className="font-medium">Dr. {selectedDoctor?.fullName}</span>
+        </p>
+      </div>
+
+      {/* Date Selection */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          <FiCalendar className="inline mr-2" />
+          Select Date
+        </label>
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+          min={today}
+          max={maxDate}
+          className="w-full md:w-64 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+
+      {/* Time Slots */}
+      {selectedDate && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            <FiClock className="inline mr-2" />
+            Available Time Slots
+          </label>
+
+          {slotsLoading ? (
+            <div className="flex justify-center py-8">
+              <LoadingSpinner />
+            </div>
+          ) : availableSlots.length > 0 ? (
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
+              {availableSlots.map((slot, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedSlot(slot)}
+                  className={`px-3 py-2 text-sm rounded-lg border-2 transition-all ${
+                    selectedSlot?.startTime === slot.startTime
+                      ? 'border-blue-500 bg-blue-500 text-white'
+                      : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+                  }`}
+                >
+                  {formatTime(slot.startTime)}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-gray-500 bg-gray-50 rounded-lg">
+              No available slots for this date. Please select another date.
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Patient Notes */}
+      {selectedSlot && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Notes for Doctor (Optional)
+          </label>
+          <textarea
+            value={patientNotes}
+            onChange={(e) => setPatientNotes(e.target.value)}
+            placeholder="Describe your symptoms or reason for visit..."
+            rows={3}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+      )}
+    </div>
+  );
+
+  // Step 3: Confirmation
+  const renderConfirmation = () => (
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold text-gray-900">Confirm Your Appointment</h2>
+
+      <div className="bg-gray-50 rounded-lg p-6 space-y-4">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
+          <span className="text-gray-600">Doctor</span>
+          <span className="font-medium">Dr. {selectedDoctor?.fullName}</span>
+        </div>
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
+          <span className="text-gray-600">Specialty</span>
+          <span className="font-medium">{selectedDoctor?.specialty}</span>
+        </div>
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
+          <span className="text-gray-600">Department</span>
+          <span className="font-medium">{selectedDoctor?.departmentName}</span>
+        </div>
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
+          <span className="text-gray-600">Date</span>
+          <span className="font-medium">{new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        </div>
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
+          <span className="text-gray-600">Time</span>
+          <span className="font-medium">{formatTime(selectedSlot?.startTime)} - {formatTime(selectedSlot?.endTime)}</span>
+        </div>
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
+          <span className="text-gray-600">Consultation Fee</span>
+          <span className="font-medium text-green-600">${selectedDoctor?.consultationFee}</span>
+        </div>
+        {patientNotes && (
+          <div className="pt-2">
+            <span className="text-gray-600 block mb-2">Your Notes</span>
+            <p className="text-gray-900 bg-white p-3 rounded border">{patientNotes}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  // Step 4: Success
+  const renderSuccess = () => (
+    <div className="text-center space-y-6">
+      <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full">
+        <FiCheck className="h-8 w-8 text-green-600" />
+      </div>
+      <h2 className="text-2xl font-semibold text-gray-900">Appointment Booked!</h2>
+      <p className="text-gray-600">Your appointment has been confirmed.</p>
+
+      {bookingResult && (
+        <div className="bg-gray-50 rounded-lg p-6 text-left max-w-md mx-auto space-y-3">
+          <div className="flex justify-between">
+            <span className="text-gray-600">Confirmation #</span>
+            <span className="font-mono font-medium text-blue-600">{bookingResult.confirmationNumber}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Doctor</span>
+            <span className="font-medium">{bookingResult.doctorName}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Date</span>
+            <span className="font-medium">{bookingResult.appointmentDate}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Time</span>
+            <span className="font-medium">{formatTime(bookingResult.startTime)}</span>
+          </div>
+        </div>
+      )}
+
+      <div className="flex justify-center space-x-4 pt-4">
+        <Button
+          variant="outline"
+          onClick={() => {
+            setStep(1);
+            setSelectedDoctor(null);
+            setSelectedDate('');
+            setSelectedSlot(null);
+            setPatientNotes('');
+            setBookingResult(null);
+            setSuccess(null);
+          }}
+        >
+          Book Another
+        </Button>
+        <Button onClick={() => navigate('/dashboard')}>
+          Go to Dashboard
+        </Button>
+      </div>
+    </div>
+  );
+
+  // Navigation buttons
+  const renderNavigation = () => {
+    if (step === 4) return null;
+
+    return (
+      <div className="flex justify-between pt-6 border-t border-gray-200">
+        <Button
+          variant="outline"
+          onClick={() => step === 1 ? navigate('/dashboard') : setStep(step - 1)}
+        >
+          <FiArrowLeft className="mr-2" />
+          {step === 1 ? 'Cancel' : 'Back'}
+        </Button>
+
+        {step < 3 ? (
+          <Button
+            onClick={() => setStep(step + 1)}
+            disabled={
+              (step === 1 && !selectedDoctor) ||
+              (step === 2 && (!selectedDate || !selectedSlot))
+            }
+          >
+            Next
+            <FiArrowRight className="ml-2" />
+          </Button>
+        ) : (
+          <Button onClick={handleBookAppointment} disabled={loading}>
+            {loading ? <LoadingSpinner size="small" /> : 'Confirm Booking'}
+          </Button>
+        )}
+      </div>
+    );
+  };
+
+  // Progress steps
+  const renderProgress = () => {
+    if (step === 4) return null;
+
+    const steps = [
+      { num: 1, label: 'Select Doctor' },
+      { num: 2, label: 'Date & Time' },
+      { num: 3, label: 'Confirm' },
+    ];
+
+    return (
+      <div className="mb-8">
+        <div className="flex items-center justify-center">
+          {steps.map((s, index) => (
+            <div key={s.num} className="flex items-center">
+              <div
+                className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
+                  step >= s.num
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-200 text-gray-600'
+                }`}
+              >
+                {step > s.num ? <FiCheck /> : s.num}
+              </div>
+              <span className={`ml-2 text-sm ${step >= s.num ? 'text-blue-600 font-medium' : 'text-gray-500'}`}>
+                {s.label}
+              </span>
+              {index < steps.length - 1 && (
+                <div className={`w-12 h-1 mx-4 ${step > s.num ? 'bg-blue-600' : 'bg-gray-200'}`} />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      <div className="mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Book Appointment</h1>
+        <p className="text-gray-600 mt-1">Schedule an appointment with our doctors</p>
+      </div>
+
+      {error && (
+        <Alert type="error" message={error} onClose={() => setError(null)} className="mb-6" />
+      )}
+
+      {success && step !== 4 && (
+        <Alert type="success" message={success} onClose={() => setSuccess(null)} className="mb-6" />
+      )}
+
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        {renderProgress()}
+
+        {step === 1 && renderDoctorSelection()}
+        {step === 2 && renderDateTimeSelection()}
+        {step === 3 && renderConfirmation()}
+        {step === 4 && renderSuccess()}
+
+        {renderNavigation()}
+      </div>
+    </div>
+  );
+};
+
+export default BookAppointment;
