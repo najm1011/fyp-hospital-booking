@@ -1,0 +1,232 @@
+import { useState, useEffect } from 'react';
+import { FiSearch, FiFilter, FiUser } from 'react-icons/fi';
+import api from '../services/api';
+import { Button, LoadingSpinner, Alert } from '../components/ui';
+import DoctorCard from '../components/DoctorCard';
+import DoctorDetailModal from '../components/DoctorDetailModal';
+
+const Doctors = () => {
+  // Data states
+  const [doctors, setDoctors] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Filter states
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [sortBy, setSortBy] = useState('name'); // name, fee-low, fee-high
+
+  // Modal state
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Fetch doctors on mount
+  useEffect(() => {
+    fetchDoctors();
+  }, []);
+
+  const fetchDoctors = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await api.get('/doctors');
+      setDoctors(response.data);
+
+      // Extract unique departments
+      const uniqueDepartments = [...new Set(response.data.map((d) => d.departmentName))];
+      setDepartments(uniqueDepartments.sort());
+    } catch (err) {
+      setError('Failed to load doctors. Please try again.');
+      console.error('Error fetching doctors:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Filter and sort doctors
+  const filteredDoctors = doctors
+    .filter((doctor) => {
+      const matchesSearch =
+        doctor.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesDepartment =
+        !selectedDepartment || doctor.departmentName === selectedDepartment;
+      return matchesSearch && matchesDepartment;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'fee-low':
+          return a.consultationFee - b.consultationFee;
+        case 'fee-high':
+          return b.consultationFee - a.consultationFee;
+        case 'name':
+        default:
+          return a.fullName.localeCompare(b.fullName);
+      }
+    });
+
+  const handleViewDoctor = (doctor) => {
+    setSelectedDoctor(doctor);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedDoctor(null);
+  };
+
+  return (
+    <div>
+      {/* Page Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Find Doctors</h1>
+        <p className="text-gray-600 mt-1">
+          Browse our qualified doctors and book an appointment
+        </p>
+      </div>
+
+      {/* Filters Section */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Search */}
+          <div className="flex-1 relative">
+            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search by name or specialty..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+
+          {/* Department Filter */}
+          <div className="md:w-48">
+            <div className="relative">
+              <FiFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <select
+                value={selectedDepartment}
+                onChange={(e) => setSelectedDepartment(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+              >
+                <option value="">All Departments</option>
+                {departments.map((dept) => (
+                  <option key={dept} value={dept}>
+                    {dept}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Sort */}
+          <div className="md:w-48">
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+            >
+              <option value="name">Sort by Name</option>
+              <option value="fee-low">Fee: Low to High</option>
+              <option value="fee-high">Fee: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Active Filters */}
+        {(searchTerm || selectedDepartment) && (
+          <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
+            <span className="text-sm text-gray-500">Active filters:</span>
+            {searchTerm && (
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+                Search: {searchTerm}
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="ml-1 hover:text-blue-900"
+                >
+                  &times;
+                </button>
+              </span>
+            )}
+            {selectedDepartment && (
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+                {selectedDepartment}
+                <button
+                  onClick={() => setSelectedDepartment('')}
+                  className="ml-1 hover:text-blue-900"
+                >
+                  &times;
+                </button>
+              </span>
+            )}
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedDepartment('');
+              }}
+              className="text-xs text-blue-600 hover:text-blue-800"
+            >
+              Clear all
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Error Alert */}
+      {error && (
+        <Alert type="error" message={error} onClose={() => setError(null)} className="mb-6" />
+      )}
+
+      {/* Results Count */}
+      {!loading && (
+        <p className="text-sm text-gray-500 mb-4">
+          Showing {filteredDoctors.length} of {doctors.length} doctors
+        </p>
+      )}
+
+      {/* Doctors Grid */}
+      {loading ? (
+        <div className="flex justify-center items-center py-20">
+          <LoadingSpinner size="large" />
+        </div>
+      ) : filteredDoctors.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredDoctors.map((doctor) => (
+            <DoctorCard
+              key={doctor.id}
+              doctor={doctor}
+              onViewDetails={() => handleViewDoctor(doctor)}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-20 bg-white rounded-xl border border-gray-200">
+          <FiUser className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No doctors found</h3>
+          <p className="text-gray-500 mb-4">
+            Try adjusting your search or filter criteria
+          </p>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setSearchTerm('');
+              setSelectedDepartment('');
+            }}
+          >
+            Clear Filters
+          </Button>
+        </div>
+      )}
+
+      {/* Doctor Detail Modal */}
+      <DoctorDetailModal
+        doctor={selectedDoctor}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
+    </div>
+  );
+};
+
+export default Doctors;

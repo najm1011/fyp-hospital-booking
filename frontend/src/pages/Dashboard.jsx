@@ -12,11 +12,15 @@ import {
   FiFileText,
 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import { StatsCard, Card, EmptyState, Alert } from '../components/ui';
+import AppointmentCard from '../components/AppointmentCard';
+import api from '../services/api';
 
 const Dashboard = () => {
   const { user } = useAuth();
   const location = useLocation();
+  const { toast } = useToast();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState(null);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
@@ -24,27 +28,46 @@ const Dashboard = () => {
     location.state?.accessDenied ? "You don't have permission to access that page." : null
   );
 
-  // Simulate loading data (will be replaced with real API calls)
+  // Fetch real data from API
   useEffect(() => {
-    const loadData = async () => {
-      setLoading(true);
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    const loadPatientData = async () => {
+      if (user?.role !== 'PATIENT') return;
 
-      // Set empty data for skeleton/empty state demo
-      // In real app, this would come from API
-      setStats({
-        upcoming: 0,
-        completed: 0,
-        pending: 0,
-        doctorsVisited: 0,
-      });
-      setUpcomingAppointments([]);
-      setLoading(false);
+      setLoading(true);
+      try {
+        // Fetch stats and upcoming appointments in parallel
+        const [statsResponse, appointmentsResponse] = await Promise.all([
+          api.get('/appointments/my-appointments/stats'),
+          api.get('/appointments/my-appointments/upcoming'),
+        ]);
+
+        setStats({
+          upcoming: statsResponse.data.upcoming || 0,
+          completed: statsResponse.data.completed || 0,
+          pending: statsResponse.data.pending || 0,
+          doctorsVisited: statsResponse.data.uniqueDoctorsCount || 0,
+        });
+
+        // Get first 3 upcoming appointments for dashboard preview
+        setUpcomingAppointments(appointmentsResponse.data.slice(0, 3));
+      } catch (err) {
+        console.error('Error fetching dashboard data:', err);
+        toast.error('Failed to load dashboard data');
+        // Set default values on error
+        setStats({
+          upcoming: 0,
+          completed: 0,
+          pending: 0,
+          doctorsVisited: 0,
+        });
+        setUpcomingAppointments([]);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    loadData();
-  }, []);
+    loadPatientData();
+  }, [user?.role, toast]);
 
   // Patient Dashboard
   const PatientDashboard = () => (
@@ -187,38 +210,14 @@ const Dashboard = () => {
               actionPath="/appointments/book"
             />
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3">
               {upcomingAppointments.map((appointment) => (
-                <div
+                <AppointmentCard
                   key={appointment.id}
-                  className="p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors"
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="font-medium text-gray-900">
-                        {appointment.doctorName}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        {appointment.department}
-                      </p>
-                    </div>
-                    <span
-                      className={`px-2 py-1 text-xs font-medium rounded ${
-                        appointment.status === 'CONFIRMED'
-                          ? 'bg-green-100 text-green-800'
-                          : appointment.status === 'PENDING'
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : 'bg-gray-100 text-gray-800'
-                      }`}
-                    >
-                      {appointment.status}
-                    </span>
-                  </div>
-                  <div className="mt-3 flex items-center text-sm text-gray-600">
-                    <FiCalendar className="h-4 w-4 mr-2" />
-                    {appointment.date} at {appointment.time}
-                  </div>
-                </div>
+                  appointment={appointment}
+                  variant="compact"
+                  showActions={false}
+                />
               ))}
             </div>
           )}
@@ -240,20 +239,41 @@ const Dashboard = () => {
   const DoctorDashboard = () => {
     const [doctorStats, setDoctorStats] = useState(null);
     const [todayAppointments, setTodayAppointments] = useState([]);
+    const [doctorLoading, setDoctorLoading] = useState(true);
 
     useEffect(() => {
       const loadDoctorData = async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setDoctorStats({
-          todayAppointments: 0,
-          completedToday: 0,
-          pending: 0,
-          totalPatients: 0,
-        });
-        setTodayAppointments([]);
+        setDoctorLoading(true);
+        try {
+          // Fetch doctor stats and today's appointments in parallel
+          const [statsResponse, todayResponse] = await Promise.all([
+            api.get('/appointments/doctor/stats'),
+            api.get('/appointments/doctor/appointments/today'),
+          ]);
+
+          setDoctorStats({
+            todayAppointments: statsResponse.data.todayCount || 0,
+            completedToday: statsResponse.data.completedTodayCount || 0,
+            pending: statsResponse.data.pendingCount || 0,
+            totalPatients: statsResponse.data.uniquePatientsCount || 0,
+          });
+          setTodayAppointments(todayResponse.data || []);
+        } catch (err) {
+          console.error('Error fetching doctor dashboard data:', err);
+          toast.error('Failed to load dashboard data');
+          setDoctorStats({
+            todayAppointments: 0,
+            completedToday: 0,
+            pending: 0,
+            totalPatients: 0,
+          });
+          setTodayAppointments([]);
+        } finally {
+          setDoctorLoading(false);
+        }
       };
       loadDoctorData();
-    }, []);
+    }, [toast]);
 
     return (
       <>
@@ -272,33 +292,33 @@ const Dashboard = () => {
             label="Today's Appointments"
             value={doctorStats?.todayAppointments || 0}
             color="blue"
-            loading={loading}
+            loading={doctorLoading}
           />
           <StatsCard
             icon={FiCheckCircle}
             label="Completed Today"
             value={doctorStats?.completedToday || 0}
             color="green"
-            loading={loading}
+            loading={doctorLoading}
           />
           <StatsCard
             icon={FiAlertCircle}
             label="Pending"
             value={doctorStats?.pending || 0}
             color="yellow"
-            loading={loading}
+            loading={doctorLoading}
           />
           <StatsCard
             icon={FiUsers}
             label="Total Patients"
             value={doctorStats?.totalPatients || 0}
             color="purple"
-            loading={loading}
+            loading={doctorLoading}
           />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <Card title="Today's Schedule" loading={loading}>
+          <Card title="Today's Schedule" loading={doctorLoading}>
             {todayAppointments.length === 0 ? (
               <EmptyState
                 icon={FiClock}
@@ -306,18 +326,20 @@ const Dashboard = () => {
                 description="You don't have any appointments scheduled for today."
               />
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {todayAppointments.map((apt) => (
-                  <div key={apt.id} className="p-4 border border-gray-200 rounded-lg">
-                    <p className="font-medium">{apt.patientName}</p>
-                    <p className="text-sm text-gray-500">{apt.time}</p>
-                  </div>
+                  <AppointmentCard
+                    key={apt.id}
+                    appointment={apt}
+                    variant="compact"
+                    showActions={false}
+                  />
                 ))}
               </div>
             )}
           </Card>
 
-          <Card title="Quick Actions" loading={loading}>
+          <Card title="Quick Actions" loading={doctorLoading}>
             <div className="space-y-3">
               <Link
                 to="/doctor/schedule"
@@ -359,19 +381,34 @@ const Dashboard = () => {
   // Admin Dashboard
   const AdminDashboard = () => {
     const [adminStats, setAdminStats] = useState(null);
+    const [adminLoading, setAdminLoading] = useState(true);
 
     useEffect(() => {
       const loadAdminData = async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setAdminStats({
-          totalDoctors: 0,
-          totalPatients: 0,
-          appointmentsToday: 0,
-          departments: 0,
-        });
+        setAdminLoading(true);
+        try {
+          const statsResponse = await api.get('/appointments/admin/stats');
+          setAdminStats({
+            totalDoctors: statsResponse.data.totalDoctors || 0,
+            totalPatients: statsResponse.data.totalPatients || 0,
+            appointmentsToday: statsResponse.data.todayCount || 0,
+            departments: statsResponse.data.totalDepartments || 0,
+          });
+        } catch (err) {
+          console.error('Error fetching admin dashboard data:', err);
+          toast.error('Failed to load dashboard data');
+          setAdminStats({
+            totalDoctors: 0,
+            totalPatients: 0,
+            appointmentsToday: 0,
+            departments: 0,
+          });
+        } finally {
+          setAdminLoading(false);
+        }
       };
       loadAdminData();
-    }, []);
+    }, [toast]);
 
     return (
       <>
@@ -388,33 +425,33 @@ const Dashboard = () => {
             label="Total Doctors"
             value={adminStats?.totalDoctors || 0}
             color="blue"
-            loading={loading}
+            loading={adminLoading}
           />
           <StatsCard
             icon={FiUsers}
             label="Total Patients"
             value={adminStats?.totalPatients || 0}
             color="green"
-            loading={loading}
+            loading={adminLoading}
           />
           <StatsCard
             icon={FiCalendar}
             label="Appointments Today"
             value={adminStats?.appointmentsToday || 0}
             color="yellow"
-            loading={loading}
+            loading={adminLoading}
           />
           <StatsCard
             icon={FiActivity}
             label="Departments"
             value={adminStats?.departments || 0}
             color="purple"
-            loading={loading}
+            loading={adminLoading}
           />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <Card title="Quick Actions" loading={loading}>
+          <Card title="Quick Actions" loading={adminLoading}>
             <div className="space-y-3">
               <Link
                 to="/admin/doctors"
@@ -459,7 +496,7 @@ const Dashboard = () => {
             </div>
           </Card>
 
-          <Card title="Recent Activity" loading={loading}>
+          <Card title="Recent Activity" loading={adminLoading}>
             <EmptyState
               icon={FiActivity}
               title="No recent activity"

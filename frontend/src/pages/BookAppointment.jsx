@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiCalendar, FiClock, FiUser, FiCheck, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { FiUser, FiCheck, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import api from '../services/api';
-import { Button, Alert, LoadingSpinner } from '../components/ui';
+import { useToast } from '../context/ToastContext';
+import { Button, Alert, LoadingSpinner, DatePicker, TimeSlotPicker } from '../components/ui';
+import BookingConfirmationModal from '../components/BookingConfirmationModal';
 
 const BookAppointment = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   // Steps: 1 = Select Doctor, 2 = Select Date/Time, 3 = Confirm
   const [step, setStep] = useState(1);
@@ -23,9 +26,14 @@ const BookAppointment = () => {
   // UI states
   const [loading, setLoading] = useState(false);
   const [slotsLoading, setSlotsLoading] = useState(false);
+  const [bookingLoading, setBookingLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [bookingResult, setBookingResult] = useState(null);
+
+  // Modal states
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [isBookingSuccess, setIsBookingSuccess] = useState(false);
 
   // Fetch doctors on mount
   useEffect(() => {
@@ -50,7 +58,9 @@ const BookAppointment = () => {
       const uniqueDepartments = [...new Set(response.data.map(d => d.departmentName))];
       setDepartments(uniqueDepartments);
     } catch (err) {
-      setError('Failed to load doctors. Please try again.');
+      const message = 'Failed to load doctors. Please try again.';
+      setError(message);
+      toast.error(message);
       console.error('Error fetching doctors:', err);
     } finally {
       setLoading(false);
@@ -69,7 +79,9 @@ const BookAppointment = () => {
       const available = response.data.filter(slot => slot.available);
       setAvailableSlots(available);
     } catch (err) {
-      setError('Failed to load available slots. Please try again.');
+      const message = 'Failed to load available slots. Please try again.';
+      setError(message);
+      toast.error(message);
       console.error('Error fetching slots:', err);
     } finally {
       setSlotsLoading(false);
@@ -77,7 +89,7 @@ const BookAppointment = () => {
   };
 
   const handleBookAppointment = async () => {
-    setLoading(true);
+    setBookingLoading(true);
     setError(null);
     try {
       const response = await api.post('/appointments', {
@@ -87,14 +99,49 @@ const BookAppointment = () => {
         patientNotes: patientNotes
       });
       setBookingResult(response.data);
-      setSuccess('Appointment booked successfully!');
-      setStep(4); // Success step
+      setIsBookingSuccess(true);
+      toast.success('Appointment booked successfully!', {
+        title: 'Booking Confirmed',
+        duration: 6000,
+      });
     } catch (err) {
       const message = err.response?.data?.message || 'Failed to book appointment. Please try again.';
       setError(message);
+      setShowConfirmModal(false);
+      toast.error(message, { title: 'Booking Failed' });
       console.error('Error booking appointment:', err);
     } finally {
-      setLoading(false);
+      setBookingLoading(false);
+    }
+  };
+
+  // Open confirmation modal
+  const handleOpenConfirmModal = () => {
+    setShowConfirmModal(true);
+    setIsBookingSuccess(false);
+  };
+
+  // Reset booking form
+  const handleBookAnother = () => {
+    setStep(1);
+    setSelectedDoctor(null);
+    setSelectedDate('');
+    setSelectedSlot(null);
+    setPatientNotes('');
+    setBookingResult(null);
+    setSuccess(null);
+    setShowConfirmModal(false);
+    setIsBookingSuccess(false);
+  };
+
+  // Close modal
+  const handleCloseModal = () => {
+    if (!bookingLoading) {
+      setShowConfirmModal(false);
+      if (isBookingSuccess) {
+        // If booking was successful, reset everything
+        handleBookAnother();
+      }
     }
   };
 
@@ -196,55 +243,27 @@ const BookAppointment = () => {
       </div>
 
       {/* Date Selection */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          <FiCalendar className="inline mr-2" />
-          Select Date
-        </label>
-        <input
-          type="date"
+      <div className="md:w-80">
+        <DatePicker
+          label="Select Date"
           value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          min={today}
-          max={maxDate}
-          className="w-full md:w-64 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          onChange={setSelectedDate}
+          minDate={today}
+          maxDate={maxDate}
+          placeholder="Choose appointment date"
         />
       </div>
 
       {/* Time Slots */}
       {selectedDate && (
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            <FiClock className="inline mr-2" />
-            Available Time Slots
-          </label>
-
-          {slotsLoading ? (
-            <div className="flex justify-center py-8">
-              <LoadingSpinner />
-            </div>
-          ) : availableSlots.length > 0 ? (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
-              {availableSlots.map((slot, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedSlot(slot)}
-                  className={`px-3 py-2 text-sm rounded-lg border-2 transition-all ${
-                    selectedSlot?.startTime === slot.startTime
-                      ? 'border-blue-500 bg-blue-500 text-white'
-                      : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
-                  }`}
-                >
-                  {formatTime(slot.startTime)}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8 text-gray-500 bg-gray-50 rounded-lg">
-              No available slots for this date. Please select another date.
-            </div>
-          )}
-        </div>
+        <TimeSlotPicker
+          label="Available Time Slots"
+          slots={availableSlots}
+          selectedSlot={selectedSlot}
+          onSelectSlot={setSelectedSlot}
+          loading={slotsLoading}
+          emptyMessage="No available slots for this date."
+        />
       )}
 
       {/* Patient Notes */}
@@ -383,8 +402,9 @@ const BookAppointment = () => {
             <FiArrowRight className="ml-2" />
           </Button>
         ) : (
-          <Button onClick={handleBookAppointment} disabled={loading}>
-            {loading ? <LoadingSpinner size="small" /> : 'Confirm Booking'}
+          <Button onClick={handleOpenConfirmModal} disabled={bookingLoading}>
+            <FiCheck className="mr-2" />
+            Confirm Booking
           </Button>
         )}
       </div>
@@ -453,6 +473,22 @@ const BookAppointment = () => {
 
         {renderNavigation()}
       </div>
+
+      {/* Booking Confirmation Modal */}
+      <BookingConfirmationModal
+        isOpen={showConfirmModal}
+        onClose={handleCloseModal}
+        onConfirm={handleBookAppointment}
+        doctor={selectedDoctor}
+        appointmentDate={selectedDate}
+        timeSlot={selectedSlot}
+        patientNotes={patientNotes}
+        bookingResult={bookingResult}
+        isSuccess={isBookingSuccess}
+        loading={bookingLoading}
+        onBookAnother={handleBookAnother}
+        onGoToDashboard={() => navigate('/dashboard')}
+      />
     </div>
   );
 };

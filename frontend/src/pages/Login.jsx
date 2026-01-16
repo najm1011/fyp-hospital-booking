@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FiMail, FiLock, FiHeart } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import useForm from '../hooks/useForm';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
@@ -11,6 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
+  const { toast } = useToast();
   const [apiError, setApiError] = useState('');
 
   // Get redirect path from location state or default to dashboard
@@ -49,6 +51,7 @@ const Login = () => {
     setApiError('');
     try {
       await login(formValues);
+      toast.success('Welcome back!', { title: 'Login Successful' });
       navigate(from, { replace: true });
     } catch (error) {
       const message =
@@ -56,6 +59,7 @@ const Login = () => {
         error.message ||
         'Login failed. Please try again.';
       setApiError(message);
+      toast.error(message, { title: 'Login Failed' });
     }
   };
 

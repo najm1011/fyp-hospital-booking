@@ -102,6 +102,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Query("SELECT COUNT(a) FROM Appointment a WHERE a.status = :status")
     long countByStatus(@Param("status") Appointment.Status status);
 
+    @Query("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentDate = :date")
+    long countByAppointmentDate(@Param("date") LocalDate date);
+
     @Query("SELECT a FROM Appointment a WHERE a.createdAt BETWEEN :startDateTime AND :endDateTime " +
            "ORDER BY a.createdAt DESC")
     List<Appointment> findAppointmentsCreatedBetween(@Param("startDateTime") LocalDateTime startDateTime,
