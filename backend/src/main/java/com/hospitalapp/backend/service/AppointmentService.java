@@ -426,7 +426,30 @@ public class AppointmentService {
     @Transactional(readOnly = true)
     public AppointmentStatsResponse getPatientStats(Long patientId) {
         List<Appointment> appointments = appointmentRepository.findByPatientId(patientId);
-        return calculateStats(appointments);
+        AppointmentStatsResponse stats = calculateStats(appointments);
+
+        // Calculate upcoming appointments
+        long upcoming = appointments.stream()
+                .filter(a -> a.getStatus() == Appointment.Status.SCHEDULED &&
+                        !a.getAppointmentDate().isBefore(LocalDate.now()))
+                .count();
+        stats.setUpcoming(upcoming);
+
+        // Calculate unique doctors visited
+        long uniqueDoctors = appointments.stream()
+                .filter(a -> a.getStatus() == Appointment.Status.COMPLETED)
+                .map(a -> a.getDoctor().getId())
+                .distinct()
+                .count();
+        stats.setUniqueDoctorsCount(uniqueDoctors);
+
+        // Calculate pending (scheduled) appointments
+        long pending = appointments.stream()
+                .filter(a -> a.getStatus() == Appointment.Status.SCHEDULED)
+                .count();
+        stats.setPending(pending);
+
+        return stats;
     }
 
     /**
@@ -435,7 +458,36 @@ public class AppointmentService {
     @Transactional(readOnly = true)
     public AppointmentStatsResponse getDoctorStats(Long doctorId) {
         List<Appointment> appointments = appointmentRepository.findByDoctorId(doctorId);
-        return calculateStats(appointments);
+        AppointmentStatsResponse stats = calculateStats(appointments);
+
+        // Calculate today's appointments
+        LocalDate today = LocalDate.now();
+        long todayCount = appointments.stream()
+                .filter(a -> a.getAppointmentDate().equals(today))
+                .count();
+        stats.setTodayCount(todayCount);
+
+        // Calculate completed today
+        long completedToday = appointments.stream()
+                .filter(a -> a.getAppointmentDate().equals(today) &&
+                        a.getStatus() == Appointment.Status.COMPLETED)
+                .count();
+        stats.setCompletedToday(completedToday);
+
+        // Calculate unique patients
+        long uniquePatients = appointments.stream()
+                .map(a -> a.getPatient().getId())
+                .distinct()
+                .count();
+        stats.setUniquePatientsCount(uniquePatients);
+
+        // Calculate pending
+        long pending = appointments.stream()
+                .filter(a -> a.getStatus() == Appointment.Status.SCHEDULED)
+                .count();
+        stats.setPending(pending);
+
+        return stats;
     }
 
     /**
@@ -448,7 +500,21 @@ public class AppointmentService {
         long cancelled = appointmentRepository.countByStatus(Appointment.Status.CANCELLED);
         long noShow = appointmentRepository.countByStatus(Appointment.Status.NO_SHOW);
 
-        return new AppointmentStatsResponse(scheduled, completed, cancelled, noShow);
+        AppointmentStatsResponse stats = new AppointmentStatsResponse(scheduled, completed, cancelled, noShow);
+
+        // Calculate today's appointments
+        LocalDate today = LocalDate.now();
+        long todayCount = appointmentRepository.countByAppointmentDate(today);
+        stats.setTodayCount(todayCount);
+
+        // Get counts from repositories
+        long totalDoctors = doctorRepository.count();
+        long totalPatients = userRepository.countByRole(User.Role.PATIENT);
+
+        stats.setTotalDoctors(totalDoctors);
+        stats.setTotalPatients(totalPatients);
+
+        return stats;
     }
 
     // ==================== COMMON OPERATIONS ====================

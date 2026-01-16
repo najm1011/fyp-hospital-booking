@@ -8,6 +8,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import BookAppointment from './pages/BookAppointment';
+import Doctors from './pages/Doctors';
+import DoctorDetail from './pages/DoctorDetail';
+import MyAppointments from './pages/MyAppointments';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -44,10 +47,10 @@ function App() {
           }
         />
         <Route
-          path="/appointments/*"
+          path="/appointments"
           element={
             <ProtectedRoute allowedRoles={['PATIENT']}>
-              <Dashboard /> {/* Replace with Appointments component later */}
+              <MyAppointments />
             </ProtectedRoute>
           }
         />
@@ -56,7 +59,15 @@ function App() {
           path="/doctors"
           element={
             <ProtectedRoute allowedRoles={['PATIENT']}>
-              <Dashboard /> {/* Replace with Doctors list later */}
+              <Doctors />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/doctors/:doctorId"
+          element={
+            <ProtectedRoute allowedRoles={['PATIENT']}>
+              <DoctorDetail />
             </ProtectedRoute>
           }
         />

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMail, FiLock, FiUser, FiPhone, FiHeart, FiCheck } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import useForm from '../hooks/useForm';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
@@ -10,6 +11,7 @@ import Alert from '../components/ui/Alert';
 const Register = () => {
   const navigate = useNavigate();
   const { register } = useAuth();
+  const { toast } = useToast();
   const [apiError, setApiError] = useState('');
   const [success, setSuccess] = useState(false);
 
@@ -137,6 +139,10 @@ const Register = () => {
       const { confirmPassword, ...userData } = formValues;
       await register(userData);
       setSuccess(true);
+      toast.success('Your account has been created successfully!', {
+        title: 'Registration Successful',
+        duration: 4000,
+      });
       setTimeout(() => {
         navigate('/dashboard');
       }, 1500);
@@ -146,6 +152,7 @@ const Register = () => {
         error.message ||
         'Registration failed. Please try again.';
       setApiError(message);
+      toast.error(message, { title: 'Registration Failed' });
     }
   };
 

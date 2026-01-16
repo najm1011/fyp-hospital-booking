@@ -11,11 +11,12 @@ node_modules/
 /database/backups/
 /var/backups/hospital-booking/
 
-# IDE
+# IDE and local tools
 .idea/
 *.iml
 .vscode/
 *.swp
+.*/
 
 # Environment
 .env
@@ -39,3 +40,5 @@ coverage/
 # Documentation (personal notes)
 PROJECT_DOCUMENTATION.md
 frontend/FRONTEND_DOCUMENTATION.md
+frontend/DOCUMENTATION.md
+backend/DOCUMENTATION.md
