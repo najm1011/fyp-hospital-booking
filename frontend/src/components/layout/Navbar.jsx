@@ -35,14 +35,14 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
   const getRoleBadgeColor = (role) => {
     const colors = {
       PATIENT: 'bg-green-100 text-green-800',
-      DOCTOR: 'bg-blue-100 text-blue-800',
+      DOCTOR: 'bg-teal-100 text-teal-800',
       ADMIN: 'bg-purple-100 text-purple-800',
     };
     return colors[role] || 'bg-gray-100 text-gray-800';
   };
 
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-200 fixed w-full top-0 z-50">
+    <nav className="bg-white/80 backdrop-blur-lg shadow-soft border-b border-gray-100/80 fixed w-full top-0 z-50">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Left side - Logo and menu button */}
@@ -51,7 +51,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
             {isAuthenticated && (
               <button
                 onClick={onMenuClick}
-                className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 lg:hidden"
+                className="p-2 rounded-xl text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500/50 lg:hidden transition-colors"
               >
                 {isSidebarOpen ? (
                   <FiX className="h-6 w-6" />
@@ -62,12 +62,12 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
             )}
 
             {/* Logo */}
-            <Link to="/" className="flex items-center ml-2 lg:ml-0">
-              <div className="bg-blue-600 p-2 rounded-lg">
-                <FiHeart className="h-6 w-6 text-white" />
+            <Link to="/" className="flex items-center ml-2 lg:ml-0 group">
+              <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-2.5 rounded-xl shadow-md shadow-teal-500/20 group-hover:shadow-lg group-hover:shadow-teal-500/30 transition-all duration-300">
+                <FiHeart className="h-5 w-5 text-white" />
               </div>
-              <span className="ml-3 text-xl font-bold text-gray-900 hidden sm:block">
-                Hospital Booking
+              <span className="ml-3 text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent hidden sm:block">
+                MediBook
               </span>
             </Link>
           </div>
@@ -80,11 +80,11 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                 <div className="relative">
                   <button
                     onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-                    className="p-2 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 relative"
+                    className="p-2.5 rounded-xl text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500/50 relative transition-colors"
                   >
-                    <FiBell className="h-6 w-6" />
+                    <FiBell className="h-5 w-5" />
                     {/* Notification badge */}
-                    <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
+                    <span className="absolute top-1.5 right-1.5 h-2 w-2 bg-red-500 rounded-full ring-2 ring-white"></span>
                   </button>
 
                   {/* Notifications dropdown */}
@@ -94,13 +94,16 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                         className="fixed inset-0 z-10"
                         onClick={() => setIsNotificationsOpen(false)}
                       />
-                      <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-20">
-                        <div className="p-4 border-b border-gray-200">
+                      <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-soft-lg border border-gray-100/80 z-20 overflow-hidden">
+                        <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                           <h3 className="text-sm font-semibold text-gray-900">
                             Notifications
                           </h3>
                         </div>
-                        <div className="p-4 text-sm text-gray-500 text-center">
+                        <div className="p-6 text-sm text-gray-500 text-center">
+                          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <FiBell className="h-5 w-5 text-gray-400" />
+                          </div>
                           No new notifications
                         </div>
                       </div>
@@ -112,21 +115,21 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                 <div className="relative">
                   <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
-                    className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="flex items-center space-x-3 p-1.5 pr-3 rounded-xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-colors"
                   >
-                    <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center">
-                      <span className="text-white font-medium text-sm">
+                    <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center shadow-sm">
+                      <span className="text-white font-semibold text-sm">
                         {user?.firstName?.[0]}
                         {user?.lastName?.[0]}
                       </span>
                     </div>
                     <div className="hidden md:block text-left">
-                      <p className="text-sm font-medium text-gray-900">
+                      <p className="text-sm font-semibold text-gray-900">
                         {user?.firstName} {user?.lastName}
                       </p>
                       <p className="text-xs text-gray-500">{user?.email}</p>
                     </div>
-                    <FiChevronDown className="h-4 w-4 text-gray-500 hidden md:block" />
+                    <FiChevronDown className="h-4 w-4 text-gray-400 hidden md:block" />
                   </button>
 
                   {/* Profile dropdown menu */}
@@ -136,44 +139,44 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                         className="fixed inset-0 z-10"
                         onClick={() => setIsProfileOpen(false)}
                       />
-                      <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-20">
-                        <div className="p-4 border-b border-gray-200">
-                          <p className="text-sm font-medium text-gray-900">
+                      <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-soft-lg border border-gray-100/80 z-20 overflow-hidden">
+                        <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+                          <p className="text-sm font-semibold text-gray-900">
                             {user?.firstName} {user?.lastName}
                           </p>
-                          <p className="text-xs text-gray-500 mt-1">
+                          <p className="text-xs text-gray-500 mt-0.5">
                             {user?.email}
                           </p>
                           <span
-                            className={`inline-block mt-2 px-2 py-1 text-xs font-medium rounded-full ${getRoleBadgeColor(
+                            className={`inline-block mt-2 px-2.5 py-1 text-xs font-semibold rounded-lg ${getRoleBadgeColor(
                               user?.role
                             )}`}
                           >
                             {getRoleDisplayName(user?.role)}
                           </span>
                         </div>
-                        <div className="py-2">
+                        <div className="py-1.5">
                           <Link
                             to="/profile"
                             onClick={() => setIsProfileOpen(false)}
-                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                           >
-                            <FiUser className="h-4 w-4 mr-3" />
+                            <FiUser className="h-4 w-4 mr-3 text-gray-400" />
                             My Profile
                           </Link>
                           <Link
                             to="/settings"
                             onClick={() => setIsProfileOpen(false)}
-                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                           >
-                            <FiSettings className="h-4 w-4 mr-3" />
+                            <FiSettings className="h-4 w-4 mr-3 text-gray-400" />
                             Settings
                           </Link>
                         </div>
-                        <div className="border-t border-gray-200 py-2">
+                        <div className="border-t border-gray-100 py-1.5">
                           <button
                             onClick={handleLogout}
-                            className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                            className="flex items-center w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
                           >
                             <FiLogOut className="h-4 w-4 mr-3" />
                             Sign Out
@@ -188,13 +191,13 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
               <>
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-gray-900 font-medium"
+                  className="text-gray-600 hover:text-gray-900 font-medium px-4 py-2 rounded-xl hover:bg-gray-100 transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="bg-gradient-to-r from-teal-500 to-cyan-600 text-white px-5 py-2.5 rounded-xl hover:from-teal-600 hover:to-cyan-700 transition-all font-semibold shadow-md shadow-teal-500/20 hover:shadow-lg hover:shadow-teal-500/30"
                 >
                   Get Started
                 </Link>

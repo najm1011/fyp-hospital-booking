@@ -63,8 +63,8 @@ const TimeSlotPicker = ({
         ${!slot.available
           ? 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed line-through'
           : isSelected(slot)
-            ? 'border-blue-500 bg-blue-500 text-white shadow-md transform scale-105'
-            : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50 hover:shadow-sm'
+            ? 'border-teal-500 bg-teal-500 text-white shadow-md transform scale-105'
+            : 'border-gray-200 bg-white text-gray-700 hover:border-teal-300 hover:bg-teal-50 hover:shadow-sm'
         }
       `}
     >
@@ -105,7 +105,7 @@ const TimeSlotPicker = ({
         )}
         <div className="bg-gray-50 rounded-xl p-8">
           <div className="flex flex-col items-center justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mb-3" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500 mb-3" />
             <p className="text-sm text-gray-500">Loading available slots...</p>
           </div>
         </div>
@@ -145,21 +145,21 @@ const TimeSlotPicker = ({
 
       {/* Selected Slot Summary */}
       {selectedSlot && (
-        <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+        <div className="mb-4 p-3 bg-teal-50 rounded-lg border border-teal-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <FiClock className="h-4 w-4 text-blue-600 mr-2" />
-              <span className="text-sm text-blue-800">
+              <FiClock className="h-4 w-4 text-teal-600 mr-2" />
+              <span className="text-sm text-teal-800">
                 Selected: <span className="font-semibold">{formatTime(selectedSlot.startTime)}</span>
                 {selectedSlot.endTime && (
-                  <span className="text-blue-600"> - {formatTime(selectedSlot.endTime)}</span>
+                  <span className="text-teal-600"> - {formatTime(selectedSlot.endTime)}</span>
                 )}
               </span>
             </div>
             <button
               type="button"
               onClick={() => onSelectSlot(null)}
-              className="text-xs text-blue-600 hover:text-blue-800 font-medium"
+              className="text-xs text-teal-600 hover:text-teal-800 font-medium"
             >
               Clear
             </button>
@@ -207,7 +207,7 @@ const TimeSlotPicker = ({
               Available
             </div>
             <div className="flex items-center">
-              <span className="h-3 w-3 rounded bg-blue-500 mr-1.5" />
+              <span className="h-3 w-3 rounded bg-teal-500 mr-1.5" />
               Selected
             </div>
             <div className="flex items-center">

@@ -125,7 +125,7 @@ const DoctorDetail = () => {
       {/* Doctor Profile Card */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
         {/* Header with gradient */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-10">
+        <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-8 py-10">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             {/* Photo/Avatar */}
             {doctor.photoUrl ? (
@@ -145,7 +145,7 @@ const DoctorDetail = () => {
             {/* Basic Info */}
             <div className="text-center sm:text-left text-white flex-1">
               <h1 className="text-3xl font-bold">Dr. {doctor.fullName}</h1>
-              <p className="text-blue-100 text-xl mt-1">{doctor.specialty}</p>
+              <p className="text-teal-100 text-xl mt-1">{doctor.specialty}</p>
               <div className="flex flex-wrap items-center justify-center sm:justify-start mt-3 gap-3">
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-white/20">
                   <FiMapPin className="h-4 w-4 mr-1" />
@@ -162,7 +162,7 @@ const DoctorDetail = () => {
             <div className="hidden sm:block">
               <Button
                 onClick={handleBookAppointment}
-                className="bg-white text-blue-600 hover:bg-blue-50"
+                className="bg-white text-teal-600 hover:bg-teal-50"
               >
                 <FiCalendar className="mr-2" />
                 Book Now
@@ -179,7 +179,7 @@ const DoctorDetail = () => {
               {/* Qualifications */}
               <div>
                 <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-3">
-                  <FiAward className="h-5 w-5 mr-2 text-blue-500" />
+                  <FiAward className="h-5 w-5 mr-2 text-teal-500" />
                   Qualifications
                 </h3>
                 <p className="text-gray-600">{doctor.qualifications}</p>
@@ -188,7 +188,7 @@ const DoctorDetail = () => {
               {/* About */}
               <div>
                 <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-3">
-                  <FiUser className="h-5 w-5 mr-2 text-blue-500" />
+                  <FiUser className="h-5 w-5 mr-2 text-teal-500" />
                   About
                 </h3>
                 <p className="text-gray-600 leading-relaxed">{doctor.bio}</p>
@@ -197,7 +197,7 @@ const DoctorDetail = () => {
               {/* Availability */}
               <div>
                 <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-3">
-                  <FiClock className="h-5 w-5 mr-2 text-blue-500" />
+                  <FiClock className="h-5 w-5 mr-2 text-teal-500" />
                   Weekly Schedule
                 </h3>
                 {availability?.weeklySchedule ? (

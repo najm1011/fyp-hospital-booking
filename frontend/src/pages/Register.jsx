@@ -157,11 +157,11 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-cyan-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="bg-blue-600 p-3 rounded-full">
+          <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-3 rounded-full">
             <FiHeart className="h-10 w-10 text-white" />
           </div>
         </div>
@@ -339,16 +339,16 @@ const Register = () => {
                   name="terms"
                   type="checkbox"
                   required
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                  className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded cursor-pointer"
                 />
               </div>
               <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 cursor-pointer">
                 I agree to the{' '}
-                <Link to="/terms" className="text-blue-600 hover:underline">
+                <Link to="/terms" className="text-teal-600 hover:underline">
                   Terms of Service
                 </Link>{' '}
                 and{' '}
-                <Link to="/privacy" className="text-blue-600 hover:underline">
+                <Link to="/privacy" className="text-teal-600 hover:underline">
                   Privacy Policy
                 </Link>
               </label>
@@ -383,7 +383,7 @@ const Register = () => {
             <div className="mt-6">
               <Link
                 to="/login"
-                className="w-full inline-flex justify-center py-3 px-4 border-2 border-blue-600 rounded-lg shadow-sm text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 transition-colors duration-200"
+                className="w-full inline-flex justify-center py-3 px-4 border-2 border-teal-600 rounded-lg shadow-sm text-sm font-semibold text-teal-600 bg-white hover:bg-teal-50 transition-colors duration-200"
               >
                 Sign In Instead
               </Link>

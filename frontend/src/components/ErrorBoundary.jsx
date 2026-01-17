@@ -82,7 +82,7 @@ class ErrorBoundary extends Component {
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={this.handleRefresh}
-                className="flex-1 inline-flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex-1 inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium rounded-lg hover:from-teal-600 hover:to-cyan-700 transition-colors"
               >
                 <FiRefreshCw className="h-5 w-5 mr-2" />
                 Refresh Page
@@ -103,7 +103,7 @@ class ErrorBoundary extends Component {
                   this.handleReset();
                   this.props.onReset();
                 }}
-                className="mt-4 text-sm text-blue-600 hover:text-blue-700 font-medium"
+                className="mt-4 text-sm text-teal-600 hover:text-teal-700 font-medium"
               >
                 Try Again
               </button>

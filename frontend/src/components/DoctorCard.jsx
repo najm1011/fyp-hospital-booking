@@ -55,18 +55,18 @@ const DoctorCard = ({
   // Compact variant - for lists and small spaces
   if (variant === 'compact') {
     return (
-      <div className="flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+      <div className="flex items-center p-4 bg-white rounded-2xl border border-gray-100/80 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300 group">
         {/* Avatar */}
         <div className="flex-shrink-0">
           {doctor.photoUrl ? (
             <img
               src={doctor.photoUrl}
               alt={doctor.fullName}
-              className="h-12 w-12 rounded-full object-cover"
+              className="h-12 w-12 rounded-xl object-cover ring-2 ring-white shadow-sm"
             />
           ) : (
             <div
-              className={`h-12 w-12 rounded-full ${getAvatarColor(doctor.id)} flex items-center justify-center text-white font-semibold`}
+              className={`h-12 w-12 rounded-xl bg-gradient-to-br ${getAvatarColor(doctor.id)} flex items-center justify-center text-white font-semibold shadow-sm ring-2 ring-white`}
             >
               {getInitials(doctor.fullName)}
             </div>
@@ -75,15 +75,16 @@ const DoctorCard = ({
 
         {/* Info */}
         <div className="ml-4 flex-1 min-w-0">
-          <h4 className="text-sm font-semibold text-gray-900 truncate">
+          <h4 className="text-sm font-semibold text-gray-900 truncate group-hover:text-teal-600 transition-colors">
             Dr. {doctor.fullName}
           </h4>
           <p className="text-xs text-gray-500 truncate">{doctor.specialty}</p>
-          <div className="flex items-center mt-1">
-            <FiStar className="h-3 w-3 text-yellow-400 fill-current" />
-            <span className="ml-1 text-xs text-gray-600">4.8</span>
-            <span className="mx-2 text-gray-300">|</span>
-            <span className="text-xs text-green-600 font-medium">
+          <div className="flex items-center mt-1.5 gap-2">
+            <span className="inline-flex items-center text-xs">
+              <FiStar className="h-3 w-3 text-amber-400 fill-current mr-0.5" />
+              <span className="text-gray-600 font-medium">4.8</span>
+            </span>
+            <span className="text-xs text-green-600 font-semibold bg-green-50 px-2 py-0.5 rounded-full">
               ${doctor.consultationFee}
             </span>
           </div>
@@ -91,7 +92,7 @@ const DoctorCard = ({
 
         {/* Book Button */}
         {showBookButton && (
-          <Button size="small" onClick={handleBookClick}>
+          <Button size="sm" onClick={handleBookClick}>
             Book
           </Button>
         )}
@@ -104,7 +105,7 @@ const DoctorCard = ({
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         {/* Header with gradient */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-8">
+        <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-6 py-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             {/* Photo */}
             {doctor.photoUrl ? (
@@ -124,7 +125,7 @@ const DoctorCard = ({
             {/* Basic Info */}
             <div className="text-center sm:text-left text-white">
               <h2 className="text-2xl font-bold">Dr. {doctor.fullName}</h2>
-              <p className="text-blue-100 text-lg">{doctor.specialty}</p>
+              <p className="text-teal-100 text-lg">{doctor.specialty}</p>
               <div className="flex items-center justify-center sm:justify-start mt-2 space-x-4">
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-white/20">
                   <FiMapPin className="h-4 w-4 mr-1" />
@@ -199,27 +200,27 @@ const DoctorCard = ({
 
   // Default variant - card for grid layout
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-white rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 group">
       {/* Card Header */}
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
+      <div className="bg-gradient-to-br from-teal-500 via-teal-600 to-cyan-600 px-6 py-5">
         <div className="flex items-center space-x-4">
           {/* Photo/Avatar */}
           {doctor.photoUrl ? (
             <img
               src={doctor.photoUrl}
               alt={doctor.fullName}
-              className="h-16 w-16 rounded-full object-cover border-2 border-white"
+              className="h-16 w-16 rounded-xl object-cover border-2 border-white/50 shadow-lg group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
             <div
-              className={`h-16 w-16 rounded-full bg-white/20 flex items-center justify-center text-white text-xl font-bold border-2 border-white/50`}
+              className={`h-16 w-16 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white text-xl font-bold border-2 border-white/30 shadow-lg group-hover:scale-105 transition-transform duration-300`}
             >
               {getInitials(doctor.fullName)}
             </div>
           )}
           <div className="text-white flex-1 min-w-0">
-            <h3 className="text-lg font-semibold truncate">Dr. {doctor.fullName}</h3>
-            <p className="text-blue-100 text-sm truncate">{doctor.specialty}</p>
+            <h3 className="text-lg font-bold truncate">Dr. {doctor.fullName}</h3>
+            <p className="text-teal-100 text-sm truncate">{doctor.specialty}</p>
           </div>
         </div>
       </div>
@@ -228,29 +229,29 @@ const DoctorCard = ({
       <div className="p-6">
         {/* Department & Rating */}
         <div className="flex items-center justify-between mb-4">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-            <FiMapPin className="h-3 w-3 mr-1" />
+          <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-teal-50 text-teal-700 border border-teal-100">
+            <FiMapPin className="h-3 w-3 mr-1.5" />
             {doctor.departmentName}
           </span>
-          <div className="flex items-center">
-            <FiStar className="h-4 w-4 text-yellow-400 fill-current" />
-            <span className="ml-1 text-sm font-medium text-gray-700">4.8</span>
-            <span className="ml-1 text-xs text-gray-500">(120)</span>
+          <div className="flex items-center bg-amber-50 px-2.5 py-1 rounded-lg">
+            <FiStar className="h-4 w-4 text-amber-400 fill-current" />
+            <span className="ml-1 text-sm font-bold text-amber-700">4.8</span>
+            <span className="ml-1 text-xs text-amber-600">(120)</span>
           </div>
         </div>
 
         {/* Qualifications */}
         <p className="text-gray-600 text-sm mb-3 line-clamp-1">
-          <FiAward className="inline h-4 w-4 mr-1 text-gray-400" />
+          <FiAward className="inline h-4 w-4 mr-1.5 text-purple-400" />
           {doctor.qualifications}
         </p>
 
         {/* Bio */}
-        <p className="text-gray-500 text-sm mb-4 line-clamp-2">{doctor.bio}</p>
+        <p className="text-gray-500 text-sm mb-4 line-clamp-2 leading-relaxed">{doctor.bio}</p>
 
         {/* Contact Info */}
         <div className="space-y-2 mb-4 text-sm">
-          <div className="flex items-center text-gray-600">
+          <div className="flex items-center text-gray-600 hover:text-teal-600 transition-colors">
             <FiMail className="h-4 w-4 mr-2 text-gray-400 flex-shrink-0" />
             <span className="truncate">{doctor.email}</span>
           </div>
@@ -262,9 +263,8 @@ const DoctorCard = ({
 
         {/* Fee & Book */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-          <div className="flex items-center">
-            <FiDollarSign className="h-5 w-5 text-green-500" />
-            <span className="text-xl font-bold text-gray-900">{doctor.consultationFee}</span>
+          <div className="flex items-baseline">
+            <span className="text-2xl font-bold text-gray-900">${doctor.consultationFee}</span>
             <span className="text-gray-500 text-sm ml-1">/ visit</span>
           </div>
         </div>
@@ -278,8 +278,8 @@ const DoctorCard = ({
           )}
           {showBookButton && (
             <Button onClick={handleBookClick} className={onViewDetails ? "flex-1" : "w-full"}>
-              <FiCalendar className="mr-2" />
-              Book
+              <FiCalendar className="mr-2 h-4 w-4" />
+              Book Now
             </Button>
           )}
         </div>

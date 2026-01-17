@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 public class CancelAppointmentRequest {
 
     @NotBlank(message = "Cancellation reason is required")
-    @Size(min = 5, max = 500, message = "Cancellation reason must be between 5 and 500 characters")
+    @Size(min = 3, max = 500, message = "Cancellation reason must be between 3 and 500 characters")
     private String reason;
 
     public CancelAppointmentRequest() {

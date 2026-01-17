@@ -144,9 +144,9 @@ const DatePicker = ({
             ${disabled
               ? 'text-gray-300 cursor-not-allowed'
               : selected
-                ? 'bg-blue-600 text-white hover:bg-blue-700'
+                ? 'bg-teal-600 text-white hover:bg-teal-700'
                 : today
-                  ? 'bg-blue-100 text-blue-600 hover:bg-blue-200'
+                  ? 'bg-teal-100 text-teal-600 hover:bg-teal-200'
                   : 'text-gray-700 hover:bg-gray-100'
             }
           `}
@@ -179,7 +179,7 @@ const DatePicker = ({
   return (
     <div className={`relative ${className}`} ref={containerRef}>
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-1.5">
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
@@ -191,30 +191,30 @@ const DatePicker = ({
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
         className={`
-          w-full flex items-center justify-between px-4 py-3 rounded-lg border
-          transition-colors duration-200 text-left
+          w-full flex items-center justify-between px-4 py-3 rounded-xl border-2
+          transition-all duration-200 text-left bg-white
           ${disabled
-            ? 'bg-gray-100 cursor-not-allowed border-gray-300'
+            ? 'bg-gray-50 cursor-not-allowed border-gray-200 opacity-60'
             : error
-              ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-              : 'border-gray-300 hover:border-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+              ? 'border-red-300 bg-red-50/50 focus:border-red-500 focus:ring-4 focus:ring-red-500/10'
+              : 'border-gray-200 hover:border-gray-300 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10'
           }
-          ${isOpen ? 'ring-2 ring-blue-500 border-blue-500' : ''}
+          ${isOpen ? 'ring-4 ring-teal-500/10 border-teal-500' : ''}
         `}
       >
-        <span className={value ? 'text-gray-900' : 'text-gray-400'}>
+        <span className={value ? 'text-gray-900 font-medium' : 'text-gray-400'}>
           {value ? formatDisplayDate(value) : placeholder}
         </span>
-        <FiCalendar className={`h-5 w-5 ${error ? 'text-red-400' : 'text-gray-400'}`} />
+        <FiCalendar className={`h-5 w-5 ${isOpen ? 'text-teal-500' : error ? 'text-red-400' : 'text-gray-400'} transition-colors`} />
       </button>
 
       {error && (
-        <p className="mt-1 text-sm text-red-600">{error}</p>
+        <p className="mt-1.5 text-sm text-red-600">{error}</p>
       )}
 
       {/* Calendar Dropdown */}
       {isOpen && (
-        <div className="absolute z-50 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-4 w-72">
+        <div className="absolute z-50 mt-2 bg-white rounded-2xl shadow-soft-lg border border-gray-100 p-4 w-72">
           {/* Month Navigation */}
           <div className="flex items-center justify-between mb-4">
             <button
@@ -281,7 +281,7 @@ const DatePicker = ({
                   setIsOpen(false);
                 }
               }}
-              className="w-full text-center text-sm text-blue-600 hover:text-blue-700 font-medium py-1"
+              className="w-full text-center text-sm text-teal-600 hover:text-teal-700 font-semibold py-1.5 hover:bg-teal-50 rounded-lg transition-colors"
             >
               Today
             </button>

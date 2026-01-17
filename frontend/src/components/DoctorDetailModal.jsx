@@ -91,7 +91,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
           </button>
 
           {/* Header with gradient */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-8">
+          <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-6 py-8">
             <div className="flex items-center space-x-6">
               {/* Photo/Avatar */}
               {doctor.photoUrl ? (
@@ -111,7 +111,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
               {/* Basic Info */}
               <div className="text-white">
                 <h2 className="text-2xl font-bold">Dr. {doctor.fullName}</h2>
-                <p className="text-blue-100 text-lg">{doctor.specialty}</p>
+                <p className="text-teal-100 text-lg">{doctor.specialty}</p>
                 <div className="flex items-center mt-2 space-x-3">
                   <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-white/20">
                     <FiMapPin className="h-3 w-3 mr-1" />
@@ -131,7 +131,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
             {/* Qualifications */}
             <div className="mb-6">
               <h3 className="flex items-center text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
-                <FiAward className="h-4 w-4 mr-2 text-blue-500" />
+                <FiAward className="h-4 w-4 mr-2 text-teal-500" />
                 Qualifications
               </h3>
               <p className="text-gray-600">{doctor.qualifications}</p>
@@ -140,7 +140,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
             {/* About */}
             <div className="mb-6">
               <h3 className="flex items-center text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
-                <FiUser className="h-4 w-4 mr-2 text-blue-500" />
+                <FiUser className="h-4 w-4 mr-2 text-teal-500" />
                 About
               </h3>
               <p className="text-gray-600 leading-relaxed">{doctor.bio}</p>
@@ -172,7 +172,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
             {/* Availability */}
             <div className="mb-6">
               <h3 className="flex items-center text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
-                <FiClock className="h-4 w-4 mr-2 text-blue-500" />
+                <FiClock className="h-4 w-4 mr-2 text-teal-500" />
                 Weekly Availability
               </h3>
               {loading ? (

@@ -107,14 +107,14 @@ const BookingConfirmationModal = ({
       {/* Body */}
       <div className="px-6 py-5 space-y-4">
         {/* Doctor Info */}
-        <div className="flex items-start space-x-4 p-4 bg-blue-50 rounded-xl">
-          <div className="bg-blue-100 p-3 rounded-full">
-            <FiUser className="h-6 w-6 text-blue-600" />
+        <div className="flex items-start space-x-4 p-4 bg-teal-50 rounded-xl">
+          <div className="bg-teal-100 p-3 rounded-full">
+            <FiUser className="h-6 w-6 text-teal-600" />
           </div>
           <div>
             <h3 className="font-semibold text-gray-900">Dr. {doctor?.fullName}</h3>
             <p className="text-sm text-gray-600">{doctor?.specialty}</p>
-            <p className="text-sm text-blue-600">{doctor?.departmentName}</p>
+            <p className="text-sm text-teal-600">{doctor?.departmentName}</p>
           </div>
         </div>
 
@@ -215,15 +215,15 @@ const BookingConfirmationModal = ({
       {/* Body */}
       <div className="px-6 py-4">
         {/* Confirmation Number */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 mb-4">
+        <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-xl p-4 mb-4">
           <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Confirmation Number</p>
           <div className="flex items-center justify-between">
-            <span className="text-xl font-mono font-bold text-blue-600">
+            <span className="text-xl font-mono font-bold text-teal-600">
               {bookingResult?.confirmationNumber || 'N/A'}
             </span>
             <button
               onClick={copyConfirmationNumber}
-              className="flex items-center text-sm text-blue-600 hover:text-blue-700 transition-colors"
+              className="flex items-center text-sm text-teal-600 hover:text-teal-700 transition-colors"
             >
               {copied ? (
                 <>
@@ -286,8 +286,8 @@ const BookingConfirmationModal = ({
         </div>
 
         {/* Reminder */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-4">
-          <p className="text-xs text-blue-700">
+        <div className="bg-teal-50 border border-teal-200 rounded-lg p-3 mt-4">
+          <p className="text-xs text-teal-700">
             A confirmation email has been sent to your registered email address.
             Please save your confirmation number for reference.
           </p>

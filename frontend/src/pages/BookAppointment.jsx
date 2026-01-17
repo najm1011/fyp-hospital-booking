@@ -177,7 +177,7 @@ const BookAppointment = () => {
           <select
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
-            className="w-full md:w-64 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full md:w-64 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
           >
             <option value="">All Departments</option>
             {departments.map(dept => (
@@ -199,24 +199,24 @@ const BookAppointment = () => {
               onClick={() => setSelectedDoctor(doctor)}
               className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
                 selectedDoctor?.id === doctor.id
-                  ? 'border-blue-500 bg-blue-50'
+                  ? 'border-teal-500 bg-teal-50'
                   : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
               }`}
             >
               <div className="flex items-start space-x-3">
-                <div className="bg-blue-100 p-3 rounded-full">
-                  <FiUser className="h-6 w-6 text-blue-600" />
+                <div className="bg-teal-100 p-3 rounded-full">
+                  <FiUser className="h-6 w-6 text-teal-600" />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900">Dr. {doctor.fullName}</h3>
                   <p className="text-sm text-gray-600">{doctor.specialty}</p>
-                  <p className="text-sm text-blue-600">{doctor.departmentName}</p>
+                  <p className="text-sm text-teal-600">{doctor.departmentName}</p>
                   <p className="text-sm font-medium text-green-600 mt-1">
                     ${doctor.consultationFee}
                   </p>
                 </div>
                 {selectedDoctor?.id === doctor.id && (
-                  <FiCheck className="h-5 w-5 text-blue-600" />
+                  <FiCheck className="h-5 w-5 text-teal-600" />
                 )}
               </div>
             </div>
@@ -277,7 +277,7 @@ const BookAppointment = () => {
             onChange={(e) => setPatientNotes(e.target.value)}
             placeholder="Describe your symptoms or reason for visit..."
             rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
           />
         </div>
       )}
@@ -337,7 +337,7 @@ const BookAppointment = () => {
         <div className="bg-gray-50 rounded-lg p-6 text-left max-w-md mx-auto space-y-3">
           <div className="flex justify-between">
             <span className="text-gray-600">Confirmation #</span>
-            <span className="font-mono font-medium text-blue-600">{bookingResult.confirmationNumber}</span>
+            <span className="font-mono font-medium text-teal-600">{bookingResult.confirmationNumber}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">Doctor</span>
@@ -429,17 +429,17 @@ const BookAppointment = () => {
               <div
                 className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
                   step >= s.num
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-teal-600 text-white'
                     : 'bg-gray-200 text-gray-600'
                 }`}
               >
                 {step > s.num ? <FiCheck /> : s.num}
               </div>
-              <span className={`ml-2 text-sm ${step >= s.num ? 'text-blue-600 font-medium' : 'text-gray-500'}`}>
+              <span className={`ml-2 text-sm ${step >= s.num ? 'text-teal-600 font-medium' : 'text-gray-500'}`}>
                 {s.label}
               </span>
               {index < steps.length - 1 && (
-                <div className={`w-12 h-1 mx-4 ${step > s.num ? 'bg-blue-600' : 'bg-gray-200'}`} />
+                <div className={`w-12 h-1 mx-4 ${step > s.num ? 'bg-teal-600' : 'bg-gray-200'}`} />
               )}
             </div>
           ))}

@@ -52,7 +52,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center mb-4">
-              <div className="bg-blue-600 p-2 rounded-lg">
+              <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-2 rounded-lg">
                 <FiHeart className="h-6 w-6 text-white" />
               </div>
               <span className="ml-3 text-xl font-bold text-white">
@@ -67,15 +67,15 @@ const Footer = () => {
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-center text-sm">
-                <FiMapPin className="h-4 w-4 mr-3 text-blue-500" />
+                <FiMapPin className="h-4 w-4 mr-3 text-teal-500" />
                 <span>123 Medical Center Drive, London, UK</span>
               </div>
               <div className="flex items-center text-sm">
-                <FiPhone className="h-4 w-4 mr-3 text-blue-500" />
+                <FiPhone className="h-4 w-4 mr-3 text-teal-500" />
                 <span>+44 20 1234 5678</span>
               </div>
               <div className="flex items-center text-sm">
-                <FiMail className="h-4 w-4 mr-3 text-blue-500" />
+                <FiMail className="h-4 w-4 mr-3 text-teal-500" />
                 <span>contact@hospitalbooking.com</span>
               </div>
             </div>
@@ -89,7 +89,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-sm hover:text-blue-400 transition-colors"
+                    className="text-sm hover:text-teal-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -106,7 +106,7 @@ const Footer = () => {
                 <li key={dept.path}>
                   <Link
                     to={dept.path}
-                    className="text-sm hover:text-blue-400 transition-colors"
+                    className="text-sm hover:text-teal-400 transition-colors"
                   >
                     {dept.name}
                   </Link>
@@ -123,7 +123,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-sm hover:text-blue-400 transition-colors"
+                    className="text-sm hover:text-teal-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -148,9 +148,9 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-500 w-64"
+                className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-white placeholder-gray-500 w-64"
               />
-              <button className="px-6 py-2 bg-blue-600 text-white font-medium rounded-r-lg hover:bg-blue-700 transition-colors">
+              <button className="px-6 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium rounded-r-lg hover:from-teal-600 hover:to-cyan-700 transition-colors">
                 Subscribe
               </button>
             </div>
@@ -175,7 +175,7 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors"
+                  className="p-2 bg-gray-800 rounded-full hover:bg-teal-600 transition-colors"
                   aria-label={social.name}
                 >
                   <social.icon className="h-4 w-4" />

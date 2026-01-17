@@ -64,25 +64,31 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-400/10 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Header */}
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="flex justify-center">
-          <div className="bg-blue-600 p-3 rounded-full">
+          <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-4 rounded-2xl shadow-lg shadow-teal-500/30">
             <FiHeart className="h-10 w-10 text-white" />
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
           Welcome Back
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Sign in to your Hospital Booking account
+          Sign in to your MediBook account
         </p>
       </div>
 
       {/* Form Card */}
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-xl sm:rounded-xl sm:px-10">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+        <div className="bg-white/80 backdrop-blur-xl py-8 px-4 shadow-soft-lg border border-white/50 sm:rounded-2xl sm:px-10">
           {/* Session Error Alert (from expired token) */}
           {location.state?.sessionError && (
             <Alert
@@ -151,7 +157,7 @@ const Login = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                  className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded cursor-pointer"
                 />
                 <label
                   htmlFor="remember-me"
@@ -163,7 +169,7 @@ const Login = () => {
               <div className="text-sm">
                 <Link
                   to="/forgot-password"
-                  className="font-medium text-blue-600 hover:text-blue-500 transition-colors"
+                  className="font-medium text-teal-600 hover:text-teal-500 transition-colors"
                 >
                   Forgot password?
                 </Link>
@@ -186,11 +192,11 @@ const Login = () => {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+                <div className="w-full border-t border-gray-200" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  New to Hospital Booking?
+                <span className="px-3 bg-white/80 text-gray-500 rounded-full">
+                  New to MediBook?
                 </span>
               </div>
             </div>
@@ -199,7 +205,7 @@ const Login = () => {
             <div className="mt-6">
               <Link
                 to="/register"
-                className="w-full inline-flex justify-center py-3 px-4 border-2 border-blue-600 rounded-lg shadow-sm text-sm font-semibold text-blue-600 bg-white hover:bg-blue-50 transition-colors duration-200"
+                className="w-full inline-flex justify-center py-3 px-4 border-2 border-teal-500 rounded-xl shadow-sm text-sm font-semibold text-teal-600 bg-white hover:bg-teal-50 hover:border-teal-600 transition-all duration-200"
               >
                 Create an Account
               </Link>
@@ -210,11 +216,11 @@ const Login = () => {
         {/* Footer */}
         <p className="mt-8 text-center text-xs text-gray-500">
           By signing in, you agree to our{' '}
-          <Link to="/terms" className="text-blue-600 hover:underline">
+          <Link to="/terms" className="text-teal-600 hover:text-teal-700 hover:underline transition-colors">
             Terms of Service
           </Link>{' '}
           and{' '}
-          <Link to="/privacy" className="text-blue-600 hover:underline">
+          <Link to="/privacy" className="text-teal-600 hover:text-teal-700 hover:underline transition-colors">
             Privacy Policy
           </Link>
         </p>

@@ -131,11 +131,11 @@ const Dashboard = () => {
           <div className="space-y-3">
             <Link
               to="/appointments/book"
-              className="flex items-center justify-between p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+              className="flex items-center justify-between p-4 bg-teal-50 rounded-lg hover:bg-teal-100 transition-colors"
             >
               <div className="flex items-center">
-                <div className="bg-blue-100 p-2 rounded-lg">
-                  <FiPlus className="h-5 w-5 text-blue-600" />
+                <div className="bg-teal-100 p-2 rounded-lg">
+                  <FiPlus className="h-5 w-5 text-teal-600" />
                 </div>
                 <span className="ml-3 font-medium text-gray-900">
                   Book New Appointment
@@ -193,7 +193,7 @@ const Dashboard = () => {
             upcomingAppointments.length > 0 && (
               <Link
                 to="/appointments"
-                className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                className="text-sm text-teal-600 hover:text-teal-700 font-medium"
               >
                 View All
               </Link>
@@ -343,10 +343,10 @@ const Dashboard = () => {
             <div className="space-y-3">
               <Link
                 to="/doctor/schedule"
-                className="flex items-center justify-between p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-teal-50 rounded-lg hover:bg-teal-100 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiCalendar className="h-5 w-5 text-blue-600 mr-3" />
+                  <FiCalendar className="h-5 w-5 text-teal-600 mr-3" />
                   <span className="font-medium text-gray-900">View Schedule</span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
@@ -455,10 +455,10 @@ const Dashboard = () => {
             <div className="space-y-3">
               <Link
                 to="/admin/doctors"
-                className="flex items-center justify-between p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-teal-50 rounded-lg hover:bg-teal-100 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiUsers className="h-5 w-5 text-blue-600 mr-3" />
+                  <FiUsers className="h-5 w-5 text-teal-600 mr-3" />
                   <span className="font-medium text-gray-900">Manage Doctors</span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />

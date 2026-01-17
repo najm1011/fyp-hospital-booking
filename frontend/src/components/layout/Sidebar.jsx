@@ -64,7 +64,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-40 lg:hidden transition-opacity"
           onClick={onClose}
         />
       )}
@@ -72,7 +72,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-64 bg-white border-r border-gray-200
+          fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-64 bg-white/95 backdrop-blur-lg border-r border-gray-100/80
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0
@@ -80,51 +80,60 @@ const Sidebar = ({ isOpen, onClose }) => {
       >
         <div className="flex flex-col h-full">
           {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+          <nav className="flex-1 px-3 py-6 space-y-1 overflow-y-auto scrollbar-thin">
             {navigationItems.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
                 onClick={onClose}
                 className={({ isActive }) =>
-                  `flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+                  `flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                     isActive
-                      ? 'bg-blue-50 text-blue-700'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-md shadow-teal-500/20'
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }`
                 }
               >
-                <item.icon className="h-5 w-5 mr-3" />
-                {item.name}
+                {({ isActive }) => (
+                  <>
+                    <item.icon className={`h-5 w-5 mr-3 ${isActive ? '' : 'text-gray-400'}`} />
+                    {item.name}
+                  </>
+                )}
               </NavLink>
             ))}
           </nav>
 
           {/* Bottom section */}
-          <div className="p-4 border-t border-gray-200">
+          <div className="p-3 border-t border-gray-100">
             <NavLink
               to="/settings"
               onClick={onClose}
               className={({ isActive }) =>
-                `flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+                `flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                   isActive
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-md shadow-teal-500/20'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                 }`
               }
             >
-              <FiSettings className="h-5 w-5 mr-3" />
-              Settings
+              {({ isActive }) => (
+                <>
+                  <FiSettings className={`h-5 w-5 mr-3 ${isActive ? '' : 'text-gray-400'}`} />
+                  Settings
+                </>
+              )}
             </NavLink>
 
             {/* Help card */}
-            <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-              <h4 className="text-sm font-semibold text-blue-900">Need Help?</h4>
-              <p className="text-xs text-blue-700 mt-1">
+            <div className="mt-4 p-4 bg-gradient-to-br from-teal-50 to-cyan-50 rounded-2xl border border-teal-100/50">
+              <h4 className="text-sm font-semibold text-teal-900">Need Help?</h4>
+              <p className="text-xs text-teal-700/80 mt-1">
                 Contact support for assistance with your account.
               </p>
-              <button className="mt-3 text-xs font-medium text-blue-600 hover:text-blue-800">
-                Get Support →
+              <button className="mt-3 text-xs font-semibold text-teal-600 hover:text-teal-700 transition-colors flex items-center group">
+                Get Support
+                <span className="ml-1 group-hover:translate-x-0.5 transition-transform">→</span>
               </button>
             </div>
           </div>

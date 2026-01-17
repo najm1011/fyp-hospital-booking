@@ -38,7 +38,7 @@ const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white -m-4 sm:-m-6 lg:-m-8 px-4 sm:px-6 lg:px-8 py-20">
+      <section className="bg-gradient-to-br from-teal-500 to-cyan-600 text-white -m-4 sm:-m-6 lg:-m-8 px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <div className="flex justify-center mb-6">
@@ -49,7 +49,7 @@ const Home = () => {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6">
               Your Health, Our Priority
             </h1>
-            <p className="text-xl sm:text-2xl text-blue-100 max-w-3xl mx-auto mb-10">
+            <p className="text-xl sm:text-2xl text-teal-100 max-w-3xl mx-auto mb-10">
               Book appointments with top doctors easily and conveniently.
               Quality healthcare is just a click away.
             </p>
@@ -57,7 +57,7 @@ const Home = () => {
               {isAuthenticated ? (
                 <Link
                   to="/dashboard"
-                  className="inline-flex items-center justify-center bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors"
+                  className="inline-flex items-center justify-center bg-white text-teal-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-teal-50 transition-colors"
                 >
                   Go to Dashboard
                   <FiArrowRight className="ml-2 h-5 w-5" />
@@ -66,7 +66,7 @@ const Home = () => {
                 <>
                   <Link
                     to="/register"
-                    className="inline-flex items-center justify-center bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors"
+                    className="inline-flex items-center justify-center bg-white text-teal-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-teal-50 transition-colors"
                   >
                     Get Started
                     <FiArrowRight className="ml-2 h-5 w-5" />
@@ -102,8 +102,8 @@ const Home = () => {
                 key={index}
                 className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
               >
-                <div className="bg-blue-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                  <feature.icon className="h-7 w-7 text-blue-600" />
+                <div className="bg-teal-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                  <feature.icon className="h-7 w-7 text-teal-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   {feature.title}
@@ -122,19 +122,19 @@ const Home = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <p className="text-4xl font-bold text-blue-600">50+</p>
+              <p className="text-4xl font-bold text-teal-600">50+</p>
               <p className="text-gray-600 mt-2">Expert Doctors</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold text-blue-600">10k+</p>
+              <p className="text-4xl font-bold text-teal-600">10k+</p>
               <p className="text-gray-600 mt-2">Happy Patients</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold text-blue-600">15+</p>
+              <p className="text-4xl font-bold text-teal-600">15+</p>
               <p className="text-gray-600 mt-2">Departments</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold text-blue-600">24/7</p>
+              <p className="text-4xl font-bold text-teal-600">24/7</p>
               <p className="text-gray-600 mt-2">Online Support</p>
             </div>
           </div>
@@ -153,7 +153,7 @@ const Home = () => {
           {!isAuthenticated && (
             <Link
               to="/register"
-              className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors"
+              className="inline-flex items-center justify-center bg-gradient-to-r from-teal-500 to-cyan-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-teal-600 hover:to-cyan-700 transition-colors"
             >
               Create Free Account
               <FiArrowRight className="ml-2 h-5 w-5" />

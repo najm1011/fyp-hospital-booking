@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { FiEye, FiEyeOff, FiAlertCircle } from 'react-icons/fi';
 
 const Input = ({
   label,
@@ -15,28 +15,50 @@ const Input = ({
   disabled = false,
   required = false,
   autoComplete,
+  helpText,
   className = '',
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const isPassword = type === 'password';
   const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
   const hasError = touched && error;
+
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = (e) => {
+    setIsFocused(false);
+    onBlur?.(e);
+  };
 
   return (
     <div className={`mb-4 ${className}`}>
       {label && (
         <label
           htmlFor={name}
-          className="block text-sm font-medium text-gray-700 mb-1"
+          className={`block text-sm font-medium mb-1.5 transition-colors duration-200 ${
+            hasError
+              ? 'text-red-600'
+              : isFocused
+                ? 'text-teal-600'
+                : 'text-gray-700'
+          }`}
         >
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
-      <div className="relative">
+      <div className="relative group">
         {Icon && (
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Icon className={`h-5 w-5 ${hasError ? 'text-red-400' : 'text-gray-400'}`} />
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+            <Icon
+              className={`h-5 w-5 transition-colors duration-200 ${
+                hasError
+                  ? 'text-red-400'
+                  : isFocused
+                    ? 'text-teal-500'
+                    : 'text-gray-400 group-hover:text-gray-500'
+              }`}
+            />
           </div>
         )}
         <input
@@ -45,42 +67,52 @@ const Input = ({
           type={inputType}
           value={value}
           onChange={onChange}
-          onBlur={onBlur}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           disabled={disabled}
           placeholder={placeholder}
           autoComplete={autoComplete}
           className={`
-            block w-full rounded-lg border transition-colors duration-200
-            ${Icon ? 'pl-10' : 'pl-4'}
-            ${isPassword ? 'pr-10' : 'pr-4'}
+            block w-full rounded-xl border-2 transition-all duration-200
+            ${Icon ? 'pl-11' : 'pl-4'}
+            ${isPassword || hasError ? 'pr-11' : 'pr-4'}
             py-3
+            text-gray-900 placeholder-gray-400
             ${hasError
-              ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500'
-              : 'border-gray-300 text-gray-900 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500'
+              ? 'border-red-300 bg-red-50/50 focus:border-red-500 focus:ring-4 focus:ring-red-500/10'
+              : 'border-gray-200 bg-white hover:border-gray-300 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10'
             }
-            ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'}
-            focus:outline-none focus:ring-2
+            ${disabled ? 'bg-gray-50 cursor-not-allowed opacity-60' : ''}
+            focus:outline-none
           `}
         />
         {isPassword && (
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute inset-y-0 right-0 pr-3 flex items-center"
+            className="absolute inset-y-0 right-0 pr-3.5 flex items-center group/btn"
             tabIndex={-1}
           >
             {showPassword ? (
-              <FiEyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              <FiEyeOff className="h-5 w-5 text-gray-400 group-hover/btn:text-gray-600 transition-colors" />
             ) : (
-              <FiEye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              <FiEye className="h-5 w-5 text-gray-400 group-hover/btn:text-gray-600 transition-colors" />
             )}
           </button>
         )}
+        {hasError && !isPassword && (
+          <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
+            <FiAlertCircle className="h-5 w-5 text-red-500" />
+          </div>
+        )}
       </div>
       {hasError && (
-        <p className="mt-1 text-sm text-red-600" role="alert">
+        <p className="mt-1.5 text-sm text-red-600 flex items-center gap-1" role="alert">
           {error}
         </p>
+      )}
+      {helpText && !hasError && (
+        <p className="mt-1.5 text-sm text-gray-500">{helpText}</p>
       )}
     </div>
   );

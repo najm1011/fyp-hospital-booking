@@ -97,7 +97,7 @@ const Doctors = () => {
               placeholder="Search by name or specialty..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
             />
           </div>
 
@@ -108,7 +108,7 @@ const Doctors = () => {
               <select
                 value={selectedDepartment}
                 onChange={(e) => setSelectedDepartment(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 appearance-none bg-white"
               >
                 <option value="">All Departments</option>
                 {departments.map((dept) => (
@@ -125,7 +125,7 @@ const Doctors = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 appearance-none bg-white"
             >
               <option value="name">Sort by Name</option>
               <option value="fee-low">Fee: Low to High</option>
@@ -139,22 +139,22 @@ const Doctors = () => {
           <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
             <span className="text-sm text-gray-500">Active filters:</span>
             {searchTerm && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-teal-100 text-teal-800">
                 Search: {searchTerm}
                 <button
                   onClick={() => setSearchTerm('')}
-                  className="ml-1 hover:text-blue-900"
+                  className="ml-1 hover:text-teal-900"
                 >
                   &times;
                 </button>
               </span>
             )}
             {selectedDepartment && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-teal-100 text-teal-800">
                 {selectedDepartment}
                 <button
                   onClick={() => setSelectedDepartment('')}
-                  className="ml-1 hover:text-blue-900"
+                  className="ml-1 hover:text-teal-900"
                 >
                   &times;
                 </button>
@@ -165,7 +165,7 @@ const Doctors = () => {
                 setSearchTerm('');
                 setSelectedDepartment('');
               }}
-              className="text-xs text-blue-600 hover:text-blue-800"
+              className="text-xs text-teal-600 hover:text-teal-800"
             >
               Clear all
             </button>

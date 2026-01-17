@@ -47,39 +47,43 @@ const Toast = ({
   const typeConfig = {
     success: {
       icon: FiCheckCircle,
-      bgColor: 'bg-green-50',
+      bgColor: 'bg-white',
       borderColor: 'border-green-200',
-      iconColor: 'text-green-500',
-      titleColor: 'text-green-800',
-      messageColor: 'text-green-700',
-      progressColor: 'bg-green-500',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+      titleColor: 'text-gray-900',
+      messageColor: 'text-gray-600',
+      progressColor: 'bg-gradient-to-r from-green-400 to-green-500',
     },
     error: {
       icon: FiXCircle,
-      bgColor: 'bg-red-50',
+      bgColor: 'bg-white',
       borderColor: 'border-red-200',
-      iconColor: 'text-red-500',
-      titleColor: 'text-red-800',
-      messageColor: 'text-red-700',
-      progressColor: 'bg-red-500',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+      titleColor: 'text-gray-900',
+      messageColor: 'text-gray-600',
+      progressColor: 'bg-gradient-to-r from-red-400 to-red-500',
     },
     warning: {
       icon: FiAlertCircle,
-      bgColor: 'bg-yellow-50',
-      borderColor: 'border-yellow-200',
-      iconColor: 'text-yellow-500',
-      titleColor: 'text-yellow-800',
-      messageColor: 'text-yellow-700',
-      progressColor: 'bg-yellow-500',
+      bgColor: 'bg-white',
+      borderColor: 'border-amber-200',
+      iconBg: 'bg-amber-100',
+      iconColor: 'text-amber-600',
+      titleColor: 'text-gray-900',
+      messageColor: 'text-gray-600',
+      progressColor: 'bg-gradient-to-r from-amber-400 to-amber-500',
     },
     info: {
       icon: FiInfo,
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',
-      iconColor: 'text-blue-500',
-      titleColor: 'text-blue-800',
-      messageColor: 'text-blue-700',
-      progressColor: 'bg-blue-500',
+      bgColor: 'bg-white',
+      borderColor: 'border-teal-200',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+      titleColor: 'text-gray-900',
+      messageColor: 'text-gray-600',
+      progressColor: 'bg-gradient-to-r from-teal-400 to-cyan-500',
     },
   };
 
@@ -89,7 +93,7 @@ const Toast = ({
   return (
     <div
       className={`
-        max-w-sm w-full ${config.bgColor} ${config.borderColor} border rounded-lg shadow-lg overflow-hidden
+        max-w-sm w-full ${config.bgColor} ${config.borderColor} border rounded-2xl shadow-soft-lg overflow-hidden backdrop-blur-lg
         transform transition-all duration-300 ease-out
         ${isVisible && !isLeaving ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}
       `}
@@ -97,17 +101,17 @@ const Toast = ({
     >
       <div className="p-4">
         <div className="flex items-start">
-          <div className="flex-shrink-0">
+          <div className={`flex-shrink-0 p-2 rounded-xl ${config.iconBg}`}>
             <Icon className={`h-5 w-5 ${config.iconColor}`} />
           </div>
-          <div className="ml-3 flex-1">
+          <div className="ml-3 flex-1 pt-0.5">
             {title && (
               <p className={`text-sm font-semibold ${config.titleColor}`}>
                 {title}
               </p>
             )}
             {message && (
-              <p className={`text-sm ${config.messageColor} ${title ? 'mt-1' : ''}`}>
+              <p className={`text-sm ${config.messageColor} ${title ? 'mt-0.5' : ''}`}>
                 {message}
               </p>
             )}
@@ -115,10 +119,10 @@ const Toast = ({
           <div className="ml-4 flex-shrink-0">
             <button
               onClick={handleClose}
-              className={`inline-flex rounded-md ${config.bgColor} ${config.messageColor} hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-${type === 'success' ? 'green' : type === 'error' ? 'red' : type === 'warning' ? 'yellow' : 'blue'}-50`}
+              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200"
             >
               <span className="sr-only">Close</span>
-              <FiX className="h-5 w-5" />
+              <FiX className="h-4 w-4" />
             </button>
           </div>
         </div>
@@ -126,7 +130,7 @@ const Toast = ({
 
       {/* Progress bar for auto-dismiss */}
       {duration > 0 && (
-        <div className="h-1 w-full bg-gray-200">
+        <div className="h-1 w-full bg-gray-100">
           <div
             className={`h-full ${config.progressColor} transition-all ease-linear`}
             style={{

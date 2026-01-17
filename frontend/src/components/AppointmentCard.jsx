@@ -126,12 +126,12 @@ const AppointmentCard = ({
   const getStatusConfig = (status) => {
     const config = {
       SCHEDULED: {
-        bg: 'bg-blue-100',
-        text: 'text-blue-700',
-        border: 'border-blue-200',
+        bg: 'bg-teal-100',
+        text: 'text-teal-700',
+        border: 'border-teal-200',
         icon: FiClock,
         label: 'Scheduled',
-        color: 'blue',
+        color: 'teal',
       },
       CONFIRMED: {
         bg: 'bg-green-100',
@@ -205,9 +205,9 @@ const AppointmentCard = ({
         onClick={handleClick}
         className={`flex items-center p-2 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm cursor-pointer transition-all ${className}`}
       >
-        <div className="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-lg flex flex-col items-center justify-center mr-3">
-          <span className="text-xs font-bold text-blue-600">{dateInfo.day}</span>
-          <span className="text-[10px] text-blue-500 uppercase">{dateInfo.month}</span>
+        <div className="flex-shrink-0 w-10 h-10 bg-teal-50 rounded-lg flex flex-col items-center justify-center mr-3">
+          <span className="text-xs font-bold text-teal-600">{dateInfo.day}</span>
+          <span className="text-[10px] text-teal-500 uppercase">{dateInfo.month}</span>
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-gray-900 truncate">Dr. {appointment.doctorName}</p>
@@ -222,17 +222,19 @@ const AppointmentCard = ({
   if (variant === 'compact') {
     return (
       <div
-        onClick={handleClick}
-        className={`flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm cursor-pointer transition-all ${className}`}
+        className={`flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all ${className}`}
       >
         {/* Date Badge */}
-        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex flex-col items-center justify-center mr-4 border border-blue-200">
-          <span className="text-lg font-bold text-blue-600">{dateInfo.day}</span>
-          <span className="text-xs text-blue-500 uppercase">{dateInfo.month}</span>
+        <div
+          onClick={handleClick}
+          className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-teal-50 to-cyan-100 rounded-xl flex flex-col items-center justify-center mr-4 border border-teal-200 cursor-pointer"
+        >
+          <span className="text-lg font-bold text-teal-600">{dateInfo.day}</span>
+          <span className="text-xs text-teal-500 uppercase">{dateInfo.month}</span>
         </div>
 
         {/* Info */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 cursor-pointer" onClick={handleClick}>
           <div className="flex items-center justify-between mb-1">
             <h4 className="text-sm font-semibold text-gray-900 truncate">
               Dr. {appointment.doctorName}
@@ -254,24 +256,56 @@ const AppointmentCard = ({
             )}
           </div>
         </div>
+
+        {/* Action Buttons */}
+        {showActions && canModify() && (
+          <div className="flex items-center gap-2 ml-4">
+            {onReschedule && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onReschedule(appointment);
+                }}
+                className="p-2 text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
+                title="Reschedule"
+              >
+                <FiEdit className="h-4 w-4" />
+              </button>
+            )}
+            {onCancel && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onCancel(appointment);
+                }}
+                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                title="Cancel"
+              >
+                <FiX className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+        )}
       </div>
     );
   }
 
   // Default variant - full card
   return (
-    <div className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow ${className}`}>
+    <div className={`bg-white rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-0.5 transition-all duration-300 ${className}`}>
       {/* Card Header with Status Indicator */}
       <div className={`px-4 py-3 border-b ${statusConfig.border} ${statusConfig.bg}`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <StatusIcon className={`h-4 w-4 ${statusConfig.text} mr-2`} />
-            <span className={`text-sm font-medium ${statusConfig.text}`}>
+            <div className={`p-1.5 rounded-lg ${statusConfig.bg} mr-2`}>
+              <StatusIcon className={`h-4 w-4 ${statusConfig.text}`} />
+            </div>
+            <span className={`text-sm font-semibold ${statusConfig.text}`}>
               {statusConfig.label}
             </span>
           </div>
           {appointment.confirmationNumber && (
-            <span className="text-xs font-mono text-gray-500">
+            <span className="text-xs font-mono text-gray-500 bg-white/50 px-2 py-1 rounded-lg">
               #{appointment.confirmationNumber}
             </span>
           )}
@@ -279,21 +313,21 @@ const AppointmentCard = ({
       </div>
 
       {/* Card Body */}
-      <div className="p-4">
+      <div className="p-5">
         {/* Date and Time Row */}
         <div className="flex items-start mb-4">
           {/* Date Badge */}
-          <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex flex-col items-center justify-center text-white mr-4 shadow-sm">
+          <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl flex flex-col items-center justify-center text-white mr-4 shadow-lg shadow-teal-500/20">
             <span className="text-2xl font-bold">{dateInfo.day}</span>
-            <span className="text-xs uppercase opacity-90">{dateInfo.month}</span>
+            <span className="text-xs uppercase opacity-90 font-medium">{dateInfo.month}</span>
           </div>
 
           {/* Date/Time Details */}
           <div className="flex-1">
-            <p className="text-sm text-gray-500">{dateInfo.weekday}</p>
+            <p className="text-sm text-gray-500 font-medium">{dateInfo.weekday}</p>
             <p className="text-base font-semibold text-gray-900">{dateInfo.full}</p>
-            <div className="flex items-center mt-1 text-sm text-gray-600">
-              <FiClock className="h-4 w-4 mr-1 text-gray-400" />
+            <div className="flex items-center mt-1.5 text-sm text-gray-600">
+              <FiClock className="h-4 w-4 mr-1.5 text-teal-500" />
               {formatTime(appointment.startTime)}
               {appointment.endTime && ` - ${formatTime(appointment.endTime)}`}
             </div>
@@ -301,9 +335,9 @@ const AppointmentCard = ({
         </div>
 
         {/* Doctor Info */}
-        <div className="flex items-center p-3 bg-gray-50 rounded-lg mb-4">
-          <div className="bg-blue-100 p-2 rounded-full mr-3">
-            <FiUser className="h-5 w-5 text-blue-600" />
+        <div className="flex items-center p-3 bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl mb-4 border border-gray-100">
+          <div className="bg-gradient-to-br from-teal-100 to-cyan-50 p-2.5 rounded-xl mr-3">
+            <FiUser className="h-5 w-5 text-teal-600" />
           </div>
           <div className="flex-1 min-w-0">
             <h4 className="font-semibold text-gray-900 truncate">Dr. {appointment.doctorName}</h4>
@@ -323,7 +357,7 @@ const AppointmentCard = ({
 
         {/* Actions */}
         {showActions && canModify() && (
-          <div className="flex gap-2 pt-3 border-t border-gray-100">
+          <div className="flex gap-2 pt-4 border-t border-gray-100">
             {onReschedule && (
               <Button
                 variant="outline"
@@ -334,21 +368,21 @@ const AppointmentCard = ({
                 }}
                 className="flex-1"
               >
-                <FiEdit className="h-4 w-4 mr-1" />
+                <FiEdit className="h-4 w-4 mr-1.5" />
                 Reschedule
               </Button>
             )}
             {onCancel && (
               <Button
-                variant="outline"
+                variant="danger"
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation();
                   onCancel(appointment);
                 }}
-                className="flex-1 text-red-600 border-red-200 hover:bg-red-50"
+                className="flex-1"
               >
-                <FiX className="h-4 w-4 mr-1" />
+                <FiX className="h-4 w-4 mr-1.5" />
                 Cancel
               </Button>
             )}
@@ -359,7 +393,7 @@ const AppointmentCard = ({
         {!showActions && (
           <button
             onClick={handleClick}
-            className="w-full text-center text-sm text-blue-600 hover:text-blue-700 font-medium pt-3 border-t border-gray-100"
+            className="w-full text-center text-sm text-teal-600 hover:text-teal-700 font-semibold pt-4 border-t border-gray-100 hover:bg-teal-50/50 -mx-5 px-5 -mb-5 pb-4 transition-colors"
           >
             View Details
           </button>

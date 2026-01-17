@@ -170,7 +170,7 @@ const MyAppointments = () => {
     setCancelLoading(true);
     try {
       await api.post(`/appointments/${selectedAppointment.id}/cancel`, {
-        cancellationReason: reason,
+        reason: reason,
       });
 
       setCancelModalOpen(false);
@@ -272,7 +272,7 @@ const MyAppointments = () => {
             onClick={() => setDateFilter(tab.value)}
             className={`flex-1 flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${
               dateFilter === tab.value
-                ? 'bg-white text-blue-600 shadow-sm'
+                ? 'bg-white text-teal-600 shadow-sm'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >
@@ -280,7 +280,7 @@ const MyAppointments = () => {
             <span
               className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
                 dateFilter === tab.value
-                  ? 'bg-blue-100 text-blue-600'
+                  ? 'bg-teal-100 text-teal-600'
                   : 'bg-gray-200 text-gray-600'
               }`}
             >
@@ -301,7 +301,7 @@ const MyAppointments = () => {
               placeholder="Search by doctor, department, or confirmation #..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
             />
           </div>
 
@@ -312,7 +312,7 @@ const MyAppointments = () => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 appearance-none bg-white"
               >
                 {statusOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -328,7 +328,7 @@ const MyAppointments = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 appearance-none bg-white"
             >
               <option value="date-desc">Newest First</option>
               <option value="date-asc">Oldest First</option>
@@ -344,7 +344,7 @@ const MyAppointments = () => {
                 onClick={() => setViewMode('list')}
                 className={`p-2 rounded ${
                   viewMode === 'list'
-                    ? 'bg-white text-blue-600 shadow-sm'
+                    ? 'bg-white text-teal-600 shadow-sm'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -354,7 +354,7 @@ const MyAppointments = () => {
                 onClick={() => setViewMode('grid')}
                 className={`p-2 rounded ${
                   viewMode === 'grid'
-                    ? 'bg-white text-blue-600 shadow-sm'
+                    ? 'bg-white text-teal-600 shadow-sm'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -377,17 +377,17 @@ const MyAppointments = () => {
           <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
             <span className="text-sm text-gray-500">Active filters:</span>
             {searchTerm && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-teal-100 text-teal-800">
                 Search: {searchTerm}
-                <button onClick={() => setSearchTerm('')} className="ml-1 hover:text-blue-900">
+                <button onClick={() => setSearchTerm('')} className="ml-1 hover:text-teal-900">
                   &times;
                 </button>
               </span>
             )}
             {statusFilter !== 'all' && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-teal-100 text-teal-800">
                 Status: {statusOptions.find((s) => s.value === statusFilter)?.label}
-                <button onClick={() => setStatusFilter('all')} className="ml-1 hover:text-blue-900">
+                <button onClick={() => setStatusFilter('all')} className="ml-1 hover:text-teal-900">
                   &times;
                 </button>
               </span>
@@ -397,7 +397,7 @@ const MyAppointments = () => {
                 setSearchTerm('');
                 setStatusFilter('all');
               }}
-              className="text-xs text-blue-600 hover:text-blue-800"
+              className="text-xs text-teal-600 hover:text-teal-800"
             >
               Clear all
             </button>
@@ -412,7 +412,7 @@ const MyAppointments = () => {
             Showing {paginatedAppointments.length} of {filteredAppointments.length} appointments
           </p>
           {refreshing && (
-            <div className="flex items-center text-sm text-blue-600">
+            <div className="flex items-center text-sm text-teal-600">
               <LoadingSpinner size="small" />
               <span className="ml-2">Refreshing...</span>
             </div>
@@ -489,7 +489,7 @@ const MyAppointments = () => {
                       onClick={() => setCurrentPage(pageNum)}
                       className={`px-3 py-1 rounded-lg text-sm ${
                         currentPage === pageNum
-                          ? 'bg-blue-600 text-white'
+                          ? 'bg-teal-600 text-white'
                           : 'text-gray-600 hover:bg-gray-50'
                       }`}
                     >
