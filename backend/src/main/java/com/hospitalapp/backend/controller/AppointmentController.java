@@ -75,7 +75,7 @@ public class AppointmentController {
     /**
      * Cancel an appointment (Patient)
      */
-    @PostMapping("/{appointmentId}/cancel")
+    @PutMapping("/{appointmentId}/cancel")
     @PreAuthorize("hasRole('PATIENT')")
     public ResponseEntity<AppointmentResponse> cancelMyAppointment(
             @AuthenticationPrincipal CustomUserDetails userDetails,
@@ -202,6 +202,21 @@ public class AppointmentController {
     }
 
     /**
+     * Update appointment status - mark as completed or no-show (Doctor)
+     */
+    @PutMapping("/{appointmentId}/status")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<AppointmentResponse> updateAppointmentStatus(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @PathVariable Long appointmentId,
+            @Valid @RequestBody UpdateStatusRequest request) {
+
+        Long doctorId = getDoctorIdFromUser(userDetails.getUserId());
+        AppointmentResponse response = appointmentService.updateAppointmentStatus(doctorId, appointmentId, request);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
      * Update doctor notes for an appointment (Doctor)
      */
     @PutMapping("/doctor/{appointmentId}/notes")
@@ -219,7 +234,7 @@ public class AppointmentController {
     /**
      * Cancel an appointment (Doctor)
      */
-    @PostMapping("/doctor/{appointmentId}/cancel")
+    @PutMapping("/doctor/{appointmentId}/cancel")
     @PreAuthorize("hasRole('DOCTOR')")
     public ResponseEntity<AppointmentResponse> cancelAppointmentByDoctor(
             @AuthenticationPrincipal CustomUserDetails userDetails,
@@ -282,7 +297,7 @@ public class AppointmentController {
     /**
      * Cancel any appointment (Admin only)
      */
-    @PostMapping("/admin/{appointmentId}/cancel")
+    @PutMapping("/admin/{appointmentId}/cancel")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AppointmentResponse> cancelAppointmentByAdmin(
             @PathVariable Long appointmentId,

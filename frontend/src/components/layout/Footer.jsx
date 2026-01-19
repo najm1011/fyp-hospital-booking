@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import {
-  FiHeart,
+  FiActivity,
   FiMail,
   FiPhone,
   FiMapPin,
@@ -53,7 +53,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center mb-4">
               <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-2 rounded-lg">
-                <FiHeart className="h-6 w-6 text-white" />
+                <FiActivity className="h-6 w-6 text-white" />
               </div>
               <span className="ml-3 text-xl font-bold text-white">
                 Hospital Booking

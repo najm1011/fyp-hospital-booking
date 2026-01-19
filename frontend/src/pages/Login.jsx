@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FiMail, FiLock, FiHeart } from 'react-icons/fi';
+import { FiMail, FiLock, FiActivity } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import useForm from '../hooks/useForm';
@@ -75,7 +75,7 @@ const Login = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="flex justify-center">
           <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-4 rounded-2xl shadow-lg shadow-teal-500/30">
-            <FiHeart className="h-10 w-10 text-white" />
+            <FiActivity className="h-10 w-10 text-white" />
           </div>
         </div>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">

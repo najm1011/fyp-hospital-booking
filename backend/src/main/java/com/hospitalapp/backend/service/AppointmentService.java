@@ -24,6 +24,7 @@ public class AppointmentService {
     private final DoctorRepository doctorRepository;
     private final UserRepository userRepository;
     private final TimeSlotRepository timeSlotRepository;
+    private final EmailService emailService;
 
     @Value("${app.appointment.slot-duration:30}")
     private int slotDurationMinutes;
@@ -41,11 +42,13 @@ public class AppointmentService {
             AppointmentRepository appointmentRepository,
             DoctorRepository doctorRepository,
             UserRepository userRepository,
-            TimeSlotRepository timeSlotRepository) {
+            TimeSlotRepository timeSlotRepository,
+            EmailService emailService) {
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
         this.userRepository = userRepository;
         this.timeSlotRepository = timeSlotRepository;
+        this.emailService = emailService;
     }
 
     // ==================== PATIENT OPERATIONS ====================
@@ -138,6 +141,9 @@ public class AppointmentService {
         appointment.setPatientNotes(request.getPatientNotes());
 
         Appointment savedAppointment = appointmentRepository.save(appointment);
+
+        // Send confirmation email
+        sendBookingConfirmationEmail(savedAppointment);
 
         return AppointmentResponse.fromEntity(savedAppointment);
     }
@@ -280,6 +286,38 @@ public class AppointmentService {
         }
 
         appointment.setStatus(Appointment.Status.NO_SHOW);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+        return AppointmentResponse.fromEntity(savedAppointment);
+    }
+
+    /**
+     * Update appointment status (completed or no-show) by doctor
+     */
+    public AppointmentResponse updateAppointmentStatus(Long doctorId, Long appointmentId, UpdateStatusRequest request) {
+        Appointment appointment = getAppointmentById(appointmentId);
+
+        // Verify doctor owns this appointment
+        if (!appointment.getDoctor().getId().equals(doctorId)) {
+            throw new AppointmentException("You are not authorized to update this appointment", AppointmentException.UNAUTHORIZED);
+        }
+
+        // Verify appointment is scheduled
+        if (appointment.getStatus() != Appointment.Status.SCHEDULED) {
+            throw new AppointmentException("Only scheduled appointments can have their status updated", AppointmentException.CANNOT_MODIFY);
+        }
+
+        // Update status based on request
+        if (request.getStatus() == UpdateStatusRequest.StatusUpdate.COMPLETED) {
+            appointment.setStatus(Appointment.Status.COMPLETED);
+        } else if (request.getStatus() == UpdateStatusRequest.StatusUpdate.NO_SHOW) {
+            appointment.setStatus(Appointment.Status.NO_SHOW);
+        }
+
+        // Update notes if provided
+        if (request.getNotes() != null && !request.getNotes().isBlank()) {
+            appointment.setDoctorNotes(request.getNotes());
+        }
+
         Appointment savedAppointment = appointmentRepository.save(appointment);
         return AppointmentResponse.fromEntity(savedAppointment);
     }
@@ -661,5 +699,33 @@ public class AppointmentService {
                                                               Long excludeAppointmentId) {
         return appointmentRepository.hasOverlappingPatientAppointmentExcluding(
                 patientId, date, startTime, endTime, excludeAppointmentId);
+    }
+
+    // ==================== EMAIL NOTIFICATIONS ====================
+
+    /**
+     * Send booking confirmation email to patient
+     */
+    private void sendBookingConfirmationEmail(Appointment appointment) {
+        try {
+            User patient = appointment.getPatient();
+            Doctor doctor = appointment.getDoctor();
+            String departmentName = doctor.getDepartment() != null
+                    ? doctor.getDepartment().getName()
+                    : "General";
+
+            emailService.sendAppointmentConfirmation(
+                    patient.getEmail(),
+                    patient.getFirstName() + " " + patient.getLastName(),
+                    doctor.getUser().getFirstName() + " " + doctor.getUser().getLastName(),
+                    departmentName,
+                    appointment.getAppointmentDate(),
+                    appointment.getStartTime(),
+                    appointment.getConfirmationNumber()
+            );
+        } catch (Exception e) {
+            // Log error but don't fail the booking
+            // Email sending is async and non-critical
+        }
     }
 }

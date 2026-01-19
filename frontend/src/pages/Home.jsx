@@ -4,7 +4,7 @@ import {
   FiUsers,
   FiClock,
   FiShield,
-  FiHeart,
+  FiActivity,
   FiArrowRight,
 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
@@ -43,7 +43,7 @@ const Home = () => {
           <div className="text-center">
             <div className="flex justify-center mb-6">
               <div className="bg-white/20 p-4 rounded-full">
-                <FiHeart className="h-12 w-12" />
+                <FiActivity className="h-12 w-12" />
               </div>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6">

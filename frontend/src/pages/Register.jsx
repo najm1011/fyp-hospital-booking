@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FiMail, FiLock, FiUser, FiPhone, FiHeart, FiCheck } from 'react-icons/fi';
+import { FiMail, FiLock, FiUser, FiPhone, FiActivity, FiCheck } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import useForm from '../hooks/useForm';
@@ -162,7 +162,7 @@ const Register = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-3 rounded-full">
-            <FiHeart className="h-10 w-10 text-white" />
+            <FiActivity className="h-10 w-10 text-white" />
           </div>
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

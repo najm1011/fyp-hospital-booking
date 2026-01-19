@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  FiHeart,
+  FiActivity,
   FiMenu,
   FiX,
   FiUser,
@@ -64,7 +64,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
             {/* Logo */}
             <Link to="/" className="flex items-center ml-2 lg:ml-0 group">
               <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-2.5 rounded-xl shadow-md shadow-teal-500/20 group-hover:shadow-lg group-hover:shadow-teal-500/30 transition-all duration-300">
-                <FiHeart className="h-5 w-5 text-white" />
+                <FiActivity className="h-5 w-5 text-white" />
               </div>
               <span className="ml-3 text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent hidden sm:block">
                 MediBook
