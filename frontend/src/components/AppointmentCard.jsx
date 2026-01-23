@@ -111,9 +111,9 @@ const AppointmentCard = ({
     const date = new Date(dateString + 'T00:00:00');
     return {
       day: date.getDate(),
-      month: date.toLocaleDateString('en-US', { month: 'short' }),
-      weekday: date.toLocaleDateString('en-US', { weekday: 'short' }),
-      full: date.toLocaleDateString('en-US', {
+      month: date.toLocaleDateString('en-GB', { month: 'short' }),
+      weekday: date.toLocaleDateString('en-GB', { weekday: 'short' }),
+      full: date.toLocaleDateString('en-GB', {
         weekday: 'long',
         month: 'long',
         day: 'numeric',

@@ -17,6 +17,7 @@ import { useToast } from '../context/ToastContext';
 import { Button, Alert, LoadingSpinner, EmptyState } from '../components/ui';
 import AppointmentCard from '../components/AppointmentCard';
 import CancelAppointmentModal from '../components/CancelAppointmentModal';
+import RescheduleAppointmentModal from '../components/RescheduleAppointmentModal';
 
 const MyAppointments = () => {
   const navigate = useNavigate();
@@ -44,8 +45,10 @@ const MyAppointments = () => {
 
   // Modal states
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
+  const [rescheduleModalOpen, setRescheduleModalOpen] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [cancelLoading, setCancelLoading] = useState(false);
+  const [rescheduleLoading, setRescheduleLoading] = useState(false);
 
   // Refreshing state (for manual refresh without full loading state)
   const [refreshing, setRefreshing] = useState(false);
@@ -169,7 +172,7 @@ const MyAppointments = () => {
 
     setCancelLoading(true);
     try {
-      await api.post(`/appointments/${selectedAppointment.id}/cancel`, {
+      await api.put(`/appointments/${selectedAppointment.id}/cancel`, {
         reason: reason,
       });
 
@@ -192,19 +195,37 @@ const MyAppointments = () => {
   };
 
   // Handle reschedule
-  const handleReschedule = (appointment) => {
-    navigate('/appointments/book', {
-      state: {
-        rescheduleAppointment: appointment,
-        selectedDoctor: {
-          id: appointment.doctorId,
-          fullName: appointment.doctorName,
-          specialty: appointment.specialty,
-          departmentName: appointment.departmentName,
-          consultationFee: appointment.consultationFee,
-        },
-      },
-    });
+  const handleRescheduleClick = (appointment) => {
+    setSelectedAppointment(appointment);
+    setRescheduleModalOpen(true);
+  };
+
+  const handleRescheduleConfirm = async (rescheduleData) => {
+    if (!selectedAppointment) return;
+
+    setRescheduleLoading(true);
+    try {
+      await api.put(`/appointments/${selectedAppointment.id}/reschedule`, {
+        newDate: rescheduleData.newDate,
+        newStartTime: rescheduleData.newStartTime,
+      });
+
+      setRescheduleModalOpen(false);
+      setSelectedAppointment(null);
+      toast.success('Appointment rescheduled successfully.', {
+        title: 'Appointment Rescheduled',
+      });
+
+      // Refresh appointments
+      fetchAppointments();
+    } catch (err) {
+      const message = err.response?.data?.message || 'Failed to reschedule appointment.';
+      setError(message);
+      toast.error(message, { title: 'Reschedule Failed' });
+      console.error('Error rescheduling appointment:', err);
+    } finally {
+      setRescheduleLoading(false);
+    }
   };
 
   // Handle view details
@@ -437,7 +458,7 @@ const MyAppointments = () => {
                   variant="compact"
                   showActions={true}
                   onCancel={handleCancelClick}
-                  onReschedule={handleReschedule}
+                  onReschedule={handleRescheduleClick}
                   onViewDetails={handleViewDetails}
                 />
               ))}
@@ -451,7 +472,7 @@ const MyAppointments = () => {
                   variant="default"
                   showActions={true}
                   onCancel={handleCancelClick}
-                  onReschedule={handleReschedule}
+                  onReschedule={handleRescheduleClick}
                   onViewDetails={handleViewDetails}
                 />
               ))}
@@ -543,6 +564,18 @@ const MyAppointments = () => {
         onConfirm={handleCancelConfirm}
         appointment={selectedAppointment}
         loading={cancelLoading}
+      />
+
+      {/* Reschedule Appointment Modal */}
+      <RescheduleAppointmentModal
+        isOpen={rescheduleModalOpen}
+        onClose={() => {
+          setRescheduleModalOpen(false);
+          setSelectedAppointment(null);
+        }}
+        onConfirm={handleRescheduleConfirm}
+        appointment={selectedAppointment}
+        loading={rescheduleLoading}
       />
     </div>
   );

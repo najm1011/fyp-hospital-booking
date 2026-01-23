@@ -7,12 +7,12 @@ import {
   FiCalendar,
   FiClock,
   FiMapPin,
-  FiDollarSign,
   FiFileText,
   FiCopy,
   FiPrinter,
   FiCheckCircle,
 } from 'react-icons/fi';
+import { LuPoundSterling } from 'react-icons/lu';
 import { Button, LoadingSpinner } from './ui';
 
 const BookingConfirmationModal = ({
@@ -52,7 +52,7 @@ const BookingConfirmationModal = ({
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString + 'T00:00:00');
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('en-GB', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -149,10 +149,10 @@ const BookingConfirmationModal = ({
 
           <div className="flex items-center justify-between py-3 border-b border-gray-100">
             <div className="flex items-center text-gray-600">
-              <FiDollarSign className="h-4 w-4 mr-2" />
+              <LuPoundSterling className="h-4 w-4 mr-2" />
               <span>Consultation Fee</span>
             </div>
-            <span className="font-semibold text-green-600">${doctor?.consultationFee}</span>
+            <span className="font-semibold text-green-600">£{doctor?.consultationFee}</span>
           </div>
         </div>
 

@@ -106,7 +106,7 @@ const DatePicker = ({
   const formatDisplayDate = (dateStr) => {
     if (!dateStr) return '';
     const date = new Date(dateStr + 'T00:00:00');
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('en-GB', {
       weekday: 'short',
       month: 'short',
       day: 'numeric',
@@ -233,7 +233,7 @@ const DatePicker = ({
             </button>
 
             <h3 className="text-sm font-semibold text-gray-900">
-              {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              {currentMonth.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}
             </h3>
 
             <button

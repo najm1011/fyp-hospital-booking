@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import DoctorDashboard from './pages/DoctorDashboard';
 import BookAppointment from './pages/BookAppointment';
 import Doctors from './pages/Doctors';
 import DoctorDetail from './pages/DoctorDetail';
@@ -83,10 +84,26 @@ function App() {
 
         {/* Doctor Routes */}
         <Route
+          path="/doctor"
+          element={
+            <ProtectedRoute allowedRoles={['DOCTOR']}>
+              <DoctorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/doctor/dashboard"
+          element={
+            <ProtectedRoute allowedRoles={['DOCTOR']}>
+              <DoctorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/doctor/*"
           element={
             <ProtectedRoute allowedRoles={['DOCTOR']}>
-              <Dashboard /> {/* Replace with Doctor components later */}
+              <DoctorDashboard />
             </ProtectedRoute>
           }
         />

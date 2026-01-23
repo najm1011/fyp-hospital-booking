@@ -212,7 +212,7 @@ const BookAppointment = () => {
                   <p className="text-sm text-gray-600">{doctor.specialty}</p>
                   <p className="text-sm text-teal-600">{doctor.departmentName}</p>
                   <p className="text-sm font-medium text-green-600 mt-1">
-                    ${doctor.consultationFee}
+                    £{doctor.consultationFee}
                   </p>
                 </div>
                 {selectedDoctor?.id === doctor.id && (
@@ -304,7 +304,7 @@ const BookAppointment = () => {
         </div>
         <div className="flex justify-between items-center pb-4 border-b border-gray-200">
           <span className="text-gray-600">Date</span>
-          <span className="font-medium">{new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          <span className="font-medium">{new Date(selectedDate).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
         </div>
         <div className="flex justify-between items-center pb-4 border-b border-gray-200">
           <span className="text-gray-600">Time</span>
@@ -312,7 +312,7 @@ const BookAppointment = () => {
         </div>
         <div className="flex justify-between items-center pb-4 border-b border-gray-200">
           <span className="text-gray-600">Consultation Fee</span>
-          <span className="font-medium text-green-600">${selectedDoctor?.consultationFee}</span>
+          <span className="font-medium text-green-600">£{selectedDoctor?.consultationFee}</span>
         </div>
         {patientNotes && (
           <div className="pt-2">

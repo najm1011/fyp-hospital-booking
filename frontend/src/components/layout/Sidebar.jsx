@@ -18,11 +18,8 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   // Navigation items based on user role
   const getNavigationItems = () => {
-    const commonItems = [
-      { name: 'Dashboard', path: '/dashboard', icon: FiHome },
-    ];
-
     const patientItems = [
+      { name: 'Dashboard', path: '/dashboard', icon: FiHome },
       { name: 'Book Appointment', path: '/appointments/book', icon: FiCalendar },
       { name: 'My Appointments', path: '/appointments', icon: FiClock },
       { name: 'Medical History', path: '/medical-history', icon: FiFileText },
@@ -30,6 +27,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     ];
 
     const doctorItems = [
+      { name: 'Dashboard', path: '/doctor', icon: FiHome },
       { name: 'My Schedule', path: '/doctor/schedule', icon: FiCalendar },
       { name: 'Appointments', path: '/doctor/appointments', icon: FiClock },
       { name: 'My Patients', path: '/doctor/patients', icon: FiUsers },
@@ -47,13 +45,13 @@ const Sidebar = ({ isOpen, onClose }) => {
 
     switch (user?.role) {
       case 'PATIENT':
-        return [...commonItems, ...patientItems];
+        return patientItems;
       case 'DOCTOR':
-        return [...commonItems, ...doctorItems];
+        return doctorItems;
       case 'ADMIN':
-        return [...commonItems, ...adminItems];
+        return adminItems;
       default:
-        return commonItems;
+        return [{ name: 'Dashboard', path: '/dashboard', icon: FiHome }];
     }
   };
 

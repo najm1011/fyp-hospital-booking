@@ -4,7 +4,6 @@ import {
   FiArrowLeft,
   FiUser,
   FiMapPin,
-  FiDollarSign,
   FiCalendar,
   FiStar,
   FiPhone,
@@ -13,6 +12,7 @@ import {
   FiClock,
   FiCheckCircle,
 } from 'react-icons/fi';
+import { LuPoundSterling } from 'react-icons/lu';
 import api from '../services/api';
 import { Button, LoadingSpinner, Alert } from '../components/ui';
 
@@ -279,11 +279,11 @@ const DoctorDetail = () => {
                   <div>
                     <p className="text-sm text-gray-600">Consultation Fee</p>
                     <p className="text-3xl font-bold text-green-600">
-                      ${doctor.consultationFee}
+                      £{doctor.consultationFee}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">per visit</p>
                   </div>
-                  <FiDollarSign className="h-12 w-12 text-green-500 opacity-30" />
+                  <LuPoundSterling className="h-12 w-12 text-green-500 opacity-30" />
                 </div>
               </div>
 

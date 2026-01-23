@@ -604,6 +604,10 @@ public class AppointmentService {
         appointment.setCancellationReason(reason);
 
         Appointment savedAppointment = appointmentRepository.save(appointment);
+
+        // Send cancellation email
+        sendCancellationEmail(savedAppointment, reason);
+
         return AppointmentResponse.fromEntity(savedAppointment);
     }
 
@@ -725,6 +729,28 @@ public class AppointmentService {
             );
         } catch (Exception e) {
             // Log error but don't fail the booking
+            // Email sending is async and non-critical
+        }
+    }
+
+    /**
+     * Send cancellation notification email to patient
+     */
+    private void sendCancellationEmail(Appointment appointment, String reason) {
+        try {
+            User patient = appointment.getPatient();
+            Doctor doctor = appointment.getDoctor();
+
+            emailService.sendAppointmentCancellation(
+                    patient.getEmail(),
+                    patient.getFirstName() + " " + patient.getLastName(),
+                    doctor.getUser().getFirstName() + " " + doctor.getUser().getLastName(),
+                    appointment.getAppointmentDate(),
+                    appointment.getStartTime(),
+                    reason
+            );
+        } catch (Exception e) {
+            // Log error but don't fail the cancellation
             // Email sending is async and non-critical
         }
     }

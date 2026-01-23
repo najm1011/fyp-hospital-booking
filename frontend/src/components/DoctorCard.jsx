@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import {
   FiMapPin,
-  FiDollarSign,
   FiCalendar,
   FiStar,
   FiPhone,
   FiMail,
   FiAward,
 } from 'react-icons/fi';
+import { LuPoundSterling } from 'react-icons/lu';
 import { Button } from './ui';
 
 const DoctorCard = ({
@@ -85,7 +85,7 @@ const DoctorCard = ({
               <span className="text-gray-600 font-medium">4.8</span>
             </span>
             <span className="text-xs text-green-600 font-semibold bg-green-50 px-2 py-0.5 rounded-full">
-              ${doctor.consultationFee}
+              £{doctor.consultationFee}
             </span>
           </div>
         </div>
@@ -176,11 +176,11 @@ const DoctorCard = ({
               </div>
             </div>
             <div className="flex items-center p-3 bg-green-50 rounded-lg">
-              <FiDollarSign className="h-5 w-5 text-green-500 mr-3" />
+              <LuPoundSterling className="h-5 w-5 text-green-500 mr-3" />
               <div>
                 <p className="text-xs text-gray-500">Consultation Fee</p>
                 <p className="text-sm font-semibold text-green-600">
-                  ${doctor.consultationFee}
+                  £{doctor.consultationFee}
                 </p>
               </div>
             </div>
@@ -264,7 +264,7 @@ const DoctorCard = ({
         {/* Fee & Book */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
           <div className="flex items-baseline">
-            <span className="text-2xl font-bold text-gray-900">${doctor.consultationFee}</span>
+            <span className="text-2xl font-bold text-gray-900">£{doctor.consultationFee}</span>
             <span className="text-gray-500 text-sm ml-1">/ visit</span>
           </div>
         </div>

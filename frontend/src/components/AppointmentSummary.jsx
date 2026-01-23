@@ -5,7 +5,6 @@ import {
   FiClock,
   FiUser,
   FiMapPin,
-  FiDollarSign,
   FiFileText,
   FiMoreVertical,
   FiX,
@@ -17,6 +16,7 @@ import {
   FiPhone,
   FiMail,
 } from 'react-icons/fi';
+import { LuPoundSterling } from 'react-icons/lu';
 import { Button } from './ui';
 
 const AppointmentSummary = ({
@@ -50,7 +50,7 @@ const AppointmentSummary = ({
     const options = includeWeekday
       ? { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }
       : { month: 'short', day: 'numeric', year: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
+    return date.toLocaleDateString('en-GB', options);
   };
 
   // Get status badge styling
@@ -349,10 +349,10 @@ const AppointmentSummary = ({
               {appointment.consultationFee && (
                 <div className="flex items-center justify-between py-2 border-b border-gray-100">
                   <div className="flex items-center text-gray-600">
-                    <FiDollarSign className="h-4 w-4 mr-2" />
+                    <LuPoundSterling className="h-4 w-4 mr-2" />
                     <span>Consultation Fee</span>
                   </div>
-                  <span className="font-semibold text-green-600">${appointment.consultationFee}</span>
+                  <span className="font-semibold text-green-600">£{appointment.consultationFee}</span>
                 </div>
               )}
             </div>
@@ -420,13 +420,13 @@ const AppointmentSummary = ({
           {/* Date Badge */}
           <div className="bg-teal-50 rounded-lg p-3 text-center flex-shrink-0">
             <p className="text-xs text-teal-600 font-medium uppercase">
-              {new Date(appointment.appointmentDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short' })}
+              {new Date(appointment.appointmentDate + 'T00:00:00').toLocaleDateString('en-GB', { month: 'short' })}
             </p>
             <p className="text-2xl font-bold text-teal-700">
               {new Date(appointment.appointmentDate + 'T00:00:00').getDate()}
             </p>
             <p className="text-xs text-teal-600">
-              {new Date(appointment.appointmentDate + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short' })}
+              {new Date(appointment.appointmentDate + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short' })}
             </p>
           </div>
 
