@@ -3,11 +3,20 @@ package com.hospitalapp.backend.controller;
 import com.hospitalapp.backend.dto.appointment.AvailableSlotResponse;
 import com.hospitalapp.backend.dto.doctor.DoctorAvailabilityResponse;
 import com.hospitalapp.backend.dto.doctor.DoctorResponse;
+import com.hospitalapp.backend.dto.doctor.TimeSlotRequest;
+import com.hospitalapp.backend.dto.doctor.TimeSlotResponse;
+import com.hospitalapp.backend.dto.doctor.UpdateAvailabilityRequest;
+import com.hospitalapp.backend.model.Doctor;
+import com.hospitalapp.backend.repository.DoctorRepository;
+import com.hospitalapp.backend.security.CustomUserDetailsService.CustomUserDetails;
 import com.hospitalapp.backend.service.AppointmentService;
 import com.hospitalapp.backend.service.DoctorService;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -21,10 +30,13 @@ public class DoctorController {
 
     private final DoctorService doctorService;
     private final AppointmentService appointmentService;
+    private final DoctorRepository doctorRepository;
 
-    public DoctorController(DoctorService doctorService, AppointmentService appointmentService) {
+    public DoctorController(DoctorService doctorService, AppointmentService appointmentService,
+                            DoctorRepository doctorRepository) {
         this.doctorService = doctorService;
         this.appointmentService = appointmentService;
+        this.doctorRepository = doctorRepository;
     }
 
     /**
@@ -144,5 +156,99 @@ public class DoctorController {
 
         List<AvailableSlotResponse> slots = appointmentService.getAvailableSlots(doctorId, date);
         return ResponseEntity.ok(slots);
+    }
+
+    // ==================== DOCTOR'S OWN AVAILABILITY MANAGEMENT ====================
+
+    /**
+     * Get current doctor's time slots (Doctor only)
+     */
+    @GetMapping("/me/availability/slots")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<List<TimeSlotResponse>> getMyTimeSlots(
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
+
+        Long doctorId = getDoctorIdFromUser(userDetails.getUserId());
+        List<TimeSlotResponse> slots = doctorService.getDoctorTimeSlots(doctorId);
+        return ResponseEntity.ok(slots);
+    }
+
+    /**
+     * Add a new time slot (Doctor only)
+     */
+    @PostMapping("/me/availability/slots")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<TimeSlotResponse> addTimeSlot(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @Valid @RequestBody TimeSlotRequest request) {
+
+        Long doctorId = getDoctorIdFromUser(userDetails.getUserId());
+        TimeSlotResponse response = doctorService.addTimeSlot(doctorId, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    /**
+     * Update a time slot (Doctor only)
+     */
+    @PutMapping("/me/availability/slots/{slotId}")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<TimeSlotResponse> updateTimeSlot(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @PathVariable Long slotId,
+            @Valid @RequestBody TimeSlotRequest request) {
+
+        Long doctorId = getDoctorIdFromUser(userDetails.getUserId());
+        TimeSlotResponse response = doctorService.updateTimeSlot(doctorId, slotId, request);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Delete a time slot (Doctor only)
+     */
+    @DeleteMapping("/me/availability/slots/{slotId}")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<Void> deleteTimeSlot(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @PathVariable Long slotId) {
+
+        Long doctorId = getDoctorIdFromUser(userDetails.getUserId());
+        doctorService.deleteTimeSlot(doctorId, slotId);
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * Toggle time slot availability (Doctor only)
+     */
+    @PutMapping("/me/availability/slots/{slotId}/toggle")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<TimeSlotResponse> toggleTimeSlotAvailability(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @PathVariable Long slotId) {
+
+        Long doctorId = getDoctorIdFromUser(userDetails.getUserId());
+        TimeSlotResponse response = doctorService.toggleTimeSlotAvailability(doctorId, slotId);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Bulk update all time slots (Doctor only) - Replaces all existing slots
+     */
+    @PutMapping("/me/availability/slots/bulk")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<List<TimeSlotResponse>> updateAllTimeSlots(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @Valid @RequestBody UpdateAvailabilityRequest request) {
+
+        Long doctorId = getDoctorIdFromUser(userDetails.getUserId());
+        List<TimeSlotResponse> responses = doctorService.updateAllTimeSlots(doctorId, request);
+        return ResponseEntity.ok(responses);
+    }
+
+    // ==================== HELPER METHODS ====================
+
+    private Long getDoctorIdFromUser(Long userId) {
+        Doctor doctor = doctorRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Doctor profile not found for this user"));
+        return doctor.getId();
     }
 }

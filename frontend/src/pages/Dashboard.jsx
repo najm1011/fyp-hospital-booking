@@ -6,11 +6,17 @@ import {
   FiUsers,
   FiActivity,
   FiArrowRight,
-  FiCheckCircle,
-  FiAlertCircle,
   FiPlus,
   FiFileText,
 } from 'react-icons/fi';
+import {
+  CalendarIllustration,
+  CheckmarkIllustration,
+  ClockIllustration,
+  DoctorIllustration,
+  UsersIllustration,
+  ActivityIllustration,
+} from '../components/icons/DashboardIcons';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { StatsCard, Card, EmptyState, Alert } from '../components/ui';
@@ -25,20 +31,22 @@ const Dashboard = () => {
   const [stats, setStats] = useState(null);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [accessDeniedMessage, setAccessDeniedMessage] = useState(
-    location.state?.accessDenied ? "You don't have permission to access that page." : null
+    location.state?.accessDenied
+      ? "You don't have permission to access that page."
+      : null,
   );
 
   // Fetch real data from API
   useEffect(() => {
     const loadPatientData = async () => {
-      if (user?.role !== 'PATIENT') return;
+      if (user?.role !== "PATIENT") return;
 
       setLoading(true);
       try {
         // Fetch stats and upcoming appointments in parallel
         const [statsResponse, appointmentsResponse] = await Promise.all([
-          api.get('/appointments/my-appointments/stats'),
-          api.get('/appointments/my-appointments/upcoming'),
+          api.get("/appointments/my-appointments/stats"),
+          api.get("/appointments/my-appointments/upcoming"),
         ]);
 
         setStats({
@@ -51,8 +59,8 @@ const Dashboard = () => {
         // Get first 3 upcoming appointments for dashboard preview
         setUpcomingAppointments(appointmentsResponse.data.slice(0, 3));
       } catch (err) {
-        console.error('Error fetching dashboard data:', err);
-        toast.error('Failed to load dashboard data');
+        console.error("Error fetching dashboard data:", err);
+        toast.error("Failed to load dashboard data");
         // Set default values on error
         setStats({
           upcoming: 0,
@@ -95,29 +103,29 @@ const Dashboard = () => {
       {/* Quick Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatsCard
-          icon={FiCalendar}
-          label="Upcoming"
+          icon={CalendarIllustration}
+          label="Upcoming Appointments"
           value={stats?.upcoming || 0}
           color="blue"
           loading={loading}
         />
         <StatsCard
-          icon={FiCheckCircle}
-          label="Completed"
+          icon={CheckmarkIllustration}
+          label="Completed Visits"
           value={stats?.completed || 0}
           color="green"
           loading={loading}
         />
         <StatsCard
-          icon={FiClock}
-          label="Pending"
+          icon={ClockIllustration}
+          label="Awaiting Confirmation"
           value={stats?.pending || 0}
           color="yellow"
           loading={loading}
         />
         <StatsCard
-          icon={FiUsers}
-          label="Doctors Visited"
+          icon={DoctorIllustration}
+          label="Doctors Seen"
           value={stats?.doctorsVisited || 0}
           color="purple"
           loading={loading}
@@ -131,11 +139,11 @@ const Dashboard = () => {
           <div className="space-y-3">
             <Link
               to="/appointments/book"
-              className="flex items-center justify-between p-4 bg-teal-50 rounded-lg hover:bg-teal-100 transition-colors"
+              className="flex items-center justify-between p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
             >
               <div className="flex items-center">
-                <div className="bg-teal-100 p-2 rounded-lg">
-                  <FiPlus className="h-5 w-5 text-teal-600" />
+                <div className="bg-primary-100 p-2 rounded-lg">
+                  <FiPlus className="h-5 w-5 text-primary-600" />
                 </div>
                 <span className="ml-3 font-medium text-gray-900">
                   Book New Appointment
@@ -151,7 +159,9 @@ const Dashboard = () => {
                 <div className="bg-gray-100 p-2 rounded-lg">
                   <FiUsers className="h-5 w-5 text-gray-600" />
                 </div>
-                <span className="ml-3 font-medium text-gray-900">Find Doctors</span>
+                <span className="ml-3 font-medium text-gray-900">
+                  Find Doctors
+                </span>
               </div>
               <FiArrowRight className="h-5 w-5 text-gray-400" />
             </Link>
@@ -193,7 +203,7 @@ const Dashboard = () => {
             upcomingAppointments.length > 0 && (
               <Link
                 to="/appointments"
-                className="text-sm text-teal-600 hover:text-teal-700 font-medium"
+                className="text-sm text-primary-600 hover:text-primary-700 font-medium"
               >
                 View All
               </Link>
@@ -247,8 +257,8 @@ const Dashboard = () => {
         try {
           // Fetch doctor stats and today's appointments in parallel
           const [statsResponse, todayResponse] = await Promise.all([
-            api.get('/appointments/doctor/stats'),
-            api.get('/appointments/doctor/appointments/today'),
+            api.get("/appointments/doctor/stats"),
+            api.get("/appointments/doctor/appointments/today"),
           ]);
 
           setDoctorStats({
@@ -259,8 +269,8 @@ const Dashboard = () => {
           });
           setTodayAppointments(todayResponse.data || []);
         } catch (err) {
-          console.error('Error fetching doctor dashboard data:', err);
-          toast.error('Failed to load dashboard data');
+          console.error("Error fetching doctor dashboard data:", err);
+          toast.error("Failed to load dashboard data");
           setDoctorStats({
             todayAppointments: 0,
             completedToday: 0,
@@ -288,29 +298,29 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatsCard
-            icon={FiCalendar}
-            label="Today's Appointments"
+            icon={CalendarIllustration}
+            label="Patients Today"
             value={doctorStats?.todayAppointments || 0}
             color="blue"
             loading={doctorLoading}
           />
           <StatsCard
-            icon={FiCheckCircle}
-            label="Completed Today"
+            icon={CheckmarkIllustration}
+            label="Seen Today"
             value={doctorStats?.completedToday || 0}
             color="green"
             loading={doctorLoading}
           />
           <StatsCard
-            icon={FiAlertCircle}
-            label="Pending"
+            icon={ClockIllustration}
+            label="Awaiting"
             value={doctorStats?.pending || 0}
             color="yellow"
             loading={doctorLoading}
           />
           <StatsCard
-            icon={FiUsers}
-            label="Total Patients"
+            icon={UsersIllustration}
+            label="Your Patients"
             value={doctorStats?.totalPatients || 0}
             color="purple"
             loading={doctorLoading}
@@ -343,11 +353,13 @@ const Dashboard = () => {
             <div className="space-y-3">
               <Link
                 to="/doctor/schedule"
-                className="flex items-center justify-between p-4 bg-teal-50 rounded-lg hover:bg-teal-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiCalendar className="h-5 w-5 text-teal-600 mr-3" />
-                  <span className="font-medium text-gray-900">View Schedule</span>
+                  <FiCalendar className="h-5 w-5 text-primary-600 mr-3" />
+                  <span className="font-medium text-gray-900">
+                    View Schedule
+                  </span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
               </Link>
@@ -367,7 +379,9 @@ const Dashboard = () => {
               >
                 <div className="flex items-center">
                   <FiClock className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">Set Availability</span>
+                  <span className="font-medium text-gray-900">
+                    Set Availability
+                  </span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
               </Link>
@@ -387,7 +401,7 @@ const Dashboard = () => {
       const loadAdminData = async () => {
         setAdminLoading(true);
         try {
-          const statsResponse = await api.get('/appointments/admin/stats');
+          const statsResponse = await api.get("/appointments/admin/stats");
           setAdminStats({
             totalDoctors: statsResponse.data.totalDoctors || 0,
             totalPatients: statsResponse.data.totalPatients || 0,
@@ -395,8 +409,8 @@ const Dashboard = () => {
             departments: statsResponse.data.totalDepartments || 0,
           });
         } catch (err) {
-          console.error('Error fetching admin dashboard data:', err);
-          toast.error('Failed to load dashboard data');
+          console.error("Error fetching admin dashboard data:", err);
+          toast.error("Failed to load dashboard data");
           setAdminStats({
             totalDoctors: 0,
             totalPatients: 0,
@@ -421,29 +435,29 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatsCard
-            icon={FiUsers}
-            label="Total Doctors"
+            icon={DoctorIllustration}
+            label="Registered Doctors"
             value={adminStats?.totalDoctors || 0}
             color="blue"
             loading={adminLoading}
           />
           <StatsCard
-            icon={FiUsers}
-            label="Total Patients"
+            icon={UsersIllustration}
+            label="Registered Patients"
             value={adminStats?.totalPatients || 0}
             color="green"
             loading={adminLoading}
           />
           <StatsCard
-            icon={FiCalendar}
-            label="Appointments Today"
+            icon={CalendarIllustration}
+            label="Booked Today"
             value={adminStats?.appointmentsToday || 0}
             color="yellow"
             loading={adminLoading}
           />
           <StatsCard
-            icon={FiActivity}
-            label="Departments"
+            icon={ActivityIllustration}
+            label="Active Departments"
             value={adminStats?.departments || 0}
             color="purple"
             loading={adminLoading}
@@ -455,11 +469,13 @@ const Dashboard = () => {
             <div className="space-y-3">
               <Link
                 to="/admin/doctors"
-                className="flex items-center justify-between p-4 bg-teal-50 rounded-lg hover:bg-teal-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiUsers className="h-5 w-5 text-teal-600 mr-3" />
-                  <span className="font-medium text-gray-900">Manage Doctors</span>
+                  <FiUsers className="h-5 w-5 text-primary-600 mr-3" />
+                  <span className="font-medium text-gray-900">
+                    Manage Doctors
+                  </span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
               </Link>
@@ -469,7 +485,9 @@ const Dashboard = () => {
               >
                 <div className="flex items-center">
                   <FiUsers className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">Manage Patients</span>
+                  <span className="font-medium text-gray-900">
+                    Manage Patients
+                  </span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
               </Link>
@@ -511,11 +529,11 @@ const Dashboard = () => {
   // Render dashboard based on role
   const renderDashboard = () => {
     switch (user?.role) {
-      case 'PATIENT':
+      case "PATIENT":
         return <PatientDashboard />;
-      case 'DOCTOR':
+      case "DOCTOR":
         return <DoctorDashboard />;
-      case 'ADMIN':
+      case "ADMIN":
         return <AdminDashboard />;
       default:
         return <PatientDashboard />;

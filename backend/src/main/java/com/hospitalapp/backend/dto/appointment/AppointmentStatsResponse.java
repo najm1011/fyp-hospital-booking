@@ -19,6 +19,9 @@ public class AppointmentStatsResponse {
     private long totalDoctors;
     private long totalPatients;
     private long totalDepartments;
+    private long weekCount;
+    private long monthCount;
+    private long totalUsers;
 
     public AppointmentStatsResponse() {
     }
@@ -153,6 +156,30 @@ public class AppointmentStatsResponse {
 
     public void setTotalDepartments(long totalDepartments) {
         this.totalDepartments = totalDepartments;
+    }
+
+    public long getWeekCount() {
+        return weekCount;
+    }
+
+    public void setWeekCount(long weekCount) {
+        this.weekCount = weekCount;
+    }
+
+    public long getMonthCount() {
+        return monthCount;
+    }
+
+    public void setMonthCount(long monthCount) {
+        this.monthCount = monthCount;
+    }
+
+    public long getTotalUsers() {
+        return totalUsers;
+    }
+
+    public void setTotalUsers(long totalUsers) {
+        this.totalUsers = totalUsers;
     }
 
     private void updateTotal() {

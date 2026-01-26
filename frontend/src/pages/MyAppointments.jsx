@@ -282,7 +282,7 @@ const MyAppointments = () => {
       )}
 
       {/* Date Filter Tabs */}
-      <div className="flex space-x-1 bg-gray-100 rounded-lg p-1 mb-6">
+      <div className="flex space-x-1 bg-gray-100 rounded-xl p-1 mb-6">
         {[
           { value: 'all', label: 'All', count: counts.all },
           { value: 'upcoming', label: 'Upcoming', count: counts.upcoming },
@@ -291,17 +291,17 @@ const MyAppointments = () => {
           <button
             key={tab.value}
             onClick={() => setDateFilter(tab.value)}
-            className={`flex-1 flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`flex-1 flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
               dateFilter === tab.value
-                ? 'bg-white text-teal-600 shadow-sm'
+                ? 'bg-white text-primary-600 shadow-soft'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             {tab.label}
             <span
-              className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+              className={`ml-2 px-2 py-0.5 rounded-full text-xs font-semibold ${
                 dateFilter === tab.value
-                  ? 'bg-teal-100 text-teal-600'
+                  ? 'bg-primary-100 text-primary-600'
                   : 'bg-gray-200 text-gray-600'
               }`}
             >
@@ -312,7 +312,7 @@ const MyAppointments = () => {
       </div>
 
       {/* Filters Bar */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
+      <div className="bg-white rounded-xl shadow-soft border border-gray-100 p-5 mb-6">
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Search */}
           <div className="flex-1 relative">
@@ -322,7 +322,7 @@ const MyAppointments = () => {
               placeholder="Search by doctor, department, or confirmation #..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
 
@@ -333,7 +333,7 @@ const MyAppointments = () => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 appearance-none bg-white"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none bg-white"
               >
                 {statusOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -349,7 +349,7 @@ const MyAppointments = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 appearance-none bg-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none bg-white"
             >
               <option value="date-desc">Newest First</option>
               <option value="date-asc">Oldest First</option>
@@ -365,7 +365,7 @@ const MyAppointments = () => {
                 onClick={() => setViewMode('list')}
                 className={`p-2 rounded ${
                   viewMode === 'list'
-                    ? 'bg-white text-teal-600 shadow-sm'
+                    ? 'bg-white text-primary-600 shadow-soft'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -375,7 +375,7 @@ const MyAppointments = () => {
                 onClick={() => setViewMode('grid')}
                 className={`p-2 rounded ${
                   viewMode === 'grid'
-                    ? 'bg-white text-teal-600 shadow-sm'
+                    ? 'bg-white text-primary-600 shadow-soft'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -395,20 +395,20 @@ const MyAppointments = () => {
 
         {/* Active Filters */}
         {(searchTerm || statusFilter !== 'all') && (
-          <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
+          <div className="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-gray-100">
             <span className="text-sm text-gray-500">Active filters:</span>
             {searchTerm && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-teal-100 text-teal-800">
+              <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-primary-50 text-primary-700">
                 Search: {searchTerm}
-                <button onClick={() => setSearchTerm('')} className="ml-1 hover:text-teal-900">
+                <button onClick={() => setSearchTerm('')} className="ml-1.5 hover:text-primary-900">
                   &times;
                 </button>
               </span>
             )}
             {statusFilter !== 'all' && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-teal-100 text-teal-800">
+              <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-primary-50 text-primary-700">
                 Status: {statusOptions.find((s) => s.value === statusFilter)?.label}
-                <button onClick={() => setStatusFilter('all')} className="ml-1 hover:text-teal-900">
+                <button onClick={() => setStatusFilter('all')} className="ml-1.5 hover:text-primary-900">
                   &times;
                 </button>
               </span>
@@ -418,7 +418,7 @@ const MyAppointments = () => {
                 setSearchTerm('');
                 setStatusFilter('all');
               }}
-              className="text-xs text-teal-600 hover:text-teal-800"
+              className="text-xs font-medium text-primary-600 hover:text-primary-700"
             >
               Clear all
             </button>
@@ -433,7 +433,7 @@ const MyAppointments = () => {
             Showing {paginatedAppointments.length} of {filteredAppointments.length} appointments
           </p>
           {refreshing && (
-            <div className="flex items-center text-sm text-teal-600">
+            <div className="flex items-center text-sm text-primary-600">
               <LoadingSpinner size="small" />
               <span className="ml-2">Refreshing...</span>
             </div>
@@ -443,7 +443,7 @@ const MyAppointments = () => {
 
       {/* Appointments List/Grid */}
       {loading ? (
-        <div className="flex flex-col justify-center items-center py-20 bg-white rounded-xl border border-gray-200">
+        <div className="flex flex-col justify-center items-center py-20 bg-white rounded-xl border border-gray-100 shadow-soft">
           <LoadingSpinner size="large" />
           <p className="mt-4 text-gray-500">Loading your appointments...</p>
         </div>
@@ -481,7 +481,7 @@ const MyAppointments = () => {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between mt-6 bg-white rounded-lg border border-gray-200 px-4 py-3">
+            <div className="flex items-center justify-between mt-6 bg-white rounded-xl border border-gray-100 shadow-soft px-4 py-3">
               <div className="text-sm text-gray-600">
                 Page {currentPage} of {totalPages}
               </div>
@@ -489,7 +489,7 @@ const MyAppointments = () => {
                 <button
                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="p-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   <FiChevronLeft className="h-4 w-4" />
                 </button>
@@ -508,9 +508,9 @@ const MyAppointments = () => {
                     <button
                       key={pageNum}
                       onClick={() => setCurrentPage(pageNum)}
-                      className={`px-3 py-1 rounded-lg text-sm ${
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                         currentPage === pageNum
-                          ? 'bg-teal-600 text-white'
+                          ? 'bg-primary-600 text-white shadow-primary-sm'
                           : 'text-gray-600 hover:bg-gray-50'
                       }`}
                     >
@@ -521,7 +521,7 @@ const MyAppointments = () => {
                 <button
                   onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="p-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   <FiChevronRight className="h-4 w-4" />
                 </button>
@@ -530,7 +530,7 @@ const MyAppointments = () => {
           )}
         </>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-200">
+        <div className="bg-white rounded-xl border border-gray-100 shadow-soft">
           <EmptyState
             icon={FiCalendar}
             title="No appointments found"

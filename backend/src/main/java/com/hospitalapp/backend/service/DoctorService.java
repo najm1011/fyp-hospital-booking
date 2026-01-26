@@ -5,6 +5,9 @@ import com.hospitalapp.backend.dto.doctor.DoctorAvailabilityResponse.AvailableDa
 import com.hospitalapp.backend.dto.doctor.DoctorAvailabilityResponse.TimeRange;
 import com.hospitalapp.backend.dto.doctor.DoctorAvailabilityResponse.WeeklySchedule;
 import com.hospitalapp.backend.dto.doctor.DoctorResponse;
+import com.hospitalapp.backend.dto.doctor.TimeSlotRequest;
+import com.hospitalapp.backend.dto.doctor.TimeSlotResponse;
+import com.hospitalapp.backend.dto.doctor.UpdateAvailabilityRequest;
 import com.hospitalapp.backend.exception.ResourceNotFoundException;
 import com.hospitalapp.backend.model.Appointment;
 import com.hospitalapp.backend.model.Doctor;
@@ -288,5 +291,200 @@ public class DoctorService {
         }
 
         return pastSlots;
+    }
+
+    // ==================== AVAILABILITY MANAGEMENT METHODS ====================
+
+    /**
+     * Get doctor by user ID
+     */
+    public Doctor getDoctorByUserId(Long userId) {
+        return doctorRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", "userId", userId));
+    }
+
+    /**
+     * Get all time slots for a doctor
+     */
+    public List<TimeSlotResponse> getDoctorTimeSlots(Long doctorId) {
+        List<TimeSlot> timeSlots = timeSlotRepository.findByDoctorIdOrderedByDayAndTime(doctorId);
+        return timeSlots.stream()
+                .map(TimeSlotResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Add a new time slot for a doctor
+     */
+    @Transactional
+    public TimeSlotResponse addTimeSlot(Long doctorId, TimeSlotRequest request) {
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", "id", doctorId));
+
+        // Validate time range
+        if (request.getEndTime().isBefore(request.getStartTime()) ||
+            request.getEndTime().equals(request.getStartTime())) {
+            throw new IllegalArgumentException("End time must be after start time");
+        }
+
+        // Check for overlapping slots
+        List<TimeSlot> existingSlots = timeSlotRepository.findByDoctorIdAndDayOfWeek(
+                doctorId, request.getDayOfWeek());
+
+        for (TimeSlot existing : existingSlots) {
+            if (isOverlapping(request.getStartTime(), request.getEndTime(),
+                              existing.getStartTime(), existing.getEndTime())) {
+                throw new IllegalArgumentException(
+                        "Time slot overlaps with existing slot: " +
+                        existing.getStartTime() + " - " + existing.getEndTime());
+            }
+        }
+
+        TimeSlot timeSlot = new TimeSlot(doctor, request.getDayOfWeek(),
+                request.getStartTime(), request.getEndTime());
+        timeSlot.setIsAvailable(request.getIsAvailable() != null ? request.getIsAvailable() : true);
+
+        TimeSlot saved = timeSlotRepository.save(timeSlot);
+        return TimeSlotResponse.fromEntity(saved);
+    }
+
+    /**
+     * Update an existing time slot
+     */
+    @Transactional
+    public TimeSlotResponse updateTimeSlot(Long doctorId, Long slotId, TimeSlotRequest request) {
+        TimeSlot timeSlot = timeSlotRepository.findById(slotId)
+                .orElseThrow(() -> new ResourceNotFoundException("TimeSlot", "id", slotId));
+
+        // Verify the slot belongs to this doctor
+        if (!timeSlot.getDoctor().getId().equals(doctorId)) {
+            throw new IllegalArgumentException("Time slot does not belong to this doctor");
+        }
+
+        // Validate time range
+        if (request.getEndTime().isBefore(request.getStartTime()) ||
+            request.getEndTime().equals(request.getStartTime())) {
+            throw new IllegalArgumentException("End time must be after start time");
+        }
+
+        // Check for overlapping slots (excluding current slot)
+        List<TimeSlot> existingSlots = timeSlotRepository.findByDoctorIdAndDayOfWeek(
+                doctorId, request.getDayOfWeek());
+
+        for (TimeSlot existing : existingSlots) {
+            if (!existing.getId().equals(slotId) &&
+                isOverlapping(request.getStartTime(), request.getEndTime(),
+                              existing.getStartTime(), existing.getEndTime())) {
+                throw new IllegalArgumentException(
+                        "Time slot overlaps with existing slot: " +
+                        existing.getStartTime() + " - " + existing.getEndTime());
+            }
+        }
+
+        timeSlot.setDayOfWeek(request.getDayOfWeek());
+        timeSlot.setStartTime(request.getStartTime());
+        timeSlot.setEndTime(request.getEndTime());
+        timeSlot.setIsAvailable(request.getIsAvailable() != null ? request.getIsAvailable() : true);
+
+        TimeSlot saved = timeSlotRepository.save(timeSlot);
+        return TimeSlotResponse.fromEntity(saved);
+    }
+
+    /**
+     * Delete a time slot
+     */
+    @Transactional
+    public void deleteTimeSlot(Long doctorId, Long slotId) {
+        TimeSlot timeSlot = timeSlotRepository.findById(slotId)
+                .orElseThrow(() -> new ResourceNotFoundException("TimeSlot", "id", slotId));
+
+        // Verify the slot belongs to this doctor
+        if (!timeSlot.getDoctor().getId().equals(doctorId)) {
+            throw new IllegalArgumentException("Time slot does not belong to this doctor");
+        }
+
+        timeSlotRepository.delete(timeSlot);
+    }
+
+    /**
+     * Toggle time slot availability
+     */
+    @Transactional
+    public TimeSlotResponse toggleTimeSlotAvailability(Long doctorId, Long slotId) {
+        TimeSlot timeSlot = timeSlotRepository.findById(slotId)
+                .orElseThrow(() -> new ResourceNotFoundException("TimeSlot", "id", slotId));
+
+        // Verify the slot belongs to this doctor
+        if (!timeSlot.getDoctor().getId().equals(doctorId)) {
+            throw new IllegalArgumentException("Time slot does not belong to this doctor");
+        }
+
+        timeSlot.setIsAvailable(!timeSlot.getIsAvailable());
+        TimeSlot saved = timeSlotRepository.save(timeSlot);
+        return TimeSlotResponse.fromEntity(saved);
+    }
+
+    /**
+     * Bulk update all time slots for a doctor (replaces all existing slots)
+     */
+    @Transactional
+    public List<TimeSlotResponse> updateAllTimeSlots(Long doctorId, UpdateAvailabilityRequest request) {
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", "id", doctorId));
+
+        // Validate all time slots
+        for (TimeSlotRequest slotRequest : request.getTimeSlots()) {
+            if (slotRequest.getEndTime().isBefore(slotRequest.getStartTime()) ||
+                slotRequest.getEndTime().equals(slotRequest.getStartTime())) {
+                throw new IllegalArgumentException("End time must be after start time for " +
+                        slotRequest.getDayOfWeek() + " " + slotRequest.getStartTime());
+            }
+        }
+
+        // Check for overlapping slots within the request
+        Map<DayOfWeek, List<TimeSlotRequest>> slotsByDay = request.getTimeSlots().stream()
+                .collect(Collectors.groupingBy(TimeSlotRequest::getDayOfWeek));
+
+        for (Map.Entry<DayOfWeek, List<TimeSlotRequest>> entry : slotsByDay.entrySet()) {
+            List<TimeSlotRequest> daySlots = entry.getValue();
+            for (int i = 0; i < daySlots.size(); i++) {
+                for (int j = i + 1; j < daySlots.size(); j++) {
+                    TimeSlotRequest slot1 = daySlots.get(i);
+                    TimeSlotRequest slot2 = daySlots.get(j);
+                    if (isOverlapping(slot1.getStartTime(), slot1.getEndTime(),
+                                      slot2.getStartTime(), slot2.getEndTime())) {
+                        throw new IllegalArgumentException(
+                                "Overlapping time slots on " + entry.getKey() + ": " +
+                                slot1.getStartTime() + "-" + slot1.getEndTime() + " and " +
+                                slot2.getStartTime() + "-" + slot2.getEndTime());
+                    }
+                }
+            }
+        }
+
+        // Delete all existing slots for this doctor
+        List<TimeSlot> existingSlots = timeSlotRepository.findByDoctorId(doctorId);
+        timeSlotRepository.deleteAll(existingSlots);
+
+        // Create new slots
+        List<TimeSlot> newSlots = new ArrayList<>();
+        for (TimeSlotRequest slotRequest : request.getTimeSlots()) {
+            TimeSlot timeSlot = new TimeSlot(doctor, slotRequest.getDayOfWeek(),
+                    slotRequest.getStartTime(), slotRequest.getEndTime());
+            timeSlot.setIsAvailable(slotRequest.getIsAvailable() != null ? slotRequest.getIsAvailable() : true);
+            newSlots.add(timeSlot);
+        }
+
+        List<TimeSlot> savedSlots = timeSlotRepository.saveAll(newSlots);
+        return savedSlots.stream()
+                .map(TimeSlotResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Check if two time ranges overlap
+     */
+    private boolean isOverlapping(LocalTime start1, LocalTime end1, LocalTime start2, LocalTime end2) {
+        return start1.isBefore(end2) && start2.isBefore(end1);
     }
 }

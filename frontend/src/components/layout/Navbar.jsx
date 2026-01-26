@@ -34,9 +34,9 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
 
   const getRoleBadgeColor = (role) => {
     const colors = {
-      PATIENT: 'bg-green-100 text-green-800',
-      DOCTOR: 'bg-teal-100 text-teal-800',
-      ADMIN: 'bg-purple-100 text-purple-800',
+      PATIENT: 'bg-success-50 text-success-700',
+      DOCTOR: 'bg-primary-50 text-primary-700',
+      ADMIN: 'bg-violet-100 text-violet-700',
     };
     return colors[role] || 'bg-gray-100 text-gray-800';
   };
@@ -51,7 +51,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
             {isAuthenticated && (
               <button
                 onClick={onMenuClick}
-                className="p-2 rounded-xl text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500/50 lg:hidden transition-colors"
+                className="p-2 rounded-xl text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/40 lg:hidden transition-colors"
               >
                 {isSidebarOpen ? (
                   <FiX className="h-6 w-6" />
@@ -63,7 +63,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
 
             {/* Logo */}
             <Link to="/" className="flex items-center ml-2 lg:ml-0 group">
-              <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-2.5 rounded-xl shadow-md shadow-teal-500/20 group-hover:shadow-lg group-hover:shadow-teal-500/30 transition-all duration-300">
+              <div className="bg-gradient-to-br from-primary-600 to-primary-500 p-2.5 rounded-xl shadow-md shadow-primary-sm group-hover:shadow-lg group-hover:shadow-primary transition-all duration-300">
                 <FiActivity className="h-5 w-5 text-white" />
               </div>
               <span className="ml-3 text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent hidden sm:block">
@@ -80,7 +80,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                 <div className="relative">
                   <button
                     onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-                    className="p-2.5 rounded-xl text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500/50 relative transition-colors"
+                    className="p-2.5 rounded-xl text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/40 relative transition-colors"
                   >
                     <FiBell className="h-5 w-5" />
                     {/* Notification badge */}
@@ -115,9 +115,9 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                 <div className="relative">
                   <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
-                    className="flex items-center space-x-3 p-1.5 pr-3 rounded-xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-colors"
+                    className="flex items-center space-x-3 p-1.5 pr-3 rounded-xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-colors"
                   >
-                    <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center shadow-sm">
+                    <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary-600 to-primary-500 flex items-center justify-center shadow-sm">
                       <span className="text-white font-semibold text-sm">
                         {user?.firstName?.[0]}
                         {user?.lastName?.[0]}
@@ -197,7 +197,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-gradient-to-r from-teal-500 to-cyan-600 text-white px-5 py-2.5 rounded-xl hover:from-teal-600 hover:to-cyan-700 transition-all font-semibold shadow-md shadow-teal-500/20 hover:shadow-lg hover:shadow-teal-500/30"
+                  className="bg-gradient-to-r from-primary-600 to-primary-500 text-white px-5 py-2.5 rounded-xl hover:from-primary-700 hover:to-primary-600 transition-all font-semibold shadow-md shadow-primary-sm hover:shadow-lg hover:shadow-primary"
                 >
                   Get Started
                 </Link>

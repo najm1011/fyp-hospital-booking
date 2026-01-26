@@ -21,15 +21,15 @@ const Sidebar = ({ isOpen, onClose }) => {
     const patientItems = [
       { name: 'Dashboard', path: '/dashboard', icon: FiHome },
       { name: 'Book Appointment', path: '/appointments/book', icon: FiCalendar },
-      { name: 'My Appointments', path: '/appointments', icon: FiClock },
+      { name: 'My Appointments', path: '/appointments', icon: FiClock, end: true },
       { name: 'Medical History', path: '/medical-history', icon: FiFileText },
       { name: 'Find Doctors', path: '/doctors', icon: FiUsers },
     ];
 
     const doctorItems = [
       { name: 'Dashboard', path: '/doctor', icon: FiHome },
-      { name: 'My Schedule', path: '/doctor/schedule', icon: FiCalendar },
-      { name: 'Appointments', path: '/doctor/appointments', icon: FiClock },
+      { name: "Today's Appointments", path: '/doctor/appointments/today', icon: FiCalendar },
+      { name: 'Upcoming', path: '/doctor/appointments/upcoming', icon: FiClock },
       { name: 'My Patients', path: '/doctor/patients', icon: FiUsers },
       { name: 'Availability', path: '/doctor/availability', icon: FiClipboard },
     ];
@@ -83,11 +83,12 @@ const Sidebar = ({ isOpen, onClose }) => {
               <NavLink
                 key={item.path}
                 to={item.path}
+                end={item.end}
                 onClick={onClose}
                 className={({ isActive }) =>
                   `flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                     isActive
-                      ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-md shadow-teal-500/20'
+                      ? 'bg-primary-600 text-white shadow-sm shadow-primary-sm'
                       : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }`
                 }
@@ -110,7 +111,7 @@ const Sidebar = ({ isOpen, onClose }) => {
               className={({ isActive }) =>
                 `flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                   isActive
-                    ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-md shadow-teal-500/20'
+                    ? 'bg-primary-600 text-white shadow-sm shadow-primary-sm'
                     : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                 }`
               }
@@ -124,12 +125,12 @@ const Sidebar = ({ isOpen, onClose }) => {
             </NavLink>
 
             {/* Help card */}
-            <div className="mt-4 p-4 bg-gradient-to-br from-teal-50 to-cyan-50 rounded-2xl border border-teal-100/50">
-              <h4 className="text-sm font-semibold text-teal-900">Need Help?</h4>
-              <p className="text-xs text-teal-700/80 mt-1">
+            <div className="mt-4 p-4 bg-primary-50 rounded-xl border border-primary-100/50">
+              <h4 className="text-sm font-medium text-primary-900">Need Help?</h4>
+              <p className="text-xs text-primary-700/80 mt-1">
                 Contact support for assistance with your account.
               </p>
-              <button className="mt-3 text-xs font-semibold text-teal-600 hover:text-teal-700 transition-colors flex items-center group">
+              <button className="mt-3 text-xs font-medium text-primary-600 hover:text-primary-700 transition-colors flex items-center group">
                 Get Support
                 <span className="ml-1 group-hover:translate-x-0.5 transition-transform">→</span>
               </button>

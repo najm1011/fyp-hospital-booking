@@ -105,6 +105,14 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Query("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentDate = :date")
     long countByAppointmentDate(@Param("date") LocalDate date);
 
+    @Query("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentDate BETWEEN :startDate AND :endDate")
+    long countByAppointmentDateBetween(@Param("startDate") LocalDate startDate,
+                                        @Param("endDate") LocalDate endDate);
+
+    @Query("SELECT COUNT(a) FROM Appointment a WHERE a.appointmentDate = :date AND a.status = :status")
+    long countByAppointmentDateAndStatus(@Param("date") LocalDate date,
+                                          @Param("status") Appointment.Status status);
+
     @Query("SELECT a FROM Appointment a WHERE a.createdAt BETWEEN :startDateTime AND :endDateTime " +
            "ORDER BY a.createdAt DESC")
     List<Appointment> findAppointmentsCreatedBetween(@Param("startDateTime") LocalDateTime startDateTime,
@@ -168,4 +176,73 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
                                                        @Param("startTime") LocalTime startTime,
                                                        @Param("endTime") LocalTime endTime,
                                                        @Param("excludeAppointmentId") Long excludeAppointmentId);
+
+    // ==================== ANALYTICS QUERIES ====================
+
+    /**
+     * Count appointments by year and month
+     */
+    @Query("SELECT YEAR(a.appointmentDate), MONTH(a.appointmentDate), COUNT(a) " +
+           "FROM Appointment a " +
+           "WHERE a.appointmentDate BETWEEN :startDate AND :endDate " +
+           "GROUP BY YEAR(a.appointmentDate), MONTH(a.appointmentDate) " +
+           "ORDER BY YEAR(a.appointmentDate), MONTH(a.appointmentDate)")
+    List<Object[]> countAppointmentsByMonth(@Param("startDate") LocalDate startDate,
+                                            @Param("endDate") LocalDate endDate);
+
+    /**
+     * Count appointments by year, month and status
+     */
+    @Query("SELECT YEAR(a.appointmentDate), MONTH(a.appointmentDate), a.status, COUNT(a) " +
+           "FROM Appointment a " +
+           "WHERE a.appointmentDate BETWEEN :startDate AND :endDate " +
+           "GROUP BY YEAR(a.appointmentDate), MONTH(a.appointmentDate), a.status " +
+           "ORDER BY YEAR(a.appointmentDate), MONTH(a.appointmentDate)")
+    List<Object[]> countAppointmentsByMonthAndStatus(@Param("startDate") LocalDate startDate,
+                                                      @Param("endDate") LocalDate endDate);
+
+    /**
+     * Count appointments by department
+     */
+    @Query("SELECT d.name, COUNT(a) FROM Appointment a " +
+           "JOIN a.doctor doc JOIN doc.department d " +
+           "WHERE a.appointmentDate BETWEEN :startDate AND :endDate " +
+           "GROUP BY d.name ORDER BY COUNT(a) DESC")
+    List<Object[]> countAppointmentsByDepartment(@Param("startDate") LocalDate startDate,
+                                                  @Param("endDate") LocalDate endDate);
+
+    /**
+     * Count appointments by day of week
+     */
+    @Query("SELECT DAYOFWEEK(a.appointmentDate), COUNT(a) FROM Appointment a " +
+           "WHERE a.appointmentDate BETWEEN :startDate AND :endDate " +
+           "GROUP BY DAYOFWEEK(a.appointmentDate) " +
+           "ORDER BY DAYOFWEEK(a.appointmentDate)")
+    List<Object[]> countAppointmentsByDayOfWeek(@Param("startDate") LocalDate startDate,
+                                                 @Param("endDate") LocalDate endDate);
+
+    /**
+     * Count unique patients in date range
+     */
+    @Query("SELECT COUNT(DISTINCT a.patient.id) FROM Appointment a " +
+           "WHERE a.appointmentDate BETWEEN :startDate AND :endDate")
+    long countUniquePatients(@Param("startDate") LocalDate startDate,
+                             @Param("endDate") LocalDate endDate);
+
+    /**
+     * Count unique doctors in date range
+     */
+    @Query("SELECT COUNT(DISTINCT a.doctor.id) FROM Appointment a " +
+           "WHERE a.appointmentDate BETWEEN :startDate AND :endDate")
+    long countUniqueDoctors(@Param("startDate") LocalDate startDate,
+                            @Param("endDate") LocalDate endDate);
+
+    /**
+     * Count appointments by status in date range
+     */
+    @Query("SELECT a.status, COUNT(a) FROM Appointment a " +
+           "WHERE a.appointmentDate BETWEEN :startDate AND :endDate " +
+           "GROUP BY a.status")
+    List<Object[]> countByStatusInRange(@Param("startDate") LocalDate startDate,
+                                         @Param("endDate") LocalDate endDate);
 }

@@ -318,6 +318,17 @@ public class AppointmentController {
     }
 
     /**
+     * Get analytics data with charts (Admin only)
+     */
+    @GetMapping("/admin/analytics")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<AnalyticsResponse> getAnalytics(
+            @RequestParam(defaultValue = "12") int months) {
+        AnalyticsResponse analytics = appointmentService.getAnalytics(months);
+        return ResponseEntity.ok(analytics);
+    }
+
+    /**
      * Get all appointments for a specific patient (Admin only)
      */
     @GetMapping("/patient/{patientId}")

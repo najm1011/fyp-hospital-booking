@@ -208,7 +208,7 @@ const Register = () => {
                 onBlur={handleBlur}
                 error={errors.firstName}
                 touched={touched.firstName}
-                placeholder="John"
+                placeholder="Enter your first name"
                 icon={FiUser}
                 autoComplete="given-name"
                 required
@@ -223,7 +223,7 @@ const Register = () => {
                 onBlur={handleBlur}
                 error={errors.lastName}
                 touched={touched.lastName}
-                placeholder="Doe"
+                placeholder="Enter your last name"
                 icon={FiUser}
                 autoComplete="family-name"
                 required
@@ -256,7 +256,7 @@ const Register = () => {
               onBlur={handleBlur}
               error={errors.phoneNumber}
               touched={touched.phoneNumber}
-              placeholder="+1 (555) 000-0000"
+              placeholder="07700 900000"
               icon={FiPhone}
               autoComplete="tel"
             />

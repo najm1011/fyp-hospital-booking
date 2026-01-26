@@ -40,14 +40,14 @@ const DoctorCard = ({
   // Generate a consistent color based on doctor id
   const getAvatarColor = (id) => {
     const colors = [
-      'bg-blue-500',
-      'bg-green-500',
-      'bg-purple-500',
-      'bg-pink-500',
-      'bg-indigo-500',
-      'bg-teal-500',
-      'bg-orange-500',
-      'bg-cyan-500',
+      'from-primary-500 to-primary-600',
+      'from-success-500 to-emerald-600',
+      'from-violet-500 to-purple-600',
+      'from-pink-500 to-rose-600',
+      'from-indigo-500 to-blue-600',
+      'from-amber-500 to-orange-600',
+      'from-cyan-500 to-teal-600',
+      'from-fuchsia-500 to-pink-600',
     ];
     return colors[id % colors.length];
   };
@@ -75,7 +75,7 @@ const DoctorCard = ({
 
         {/* Info */}
         <div className="ml-4 flex-1 min-w-0">
-          <h4 className="text-sm font-semibold text-gray-900 truncate group-hover:text-teal-600 transition-colors">
+          <h4 className="text-sm font-semibold text-gray-900 truncate group-hover:text-primary-600 transition-colors">
             Dr. {doctor.fullName}
           </h4>
           <p className="text-xs text-gray-500 truncate">{doctor.specialty}</p>
@@ -84,7 +84,7 @@ const DoctorCard = ({
               <FiStar className="h-3 w-3 text-amber-400 fill-current mr-0.5" />
               <span className="text-gray-600 font-medium">4.8</span>
             </span>
-            <span className="text-xs text-green-600 font-semibold bg-green-50 px-2 py-0.5 rounded-full">
+            <span className="text-xs text-success-600 font-semibold bg-success-50 px-2 py-0.5 rounded-full">
               £{doctor.consultationFee}
             </span>
           </div>
@@ -103,20 +103,20 @@ const DoctorCard = ({
   // Detailed variant - for doctor profile pages
   if (variant === 'detailed') {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-soft border border-gray-100 overflow-hidden">
         {/* Header with gradient */}
-        <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-6 py-8">
+        <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 px-6 py-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             {/* Photo */}
             {doctor.photoUrl ? (
               <img
                 src={doctor.photoUrl}
                 alt={doctor.fullName}
-                className="h-32 w-32 rounded-full object-cover border-4 border-white shadow-lg"
+                className="h-32 w-32 rounded-2xl object-cover border-4 border-white/20 shadow-lg"
               />
             ) : (
               <div
-                className={`h-32 w-32 rounded-full ${getAvatarColor(doctor.id)} flex items-center justify-center text-white text-4xl font-bold border-4 border-white shadow-lg`}
+                className={`h-32 w-32 rounded-2xl bg-gradient-to-br ${getAvatarColor(doctor.id)} flex items-center justify-center text-white text-4xl font-bold border-4 border-white/20 shadow-lg`}
               >
                 {getInitials(doctor.fullName)}
               </div>
@@ -125,14 +125,14 @@ const DoctorCard = ({
             {/* Basic Info */}
             <div className="text-center sm:text-left text-white">
               <h2 className="text-2xl font-bold">Dr. {doctor.fullName}</h2>
-              <p className="text-teal-100 text-lg">{doctor.specialty}</p>
-              <div className="flex items-center justify-center sm:justify-start mt-2 space-x-4">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-white/20">
-                  <FiMapPin className="h-4 w-4 mr-1" />
+              <p className="text-primary-200 text-lg">{doctor.specialty}</p>
+              <div className="flex items-center justify-center sm:justify-start mt-3 space-x-3">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-sm bg-white/15 backdrop-blur-sm">
+                  <FiMapPin className="h-4 w-4 mr-1.5" />
                   {doctor.departmentName}
                 </span>
-                <span className="inline-flex items-center text-sm">
-                  <FiStar className="h-4 w-4 text-yellow-300 fill-current mr-1" />
+                <span className="inline-flex items-center text-sm bg-white/15 backdrop-blur-sm px-3 py-1.5 rounded-xl">
+                  <FiStar className="h-4 w-4 text-amber-300 fill-current mr-1" />
                   4.8 (120 reviews)
                 </span>
               </div>
@@ -145,7 +145,7 @@ const DoctorCard = ({
           {/* Qualifications */}
           <div className="mb-6">
             <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
-              <FiAward className="inline h-4 w-4 mr-2" />
+              <FiAward className="inline h-4 w-4 mr-2 text-primary-500" />
               Qualifications
             </h3>
             <p className="text-gray-600">{doctor.qualifications}</p>
@@ -161,25 +161,25 @@ const DoctorCard = ({
 
           {/* Contact & Fee */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <div className="flex items-center p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center p-3 bg-gray-50 rounded-xl">
               <FiMail className="h-5 w-5 text-gray-400 mr-3" />
               <div>
                 <p className="text-xs text-gray-500">Email</p>
                 <p className="text-sm text-gray-900 truncate">{doctor.email}</p>
               </div>
             </div>
-            <div className="flex items-center p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center p-3 bg-gray-50 rounded-xl">
               <FiPhone className="h-5 w-5 text-gray-400 mr-3" />
               <div>
                 <p className="text-xs text-gray-500">Phone</p>
                 <p className="text-sm text-gray-900">{doctor.phoneNumber}</p>
               </div>
             </div>
-            <div className="flex items-center p-3 bg-green-50 rounded-lg">
-              <LuPoundSterling className="h-5 w-5 text-green-500 mr-3" />
+            <div className="flex items-center p-3 bg-success-50 rounded-xl">
+              <LuPoundSterling className="h-5 w-5 text-success-500 mr-3" />
               <div>
                 <p className="text-xs text-gray-500">Consultation Fee</p>
-                <p className="text-sm font-semibold text-green-600">
+                <p className="text-sm font-semibold text-success-600">
                   £{doctor.consultationFee}
                 </p>
               </div>
@@ -202,25 +202,25 @@ const DoctorCard = ({
   return (
     <div className="bg-white rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 group">
       {/* Card Header */}
-      <div className="bg-gradient-to-br from-teal-500 via-teal-600 to-cyan-600 px-6 py-5">
+      <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 px-6 py-5">
         <div className="flex items-center space-x-4">
           {/* Photo/Avatar */}
           {doctor.photoUrl ? (
             <img
               src={doctor.photoUrl}
               alt={doctor.fullName}
-              className="h-16 w-16 rounded-xl object-cover border-2 border-white/50 shadow-lg group-hover:scale-105 transition-transform duration-300"
+              className="h-16 w-16 rounded-xl object-cover border-2 border-white/30 shadow-lg group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
             <div
-              className={`h-16 w-16 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white text-xl font-bold border-2 border-white/30 shadow-lg group-hover:scale-105 transition-transform duration-300`}
+              className={`h-16 w-16 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-white text-xl font-bold border-2 border-white/20 shadow-lg group-hover:scale-105 transition-transform duration-300`}
             >
               {getInitials(doctor.fullName)}
             </div>
           )}
           <div className="text-white flex-1 min-w-0">
             <h3 className="text-lg font-bold truncate">Dr. {doctor.fullName}</h3>
-            <p className="text-teal-100 text-sm truncate">{doctor.specialty}</p>
+            <p className="text-primary-200 text-sm truncate">{doctor.specialty}</p>
           </div>
         </div>
       </div>
@@ -229,7 +229,7 @@ const DoctorCard = ({
       <div className="p-6">
         {/* Department & Rating */}
         <div className="flex items-center justify-between mb-4">
-          <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-teal-50 text-teal-700 border border-teal-100">
+          <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-primary-50 text-primary-700 border border-primary-100">
             <FiMapPin className="h-3 w-3 mr-1.5" />
             {doctor.departmentName}
           </span>
@@ -242,7 +242,7 @@ const DoctorCard = ({
 
         {/* Qualifications */}
         <p className="text-gray-600 text-sm mb-3 line-clamp-1">
-          <FiAward className="inline h-4 w-4 mr-1.5 text-purple-400" />
+          <FiAward className="inline h-4 w-4 mr-1.5 text-primary-400" />
           {doctor.qualifications}
         </p>
 
@@ -251,7 +251,7 @@ const DoctorCard = ({
 
         {/* Contact Info */}
         <div className="space-y-2 mb-4 text-sm">
-          <div className="flex items-center text-gray-600 hover:text-teal-600 transition-colors">
+          <div className="flex items-center text-gray-600 hover:text-primary-600 transition-colors">
             <FiMail className="h-4 w-4 mr-2 text-gray-400 flex-shrink-0" />
             <span className="truncate">{doctor.email}</span>
           </div>

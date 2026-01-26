@@ -87,7 +87,7 @@ const Doctors = () => {
       </div>
 
       {/* Filters Section */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
+      <div className="bg-white rounded-xl shadow-soft border border-gray-100 p-5 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1 relative">
@@ -97,7 +97,7 @@ const Doctors = () => {
               placeholder="Search by name or specialty..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
 
@@ -108,7 +108,7 @@ const Doctors = () => {
               <select
                 value={selectedDepartment}
                 onChange={(e) => setSelectedDepartment(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 appearance-none bg-white"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none bg-white"
               >
                 <option value="">All Departments</option>
                 {departments.map((dept) => (
@@ -125,7 +125,7 @@ const Doctors = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 appearance-none bg-white"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none bg-white"
             >
               <option value="name">Sort by Name</option>
               <option value="fee-low">Fee: Low to High</option>
@@ -136,25 +136,25 @@ const Doctors = () => {
 
         {/* Active Filters */}
         {(searchTerm || selectedDepartment) && (
-          <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
+          <div className="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-gray-100">
             <span className="text-sm text-gray-500">Active filters:</span>
             {searchTerm && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-teal-100 text-teal-800">
+              <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-primary-50 text-primary-700">
                 Search: {searchTerm}
                 <button
                   onClick={() => setSearchTerm('')}
-                  className="ml-1 hover:text-teal-900"
+                  className="ml-1.5 hover:text-primary-900"
                 >
                   &times;
                 </button>
               </span>
             )}
             {selectedDepartment && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-teal-100 text-teal-800">
+              <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-primary-50 text-primary-700">
                 {selectedDepartment}
                 <button
                   onClick={() => setSelectedDepartment('')}
-                  className="ml-1 hover:text-teal-900"
+                  className="ml-1.5 hover:text-primary-900"
                 >
                   &times;
                 </button>
@@ -165,7 +165,7 @@ const Doctors = () => {
                 setSearchTerm('');
                 setSelectedDepartment('');
               }}
-              className="text-xs text-teal-600 hover:text-teal-800"
+              className="text-xs font-medium text-primary-600 hover:text-primary-700"
             >
               Clear all
             </button>
@@ -201,10 +201,12 @@ const Doctors = () => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-20 bg-white rounded-xl border border-gray-200">
-          <FiUser className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No doctors found</h3>
-          <p className="text-gray-500 mb-4">
+        <div className="text-center py-20 bg-white rounded-xl border border-gray-100 shadow-soft">
+          <div className="bg-gray-50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <FiUser className="h-10 w-10 text-gray-400" />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">No doctors found</h3>
+          <p className="text-gray-500 mb-6">
             Try adjusting your search or filter criteria
           </p>
           <Button

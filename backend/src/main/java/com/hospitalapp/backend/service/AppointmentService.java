@@ -13,7 +13,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +27,7 @@ public class AppointmentService {
     private final DoctorRepository doctorRepository;
     private final UserRepository userRepository;
     private final TimeSlotRepository timeSlotRepository;
+    private final DepartmentRepository departmentRepository;
     private final EmailService emailService;
 
     @Value("${app.appointment.slot-duration:30}")
@@ -43,11 +47,13 @@ public class AppointmentService {
             DoctorRepository doctorRepository,
             UserRepository userRepository,
             TimeSlotRepository timeSlotRepository,
+            DepartmentRepository departmentRepository,
             EmailService emailService) {
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
         this.userRepository = userRepository;
         this.timeSlotRepository = timeSlotRepository;
+        this.departmentRepository = departmentRepository;
         this.emailService = emailService;
     }
 
@@ -545,14 +551,150 @@ public class AppointmentService {
         long todayCount = appointmentRepository.countByAppointmentDate(today);
         stats.setTodayCount(todayCount);
 
+        // Completed today
+        long completedToday = appointmentRepository.countByAppointmentDateAndStatus(today, Appointment.Status.COMPLETED);
+        stats.setCompletedToday(completedToday);
+
+        // This week's appointments (Monday to Sunday)
+        LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
+        LocalDate endOfWeek = today.with(DayOfWeek.SUNDAY);
+        long weekCount = appointmentRepository.countByAppointmentDateBetween(startOfWeek, endOfWeek);
+        stats.setWeekCount(weekCount);
+
+        // This month's appointments
+        LocalDate startOfMonth = today.withDayOfMonth(1);
+        LocalDate endOfMonth = today.withDayOfMonth(today.lengthOfMonth());
+        long monthCount = appointmentRepository.countByAppointmentDateBetween(startOfMonth, endOfMonth);
+        stats.setMonthCount(monthCount);
+
         // Get counts from repositories
         long totalDoctors = doctorRepository.count();
         long totalPatients = userRepository.countByRole(User.Role.PATIENT);
+        long totalDepartments = departmentRepository.count();
+        long totalUsers = userRepository.count();
 
         stats.setTotalDoctors(totalDoctors);
         stats.setTotalPatients(totalPatients);
+        stats.setTotalDepartments(totalDepartments);
+        stats.setTotalUsers(totalUsers);
+        stats.setScheduled(scheduled);
 
         return stats;
+    }
+
+    /**
+     * Get comprehensive analytics data
+     */
+    @Transactional(readOnly = true)
+    public AnalyticsResponse getAnalytics(int months) {
+        AnalyticsResponse analytics = new AnalyticsResponse();
+        LocalDate today = LocalDate.now();
+        LocalDate startDate = today.minusMonths(months).withDayOfMonth(1);
+        LocalDate endDate = today;
+
+        // Monthly stats
+        List<MonthlyAppointmentStats> monthlyStats = calculateMonthlyStats(startDate, endDate);
+        analytics.setMonthlyStats(monthlyStats);
+
+        // Status distribution
+        Map<String, Long> statusDistribution = new LinkedHashMap<>();
+        List<Object[]> statusData = appointmentRepository.countByStatusInRange(startDate, endDate);
+        for (Object[] row : statusData) {
+            Appointment.Status status = (Appointment.Status) row[0];
+            Long count = (Long) row[1];
+            statusDistribution.put(status.name(), count);
+        }
+        analytics.setStatusDistribution(statusDistribution);
+
+        // Department distribution
+        Map<String, Long> deptDistribution = new LinkedHashMap<>();
+        List<Object[]> deptData = appointmentRepository.countAppointmentsByDepartment(startDate, endDate);
+        for (Object[] row : deptData) {
+            String deptName = (String) row[0];
+            Long count = (Long) row[1];
+            deptDistribution.put(deptName, count);
+        }
+        analytics.setDepartmentDistribution(deptDistribution);
+
+        // Weekday distribution
+        Map<String, Long> weekdayDistribution = new LinkedHashMap<>();
+        String[] dayNames = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+        List<Object[]> weekdayData = appointmentRepository.countAppointmentsByDayOfWeek(startDate, endDate);
+        for (Object[] row : weekdayData) {
+            Integer dayNum = (Integer) row[0];
+            Long count = (Long) row[1];
+            if (dayNum >= 1 && dayNum <= 7) {
+                weekdayDistribution.put(dayNames[dayNum - 1], count);
+            }
+        }
+        analytics.setWeekdayDistribution(weekdayDistribution);
+
+        // Total counts
+        long totalAppointments = appointmentRepository.countByAppointmentDateBetween(startDate, endDate);
+        analytics.setTotalAppointments(totalAppointments);
+
+        long totalPatients = appointmentRepository.countUniquePatients(startDate, endDate);
+        analytics.setTotalPatients(totalPatients);
+
+        long totalDoctors = appointmentRepository.countUniqueDoctors(startDate, endDate);
+        analytics.setTotalDoctors(totalDoctors);
+
+        // Calculate rates
+        if (totalAppointments > 0) {
+            long completed = statusDistribution.getOrDefault("COMPLETED", 0L);
+            long cancelled = statusDistribution.getOrDefault("CANCELLED", 0L);
+            long noShow = statusDistribution.getOrDefault("NO_SHOW", 0L);
+
+            analytics.setCompletionRate(Math.round((completed * 100.0 / totalAppointments) * 10) / 10.0);
+            analytics.setCancellationRate(Math.round((cancelled * 100.0 / totalAppointments) * 10) / 10.0);
+            analytics.setNoShowRate(Math.round((noShow * 100.0 / totalAppointments) * 10) / 10.0);
+        }
+
+        return analytics;
+    }
+
+    /**
+     * Calculate monthly appointment statistics
+     */
+    private List<MonthlyAppointmentStats> calculateMonthlyStats(LocalDate startDate, LocalDate endDate) {
+        List<Object[]> monthlyData = appointmentRepository.countAppointmentsByMonthAndStatus(startDate, endDate);
+
+        // Group data by year-month
+        Map<String, MonthlyAppointmentStats> statsMap = new LinkedHashMap<>();
+
+        for (Object[] row : monthlyData) {
+            int year = (Integer) row[0];
+            int month = (Integer) row[1];
+            Appointment.Status status = (Appointment.Status) row[2];
+            long count = (Long) row[3];
+
+            String key = year + "-" + month;
+            MonthlyAppointmentStats stats = statsMap.computeIfAbsent(key, k -> {
+                MonthlyAppointmentStats s = new MonthlyAppointmentStats();
+                s.setYear(year);
+                s.setMonth(month);
+                return s;
+            });
+
+            stats.setTotal(stats.getTotal() + count);
+
+            switch (status) {
+                case SCHEDULED:
+                    stats.setScheduled(count);
+                    break;
+                case COMPLETED:
+                    stats.setCompleted(count);
+                    break;
+                case CANCELLED:
+                    stats.setCancelled(count);
+                    break;
+                case NO_SHOW:
+                    stats.setNoShow(count);
+                    break;
+            }
+        }
+
+        return new ArrayList<>(statsMap.values());
     }
 
     // ==================== COMMON OPERATIONS ====================

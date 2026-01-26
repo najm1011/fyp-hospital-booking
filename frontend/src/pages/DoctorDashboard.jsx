@@ -309,25 +309,25 @@ const DoctorDashboard = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatsCard
           icon={FiCalendar}
-          label="Today's Appointments"
+          label="Patients Today"
           value={stats?.todayCount || 0}
           color="blue"
         />
         <StatsCard
           icon={FiCheckCircle}
-          label="Completed Today"
+          label="Seen Today"
           value={stats?.completedTodayCount || 0}
           color="green"
         />
         <StatsCard
-          icon={FiAlertCircle}
-          label="Pending"
+          icon={FiClock}
+          label="Awaiting"
           value={stats?.pendingCount || 0}
           color="yellow"
         />
         <StatsCard
           icon={FiUsers}
-          label="Total Patients"
+          label="Your Patients"
           value={stats?.uniquePatientsCount || 0}
           color="purple"
         />
@@ -438,12 +438,22 @@ const DoctorDashboard = () => {
           <Card title="Quick Actions">
             <div className="space-y-3">
               <Link
-                to="/doctor/appointments"
+                to="/doctor/appointments/today"
                 className="flex items-center justify-between p-4 bg-teal-50 rounded-lg hover:bg-teal-100 transition-colors"
               >
                 <div className="flex items-center">
                   <FiCalendar className="h-5 w-5 text-teal-600 mr-3" />
-                  <span className="font-medium text-gray-900">All Appointments</span>
+                  <span className="font-medium text-gray-900">Today's Appointments</span>
+                </div>
+                <FiArrowRight className="h-5 w-5 text-gray-400" />
+              </Link>
+              <Link
+                to="/doctor/appointments/upcoming"
+                className="flex items-center justify-between p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+              >
+                <div className="flex items-center">
+                  <FiClock className="h-5 w-5 text-blue-600 mr-3" />
+                  <span className="font-medium text-gray-900">Upcoming Appointments</span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
               </Link>
@@ -454,16 +464,6 @@ const DoctorDashboard = () => {
                 <div className="flex items-center">
                   <FiUsers className="h-5 w-5 text-gray-600 mr-3" />
                   <span className="font-medium text-gray-900">My Patients</span>
-                </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
-              </Link>
-              <Link
-                to="/doctor/schedule"
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <div className="flex items-center">
-                  <FiClock className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">Manage Schedule</span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
               </Link>

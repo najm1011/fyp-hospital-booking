@@ -47,19 +47,19 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300">
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center mb-4">
-              <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-2 rounded-lg">
+            <Link to="/" className="flex items-center mb-5">
+              <div className="bg-primary-600 p-2.5 rounded-xl shadow-primary-sm">
                 <FiActivity className="h-6 w-6 text-white" />
               </div>
               <span className="ml-3 text-xl font-bold text-white">
-                Hospital Booking
+                MediBook
               </span>
             </Link>
-            <p className="text-sm text-gray-400 mb-6">
+            <p className="text-sm text-gray-400 mb-6 leading-relaxed">
               Your trusted partner in healthcare. Book appointments with top doctors
               easily and conveniently.
             </p>
@@ -67,16 +67,16 @@ const Footer = () => {
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-center text-sm">
-                <FiMapPin className="h-4 w-4 mr-3 text-teal-500" />
+                <FiMapPin className="h-4 w-4 mr-3 text-primary-400" />
                 <span>123 Medical Center Drive, London, UK</span>
               </div>
               <div className="flex items-center text-sm">
-                <FiPhone className="h-4 w-4 mr-3 text-teal-500" />
+                <FiPhone className="h-4 w-4 mr-3 text-primary-400" />
                 <span>+44 20 1234 5678</span>
               </div>
               <div className="flex items-center text-sm">
-                <FiMail className="h-4 w-4 mr-3 text-teal-500" />
-                <span>contact@hospitalbooking.com</span>
+                <FiMail className="h-4 w-4 mr-3 text-primary-400" />
+                <span>contact@medibook.com</span>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-sm hover:text-teal-400 transition-colors"
+                    className="text-sm hover:text-primary-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -106,7 +106,7 @@ const Footer = () => {
                 <li key={dept.path}>
                   <Link
                     to={dept.path}
-                    className="text-sm hover:text-teal-400 transition-colors"
+                    className="text-sm hover:text-primary-400 transition-colors"
                   >
                     {dept.name}
                   </Link>
@@ -123,7 +123,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-sm hover:text-teal-400 transition-colors"
+                    className="text-sm hover:text-primary-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -134,9 +134,9 @@ const Footer = () => {
         </div>
 
         {/* Newsletter Section */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            <div className="mb-4 md:mb-0">
+        <div className="mt-14 pt-10 border-t border-gray-800">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
               <h3 className="text-white font-semibold mb-2">
                 Subscribe to our Newsletter
               </h3>
@@ -148,9 +148,9 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-white placeholder-gray-500 w-64"
+                className="px-4 py-3 bg-gray-800 border border-gray-700 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-white placeholder-gray-500 w-64"
               />
-              <button className="px-6 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium rounded-r-lg hover:from-teal-600 hover:to-cyan-700 transition-colors">
+              <button className="px-6 py-3 bg-primary-600 text-white font-medium rounded-r-xl hover:bg-primary-700 transition-all duration-200 shadow-primary-sm hover:shadow-primary">
                 Subscribe
               </button>
             </div>
@@ -168,14 +168,14 @@ const Footer = () => {
             </p>
 
             {/* Social Links */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-gray-800 rounded-full hover:bg-teal-600 transition-colors"
+                  className="p-2.5 bg-gray-800 rounded-xl hover:bg-primary-600 transition-all duration-200"
                   aria-label={social.name}
                 >
                   <social.icon className="h-4 w-4" />

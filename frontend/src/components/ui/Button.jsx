@@ -10,18 +10,18 @@ const Button = ({
   className = '',
 }) => {
   const baseStyles = `
-    inline-flex items-center justify-center font-semibold rounded-xl
+    inline-flex items-center justify-center font-medium rounded-lg
     transition-all duration-200 ease-out
     focus:outline-none focus:ring-2 focus:ring-offset-2
-    disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none
+    disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none
     active:scale-[0.98]
   `;
 
   const variants = {
     primary: `
-      bg-gradient-to-r from-teal-500 to-cyan-600 text-white
-      hover:from-teal-600 hover:to-cyan-700 hover:shadow-lg hover:shadow-teal-500/25
-      focus:ring-teal-500
+      bg-primary-600 text-white
+      hover:bg-primary-700 hover:shadow-primary-sm
+      focus:ring-primary-500
     `,
     secondary: `
       bg-gray-100 text-gray-700
@@ -29,31 +29,38 @@ const Button = ({
       focus:ring-gray-400
     `,
     outline: `
-      border-2 border-gray-200 text-gray-700 bg-white
-      hover:border-teal-500 hover:text-teal-600 hover:bg-teal-50
-      focus:ring-teal-500
+      border border-gray-300 text-gray-700 bg-white
+      hover:border-primary-500 hover:text-primary-600 hover:bg-primary-50
+      focus:ring-primary-500
     `,
     danger: `
-      bg-gradient-to-r from-red-500 to-red-600 text-white
-      hover:from-red-600 hover:to-red-700 hover:shadow-lg hover:shadow-red-500/25
-      focus:ring-red-500
+      bg-error-600 text-white
+      hover:bg-error-700 hover:shadow-accent-sm
+      focus:ring-error-500
     `,
     success: `
-      bg-gradient-to-r from-emerald-500 to-emerald-600 text-white
-      hover:from-emerald-600 hover:to-emerald-700 hover:shadow-lg hover:shadow-emerald-500/25
-      focus:ring-emerald-500
+      bg-success-600 text-white
+      hover:bg-success-700 hover:shadow-success-sm
+      focus:ring-success-500
     `,
     ghost: `
       text-gray-600 bg-transparent
       hover:bg-gray-100 hover:text-gray-900
       focus:ring-gray-400
     `,
+    // New: subtle variant for secondary actions
+    subtle: `
+      text-primary-600 bg-primary-50
+      hover:bg-primary-100 hover:text-primary-700
+      focus:ring-primary-500
+    `,
   };
 
   const sizes = {
-    sm: 'px-3.5 py-2 text-sm gap-1.5',
-    md: 'px-5 py-2.5 text-sm gap-2',
-    lg: 'px-6 py-3 text-base gap-2',
+    xs: 'px-2.5 py-1.5 text-xs gap-1',
+    sm: 'px-3 py-2 text-sm gap-1.5',
+    md: 'px-4 py-2.5 text-sm gap-2',
+    lg: 'px-5 py-3 text-base gap-2',
   };
 
   return (
@@ -63,15 +70,15 @@ const Button = ({
       onClick={onClick}
       className={`
         ${baseStyles}
-        ${variants[variant]}
-        ${sizes[size]}
+        ${variants[variant] || variants.primary}
+        ${sizes[size] || sizes.md}
         ${fullWidth ? 'w-full' : ''}
         ${className}
       `}
     >
       {loading && (
         <svg
-          className="animate-spin h-4 w-4"
+          className="animate-spin h-4 w-4 -ml-0.5"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

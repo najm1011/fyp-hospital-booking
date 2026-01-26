@@ -38,18 +38,18 @@ const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-teal-500 to-cyan-600 text-white -m-4 sm:-m-6 lg:-m-8 px-4 sm:px-6 lg:px-8 py-20">
+      <section className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white -m-4 sm:-m-6 lg:-m-8 px-4 sm:px-6 lg:px-8 py-24">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <div className="bg-white/20 p-4 rounded-full">
+            <div className="flex justify-center mb-8">
+              <div className="bg-white/15 backdrop-blur-sm p-5 rounded-2xl shadow-lg shadow-primary-lg">
                 <FiActivity className="h-12 w-12" />
               </div>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
               Your Health, Our Priority
             </h1>
-            <p className="text-xl sm:text-2xl text-teal-100 max-w-3xl mx-auto mb-10">
+            <p className="text-lg sm:text-xl text-primary-100 max-w-2xl mx-auto mb-12 leading-relaxed">
               Book appointments with top doctors easily and conveniently.
               Quality healthcare is just a click away.
             </p>
@@ -57,7 +57,7 @@ const Home = () => {
               {isAuthenticated ? (
                 <Link
                   to="/dashboard"
-                  className="inline-flex items-center justify-center bg-white text-teal-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-teal-50 transition-colors"
+                  className="inline-flex items-center justify-center bg-white text-primary-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary-50 shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   Go to Dashboard
                   <FiArrowRight className="ml-2 h-5 w-5" />
@@ -66,14 +66,14 @@ const Home = () => {
                 <>
                   <Link
                     to="/register"
-                    className="inline-flex items-center justify-center bg-white text-teal-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-teal-50 transition-colors"
+                    className="inline-flex items-center justify-center bg-white text-primary-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary-50 shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     Get Started
                     <FiArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
                     to="/login"
-                    className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10 transition-colors"
+                    className="inline-flex items-center justify-center border-2 border-white/80 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 backdrop-blur-sm transition-all duration-200"
                   >
                     Sign In
                   </Link>
@@ -85,30 +85,33 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <span className="inline-block px-4 py-1.5 bg-primary-50 text-primary-700 text-sm font-medium rounded-full mb-4">
+              Our Benefits
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
               Why Choose Us?
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               We provide the best healthcare booking experience with modern technology and caring service.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+                className="bg-white p-6 rounded-xl shadow-soft border border-gray-100/60 hover:shadow-soft-md hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="bg-teal-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                  <feature.icon className="h-7 w-7 text-teal-600" />
+                <div className="bg-primary-500 w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-primary-sm">
+                  <feature.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -118,42 +121,42 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gray-100 py-16 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-gray-50 to-gray-100/80 py-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <p className="text-4xl font-bold text-teal-600">50+</p>
-              <p className="text-gray-600 mt-2">Expert Doctors</p>
+            <div className="text-center p-6">
+              <p className="text-4xl font-bold text-primary-600 tracking-tight">50+</p>
+              <p className="text-gray-600 mt-2 font-medium">Expert Doctors</p>
             </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-teal-600">10k+</p>
-              <p className="text-gray-600 mt-2">Happy Patients</p>
+            <div className="text-center p-6">
+              <p className="text-4xl font-bold text-primary-600 tracking-tight">10k+</p>
+              <p className="text-gray-600 mt-2 font-medium">Happy Patients</p>
             </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-teal-600">15+</p>
-              <p className="text-gray-600 mt-2">Departments</p>
+            <div className="text-center p-6">
+              <p className="text-4xl font-bold text-primary-600 tracking-tight">15+</p>
+              <p className="text-gray-600 mt-2 font-medium">Departments</p>
             </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-teal-600">24/7</p>
-              <p className="text-gray-600 mt-2">Online Support</p>
+            <div className="text-center p-6">
+              <p className="text-4xl font-bold text-primary-600 tracking-tight">24/7</p>
+              <p className="text-gray-600 mt-2 font-medium">Online Support</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
             Ready to Book Your Appointment?
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-lg text-gray-600 mb-10">
             Join thousands of patients who trust us with their healthcare needs.
           </p>
           {!isAuthenticated && (
             <Link
               to="/register"
-              className="inline-flex items-center justify-center bg-gradient-to-r from-teal-500 to-cyan-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-teal-600 hover:to-cyan-700 transition-colors"
+              className="inline-flex items-center justify-center bg-primary-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary-700 shadow-lg shadow-primary-sm hover:shadow-xl hover:shadow-primary transition-all duration-200"
             >
               Create Free Account
               <FiArrowRight className="ml-2 h-5 w-5" />
