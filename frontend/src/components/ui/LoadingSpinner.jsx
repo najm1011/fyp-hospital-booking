@@ -20,11 +20,11 @@ const LoadingSpinner = ({
   };
 
   const colors = {
-    blue: 'border-teal-500/30 border-t-teal-600',
+    blue: 'border-primary-500/30 border-t-primary-600',
     white: 'border-white/30 border-t-white',
     gray: 'border-gray-300 border-t-gray-600',
-    green: 'border-green-500/30 border-t-green-600',
-    red: 'border-red-500/30 border-t-red-600',
+    green: 'border-success-500/30 border-t-success-600',
+    red: 'border-error-500/30 border-t-error-600',
   };
 
   return (

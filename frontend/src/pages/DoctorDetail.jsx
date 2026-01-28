@@ -67,13 +67,13 @@ const DoctorDetail = () => {
   const getAvatarColor = (id) => {
     const colors = [
       'bg-blue-500',
-      'bg-green-500',
+      'bg-success-500',
       'bg-purple-500',
       'bg-pink-500',
       'bg-indigo-500',
-      'bg-teal-500',
+      'bg-primary-500',
       'bg-orange-500',
-      'bg-cyan-500',
+      'bg-primary-500',
     ];
     return colors[id % colors.length];
   };
@@ -125,7 +125,7 @@ const DoctorDetail = () => {
       {/* Doctor Profile Card */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
         {/* Header with gradient */}
-        <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-8 py-10">
+        <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-8 py-10">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             {/* Photo/Avatar */}
             {doctor.photoUrl ? (
@@ -145,7 +145,7 @@ const DoctorDetail = () => {
             {/* Basic Info */}
             <div className="text-center sm:text-left text-white flex-1">
               <h1 className="text-3xl font-bold">Dr. {doctor.fullName}</h1>
-              <p className="text-teal-100 text-xl mt-1">{doctor.specialty}</p>
+              <p className="text-primary-100 text-xl mt-1">{doctor.specialty}</p>
               <div className="flex flex-wrap items-center justify-center sm:justify-start mt-3 gap-3">
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-white/20">
                   <FiMapPin className="h-4 w-4 mr-1" />
@@ -162,7 +162,7 @@ const DoctorDetail = () => {
             <div className="hidden sm:block">
               <Button
                 onClick={handleBookAppointment}
-                className="bg-white text-teal-600 hover:bg-teal-50"
+                className="bg-white text-primary-600 hover:bg-primary-50"
               >
                 <FiCalendar className="mr-2" />
                 Book Now
@@ -179,7 +179,7 @@ const DoctorDetail = () => {
               {/* Qualifications */}
               <div>
                 <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-3">
-                  <FiAward className="h-5 w-5 mr-2 text-teal-500" />
+                  <FiAward className="h-5 w-5 mr-2 text-primary-500" />
                   Qualifications
                 </h3>
                 <p className="text-gray-600">{doctor.qualifications}</p>
@@ -188,7 +188,7 @@ const DoctorDetail = () => {
               {/* About */}
               <div>
                 <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-3">
-                  <FiUser className="h-5 w-5 mr-2 text-teal-500" />
+                  <FiUser className="h-5 w-5 mr-2 text-primary-500" />
                   About
                 </h3>
                 <p className="text-gray-600 leading-relaxed">{doctor.bio}</p>
@@ -197,7 +197,7 @@ const DoctorDetail = () => {
               {/* Availability */}
               <div>
                 <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-3">
-                  <FiClock className="h-5 w-5 mr-2 text-teal-500" />
+                  <FiClock className="h-5 w-5 mr-2 text-primary-500" />
                   Weekly Schedule
                 </h3>
                 {availability?.weeklySchedule ? (
@@ -210,7 +210,7 @@ const DoctorDetail = () => {
                             key={day}
                             className={`p-3 rounded-lg text-center ${
                               slots.length > 0
-                                ? 'bg-green-50 border border-green-200'
+                                ? 'bg-success-50 border border-success-200'
                                 : 'bg-gray-50 border border-gray-200'
                             }`}
                           >
@@ -219,8 +219,8 @@ const DoctorDetail = () => {
                             </p>
                             {slots.length > 0 ? (
                               <div className="mt-1">
-                                <FiCheckCircle className="h-4 w-4 text-green-500 mx-auto" />
-                                <p className="text-xs text-green-600 mt-1">
+                                <FiCheckCircle className="h-4 w-4 text-success-500 mx-auto" />
+                                <p className="text-xs text-success-600 mt-1">
                                   {slots[0].startTime?.slice(0, 5)}
                                 </p>
                               </div>
@@ -237,10 +237,10 @@ const DoctorDetail = () => {
                     {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day) => (
                       <div
                         key={day}
-                        className="p-3 rounded-lg text-center bg-green-50 border border-green-200"
+                        className="p-3 rounded-lg text-center bg-success-50 border border-success-200"
                       >
                         <p className="text-xs font-medium text-gray-700">{day}</p>
-                        <FiCheckCircle className="h-4 w-4 text-green-500 mx-auto mt-1" />
+                        <FiCheckCircle className="h-4 w-4 text-success-500 mx-auto mt-1" />
                       </div>
                     ))}
                   </div>
@@ -274,16 +274,16 @@ const DoctorDetail = () => {
               </div>
 
               {/* Fee Card */}
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-5 border border-green-100">
+              <div className="bg-gradient-to-br from-success-50 to-emerald-50 rounded-xl p-5 border border-success-100">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600">Consultation Fee</p>
-                    <p className="text-3xl font-bold text-green-600">
+                    <p className="text-3xl font-bold text-success-600">
                       £{doctor.consultationFee}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">per visit</p>
                   </div>
-                  <LuPoundSterling className="h-12 w-12 text-green-500 opacity-30" />
+                  <LuPoundSterling className="h-12 w-12 text-success-500 opacity-30" />
                 </div>
               </div>
 

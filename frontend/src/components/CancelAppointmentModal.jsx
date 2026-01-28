@@ -81,8 +81,8 @@ const CancelAppointmentModal = ({
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="bg-red-100 p-2 rounded-full">
-                  <FiAlertTriangle className="h-5 w-5 text-red-600" />
+                <div className="bg-error-100 p-2 rounded-full">
+                  <FiAlertTriangle className="h-5 w-5 text-error-600" />
                 </div>
                 <h2 className="text-lg font-semibold text-gray-900">Cancel Appointment</h2>
               </div>
@@ -99,8 +99,8 @@ const CancelAppointmentModal = ({
           {/* Body */}
           <div className="px-6 py-5">
             {/* Warning Message */}
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-5">
-              <p className="text-sm text-red-700">
+            <div className="bg-error-50 border border-error-200 rounded-lg p-4 mb-5">
+              <p className="text-sm text-error-700">
                 Are you sure you want to cancel this appointment? This action cannot be undone.
               </p>
             </div>
@@ -133,7 +133,7 @@ const CancelAppointmentModal = ({
                 {appointment.confirmationNumber && (
                   <div className="flex items-center text-sm">
                     <span className="text-gray-600">Confirmation #:</span>
-                    <span className="ml-auto font-mono text-sm text-teal-600">
+                    <span className="ml-auto font-mono text-sm text-primary-600">
                       {appointment.confirmationNumber}
                     </span>
                   </div>
@@ -152,7 +152,7 @@ const CancelAppointmentModal = ({
                     key={reasonOption}
                     className={`flex items-center p-3 rounded-lg border cursor-pointer transition-colors ${
                       selectedReason === reasonOption
-                        ? 'border-teal-500 bg-teal-50'
+                        ? 'border-primary-500 bg-primary-50'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -162,7 +162,7 @@ const CancelAppointmentModal = ({
                       value={reasonOption}
                       checked={selectedReason === reasonOption}
                       onChange={(e) => setSelectedReason(e.target.value)}
-                      className="h-4 w-4 text-teal-600 focus:ring-teal-500"
+                      className="h-4 w-4 text-primary-600 focus:ring-primary-500"
                     />
                     <span className="ml-3 text-sm text-gray-700">{reasonOption}</span>
                   </label>
@@ -176,7 +176,7 @@ const CancelAppointmentModal = ({
                   onChange={(e) => setReason(e.target.value)}
                   placeholder="Please specify your reason..."
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
                 />
               )}
             </div>

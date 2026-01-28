@@ -95,9 +95,9 @@ const AdminDashboard = () => {
   const getStatusBadge = (status) => {
     const styles = {
       SCHEDULED: 'bg-blue-100 text-blue-700',
-      CONFIRMED: 'bg-green-100 text-green-700',
-      COMPLETED: 'bg-teal-100 text-teal-700',
-      CANCELLED: 'bg-red-100 text-red-700',
+      CONFIRMED: 'bg-success-100 text-success-700',
+      COMPLETED: 'bg-primary-100 text-primary-700',
+      CANCELLED: 'bg-error-100 text-error-700',
       NO_SHOW: 'bg-orange-100 text-orange-700',
     };
     return styles[status] || 'bg-gray-100 text-gray-700';
@@ -185,11 +185,11 @@ const AdminDashboard = () => {
           </div>
         </Card>
 
-        <Card className="p-4 bg-gradient-to-br from-teal-500 to-cyan-600 text-white">
+        <Card className="p-4 bg-gradient-to-br from-primary-500 to-primary-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-3xl font-bold">{stats?.totalPatients || 0}</p>
-              <p className="text-teal-100 text-sm mt-1">Registered Patients</p>
+              <p className="text-primary-100 text-sm mt-1">Registered Patients</p>
             </div>
             <div className="p-3 bg-white/20 rounded-xl">
               <FiUsers className="h-6 w-6" />
@@ -209,11 +209,11 @@ const AdminDashboard = () => {
           </div>
         </Card>
 
-        <Card className="p-4 bg-gradient-to-br from-green-500 to-emerald-600 text-white">
+        <Card className="p-4 bg-gradient-to-br from-success-500 to-emerald-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-3xl font-bold">{stats?.completedToday || 0}</p>
-              <p className="text-green-100 text-sm mt-1">Visits Completed</p>
+              <p className="text-success-100 text-sm mt-1">Visits Completed</p>
             </div>
             <div className="p-3 bg-white/20 rounded-xl">
               <FiCheckCircle className="h-6 w-6" />
@@ -246,14 +246,14 @@ const AdminDashboard = () => {
             <p className="text-3xl font-bold text-amber-900">{stats?.totalDepartments || 0}</p>
           </div>
 
-          <div className="p-4 bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl">
+          <div className="p-4 bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl">
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-cyan-200 rounded-lg">
-                <FiBarChart2 className="h-5 w-5 text-cyan-700" />
+              <div className="p-2 bg-primary-200 rounded-lg">
+                <FiBarChart2 className="h-5 w-5 text-primary-700" />
               </div>
-              <span className="text-sm font-medium text-cyan-900">This Week</span>
+              <span className="text-sm font-medium text-primary-900">This Week</span>
             </div>
-            <p className="text-3xl font-bold text-cyan-900">{stats?.weekCount || 0}</p>
+            <p className="text-3xl font-bold text-primary-900">{stats?.weekCount || 0}</p>
           </div>
 
           <div className="p-4 bg-gradient-to-br from-rose-50 to-rose-100 rounded-xl">
@@ -294,8 +294,8 @@ const AdminDashboard = () => {
 
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-red-100 rounded-lg">
-              <FiXCircle className="h-5 w-5 text-red-600" />
+            <div className="p-2 bg-error-100 rounded-lg">
+              <FiXCircle className="h-5 w-5 text-error-600" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">{stats?.cancelled || 0}</p>
@@ -318,8 +318,8 @@ const AdminDashboard = () => {
 
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-teal-100 rounded-lg">
-              <FiTrendingUp className="h-5 w-5 text-teal-600" />
+            <div className="p-2 bg-primary-100 rounded-lg">
+              <FiTrendingUp className="h-5 w-5 text-primary-600" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">{stats?.total || 0}</p>
@@ -355,10 +355,10 @@ const AdminDashboard = () => {
 
           <Link
             to="/admin/patients"
-            className="flex flex-col items-center gap-2 p-4 bg-teal-50 rounded-xl hover:bg-teal-100 transition-colors group"
+            className="flex flex-col items-center gap-2 p-4 bg-primary-50 rounded-xl hover:bg-primary-100 transition-colors group"
           >
-            <div className="p-3 bg-teal-100 rounded-xl group-hover:bg-teal-200 transition-colors">
-              <FiUser className="h-6 w-6 text-teal-600" />
+            <div className="p-3 bg-primary-100 rounded-xl group-hover:bg-primary-200 transition-colors">
+              <FiUser className="h-6 w-6 text-primary-600" />
             </div>
             <span className="text-sm font-medium text-gray-700">Manage Patients</span>
           </Link>
@@ -402,7 +402,7 @@ const AdminDashboard = () => {
             <h2 className="text-lg font-semibold text-gray-900">Upcoming Appointments</h2>
             <Link
               to="/admin/appointments"
-              className="text-sm text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1"
+              className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
             >
               View All <FiArrowRight className="h-4 w-4" />
             </Link>
@@ -470,7 +470,7 @@ const AdminDashboard = () => {
             <h2 className="text-lg font-semibold text-gray-900">Doctors Overview</h2>
             <Link
               to="/admin/doctors"
-              className="text-sm text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1"
+              className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
             >
               View All <FiArrowRight className="h-4 w-4" />
             </Link>
@@ -495,7 +495,7 @@ const AdminDashboard = () => {
                     </span>
                   ))}
                   {deptDoctors.length > 3 && (
-                    <span className="text-xs text-teal-600 px-2 py-1">
+                    <span className="text-xs text-primary-600 px-2 py-1">
                       +{deptDoctors.length - 3} more
                     </span>
                   )}
@@ -524,17 +524,17 @@ const AdminDashboard = () => {
             <p className="text-sm text-gray-500">Upcoming</p>
           </div>
 
-          <div className="text-center p-4 bg-green-50 rounded-xl">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
-              <FiCheckCircle className="h-6 w-6 text-green-600" />
+          <div className="text-center p-4 bg-success-50 rounded-xl">
+            <div className="w-12 h-12 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-2">
+              <FiCheckCircle className="h-6 w-6 text-success-600" />
             </div>
             <p className="text-2xl font-bold text-gray-900">{stats?.completed || 0}</p>
             <p className="text-sm text-gray-500">Completed</p>
           </div>
 
-          <div className="text-center p-4 bg-red-50 rounded-xl">
-            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2">
-              <FiXCircle className="h-6 w-6 text-red-600" />
+          <div className="text-center p-4 bg-error-50 rounded-xl">
+            <div className="w-12 h-12 bg-error-100 rounded-full flex items-center justify-center mx-auto mb-2">
+              <FiXCircle className="h-6 w-6 text-error-600" />
             </div>
             <p className="text-2xl font-bold text-gray-900">{stats?.cancelled || 0}</p>
             <p className="text-sm text-gray-500">Cancelled</p>
@@ -568,7 +568,7 @@ const AdminDashboard = () => {
             </p>
             <div className="flex flex-wrap gap-4 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-success-400 rounded-full animate-pulse"></div>
                 <span className="text-gray-300">System Online</span>
               </div>
               <div className="flex items-center gap-2">

@@ -37,14 +37,14 @@ const Input = ({
           htmlFor={name}
           className={`block text-sm font-medium mb-1.5 transition-colors duration-200 ${
             hasError
-              ? 'text-red-600'
+              ? 'text-error-600'
               : isFocused
-                ? 'text-teal-600'
+                ? 'text-primary-600'
                 : 'text-gray-700'
           }`}
         >
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="text-error-500 ml-1">*</span>}
         </label>
       )}
       <div className="relative group">
@@ -53,9 +53,9 @@ const Input = ({
             <Icon
               className={`h-5 w-5 transition-colors duration-200 ${
                 hasError
-                  ? 'text-red-400'
+                  ? 'text-error-400'
                   : isFocused
-                    ? 'text-teal-500'
+                    ? 'text-primary-500'
                     : 'text-gray-400 group-hover:text-gray-500'
               }`}
             />
@@ -79,8 +79,8 @@ const Input = ({
             py-3
             text-gray-900 placeholder-gray-400
             ${hasError
-              ? 'border-red-300 bg-red-50/50 focus:border-red-500 focus:ring-4 focus:ring-red-500/10'
-              : 'border-gray-200 bg-white hover:border-gray-300 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10'
+              ? 'border-error-300 bg-error-50/50 focus:border-error-500 focus:ring-4 focus:ring-error-500/10'
+              : 'border-gray-200 bg-white hover:border-gray-300 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10'
             }
             ${disabled ? 'bg-gray-50 cursor-not-allowed opacity-60' : ''}
             focus:outline-none
@@ -102,12 +102,12 @@ const Input = ({
         )}
         {hasError && !isPassword && (
           <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
-            <FiAlertCircle className="h-5 w-5 text-red-500" />
+            <FiAlertCircle className="h-5 w-5 text-error-500" />
           </div>
         )}
       </div>
       {hasError && (
-        <p className="mt-1.5 text-sm text-red-600 flex items-center gap-1" role="alert">
+        <p className="mt-1.5 text-sm text-error-600 flex items-center gap-1" role="alert">
           {error}
         </p>
       )}

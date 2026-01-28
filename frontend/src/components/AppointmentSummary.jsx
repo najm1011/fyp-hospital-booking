@@ -57,14 +57,14 @@ const AppointmentSummary = ({
   const getStatusBadge = (status) => {
     const statusConfig = {
       SCHEDULED: {
-        bg: 'bg-teal-100',
-        text: 'text-teal-800',
+        bg: 'bg-primary-100',
+        text: 'text-primary-800',
         icon: FiClock,
         label: 'Scheduled',
       },
       CONFIRMED: {
-        bg: 'bg-green-100',
-        text: 'text-green-800',
+        bg: 'bg-success-100',
+        text: 'text-success-800',
         icon: FiCheckCircle,
         label: 'Confirmed',
       },
@@ -75,8 +75,8 @@ const AppointmentSummary = ({
         label: 'Completed',
       },
       CANCELLED: {
-        bg: 'bg-red-100',
-        text: 'text-red-800',
+        bg: 'bg-error-100',
+        text: 'text-error-800',
         icon: FiXCircle,
         label: 'Cancelled',
       },
@@ -126,8 +126,8 @@ const AppointmentSummary = ({
         onClick={handleViewDetails}
       >
         <div className="flex items-center space-x-3 min-w-0">
-          <div className="bg-teal-100 p-2 rounded-lg flex-shrink-0">
-            <FiCalendar className="h-4 w-4 text-teal-600" />
+          <div className="bg-primary-100 p-2 rounded-lg flex-shrink-0">
+            <FiCalendar className="h-4 w-4 text-primary-600" />
           </div>
           <div className="min-w-0">
             <p className="text-sm font-medium text-gray-900 truncate">
@@ -150,7 +150,7 @@ const AppointmentSummary = ({
     return (
       <div className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow ${className}`}>
         {/* Card Header */}
-        <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-4 py-3">
+        <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 text-white">
               <FiCalendar className="h-5 w-5" />
@@ -196,7 +196,7 @@ const AppointmentSummary = ({
           {appointment.confirmationNumber && (
             <div className="bg-gray-50 rounded-lg px-3 py-2 mb-4">
               <p className="text-xs text-gray-500">Confirmation #</p>
-              <p className="font-mono text-sm font-medium text-teal-600">
+              <p className="font-mono text-sm font-medium text-primary-600">
                 {appointment.confirmationNumber}
               </p>
             </div>
@@ -227,7 +227,7 @@ const AppointmentSummary = ({
                     e.stopPropagation();
                     onCancel(appointment);
                   }}
-                  className="flex-1 text-red-600 border-red-200 hover:bg-red-50"
+                  className="flex-1 text-error-600 border-error-200 hover:bg-error-50"
                 >
                   <FiX className="h-4 w-4 mr-1" />
                   Cancel
@@ -245,17 +245,17 @@ const AppointmentSummary = ({
     return (
       <div className={`bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden ${className}`}>
         {/* Header */}
-        <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-6 py-6">
+        <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <div className="flex items-center space-x-2 text-teal-100 text-sm mb-1">
+              <div className="flex items-center space-x-2 text-primary-100 text-sm mb-1">
                 <FiCalendar className="h-4 w-4" />
                 <span>Appointment Details</span>
               </div>
               <h2 className="text-xl font-bold text-white">
                 {formatDate(appointment.appointmentDate)}
               </h2>
-              <p className="text-teal-100 mt-1">
+              <p className="text-primary-100 mt-1">
                 {formatTime(appointment.startTime)}
                 {appointment.endTime && ` - ${formatTime(appointment.endTime)}`}
               </p>
@@ -271,9 +271,9 @@ const AppointmentSummary = ({
         <div className="p-6">
           {/* Confirmation Number */}
           {appointment.confirmationNumber && (
-            <div className="bg-teal-50 rounded-xl p-4 mb-6">
+            <div className="bg-primary-50 rounded-xl p-4 mb-6">
               <p className="text-xs text-gray-500 uppercase tracking-wide">Confirmation Number</p>
-              <p className="text-xl font-mono font-bold text-teal-600 mt-1">
+              <p className="text-xl font-mono font-bold text-primary-600 mt-1">
                 {appointment.confirmationNumber}
               </p>
             </div>
@@ -285,8 +285,8 @@ const AppointmentSummary = ({
               Doctor Information
             </h3>
             <div className="flex items-start space-x-4">
-              <div className="bg-teal-100 p-3 rounded-full">
-                <FiUser className="h-6 w-6 text-teal-600" />
+              <div className="bg-primary-100 p-3 rounded-full">
+                <FiUser className="h-6 w-6 text-primary-600" />
               </div>
               <div>
                 <h4 className="font-semibold text-gray-900 text-lg">Dr. {appointment.doctorName}</h4>
@@ -294,7 +294,7 @@ const AppointmentSummary = ({
                   <p className="text-gray-600">{appointment.specialty}</p>
                 )}
                 {appointment.departmentName && (
-                  <p className="text-teal-600 text-sm">{appointment.departmentName}</p>
+                  <p className="text-primary-600 text-sm">{appointment.departmentName}</p>
                 )}
                 {appointment.doctorEmail && (
                   <div className="flex items-center text-sm text-gray-500 mt-2">
@@ -352,7 +352,7 @@ const AppointmentSummary = ({
                     <LuPoundSterling className="h-4 w-4 mr-2" />
                     <span>Consultation Fee</span>
                   </div>
-                  <span className="font-semibold text-green-600">£{appointment.consultationFee}</span>
+                  <span className="font-semibold text-success-600">£{appointment.consultationFee}</span>
                 </div>
               )}
             </div>
@@ -377,7 +377,7 @@ const AppointmentSummary = ({
               <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
                 Doctor Notes
               </h3>
-              <div className="bg-teal-50 rounded-lg p-4 text-gray-700">
+              <div className="bg-primary-50 rounded-lg p-4 text-gray-700">
                 {appointment.doctorNotes}
               </div>
             </div>
@@ -396,7 +396,7 @@ const AppointmentSummary = ({
                 <Button
                   variant="outline"
                   onClick={() => onCancel(appointment)}
-                  className="flex-1 text-red-600 border-red-300 hover:bg-red-50"
+                  className="flex-1 text-error-600 border-error-300 hover:bg-error-50"
                 >
                   <FiTrash2 className="mr-2" />
                   Cancel Appointment
@@ -418,14 +418,14 @@ const AppointmentSummary = ({
         {/* Main Content */}
         <div className="flex items-start space-x-4 flex-1 min-w-0">
           {/* Date Badge */}
-          <div className="bg-teal-50 rounded-lg p-3 text-center flex-shrink-0">
-            <p className="text-xs text-teal-600 font-medium uppercase">
+          <div className="bg-primary-50 rounded-lg p-3 text-center flex-shrink-0">
+            <p className="text-xs text-primary-600 font-medium uppercase">
               {new Date(appointment.appointmentDate + 'T00:00:00').toLocaleDateString('en-GB', { month: 'short' })}
             </p>
-            <p className="text-2xl font-bold text-teal-700">
+            <p className="text-2xl font-bold text-primary-700">
               {new Date(appointment.appointmentDate + 'T00:00:00').getDate()}
             </p>
-            <p className="text-xs text-teal-600">
+            <p className="text-xs text-primary-600">
               {new Date(appointment.appointmentDate + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short' })}
             </p>
           </div>
@@ -508,7 +508,7 @@ const AppointmentSummary = ({
                         setShowMenu(false);
                         onCancel(appointment);
                       }}
-                      className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                      className="w-full flex items-center px-4 py-2 text-sm text-error-600 hover:bg-error-50"
                     >
                       <FiTrash2 className="h-4 w-4 mr-2" />
                       Cancel

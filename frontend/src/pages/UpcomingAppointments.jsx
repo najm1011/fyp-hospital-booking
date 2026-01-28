@@ -128,9 +128,9 @@ const UpcomingAppointments = () => {
         label: 'Scheduled',
       },
       CONFIRMED: {
-        bg: 'bg-green-100',
-        text: 'text-green-800',
-        border: 'border-green-200',
+        bg: 'bg-success-100',
+        text: 'text-success-800',
+        border: 'border-success-200',
         icon: FiCheckCircle,
         label: 'Confirmed',
       },
@@ -142,9 +142,9 @@ const UpcomingAppointments = () => {
         label: 'Completed',
       },
       CANCELLED: {
-        bg: 'bg-red-100',
-        text: 'text-red-800',
-        border: 'border-red-200',
+        bg: 'bg-error-100',
+        text: 'text-error-800',
+        border: 'border-error-200',
         icon: FiXCircle,
         label: 'Cancelled',
       },
@@ -285,7 +285,7 @@ const UpcomingAppointments = () => {
               <p className="text-sm font-medium text-gray-900">
                 {formatShortDate(appointment.appointmentDate)}
               </p>
-              <p className="text-xs text-teal-600 font-medium">
+              <p className="text-xs text-primary-600 font-medium">
                 {getRelativeDate(appointment.appointmentDate)}
               </p>
             </div>
@@ -310,8 +310,8 @@ const UpcomingAppointments = () => {
         {/* Patient */}
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
-            <div className="h-10 w-10 bg-teal-100 rounded-full flex items-center justify-center mr-3">
-              <FiUser className="h-5 w-5 text-teal-600" />
+            <div className="h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center mr-3">
+              <FiUser className="h-5 w-5 text-primary-600" />
             </div>
             <div>
               <p className="text-sm font-medium text-gray-900">
@@ -354,7 +354,7 @@ const UpcomingAppointments = () => {
               <button
                 onClick={() => handleMarkCompleted(appointment.id)}
                 disabled={isLoading}
-                className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors disabled:opacity-50"
+                className="p-2 text-success-600 hover:bg-success-50 rounded-lg transition-colors disabled:opacity-50"
                 title="Mark as Completed"
               >
                 {isLoading === 'complete' ? (
@@ -378,7 +378,7 @@ const UpcomingAppointments = () => {
               <button
                 onClick={() => handleCancelAppointment(appointment.id)}
                 disabled={isLoading}
-                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                className="p-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors disabled:opacity-50"
                 title="Cancel Appointment"
               >
                 {isLoading === 'cancel' ? (
@@ -429,7 +429,7 @@ const UpcomingAppointments = () => {
         <div className="p-4">
           {/* Date Badge */}
           <div className="mb-3">
-            <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-teal-50 text-teal-700 border border-teal-100">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-primary-50 text-primary-700 border border-primary-100">
               <FiCalendar className="h-3.5 w-3.5 mr-1.5" />
               {formatShortDate(appointment.appointmentDate)} - {getRelativeDate(appointment.appointmentDate)}
             </span>
@@ -437,8 +437,8 @@ const UpcomingAppointments = () => {
 
           {/* Patient Info */}
           <div className="flex items-start mb-4">
-            <div className="h-12 w-12 bg-teal-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-              <FiUser className="h-6 w-6 text-teal-600" />
+            <div className="h-12 w-12 bg-primary-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+              <FiUser className="h-6 w-6 text-primary-600" />
             </div>
             <div className="flex-1 min-w-0">
               <h4 className="text-base font-semibold text-gray-900 truncate">
@@ -471,7 +471,7 @@ const UpcomingAppointments = () => {
                 <button
                   onClick={() => handleMarkCompleted(appointment.id)}
                   disabled={isLoading}
-                  className="flex-1 flex items-center justify-center py-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors disabled:opacity-50 mr-2"
+                  className="flex-1 flex items-center justify-center py-2 text-success-600 hover:bg-success-50 rounded-lg transition-colors disabled:opacity-50 mr-2"
                 >
                   {isLoading === 'complete' ? (
                     <LoadingSpinner size="small" />
@@ -499,7 +499,7 @@ const UpcomingAppointments = () => {
                 <button
                   onClick={() => handleCancelAppointment(appointment.id)}
                   disabled={isLoading}
-                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                  className="p-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors disabled:opacity-50"
                   title="Cancel"
                 >
                   {isLoading === 'cancel' ? (
@@ -522,7 +522,7 @@ const UpcomingAppointments = () => {
       <div className="mb-6">
         <Link
           to="/doctor"
-          className="inline-flex items-center text-sm text-gray-500 hover:text-teal-600 mb-4 transition-colors"
+          className="inline-flex items-center text-sm text-gray-500 hover:text-primary-600 mb-4 transition-colors"
         >
           <FiArrowLeft className="mr-2 h-4 w-4" />
           Back to Dashboard
@@ -562,9 +562,9 @@ const UpcomingAppointments = () => {
           <p className="text-2xl font-bold text-blue-600">{stats.scheduled}</p>
           <p className="text-xs text-blue-600 mt-1">Scheduled</p>
         </div>
-        <div className="bg-green-50 rounded-xl p-4 border border-green-100 text-center">
-          <p className="text-2xl font-bold text-green-600">{stats.confirmed}</p>
-          <p className="text-xs text-green-600 mt-1">Confirmed</p>
+        <div className="bg-success-50 rounded-xl p-4 border border-success-100 text-center">
+          <p className="text-2xl font-bold text-success-600">{stats.confirmed}</p>
+          <p className="text-xs text-success-600 mt-1">Confirmed</p>
         </div>
         <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 text-center">
           <p className="text-2xl font-bold text-gray-600">{stats.completed}</p>
@@ -574,9 +574,9 @@ const UpcomingAppointments = () => {
           <p className="text-2xl font-bold text-yellow-600">{stats.noShow}</p>
           <p className="text-xs text-yellow-600 mt-1">No Show</p>
         </div>
-        <div className="bg-teal-50 rounded-xl p-4 border border-teal-100 text-center">
-          <p className="text-2xl font-bold text-teal-600">{stats.thisWeek}</p>
-          <p className="text-xs text-teal-600 mt-1">This Week</p>
+        <div className="bg-primary-50 rounded-xl p-4 border border-primary-100 text-center">
+          <p className="text-2xl font-bold text-primary-600">{stats.thisWeek}</p>
+          <p className="text-xs text-primary-600 mt-1">This Week</p>
         </div>
       </div>
 
@@ -591,7 +591,7 @@ const UpcomingAppointments = () => {
               placeholder="Search by patient name or email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
 
@@ -601,7 +601,7 @@ const UpcomingAppointments = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="pl-9 pr-8 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 bg-white appearance-none cursor-pointer"
+              className="pl-9 pr-8 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white appearance-none cursor-pointer"
             >
               <option value="all">All Status</option>
               <option value="SCHEDULED">Scheduled</option>
@@ -618,7 +618,7 @@ const UpcomingAppointments = () => {
               onClick={() => setViewMode('grouped')}
               className={`px-4 py-2.5 text-sm font-medium transition-colors ${
                 viewMode === 'grouped'
-                  ? 'bg-teal-500 text-white'
+                  ? 'bg-primary-500 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
               }`}
             >
@@ -628,7 +628,7 @@ const UpcomingAppointments = () => {
               onClick={() => setViewMode('table')}
               className={`px-4 py-2.5 text-sm font-medium transition-colors ${
                 viewMode === 'table'
-                  ? 'bg-teal-500 text-white'
+                  ? 'bg-primary-500 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
               }`}
             >
@@ -638,7 +638,7 @@ const UpcomingAppointments = () => {
               onClick={() => setViewMode('cards')}
               className={`px-4 py-2.5 text-sm font-medium transition-colors ${
                 viewMode === 'cards'
-                  ? 'bg-teal-500 text-white'
+                  ? 'bg-primary-500 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
               }`}
             >
@@ -677,12 +677,12 @@ const UpcomingAppointments = () => {
                 className="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors"
               >
                 <div className="flex items-center">
-                  <div className="bg-teal-100 p-2 rounded-lg mr-3">
-                    <FiCalendar className="h-5 w-5 text-teal-600" />
+                  <div className="bg-primary-100 p-2 rounded-lg mr-3">
+                    <FiCalendar className="h-5 w-5 text-primary-600" />
                   </div>
                   <div className="text-left">
                     <h3 className="font-semibold text-gray-900">{formatDate(date)}</h3>
-                    <p className="text-sm text-teal-600">{getRelativeDate(date)} - {dateAppointments.length} appointment{dateAppointments.length !== 1 ? 's' : ''}</p>
+                    <p className="text-sm text-primary-600">{getRelativeDate(date)} - {dateAppointments.length} appointment{dateAppointments.length !== 1 ? 's' : ''}</p>
                   </div>
                 </div>
                 {collapsedGroups[date] ? (
@@ -719,8 +719,8 @@ const UpcomingAppointments = () => {
 
                             {/* Patient Info */}
                             <div className="flex items-start">
-                              <div className="h-10 w-10 bg-teal-100 rounded-full flex items-center justify-center mr-3">
-                                <FiUser className="h-5 w-5 text-teal-600" />
+                              <div className="h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center mr-3">
+                                <FiUser className="h-5 w-5 text-primary-600" />
                               </div>
                               <div>
                                 <h4 className="font-semibold text-gray-900">
@@ -756,7 +756,7 @@ const UpcomingAppointments = () => {
                                 <button
                                   onClick={() => handleMarkCompleted(appointment.id)}
                                   disabled={isLoading}
-                                  className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors disabled:opacity-50"
+                                  className="p-2 text-success-600 hover:bg-success-50 rounded-lg transition-colors disabled:opacity-50"
                                   title="Mark as Completed"
                                 >
                                   {isLoading === 'complete' ? (
@@ -780,7 +780,7 @@ const UpcomingAppointments = () => {
                                 <button
                                   onClick={() => handleCancelAppointment(appointment.id)}
                                   disabled={isLoading}
-                                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                                  className="p-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors disabled:opacity-50"
                                   title="Cancel Appointment"
                                 >
                                   {isLoading === 'cancel' ? (

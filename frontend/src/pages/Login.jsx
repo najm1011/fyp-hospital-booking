@@ -64,17 +64,17 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-primary-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary-400/10 rounded-full blur-3xl"></div>
       </div>
 
       {/* Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="flex justify-center">
-          <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-4 rounded-2xl shadow-lg shadow-teal-500/30">
+          <div className="bg-gradient-to-br from-primary-500 to-primary-600 p-4 rounded-2xl shadow-lg shadow-primary-500/30">
             <FiActivity className="h-10 w-10 text-white" />
           </div>
         </div>
@@ -157,7 +157,7 @@ const Login = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded cursor-pointer"
+                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded cursor-pointer"
                 />
                 <label
                   htmlFor="remember-me"
@@ -169,7 +169,7 @@ const Login = () => {
               <div className="text-sm">
                 <Link
                   to="/forgot-password"
-                  className="font-medium text-teal-600 hover:text-teal-500 transition-colors"
+                  className="font-medium text-primary-600 hover:text-primary-500 transition-colors"
                 >
                   Forgot password?
                 </Link>
@@ -205,7 +205,7 @@ const Login = () => {
             <div className="mt-6">
               <Link
                 to="/register"
-                className="w-full inline-flex justify-center py-3 px-4 border-2 border-teal-500 rounded-xl shadow-sm text-sm font-semibold text-teal-600 bg-white hover:bg-teal-50 hover:border-teal-600 transition-all duration-200"
+                className="w-full inline-flex justify-center py-3 px-4 border-2 border-primary-500 rounded-xl shadow-sm text-sm font-semibold text-primary-600 bg-white hover:bg-primary-50 hover:border-primary-600 transition-all duration-200"
               >
                 Create an Account
               </Link>
@@ -216,11 +216,11 @@ const Login = () => {
         {/* Footer */}
         <p className="mt-8 text-center text-xs text-gray-500">
           By signing in, you agree to our{' '}
-          <Link to="/terms" className="text-teal-600 hover:text-teal-700 hover:underline transition-colors">
+          <Link to="/terms" className="text-primary-600 hover:text-primary-700 hover:underline transition-colors">
             Terms of Service
           </Link>{' '}
           and{' '}
-          <Link to="/privacy" className="text-teal-600 hover:text-teal-700 hover:underline transition-colors">
+          <Link to="/privacy" className="text-primary-600 hover:text-primary-700 hover:underline transition-colors">
             Privacy Policy
           </Link>
         </p>

@@ -123,24 +123,49 @@ const UserManagement = () => {
   const validateForm = (isEdit = false) => {
     const errors = {};
 
+    // Email validation
     if (!formData.email) {
       errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = 'Email is invalid';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
     }
 
+    // Password validation (required for new users, optional for edit)
     if (!isEdit && !formData.password) {
       errors.password = 'Password is required';
-    } else if (formData.password && formData.password.length < 6) {
-      errors.password = 'Password must be at least 6 characters';
+    } else if (formData.password) {
+      if (formData.password.length < 8) {
+        errors.password = 'Password must be at least 8 characters';
+      } else if (!/[A-Z]/.test(formData.password)) {
+        errors.password = 'Password must contain at least one uppercase letter';
+      } else if (!/[a-z]/.test(formData.password)) {
+        errors.password = 'Password must contain at least one lowercase letter';
+      } else if (!/[0-9]/.test(formData.password)) {
+        errors.password = 'Password must contain at least one number';
+      }
     }
 
-    if (!formData.firstName || formData.firstName.length < 2) {
+    // First name validation
+    if (!formData.firstName) {
+      errors.firstName = 'First name is required';
+    } else if (formData.firstName.length < 2) {
       errors.firstName = 'First name must be at least 2 characters';
+    } else if (formData.firstName.length > 100) {
+      errors.firstName = 'First name must not exceed 100 characters';
     }
 
-    if (!formData.lastName || formData.lastName.length < 2) {
+    // Last name validation
+    if (!formData.lastName) {
+      errors.lastName = 'Last name is required';
+    } else if (formData.lastName.length < 2) {
       errors.lastName = 'Last name must be at least 2 characters';
+    } else if (formData.lastName.length > 100) {
+      errors.lastName = 'Last name must not exceed 100 characters';
+    }
+
+    // Phone number validation (optional but must be valid if provided)
+    if (formData.phoneNumber && !/^[0-9+\-\s()]*$/.test(formData.phoneNumber)) {
+      errors.phoneNumber = 'Please enter a valid phone number';
     }
 
     setFormErrors(errors);
@@ -261,7 +286,7 @@ const UserManagement = () => {
     const styles = {
       ADMIN: 'bg-purple-100 text-purple-700',
       DOCTOR: 'bg-blue-100 text-blue-700',
-      PATIENT: 'bg-teal-100 text-teal-700',
+      PATIENT: 'bg-primary-100 text-primary-700',
     };
     return styles[role] || 'bg-gray-100 text-gray-700';
   };
@@ -307,7 +332,7 @@ const UserManagement = () => {
               resetForm();
               setShowAddModal(true);
             }}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl hover:from-teal-600 hover:to-cyan-700 transition-all shadow-lg shadow-teal-500/25"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all shadow-lg shadow-primary-500/25"
           >
             <FiUserPlus className="h-4 w-4" />
             Add User
@@ -336,11 +361,11 @@ const UserManagement = () => {
           </div>
         </Card>
 
-        <Card className="p-4 bg-gradient-to-br from-teal-500 to-cyan-600 text-white">
+        <Card className="p-4 bg-gradient-to-br from-primary-500 to-primary-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-3xl font-bold">{stats?.totalPatients || 0}</p>
-              <p className="text-teal-100 text-sm mt-1">Patients</p>
+              <p className="text-primary-100 text-sm mt-1">Patients</p>
             </div>
             <div className="p-3 bg-white/20 rounded-xl">
               <FiUser className="h-6 w-6" />
@@ -384,7 +409,7 @@ const UserManagement = () => {
               placeholder="Search by name, email, or phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
             />
           </div>
 
@@ -394,7 +419,7 @@ const UserManagement = () => {
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
-              className="px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 bg-white"
+              className="px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
             >
               <option value="ALL">All Roles</option>
               <option value="PATIENT">Patients</option>
@@ -407,7 +432,7 @@ const UserManagement = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 bg-white"
+            className="px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
           >
             <option value="ALL">All Status</option>
             <option value="ACTIVE">Active</option>
@@ -448,7 +473,7 @@ const UserManagement = () => {
                   <tr key={user.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center text-white font-medium">
+                        <div className="w-10 h-10 bg-gradient-to-br from-primary-400 to-primary-500 rounded-full flex items-center justify-center text-white font-medium">
                           {user.firstName?.[0]}
                           {user.lastName?.[0]}
                         </div>
@@ -488,8 +513,8 @@ const UserManagement = () => {
                       <span
                         className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${
                           user.isActive
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-red-100 text-red-700'
+                            ? 'bg-success-100 text-success-700'
+                            : 'bg-error-100 text-error-700'
                         }`}
                       >
                         {user.isActive ? (
@@ -513,7 +538,7 @@ const UserManagement = () => {
                           className={`p-2 rounded-lg transition-colors ${
                             user.isActive
                               ? 'text-orange-600 hover:bg-orange-50'
-                              : 'text-green-600 hover:bg-green-50'
+                              : 'text-success-600 hover:bg-success-50'
                           }`}
                           title={user.isActive ? 'Deactivate' : 'Activate'}
                         >
@@ -532,7 +557,7 @@ const UserManagement = () => {
                         </button>
                         <button
                           onClick={() => openDeleteModal(user)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors"
                           title="Delete"
                         >
                           <FiTrash2 className="h-5 w-5" />
@@ -572,13 +597,13 @@ const UserManagement = () => {
                     type="text"
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 ${
-                      formErrors.firstName ? 'border-red-300' : 'border-gray-200'
+                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                      formErrors.firstName ? 'border-error-300' : 'border-gray-200'
                     }`}
                     placeholder="Enter first name"
                   />
                   {formErrors.firstName && (
-                    <p className="text-red-500 text-xs mt-1">{formErrors.firstName}</p>
+                    <p className="text-error-500 text-xs mt-1">{formErrors.firstName}</p>
                   )}
                 </div>
                 <div>
@@ -589,13 +614,13 @@ const UserManagement = () => {
                     type="text"
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 ${
-                      formErrors.lastName ? 'border-red-300' : 'border-gray-200'
+                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                      formErrors.lastName ? 'border-error-300' : 'border-gray-200'
                     }`}
                     placeholder="Enter last name"
                   />
                   {formErrors.lastName && (
-                    <p className="text-red-500 text-xs mt-1">{formErrors.lastName}</p>
+                    <p className="text-error-500 text-xs mt-1">{formErrors.lastName}</p>
                   )}
                 </div>
               </div>
@@ -606,13 +631,13 @@ const UserManagement = () => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 ${
-                    formErrors.email ? 'border-red-300' : 'border-gray-200'
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                    formErrors.email ? 'border-error-300' : 'border-gray-200'
                   }`}
                   placeholder="user@example.com"
                 />
                 {formErrors.email && (
-                  <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>
+                  <p className="text-error-500 text-xs mt-1">{formErrors.email}</p>
                 )}
               </div>
 
@@ -622,13 +647,13 @@ const UserManagement = () => {
                   type="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 ${
-                    formErrors.password ? 'border-red-300' : 'border-gray-200'
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                    formErrors.password ? 'border-error-300' : 'border-gray-200'
                   }`}
                   placeholder="Min. 6 characters"
                 />
                 {formErrors.password && (
-                  <p className="text-red-500 text-xs mt-1">{formErrors.password}</p>
+                  <p className="text-error-500 text-xs mt-1">{formErrors.password}</p>
                 )}
               </div>
 
@@ -640,9 +665,14 @@ const UserManagement = () => {
                   type="tel"
                   value={formData.phoneNumber}
                   onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500"
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                    formErrors.phoneNumber ? 'border-error-300' : 'border-gray-200'
+                  }`}
                   placeholder="+44 7700 900000"
                 />
+                {formErrors.phoneNumber && (
+                  <p className="text-error-500 text-xs mt-1">{formErrors.phoneNumber}</p>
+                )}
               </div>
 
               <div>
@@ -650,7 +680,7 @@ const UserManagement = () => {
                 <select
                   value={formData.role}
                   onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 bg-white"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
                 >
                   <option value="PATIENT">Patient</option>
                   <option value="DOCTOR">Doctor</option>
@@ -669,7 +699,7 @@ const UserManagement = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex-1 px-4 py-2.5 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl hover:from-teal-600 hover:to-cyan-700 transition-all disabled:opacity-50"
+                  className="flex-1 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all disabled:opacity-50"
                 >
                   {submitting ? 'Creating...' : 'Create User'}
                 </button>
@@ -707,12 +737,12 @@ const UserManagement = () => {
                     type="text"
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 ${
-                      formErrors.firstName ? 'border-red-300' : 'border-gray-200'
+                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                      formErrors.firstName ? 'border-error-300' : 'border-gray-200'
                     }`}
                   />
                   {formErrors.firstName && (
-                    <p className="text-red-500 text-xs mt-1">{formErrors.firstName}</p>
+                    <p className="text-error-500 text-xs mt-1">{formErrors.firstName}</p>
                   )}
                 </div>
                 <div>
@@ -723,12 +753,12 @@ const UserManagement = () => {
                     type="text"
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 ${
-                      formErrors.lastName ? 'border-red-300' : 'border-gray-200'
+                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                      formErrors.lastName ? 'border-error-300' : 'border-gray-200'
                     }`}
                   />
                   {formErrors.lastName && (
-                    <p className="text-red-500 text-xs mt-1">{formErrors.lastName}</p>
+                    <p className="text-error-500 text-xs mt-1">{formErrors.lastName}</p>
                   )}
                 </div>
               </div>
@@ -739,12 +769,12 @@ const UserManagement = () => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 ${
-                    formErrors.email ? 'border-red-300' : 'border-gray-200'
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                    formErrors.email ? 'border-error-300' : 'border-gray-200'
                   }`}
                 />
                 {formErrors.email && (
-                  <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>
+                  <p className="text-error-500 text-xs mt-1">{formErrors.email}</p>
                 )}
               </div>
 
@@ -756,13 +786,13 @@ const UserManagement = () => {
                   type="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 ${
-                    formErrors.password ? 'border-red-300' : 'border-gray-200'
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                    formErrors.password ? 'border-error-300' : 'border-gray-200'
                   }`}
                   placeholder="Leave empty to keep current"
                 />
                 {formErrors.password && (
-                  <p className="text-red-500 text-xs mt-1">{formErrors.password}</p>
+                  <p className="text-error-500 text-xs mt-1">{formErrors.password}</p>
                 )}
               </div>
 
@@ -774,8 +804,13 @@ const UserManagement = () => {
                   type="tel"
                   value={formData.phoneNumber}
                   onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500"
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                    formErrors.phoneNumber ? 'border-error-300' : 'border-gray-200'
+                  }`}
                 />
+                {formErrors.phoneNumber && (
+                  <p className="text-error-500 text-xs mt-1">{formErrors.phoneNumber}</p>
+                )}
               </div>
 
               <div>
@@ -783,7 +818,7 @@ const UserManagement = () => {
                 <select
                   value={formData.role}
                   onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 bg-white"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
                 >
                   <option value="PATIENT">Patient</option>
                   <option value="DOCTOR">Doctor</option>
@@ -805,7 +840,7 @@ const UserManagement = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex-1 px-4 py-2.5 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-xl hover:from-teal-600 hover:to-cyan-700 transition-all disabled:opacity-50"
+                  className="flex-1 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all disabled:opacity-50"
                 >
                   {submitting ? 'Saving...' : 'Save Changes'}
                 </button>
@@ -820,8 +855,8 @@ const UserManagement = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl w-full max-w-md">
             <div className="p-6">
-              <div className="flex items-center justify-center w-12 h-12 bg-red-100 rounded-full mx-auto mb-4">
-                <FiAlertCircle className="h-6 w-6 text-red-600" />
+              <div className="flex items-center justify-center w-12 h-12 bg-error-100 rounded-full mx-auto mb-4">
+                <FiAlertCircle className="h-6 w-6 text-error-600" />
               </div>
               <h2 className="text-xl font-semibold text-gray-900 text-center mb-2">
                 Delete User
@@ -846,7 +881,7 @@ const UserManagement = () => {
                 <button
                   onClick={handleDeleteUser}
                   disabled={submitting}
-                  className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-2.5 bg-error-600 text-white rounded-xl hover:bg-error-700 transition-colors disabled:opacity-50"
                 >
                   {submitting ? 'Deleting...' : 'Delete User'}
                 </button>

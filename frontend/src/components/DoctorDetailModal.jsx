@@ -58,13 +58,13 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
   const getAvatarColor = (id) => {
     const colors = [
       'bg-blue-500',
-      'bg-green-500',
+      'bg-success-500',
       'bg-purple-500',
       'bg-pink-500',
       'bg-indigo-500',
-      'bg-teal-500',
+      'bg-primary-500',
       'bg-orange-500',
-      'bg-cyan-500',
+      'bg-primary-500',
     ];
     return colors[id % colors.length];
   };
@@ -91,7 +91,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
           </button>
 
           {/* Header with gradient */}
-          <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-6 py-8">
+          <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-8">
             <div className="flex items-center space-x-6">
               {/* Photo/Avatar */}
               {doctor.photoUrl ? (
@@ -111,7 +111,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
               {/* Basic Info */}
               <div className="text-white">
                 <h2 className="text-2xl font-bold">Dr. {doctor.fullName}</h2>
-                <p className="text-teal-100 text-lg">{doctor.specialty}</p>
+                <p className="text-primary-100 text-lg">{doctor.specialty}</p>
                 <div className="flex items-center mt-2 space-x-3">
                   <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-white/20">
                     <FiMapPin className="h-3 w-3 mr-1" />
@@ -131,7 +131,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
             {/* Qualifications */}
             <div className="mb-6">
               <h3 className="flex items-center text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
-                <FiAward className="h-4 w-4 mr-2 text-teal-500" />
+                <FiAward className="h-4 w-4 mr-2 text-primary-500" />
                 Qualifications
               </h3>
               <p className="text-gray-600">{doctor.qualifications}</p>
@@ -140,7 +140,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
             {/* About */}
             <div className="mb-6">
               <h3 className="flex items-center text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
-                <FiUser className="h-4 w-4 mr-2 text-teal-500" />
+                <FiUser className="h-4 w-4 mr-2 text-primary-500" />
                 About
               </h3>
               <p className="text-gray-600 leading-relaxed">{doctor.bio}</p>
@@ -172,7 +172,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
             {/* Availability */}
             <div className="mb-6">
               <h3 className="flex items-center text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
-                <FiClock className="h-4 w-4 mr-2 text-teal-500" />
+                <FiClock className="h-4 w-4 mr-2 text-primary-500" />
                 Weekly Availability
               </h3>
               {loading ? (
@@ -186,7 +186,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
                       key={day}
                       className={`p-3 rounded-lg text-center ${
                         slots.length > 0
-                          ? 'bg-green-50 border border-green-200'
+                          ? 'bg-success-50 border border-success-200'
                           : 'bg-gray-50 border border-gray-200'
                       }`}
                     >
@@ -194,7 +194,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
                         {day.toLowerCase()}
                       </p>
                       {slots.length > 0 ? (
-                        <p className="text-xs text-green-600 mt-1">
+                        <p className="text-xs text-success-600 mt-1">
                           {slots[0].startTime.slice(0, 5)} - {slots[slots.length - 1].endTime.slice(0, 5)}
                         </p>
                       ) : (
@@ -208,10 +208,10 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
                   {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day) => (
                     <div
                       key={day}
-                      className="p-3 rounded-lg text-center bg-green-50 border border-green-200"
+                      className="p-3 rounded-lg text-center bg-success-50 border border-success-200"
                     >
                       <p className="text-xs font-medium text-gray-700">{day}</p>
-                      <p className="text-xs text-green-600 mt-1">
+                      <p className="text-xs text-success-600 mt-1">
                         <FiCheckCircle className="inline h-3 w-3 mr-1" />
                         Available
                       </p>
@@ -222,15 +222,15 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
             </div>
 
             {/* Consultation Fee */}
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 mb-6">
+            <div className="bg-gradient-to-r from-success-50 to-emerald-50 rounded-xl p-4 mb-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Consultation Fee</p>
-                  <p className="text-2xl font-bold text-green-600">
+                  <p className="text-2xl font-bold text-success-600">
                     £{doctor.consultationFee}
                   </p>
                 </div>
-                <LuPoundSterling className="h-10 w-10 text-green-500 opacity-50" />
+                <LuPoundSterling className="h-10 w-10 text-success-500 opacity-50" />
               </div>
             </div>
           </div>

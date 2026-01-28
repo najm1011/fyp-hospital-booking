@@ -126,17 +126,17 @@ const AppointmentCard = ({
   const getStatusConfig = (status) => {
     const config = {
       SCHEDULED: {
-        bg: 'bg-teal-100',
-        text: 'text-teal-700',
-        border: 'border-teal-200',
+        bg: 'bg-primary-100',
+        text: 'text-primary-700',
+        border: 'border-primary-200',
         icon: FiClock,
         label: 'Scheduled',
         color: 'teal',
       },
       CONFIRMED: {
-        bg: 'bg-green-100',
-        text: 'text-green-700',
-        border: 'border-green-200',
+        bg: 'bg-success-100',
+        text: 'text-success-700',
+        border: 'border-success-200',
         icon: FiCheckCircle,
         label: 'Confirmed',
         color: 'green',
@@ -150,9 +150,9 @@ const AppointmentCard = ({
         color: 'gray',
       },
       CANCELLED: {
-        bg: 'bg-red-100',
-        text: 'text-red-700',
-        border: 'border-red-200',
+        bg: 'bg-error-100',
+        text: 'text-error-700',
+        border: 'border-error-200',
         icon: FiXCircle,
         label: 'Cancelled',
         color: 'red',
@@ -205,9 +205,9 @@ const AppointmentCard = ({
         onClick={handleClick}
         className={`flex items-center p-2 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm cursor-pointer transition-all ${className}`}
       >
-        <div className="flex-shrink-0 w-10 h-10 bg-teal-50 rounded-lg flex flex-col items-center justify-center mr-3">
-          <span className="text-xs font-bold text-teal-600">{dateInfo.day}</span>
-          <span className="text-[10px] text-teal-500 uppercase">{dateInfo.month}</span>
+        <div className="flex-shrink-0 w-10 h-10 bg-primary-50 rounded-lg flex flex-col items-center justify-center mr-3">
+          <span className="text-xs font-bold text-primary-600">{dateInfo.day}</span>
+          <span className="text-[10px] text-primary-500 uppercase">{dateInfo.month}</span>
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-gray-900 truncate">Dr. {appointment.doctorName}</p>
@@ -227,10 +227,10 @@ const AppointmentCard = ({
         {/* Date Badge */}
         <div
           onClick={handleClick}
-          className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-teal-50 to-cyan-100 rounded-xl flex flex-col items-center justify-center mr-4 border border-teal-200 cursor-pointer"
+          className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl flex flex-col items-center justify-center mr-4 border border-primary-200 cursor-pointer"
         >
-          <span className="text-lg font-bold text-teal-600">{dateInfo.day}</span>
-          <span className="text-xs text-teal-500 uppercase">{dateInfo.month}</span>
+          <span className="text-lg font-bold text-primary-600">{dateInfo.day}</span>
+          <span className="text-xs text-primary-500 uppercase">{dateInfo.month}</span>
         </div>
 
         {/* Info */}
@@ -266,7 +266,7 @@ const AppointmentCard = ({
                   e.stopPropagation();
                   onReschedule(appointment);
                 }}
-                className="p-2 text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
+                className="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
                 title="Reschedule"
               >
                 <FiEdit className="h-4 w-4" />
@@ -278,7 +278,7 @@ const AppointmentCard = ({
                   e.stopPropagation();
                   onCancel(appointment);
                 }}
-                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                className="p-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors"
                 title="Cancel"
               >
                 <FiX className="h-4 w-4" />
@@ -317,7 +317,7 @@ const AppointmentCard = ({
         {/* Date and Time Row */}
         <div className="flex items-start mb-4">
           {/* Date Badge */}
-          <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl flex flex-col items-center justify-center text-white mr-4 shadow-lg shadow-teal-500/20">
+          <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex flex-col items-center justify-center text-white mr-4 shadow-lg shadow-primary-500/20">
             <span className="text-2xl font-bold">{dateInfo.day}</span>
             <span className="text-xs uppercase opacity-90 font-medium">{dateInfo.month}</span>
           </div>
@@ -327,7 +327,7 @@ const AppointmentCard = ({
             <p className="text-sm text-gray-500 font-medium">{dateInfo.weekday}</p>
             <p className="text-base font-semibold text-gray-900">{dateInfo.full}</p>
             <div className="flex items-center mt-1.5 text-sm text-gray-600">
-              <FiClock className="h-4 w-4 mr-1.5 text-teal-500" />
+              <FiClock className="h-4 w-4 mr-1.5 text-primary-500" />
               {formatTime(appointment.startTime)}
               {appointment.endTime && ` - ${formatTime(appointment.endTime)}`}
             </div>
@@ -336,8 +336,8 @@ const AppointmentCard = ({
 
         {/* Doctor Info */}
         <div className="flex items-center p-3 bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl mb-4 border border-gray-100">
-          <div className="bg-gradient-to-br from-teal-100 to-cyan-50 p-2.5 rounded-xl mr-3">
-            <FiUser className="h-5 w-5 text-teal-600" />
+          <div className="bg-gradient-to-br from-primary-100 to-primary-50 p-2.5 rounded-xl mr-3">
+            <FiUser className="h-5 w-5 text-primary-600" />
           </div>
           <div className="flex-1 min-w-0">
             <h4 className="font-semibold text-gray-900 truncate">Dr. {appointment.doctorName}</h4>
@@ -393,7 +393,7 @@ const AppointmentCard = ({
         {!showActions && (
           <button
             onClick={handleClick}
-            className="w-full text-center text-sm text-teal-600 hover:text-teal-700 font-semibold pt-4 border-t border-gray-100 hover:bg-teal-50/50 -mx-5 px-5 -mb-5 pb-4 transition-colors"
+            className="w-full text-center text-sm text-primary-600 hover:text-primary-700 font-semibold pt-4 border-t border-gray-100 hover:bg-primary-50/50 -mx-5 px-5 -mb-5 pb-4 transition-colors"
           >
             View Details
           </button>

@@ -45,9 +45,9 @@ const errorTypes = {
 
 const colorClasses = {
   red: {
-    bg: 'bg-red-100',
-    icon: 'text-red-600',
-    button: 'bg-red-600 hover:bg-red-700',
+    bg: 'bg-error-100',
+    icon: 'text-error-600',
+    button: 'bg-error-600 hover:bg-error-700',
   },
   yellow: {
     bg: 'bg-yellow-100',

@@ -84,7 +84,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                   >
                     <FiBell className="h-5 w-5" />
                     {/* Notification badge */}
-                    <span className="absolute top-1.5 right-1.5 h-2 w-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+                    <span className="absolute top-1.5 right-1.5 h-2 w-2 bg-error-500 rounded-full ring-2 ring-white"></span>
                   </button>
 
                   {/* Notifications dropdown */}
@@ -176,7 +176,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                         <div className="border-t border-gray-100 py-1.5">
                           <button
                             onClick={handleLogout}
-                            className="flex items-center w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                            className="flex items-center w-full px-4 py-2.5 text-sm text-error-600 hover:bg-error-50 transition-colors"
                           >
                             <FiLogOut className="h-4 w-4 mr-3" />
                             Sign Out

@@ -125,8 +125,8 @@ const RescheduleAppointmentModal = ({
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="bg-teal-100 p-2 rounded-full">
-                  <FiRefreshCw className="h-5 w-5 text-teal-600" />
+                <div className="bg-primary-100 p-2 rounded-full">
+                  <FiRefreshCw className="h-5 w-5 text-primary-600" />
                 </div>
                 <h2 className="text-lg font-semibold text-gray-900">Reschedule Appointment</h2>
               </div>
@@ -197,8 +197,8 @@ const RescheduleAppointmentModal = ({
                     <p className="mt-2 text-sm text-gray-500">Loading available slots...</p>
                   </div>
                 ) : error ? (
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                    <p className="text-sm text-red-600">{error}</p>
+                  <div className="bg-error-50 border border-error-200 rounded-lg p-4">
+                    <p className="text-sm text-error-600">{error}</p>
                   </div>
                 ) : availableSlots.length > 0 ? (
                   <TimeSlotPicker
@@ -215,16 +215,16 @@ const RescheduleAppointmentModal = ({
 
             {/* New Appointment Summary */}
             {selectedDate && selectedSlot && (
-              <div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
-                <h4 className="text-sm font-medium text-teal-800 mb-2">New Appointment</h4>
+              <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                <h4 className="text-sm font-medium text-primary-800 mb-2">New Appointment</h4>
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-teal-700">Date:</span>
-                    <span className="font-medium text-teal-900">{formatDate(selectedDate)}</span>
+                    <span className="text-primary-700">Date:</span>
+                    <span className="font-medium text-primary-900">{formatDate(selectedDate)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-teal-700">Time:</span>
-                    <span className="font-medium text-teal-900">
+                    <span className="text-primary-700">Time:</span>
+                    <span className="font-medium text-primary-900">
                       {formatTime(selectedSlot.startTime)} - {formatTime(selectedSlot.endTime)}
                     </span>
                   </div>

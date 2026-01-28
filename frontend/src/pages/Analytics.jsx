@@ -153,7 +153,7 @@ const Analytics = () => {
           <select
             value={months}
             onChange={(e) => setMonths(Number(e.target.value))}
-            className="px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 bg-white"
+            className="px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
           >
             <option value={3}>Last 3 Months</option>
             <option value={6}>Last 6 Months</option>
@@ -180,11 +180,11 @@ const Analytics = () => {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="p-4 bg-gradient-to-br from-teal-500 to-cyan-600 text-white">
+        <Card className="p-4 bg-gradient-to-br from-primary-500 to-primary-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-3xl font-bold">{analytics?.totalAppointments || 0}</p>
-              <p className="text-teal-100 text-sm mt-1">Total Appointments</p>
+              <p className="text-primary-100 text-sm mt-1">Total Appointments</p>
             </div>
             <div className="p-3 bg-white/20 rounded-xl">
               <FiCalendar className="h-6 w-6" />
@@ -216,11 +216,11 @@ const Analytics = () => {
           </div>
         </Card>
 
-        <Card className="p-4 bg-gradient-to-br from-green-500 to-emerald-600 text-white">
+        <Card className="p-4 bg-gradient-to-br from-success-500 to-emerald-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-3xl font-bold">{analytics?.completionRate || 0}%</p>
-              <p className="text-green-100 text-sm mt-1">Completion Rate</p>
+              <p className="text-success-100 text-sm mt-1">Completion Rate</p>
             </div>
             <div className="p-3 bg-white/20 rounded-xl">
               <FiCheckCircle className="h-6 w-6" />
@@ -233,8 +233,8 @@ const Analytics = () => {
       <div className="grid grid-cols-3 gap-4">
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-green-100 rounded-xl">
-              <FiCheckCircle className="h-6 w-6 text-green-600" />
+            <div className="p-3 bg-success-100 rounded-xl">
+              <FiCheckCircle className="h-6 w-6 text-success-600" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">{analytics?.completionRate || 0}%</p>
@@ -245,8 +245,8 @@ const Analytics = () => {
 
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-red-100 rounded-xl">
-              <FiXCircle className="h-6 w-6 text-red-600" />
+            <div className="p-3 bg-error-100 rounded-xl">
+              <FiXCircle className="h-6 w-6 text-error-600" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">{analytics?.cancellationRate || 0}%</p>
@@ -271,7 +271,7 @@ const Analytics = () => {
       {/* Monthly Trend Chart */}
       <Card className="p-6">
         <div className="flex items-center gap-2 mb-6">
-          <FiTrendingUp className="h-5 w-5 text-teal-600" />
+          <FiTrendingUp className="h-5 w-5 text-primary-600" />
           <h2 className="text-lg font-semibold text-gray-900">Appointments Per Month</h2>
         </div>
         {analytics?.monthlyStats?.length > 0 ? (
@@ -335,7 +335,7 @@ const Analytics = () => {
         {/* Status Distribution Pie Chart */}
         <Card className="p-6">
           <div className="flex items-center gap-2 mb-6">
-            <FiPieChart className="h-5 w-5 text-teal-600" />
+            <FiPieChart className="h-5 w-5 text-primary-600" />
             <h2 className="text-lg font-semibold text-gray-900">Status Distribution</h2>
           </div>
           {getStatusPieData().length > 0 ? (
@@ -372,7 +372,7 @@ const Analytics = () => {
         {/* Weekday Distribution */}
         <Card className="p-6">
           <div className="flex items-center gap-2 mb-6">
-            <FiBarChart2 className="h-5 w-5 text-teal-600" />
+            <FiBarChart2 className="h-5 w-5 text-primary-600" />
             <h2 className="text-lg font-semibold text-gray-900">Appointments by Day of Week</h2>
           </div>
           {getWeekdayData().length > 0 ? (
@@ -413,7 +413,7 @@ const Analytics = () => {
       {/* Department Distribution */}
       <Card className="p-6">
         <div className="flex items-center gap-2 mb-6">
-          <FiBarChart2 className="h-5 w-5 text-teal-600" />
+          <FiBarChart2 className="h-5 w-5 text-primary-600" />
           <h2 className="text-lg font-semibold text-gray-900">Appointments by Department</h2>
         </div>
         {getDepartmentData().length > 0 ? (
@@ -440,7 +440,7 @@ const Analytics = () => {
                     return (
                       <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
                         <p className="font-medium text-gray-900">{payload[0].payload.fullName}</p>
-                        <p className="text-sm text-teal-600">
+                        <p className="text-sm text-primary-600">
                           Appointments: {payload[0].value}
                         </p>
                       </div>
@@ -500,12 +500,12 @@ const Analytics = () => {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success-100 text-success-700">
                         {month.completed}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-error-100 text-error-700">
                         {month.cancelled}
                       </span>
                     </td>

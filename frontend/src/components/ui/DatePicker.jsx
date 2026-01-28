@@ -144,9 +144,9 @@ const DatePicker = ({
             ${disabled
               ? 'text-gray-300 cursor-not-allowed'
               : selected
-                ? 'bg-teal-600 text-white hover:bg-teal-700'
+                ? 'bg-primary-600 text-white hover:bg-primary-700'
                 : today
-                  ? 'bg-teal-100 text-teal-600 hover:bg-teal-200'
+                  ? 'bg-primary-100 text-primary-600 hover:bg-primary-200'
                   : 'text-gray-700 hover:bg-gray-100'
             }
           `}
@@ -181,7 +181,7 @@ const DatePicker = ({
       {label && (
         <label className="block text-sm font-medium text-gray-700 mb-1.5">
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="text-error-500 ml-1">*</span>}
         </label>
       )}
 
@@ -196,20 +196,20 @@ const DatePicker = ({
           ${disabled
             ? 'bg-gray-50 cursor-not-allowed border-gray-200 opacity-60'
             : error
-              ? 'border-red-300 bg-red-50/50 focus:border-red-500 focus:ring-4 focus:ring-red-500/10'
-              : 'border-gray-200 hover:border-gray-300 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10'
+              ? 'border-error-300 bg-error-50/50 focus:border-error-500 focus:ring-4 focus:ring-error-500/10'
+              : 'border-gray-200 hover:border-gray-300 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10'
           }
-          ${isOpen ? 'ring-4 ring-teal-500/10 border-teal-500' : ''}
+          ${isOpen ? 'ring-4 ring-primary-500/10 border-primary-500' : ''}
         `}
       >
         <span className={value ? 'text-gray-900 font-medium' : 'text-gray-400'}>
           {value ? formatDisplayDate(value) : placeholder}
         </span>
-        <FiCalendar className={`h-5 w-5 ${isOpen ? 'text-teal-500' : error ? 'text-red-400' : 'text-gray-400'} transition-colors`} />
+        <FiCalendar className={`h-5 w-5 ${isOpen ? 'text-primary-500' : error ? 'text-error-400' : 'text-gray-400'} transition-colors`} />
       </button>
 
       {error && (
-        <p className="mt-1.5 text-sm text-red-600">{error}</p>
+        <p className="mt-1.5 text-sm text-error-600">{error}</p>
       )}
 
       {/* Calendar Dropdown */}
@@ -281,7 +281,7 @@ const DatePicker = ({
                   setIsOpen(false);
                 }
               }}
-              className="w-full text-center text-sm text-teal-600 hover:text-teal-700 font-semibold py-1.5 hover:bg-teal-50 rounded-lg transition-colors"
+              className="w-full text-center text-sm text-primary-600 hover:text-primary-700 font-semibold py-1.5 hover:bg-primary-50 rounded-lg transition-colors"
             >
               Today
             </button>

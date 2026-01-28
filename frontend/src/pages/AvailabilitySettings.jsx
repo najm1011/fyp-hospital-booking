@@ -417,14 +417,14 @@ const AvailabilitySettings = () => {
           </button>
           <button
             onClick={() => setShowQuickSetup(true)}
-            className="flex items-center gap-2 px-4 py-2 text-teal-700 bg-teal-50 border border-teal-200 rounded-xl hover:bg-teal-100 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-primary-700 bg-primary-50 border border-primary-200 rounded-xl hover:bg-primary-100 transition-colors"
           >
             <FiZap className="h-4 w-4" />
             <span className="hidden sm:inline">Quick Setup</span>
           </button>
           <button
             onClick={handleAddSlot}
-            className="flex items-center gap-2 px-4 py-2 text-white bg-gradient-to-r from-teal-500 to-cyan-600 rounded-xl hover:from-teal-600 hover:to-cyan-700 transition-all shadow-md shadow-teal-500/20"
+            className="flex items-center gap-2 px-4 py-2 text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all shadow-md shadow-primary-500/20"
           >
             <FiPlus className="h-4 w-4" />
             <span className="hidden sm:inline">Add Slot</span>
@@ -454,8 +454,8 @@ const AvailabilitySettings = () => {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <FiCheck className="h-5 w-5 text-green-600" />
+            <div className="p-2 bg-success-100 rounded-lg">
+              <FiCheck className="h-5 w-5 text-success-600" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">{stats.activeSlots}</p>
@@ -476,8 +476,8 @@ const AvailabilitySettings = () => {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-teal-100 rounded-lg">
-              <FiCalendar className="h-5 w-5 text-teal-600" />
+            <div className="p-2 bg-primary-100 rounded-lg">
+              <FiCalendar className="h-5 w-5 text-primary-600" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">{stats.workingDays}</p>
@@ -491,8 +491,8 @@ const AvailabilitySettings = () => {
       {timeSlots.length === 0 && (
         <Card className="p-8 text-center">
           <div className="max-w-md mx-auto">
-            <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FiCalendar className="h-8 w-8 text-teal-600" />
+            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <FiCalendar className="h-8 w-8 text-primary-600" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">No Working Hours Set</h3>
             <p className="text-gray-500 mb-6">
@@ -502,14 +502,14 @@ const AvailabilitySettings = () => {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
                 onClick={() => setShowQuickSetup(true)}
-                className="flex items-center justify-center gap-2 px-6 py-2.5 text-white bg-gradient-to-r from-teal-500 to-cyan-600 rounded-xl hover:from-teal-600 hover:to-cyan-700 transition-all shadow-md"
+                className="flex items-center justify-center gap-2 px-6 py-2.5 text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all shadow-md"
               >
                 <FiZap className="h-4 w-4" />
                 Quick Setup
               </button>
               <button
                 onClick={handleAddSlot}
-                className="flex items-center justify-center gap-2 px-6 py-2.5 text-teal-700 bg-teal-50 border border-teal-200 rounded-xl hover:bg-teal-100 transition-colors"
+                className="flex items-center justify-center gap-2 px-6 py-2.5 text-primary-700 bg-primary-50 border border-primary-200 rounded-xl hover:bg-primary-100 transition-colors"
               >
                 <FiPlus className="h-4 w-4" />
                 Add Manually
@@ -527,7 +527,7 @@ const AvailabilitySettings = () => {
             {timeSlots.length > 0 && (
               <button
                 onClick={handleClearAll}
-                className="text-sm text-red-600 hover:text-red-700 hover:underline"
+                className="text-sm text-error-600 hover:text-error-700 hover:underline"
               >
                 Clear All
               </button>
@@ -552,7 +552,7 @@ const AvailabilitySettings = () => {
                           key={slot.id}
                           className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${
                             slot.isAvailable
-                              ? 'bg-white border-teal-200 text-teal-700'
+                              ? 'bg-white border-primary-200 text-primary-700'
                               : 'bg-gray-100 border-gray-300 text-gray-500 line-through'
                           }`}
                         >
@@ -566,7 +566,7 @@ const AvailabilitySettings = () => {
                               disabled={actionLoading[slot.id]}
                               className={`p-1 rounded transition-colors ${
                                 slot.isAvailable
-                                  ? 'text-green-600 hover:bg-green-50'
+                                  ? 'text-success-600 hover:bg-success-50'
                                   : 'text-gray-400 hover:bg-gray-100'
                               }`}
                               title={slot.isAvailable ? 'Disable slot' : 'Enable slot'}
@@ -589,7 +589,7 @@ const AvailabilitySettings = () => {
                             <button
                               onClick={() => handleDeleteSlot(slot.id)}
                               disabled={actionLoading[slot.id]}
-                              className="p-1 text-red-600 hover:bg-red-50 rounded transition-colors"
+                              className="p-1 text-error-600 hover:bg-error-50 rounded transition-colors"
                               title="Delete slot"
                             >
                               {actionLoading[slot.id] === 'delete' ? (
@@ -617,7 +617,7 @@ const AvailabilitySettings = () => {
                     setFormError('');
                     setShowAddModal(true);
                   }}
-                  className="flex items-center gap-1 px-3 py-1.5 text-sm text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
+                  className="flex items-center gap-1 px-3 py-1.5 text-sm text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
                 >
                   <FiPlus className="h-4 w-4" />
                   Add
@@ -660,7 +660,7 @@ const AvailabilitySettings = () => {
                     setFormData({ ...formData, dayOfWeek: e.target.value });
                     setCopyToDays((prev) => prev.filter((d) => d !== e.target.value));
                   }}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 >
                   {DAYS_OF_WEEK.map((day) => (
                     <option key={day.value} value={day.value}>
@@ -677,7 +677,7 @@ const AvailabilitySettings = () => {
                   <select
                     value={formData.startTime}
                     onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -691,7 +691,7 @@ const AvailabilitySettings = () => {
                   <select
                     value={formData.endTime}
                     onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -709,7 +709,7 @@ const AvailabilitySettings = () => {
                   type="button"
                   onClick={() => setFormData({ ...formData, isAvailable: !formData.isAvailable })}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    formData.isAvailable ? 'bg-teal-500' : 'bg-gray-300'
+                    formData.isAvailable ? 'bg-primary-500' : 'bg-gray-300'
                   }`}
                 >
                   <span
@@ -737,7 +737,7 @@ const AvailabilitySettings = () => {
                         onClick={() => toggleCopyToDay(day.value)}
                         className={`px-3 py-1.5 text-sm rounded-lg border transition-colors ${
                           copyToDays.includes(day.value)
-                            ? 'bg-teal-50 border-teal-300 text-teal-700'
+                            ? 'bg-primary-50 border-primary-300 text-primary-700'
                             : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
                         }`}
                       >
@@ -760,7 +760,7 @@ const AvailabilitySettings = () => {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-teal-500 to-cyan-600 rounded-xl hover:from-teal-600 hover:to-cyan-700 transition-all font-medium disabled:opacity-50"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all font-medium disabled:opacity-50"
                 >
                   {saving ? (
                     <>
@@ -786,8 +786,8 @@ const AvailabilitySettings = () => {
           <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-teal-100 rounded-lg">
-                  <FiZap className="h-5 w-5 text-teal-600" />
+                <div className="p-2 bg-primary-100 rounded-lg">
+                  <FiZap className="h-5 w-5 text-primary-600" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">Quick Setup</h3>
@@ -813,7 +813,7 @@ const AvailabilitySettings = () => {
                     key={index}
                     type="button"
                     onClick={() => applyTemplate(template)}
-                    className="text-left px-4 py-3 rounded-xl border border-gray-200 hover:border-teal-300 hover:bg-teal-50 transition-colors"
+                    className="text-left px-4 py-3 rounded-xl border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors"
                   >
                     <span className="font-medium text-gray-900">{template.name}</span>
                   </button>
@@ -836,7 +836,7 @@ const AvailabilitySettings = () => {
                       onClick={() => toggleQuickSetupDay(day.value)}
                       className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${
                         quickSetupData.selectedDays.includes(day.value)
-                          ? 'bg-teal-500 border-teal-500 text-white'
+                          ? 'bg-primary-500 border-primary-500 text-white'
                           : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
                       }`}
                     >
@@ -855,7 +855,7 @@ const AvailabilitySettings = () => {
                     onChange={(e) =>
                       setQuickSetupData({ ...quickSetupData, startTime: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -871,7 +871,7 @@ const AvailabilitySettings = () => {
                     onChange={(e) =>
                       setQuickSetupData({ ...quickSetupData, endTime: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -923,7 +923,7 @@ const AvailabilitySettings = () => {
               <button
                 onClick={handleQuickSetupSubmit}
                 disabled={saving || quickSetupData.selectedDays.length === 0}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-teal-500 to-cyan-600 rounded-xl hover:from-teal-600 hover:to-cyan-700 transition-all font-medium disabled:opacity-50"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all font-medium disabled:opacity-50"
               >
                 {saving ? (
                   <>

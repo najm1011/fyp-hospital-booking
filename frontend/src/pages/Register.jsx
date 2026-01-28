@@ -119,11 +119,11 @@ const Register = () => {
 
     const levels = [
       { label: '', color: '' },
-      { label: 'Weak', color: 'bg-red-500' },
+      { label: 'Weak', color: 'bg-error-500' },
       { label: 'Fair', color: 'bg-orange-500' },
       { label: 'Good', color: 'bg-yellow-500' },
-      { label: 'Strong', color: 'bg-green-500' },
-      { label: 'Very Strong', color: 'bg-green-600' },
+      { label: 'Strong', color: 'bg-success-500' },
+      { label: 'Very Strong', color: 'bg-success-600' },
     ];
 
     return { strength, ...levels[strength] };
@@ -157,11 +157,11 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-cyan-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="bg-gradient-to-br from-teal-500 to-cyan-600 p-3 rounded-full">
+          <div className="bg-gradient-to-br from-primary-500 to-primary-600 p-3 rounded-full">
             <FiActivity className="h-10 w-10 text-white" />
           </div>
         </div>
@@ -288,27 +288,27 @@ const Register = () => {
                     />
                   </div>
                   <span className={`text-xs font-medium ${
-                    passwordStrength.strength <= 2 ? 'text-red-500' :
-                    passwordStrength.strength <= 3 ? 'text-yellow-500' : 'text-green-500'
+                    passwordStrength.strength <= 2 ? 'text-error-500' :
+                    passwordStrength.strength <= 3 ? 'text-yellow-500' : 'text-success-500'
                   }`}>
                     {passwordStrength.label}
                   </span>
                 </div>
                 <ul className="mt-2 text-xs text-gray-500 space-y-1">
                   <li className="flex items-center gap-1">
-                    <FiCheck className={values.password.length >= 8 ? 'text-green-500' : 'text-gray-300'} />
+                    <FiCheck className={values.password.length >= 8 ? 'text-success-500' : 'text-gray-300'} />
                     At least 8 characters
                   </li>
                   <li className="flex items-center gap-1">
-                    <FiCheck className={/[A-Z]/.test(values.password) ? 'text-green-500' : 'text-gray-300'} />
+                    <FiCheck className={/[A-Z]/.test(values.password) ? 'text-success-500' : 'text-gray-300'} />
                     One uppercase letter
                   </li>
                   <li className="flex items-center gap-1">
-                    <FiCheck className={/[a-z]/.test(values.password) ? 'text-green-500' : 'text-gray-300'} />
+                    <FiCheck className={/[a-z]/.test(values.password) ? 'text-success-500' : 'text-gray-300'} />
                     One lowercase letter
                   </li>
                   <li className="flex items-center gap-1">
-                    <FiCheck className={/[0-9]/.test(values.password) ? 'text-green-500' : 'text-gray-300'} />
+                    <FiCheck className={/[0-9]/.test(values.password) ? 'text-success-500' : 'text-gray-300'} />
                     One number
                   </li>
                 </ul>
@@ -339,16 +339,16 @@ const Register = () => {
                   name="terms"
                   type="checkbox"
                   required
-                  className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded cursor-pointer"
+                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded cursor-pointer"
                 />
               </div>
               <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 cursor-pointer">
                 I agree to the{' '}
-                <Link to="/terms" className="text-teal-600 hover:underline">
+                <Link to="/terms" className="text-primary-600 hover:underline">
                   Terms of Service
                 </Link>{' '}
                 and{' '}
-                <Link to="/privacy" className="text-teal-600 hover:underline">
+                <Link to="/privacy" className="text-primary-600 hover:underline">
                   Privacy Policy
                 </Link>
               </label>
@@ -383,7 +383,7 @@ const Register = () => {
             <div className="mt-6">
               <Link
                 to="/login"
-                className="w-full inline-flex justify-center py-3 px-4 border-2 border-teal-600 rounded-lg shadow-sm text-sm font-semibold text-teal-600 bg-white hover:bg-teal-50 transition-colors duration-200"
+                className="w-full inline-flex justify-center py-3 px-4 border-2 border-primary-600 rounded-lg shadow-sm text-sm font-semibold text-primary-600 bg-white hover:bg-primary-50 transition-colors duration-200"
               >
                 Sign In Instead
               </Link>
