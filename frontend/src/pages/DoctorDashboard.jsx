@@ -19,6 +19,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { StatsCard, Card, EmptyState, Button, Alert, LoadingSpinner } from '../components/ui';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 
 const DoctorDashboard = () => {
   const { user } = useAuth();
@@ -69,8 +70,9 @@ const DoctorDashboard = () => {
       setUpcomingAppointments(upcomingRes.data || []);
     } catch (err) {
       console.error('Error fetching doctor dashboard:', err);
-      setError('Failed to load dashboard data. Please try again.');
-      toast.error('Failed to load dashboard data');
+      const message = getErrorMessage(err, 'Unable to load your dashboard. Please refresh the page.');
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -100,13 +102,13 @@ const DoctorDashboard = () => {
   // Get status badge color
   const getStatusBadge = (status) => {
     const badges = {
-      SCHEDULED: 'bg-blue-100 text-blue-800',
-      CONFIRMED: 'bg-success-100 text-success-800',
-      COMPLETED: 'bg-gray-100 text-gray-800',
-      CANCELLED: 'bg-error-100 text-error-800',
-      NO_SHOW: 'bg-yellow-100 text-yellow-800',
+      SCHEDULED: 'bg-blue-100 text-blue-700',
+      CONFIRMED: 'bg-success-100 text-success-700',
+      COMPLETED: 'bg-gray-100 text-gray-700',
+      CANCELLED: 'bg-error-100 text-error-700',
+      NO_SHOW: 'bg-orange-100 text-orange-700',
     };
-    return badges[status] || 'bg-gray-100 text-gray-800';
+    return badges[status] || 'bg-gray-100 text-gray-700';
   };
 
   // Handle mark as completed
@@ -119,7 +121,7 @@ const DoctorDashboard = () => {
       toast.success('Appointment marked as completed');
       fetchDashboardData();
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to complete appointment');
+      toast.error(getErrorMessage(err, 'Unable to mark this appointment as completed. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [appointmentId]: null }));
     }
@@ -133,7 +135,7 @@ const DoctorDashboard = () => {
       toast.success('Appointment marked as no-show');
       fetchDashboardData();
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to mark as no-show');
+      toast.error(getErrorMessage(err, 'Unable to record no-show. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [appointmentId]: null }));
     }
@@ -149,7 +151,7 @@ const DoctorDashboard = () => {
       toast.success('Appointment cancelled');
       fetchDashboardData();
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to cancel appointment');
+      toast.error(getErrorMessage(err, 'Unable to cancel this appointment. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [appointmentId]: null }));
     }
@@ -339,7 +341,7 @@ const DoctorDashboard = () => {
         <div className="lg:col-span-2">
           <Card>
             {/* Tabs */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
               <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
                 {[
                   { value: 'today', label: 'Today', count: todayAppointments.length },

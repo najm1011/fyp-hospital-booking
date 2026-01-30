@@ -21,6 +21,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { Card, EmptyState, Button, Alert, LoadingSpinner } from '../components/ui';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 
 const TodayAppointments = () => {
   const { user } = useAuth();
@@ -67,8 +68,9 @@ const TodayAppointments = () => {
       setAppointments(response.data || []);
     } catch (err) {
       console.error('Error fetching today\'s appointments:', err);
-      setError('Failed to load today\'s appointments. Please try again.');
-      toast.error('Failed to load appointments');
+      const message = getErrorMessage(err, 'Unable to load today\'s appointments. Please refresh the page.');
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -100,36 +102,36 @@ const TodayAppointments = () => {
     const configs = {
       SCHEDULED: {
         bg: 'bg-blue-100',
-        text: 'text-blue-800',
+        text: 'text-blue-700',
         border: 'border-blue-200',
         icon: FiClock,
         label: 'Scheduled',
       },
       CONFIRMED: {
         bg: 'bg-success-100',
-        text: 'text-success-800',
+        text: 'text-success-700',
         border: 'border-success-200',
         icon: FiCheckCircle,
         label: 'Confirmed',
       },
       COMPLETED: {
         bg: 'bg-gray-100',
-        text: 'text-gray-800',
+        text: 'text-gray-700',
         border: 'border-gray-200',
         icon: FiCheckCircle,
         label: 'Completed',
       },
       CANCELLED: {
         bg: 'bg-error-100',
-        text: 'text-error-800',
+        text: 'text-error-700',
         border: 'border-error-200',
         icon: FiXCircle,
         label: 'Cancelled',
       },
       NO_SHOW: {
-        bg: 'bg-yellow-100',
-        text: 'text-yellow-800',
-        border: 'border-yellow-200',
+        bg: 'bg-orange-100',
+        text: 'text-orange-700',
+        border: 'border-orange-200',
         icon: FiAlertCircle,
         label: 'No Show',
       },
@@ -145,7 +147,7 @@ const TodayAppointments = () => {
       toast.success('Appointment marked as completed');
       fetchTodayAppointments(true);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to complete appointment');
+      toast.error(getErrorMessage(err, 'Unable to mark this appointment as completed. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [appointmentId]: null }));
       setShowActionMenu(null);
@@ -160,7 +162,7 @@ const TodayAppointments = () => {
       toast.success('Appointment marked as no-show');
       fetchTodayAppointments(true);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to mark as no-show');
+      toast.error(getErrorMessage(err, 'Unable to record no-show. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [appointmentId]: null }));
       setShowActionMenu(null);
@@ -177,7 +179,7 @@ const TodayAppointments = () => {
       toast.success('Appointment cancelled');
       fetchTodayAppointments(true);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to cancel appointment');
+      toast.error(getErrorMessage(err, 'Unable to cancel this appointment. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [appointmentId]: null }));
       setShowActionMenu(null);

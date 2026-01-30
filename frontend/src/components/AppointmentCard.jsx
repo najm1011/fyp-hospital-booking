@@ -124,12 +124,12 @@ const AppointmentCard = ({
   const getStatusConfig = (status) => {
     const config = {
       SCHEDULED: {
-        bg: 'bg-primary-100',
-        text: 'text-primary-700',
-        border: 'border-primary-200',
+        bg: 'bg-blue-100',
+        text: 'text-blue-700',
+        border: 'border-blue-200',
         icon: FiClock,
         label: 'Scheduled',
-        color: 'teal',
+        color: 'blue',
       },
       CONFIRMED: {
         bg: 'bg-success-100',

@@ -77,7 +77,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       >
         <div className="flex flex-col h-full">
           {/* Navigation */}
-          <nav className="flex-1 px-3 py-6 space-y-1 overflow-y-auto scrollbar-thin">
+          <nav aria-label="Main navigation" className="flex-1 px-3 py-6 space-y-1 overflow-y-auto scrollbar-thin">
             {navigationItems.map((item) => (
               <NavLink
                 key={item.path}

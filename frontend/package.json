@@ -19,6 +19,12 @@
     "react-router-dom": "^7.11.0",
     "recharts": "^3.7.0"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not op_mini all"
+  ],
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",

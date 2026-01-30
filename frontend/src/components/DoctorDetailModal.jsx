@@ -15,11 +15,13 @@ import {
 import { LuPoundSterling } from 'react-icons/lu';
 import api from '../services/api';
 import { Button, LoadingSpinner } from './ui';
+import useModalAccessibility from '../hooks/useModalAccessibility';
 
 const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
   const navigate = useNavigate();
   const [availability, setAvailability] = useState(null);
   const [loading, setLoading] = useState(false);
+  const modalRef = useModalAccessibility(isOpen, onClose);
 
   useEffect(() => {
     if (isOpen && doctor) {
@@ -75,16 +77,23 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+        className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
       {/* Modal */}
       <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+        <div
+          ref={modalRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Doctor details: Dr. ${doctor.fullName}`}
+          className="relative bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-scale-in"
+        >
           {/* Close Button */}
           <button
             onClick={onClose}
+            aria-label="Close"
             className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-gray-600 hover:text-gray-900 transition-colors"
           >
             <FiX className="h-5 w-5" />
@@ -92,27 +101,27 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
 
           {/* Header with gradient */}
           <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-8">
-            <div className="flex items-center space-x-6">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:space-x-6">
               {/* Photo/Avatar */}
               {doctor.photoUrl ? (
                 <img
                   src={doctor.photoUrl}
                   alt={doctor.fullName}
-                  className="h-24 w-24 rounded-full object-cover border-4 border-white shadow-lg"
+                  className="h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover border-4 border-white shadow-lg flex-shrink-0"
                 />
               ) : (
                 <div
-                  className={`h-24 w-24 rounded-full ${getAvatarColor(doctor.id)} flex items-center justify-center text-white text-3xl font-bold border-4 border-white shadow-lg`}
+                  className={`h-20 w-20 sm:h-24 sm:w-24 rounded-full ${getAvatarColor(doctor.id)} flex items-center justify-center text-white text-2xl sm:text-3xl font-bold border-4 border-white shadow-lg flex-shrink-0`}
                 >
                   {getInitials(doctor.fullName)}
                 </div>
               )}
 
               {/* Basic Info */}
-              <div className="text-white">
-                <h2 className="text-2xl font-bold">Dr. {doctor.fullName}</h2>
-                <p className="text-primary-100 text-lg">{doctor.specialty}</p>
-                <div className="flex items-center mt-2 space-x-3">
+              <div className="text-white text-center sm:text-left">
+                <h2 className="text-xl sm:text-2xl font-bold">Dr. {doctor.fullName}</h2>
+                <p className="text-primary-100 text-base sm:text-lg">{doctor.specialty}</p>
+                <div className="flex items-center justify-center sm:justify-start mt-2 space-x-3">
                   <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-white/20">
                     <FiMapPin className="h-3 w-3 mr-1" />
                     {doctor.departmentName}
@@ -127,7 +136,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
           </div>
 
           {/* Body - Scrollable */}
-          <div className="p-6 overflow-y-auto max-h-[calc(90vh-250px)]">
+          <div className="p-6 overflow-y-auto max-h-[calc(90vh-300px)] sm:max-h-[calc(90vh-250px)]">
             {/* Qualifications */}
             <div className="mb-6">
               <h3 className="flex items-center text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">

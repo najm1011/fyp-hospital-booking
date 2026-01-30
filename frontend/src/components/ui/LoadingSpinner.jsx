@@ -6,16 +6,22 @@ const LoadingSpinner = ({
   const sizes = {
     xs: 'h-4 w-4',
     sm: 'h-6 w-6',
+    small: 'h-6 w-6',
     md: 'h-8 w-8',
+    medium: 'h-8 w-8',
     lg: 'h-12 w-12',
+    large: 'h-12 w-12',
     xl: 'h-16 w-16',
   };
 
   const borderSizes = {
     xs: 'border-2',
     sm: 'border-2',
+    small: 'border-2',
     md: 'border-[3px]',
+    medium: 'border-[3px]',
     lg: 'border-[3px]',
+    large: 'border-[3px]',
     xl: 'border-4',
   };
 

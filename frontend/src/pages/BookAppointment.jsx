@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiUser, FiCheck, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 import { useToast } from '../context/ToastContext';
-import { Button, Alert, LoadingSpinner, DatePicker, TimeSlotPicker } from '../components/ui';
+import { Button, Alert, LoadingSpinner, DatePicker, TimeSlotPicker, EmptyState } from '../components/ui';
 import BookingConfirmationModal from '../components/BookingConfirmationModal';
 
 const BookAppointment = () => {
@@ -58,7 +59,7 @@ const BookAppointment = () => {
       const uniqueDepartments = [...new Set(response.data.map(d => d.departmentName))];
       setDepartments(uniqueDepartments);
     } catch (err) {
-      const message = 'Failed to load doctors. Please try again.';
+      const message = getErrorMessage(err, 'Unable to load the doctor list. Please refresh the page.');
       setError(message);
       toast.error(message);
       console.error('Error fetching doctors:', err);
@@ -79,7 +80,7 @@ const BookAppointment = () => {
       const available = response.data.filter(slot => slot.available);
       setAvailableSlots(available);
     } catch (err) {
-      const message = 'Failed to load available slots. Please try again.';
+      const message = getErrorMessage(err, 'Unable to load available time slots. Please try a different date.');
       setError(message);
       toast.error(message);
       console.error('Error fetching slots:', err);
@@ -105,7 +106,7 @@ const BookAppointment = () => {
         duration: 6000,
       });
     } catch (err) {
-      const message = err.response?.data?.message || 'Failed to book appointment. Please try again.';
+      const message = getErrorMessage(err, 'Unable to complete your booking. Please try again.');
       setError(message);
       setShowConfirmModal(false);
       toast.error(message, { title: 'Booking Failed' });
@@ -225,9 +226,17 @@ const BookAppointment = () => {
       )}
 
       {filteredDoctors.length === 0 && !loading && (
-        <div className="text-center py-12 text-gray-500">
-          No doctors found for the selected department.
-        </div>
+        <EmptyState
+          icon={FiUser}
+          title="No doctors found"
+          description={
+            selectedDepartment
+              ? 'No doctors are available in this department. Try selecting a different department.'
+              : 'No doctors are currently available. Please try again later.'
+          }
+          actionLabel={selectedDepartment ? 'Show All Departments' : undefined}
+          onAction={selectedDepartment ? () => setSelectedDepartment('') : undefined}
+        />
       )}
     </div>
   );
@@ -302,9 +311,9 @@ const BookAppointment = () => {
           <span className="text-gray-500">Department</span>
           <span className="font-medium text-primary-600">{selectedDoctor?.departmentName}</span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-          <span className="text-gray-500">Date</span>
-          <span className="font-medium text-gray-900">{new Date(selectedDate).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
+          <span className="text-gray-500 flex-shrink-0">Date</span>
+          <span className="font-medium text-gray-900 text-right">{new Date(selectedDate).toLocaleDateString('en-GB', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</span>
         </div>
         <div className="flex justify-between items-center pb-4 border-b border-gray-200">
           <span className="text-gray-500">Time</span>
@@ -422,10 +431,10 @@ const BookAppointment = () => {
     ];
 
     return (
-      <div className="mb-8">
-        <div className="flex items-center justify-center">
+      <div className="mb-8 overflow-x-auto">
+        <div className="flex items-center justify-center min-w-0">
           {steps.map((s, index) => (
-            <div key={s.num} className="flex items-center">
+            <div key={s.num} className="flex items-center flex-shrink-0">
               <div
                 className={`flex items-center justify-center w-9 h-9 rounded-xl text-sm font-semibold transition-all duration-200 ${
                   step >= s.num
@@ -435,11 +444,11 @@ const BookAppointment = () => {
               >
                 {step > s.num ? <FiCheck /> : s.num}
               </div>
-              <span className={`ml-2 text-sm ${step >= s.num ? 'text-primary-700 font-medium' : 'text-gray-500'}`}>
+              <span className={`ml-2 text-sm hidden sm:inline ${step >= s.num ? 'text-primary-700 font-medium' : 'text-gray-500'}`}>
                 {s.label}
               </span>
               {index < steps.length - 1 && (
-                <div className={`w-12 h-1 mx-4 rounded-full transition-colors duration-200 ${step > s.num ? 'bg-primary-500' : 'bg-gray-200'}`} />
+                <div className={`w-8 sm:w-12 h-1 mx-2 sm:mx-4 rounded-full transition-colors duration-200 ${step > s.num ? 'bg-primary-500' : 'bg-gray-200'}`} />
               )}
             </div>
           ))}

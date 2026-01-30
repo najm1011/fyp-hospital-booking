@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import useModalAccessibility from '../hooks/useModalAccessibility';
 import {
   FiClock,
   FiPlus,
@@ -20,6 +21,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { Card, Button, Alert, LoadingSpinner } from '../components/ui';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 
 const DAYS_OF_WEEK = [
   { value: 'MONDAY', label: 'Monday', short: 'Mon' },
@@ -110,6 +112,10 @@ const AvailabilitySettings = () => {
   // Action loading states
   const [actionLoading, setActionLoading] = useState({});
 
+  // Modal accessibility
+  const addModalRef = useModalAccessibility(showAddModal, () => setShowAddModal(false));
+  const quickSetupRef = useModalAccessibility(showQuickSetup, () => setShowQuickSetup(false));
+
   // Fetch data on mount
   useEffect(() => {
     fetchTimeSlots();
@@ -128,8 +134,9 @@ const AvailabilitySettings = () => {
       setTimeSlots(response.data || []);
     } catch (err) {
       console.error('Error fetching time slots:', err);
-      setError('Failed to load availability settings. Please try again.');
-      toast.error('Failed to load availability');
+      const message = getErrorMessage(err, 'Unable to load your availability settings. Please refresh the page.');
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -225,7 +232,7 @@ const AvailabilitySettings = () => {
       fetchTimeSlots(true);
     } catch (err) {
       console.error('Error saving time slot:', err);
-      const message = err.response?.data?.message || 'Failed to save time slot';
+      const message = getErrorMessage(err, 'Unable to save this time slot. Please try again.');
       setFormError(message);
       toast.error(message);
     } finally {
@@ -278,7 +285,7 @@ const AvailabilitySettings = () => {
       fetchTimeSlots(true);
     } catch (err) {
       console.error('Error in quick setup:', err);
-      toast.error(err.response?.data?.message || 'Failed to set up schedule');
+      toast.error(getErrorMessage(err, 'Unable to save your schedule. Please try again.'));
     } finally {
       setSaving(false);
     }
@@ -298,7 +305,7 @@ const AvailabilitySettings = () => {
       fetchTimeSlots(true);
     } catch (err) {
       console.error('Error deleting time slot:', err);
-      toast.error(err.response?.data?.message || 'Failed to delete time slot');
+      toast.error(getErrorMessage(err, 'Unable to remove this time slot. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [slotId]: null }));
     }
@@ -314,7 +321,7 @@ const AvailabilitySettings = () => {
       fetchTimeSlots(true);
     } catch (err) {
       console.error('Error toggling availability:', err);
-      toast.error(err.response?.data?.message || 'Failed to toggle availability');
+      toast.error(getErrorMessage(err, 'Unable to update availability. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [slotId]: null }));
     }
@@ -338,7 +345,7 @@ const AvailabilitySettings = () => {
       fetchTimeSlots(true);
     } catch (err) {
       console.error('Error clearing slots:', err);
-      toast.error(err.response?.data?.message || 'Failed to clear slots');
+      toast.error(getErrorMessage(err, 'Unable to clear all time slots. Please try again.'));
     } finally {
       setSaving(false);
     }
@@ -397,12 +404,13 @@ const AvailabilitySettings = () => {
         <div className="flex items-center gap-4">
           <Link
             to="/doctor"
+            aria-label="Back to dashboard"
             className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
           >
             <FiArrowLeft className="h-5 w-5" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Availability Settings</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Availability Settings</h1>
             <p className="text-gray-500 mt-1">Manage your weekly schedule and working hours</p>
           </div>
         </div>
@@ -564,12 +572,12 @@ const AvailabilitySettings = () => {
                             <button
                               onClick={() => handleToggleAvailability(slot.id)}
                               disabled={actionLoading[slot.id]}
-                              className={`p-1 rounded transition-colors ${
+                              className={`p-2 rounded transition-colors ${
                                 slot.isAvailable
                                   ? 'text-success-600 hover:bg-success-50'
                                   : 'text-gray-400 hover:bg-gray-100'
                               }`}
-                              title={slot.isAvailable ? 'Disable slot' : 'Enable slot'}
+                              aria-label={slot.isAvailable ? 'Disable slot' : 'Enable slot'}
                             >
                               {actionLoading[slot.id] === 'toggle' ? (
                                 <FiRefreshCw className="h-4 w-4 animate-spin" />
@@ -581,16 +589,16 @@ const AvailabilitySettings = () => {
                             </button>
                             <button
                               onClick={() => handleEditSlot(slot)}
-                              className="p-1 text-blue-600 hover:bg-blue-50 rounded transition-colors"
-                              title="Edit slot"
+                              className="p-2 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                              aria-label="Edit slot"
                             >
                               <FiEdit2 className="h-4 w-4" />
                             </button>
                             <button
                               onClick={() => handleDeleteSlot(slot.id)}
                               disabled={actionLoading[slot.id]}
-                              className="p-1 text-error-600 hover:bg-error-50 rounded transition-colors"
-                              title="Delete slot"
+                              className="p-2 text-error-600 hover:bg-error-50 rounded transition-colors"
+                              aria-label="Delete slot"
                             >
                               {actionLoading[slot.id] === 'delete' ? (
                                 <FiRefreshCw className="h-4 w-4 animate-spin" />
@@ -631,13 +639,20 @@ const AvailabilitySettings = () => {
       {/* Add/Edit Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+          <div
+            ref={addModalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={editingSlot ? 'Edit time slot' : 'Add time slot'}
+            className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto animate-scale-in"
+          >
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-semibold text-gray-900">
                 {editingSlot ? 'Edit Time Slot' : 'Add Time Slot'}
               </h3>
               <button
                 onClick={() => setShowAddModal(false)}
+                aria-label="Close"
                 className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <FiX className="h-5 w-5" />
@@ -707,6 +722,8 @@ const AvailabilitySettings = () => {
                 <span className="text-sm font-medium text-gray-700">Slot is active</span>
                 <button
                   type="button"
+                  role="switch"
+                  aria-checked={formData.isAvailable}
                   onClick={() => setFormData({ ...formData, isAvailable: !formData.isAvailable })}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                     formData.isAvailable ? 'bg-primary-500' : 'bg-gray-300'
@@ -783,7 +800,13 @@ const AvailabilitySettings = () => {
       {/* Quick Setup Modal */}
       {showQuickSetup && (
         <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto">
+          <div
+            ref={quickSetupRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Quick setup"
+            className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto animate-scale-in"
+          >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary-100 rounded-lg">
@@ -796,6 +819,7 @@ const AvailabilitySettings = () => {
               </div>
               <button
                 onClick={() => setShowQuickSetup(false)}
+                aria-label="Close"
                 className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <FiX className="h-5 w-5" />
@@ -892,6 +916,8 @@ const AvailabilitySettings = () => {
                 </div>
                 <button
                   type="button"
+                  role="switch"
+                  aria-checked={quickSetupData.replaceExisting}
                   onClick={() =>
                     setQuickSetupData({
                       ...quickSetupData,

@@ -53,7 +53,7 @@ const Alert = ({
     <div
       className={`
         ${config.bg} ${config.border}
-        border rounded-2xl p-4 ${className}
+        border rounded-2xl p-4 animate-fade-in ${className}
       `}
       role="alert"
     >

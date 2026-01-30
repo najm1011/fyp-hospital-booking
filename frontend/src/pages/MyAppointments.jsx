@@ -13,6 +13,7 @@ import {
   FiChevronRight,
 } from 'react-icons/fi';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 import { useToast } from '../context/ToastContext';
 import { Button, Alert, LoadingSpinner, EmptyState } from '../components/ui';
 import AppointmentCard from '../components/AppointmentCard';
@@ -72,7 +73,7 @@ const MyAppointments = () => {
         toast.success('Appointments refreshed');
       }
     } catch (err) {
-      const message = 'Failed to load appointments. Please try again.';
+      const message = getErrorMessage(err, 'Unable to load your appointments. Please refresh the page.');
       setError(message);
       toast.error(message);
       console.error('Error fetching appointments:', err);
@@ -184,7 +185,7 @@ const MyAppointments = () => {
       // Refresh appointments
       fetchAppointments();
     } catch (err) {
-      const message = err.response?.data?.message || 'Failed to cancel appointment.';
+      const message = getErrorMessage(err, 'Unable to cancel this appointment. Please try again.');
       setError(message);
       toast.error(message, { title: 'Cancellation Failed' });
       console.error('Error cancelling appointment:', err);
@@ -218,7 +219,7 @@ const MyAppointments = () => {
       // Refresh appointments
       fetchAppointments();
     } catch (err) {
-      const message = err.response?.data?.message || 'Failed to reschedule appointment.';
+      const message = getErrorMessage(err, 'Unable to reschedule this appointment. Please try again.');
       setError(message);
       toast.error(message, { title: 'Reschedule Failed' });
       console.error('Error rescheduling appointment:', err);

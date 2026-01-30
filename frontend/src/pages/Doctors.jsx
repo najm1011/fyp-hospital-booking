@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FiSearch, FiFilter, FiUser } from 'react-icons/fi';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 import { Button, LoadingSpinner, Alert } from '../components/ui';
 import DoctorCard from '../components/DoctorCard';
 import DoctorDetailModal from '../components/DoctorDetailModal';
@@ -37,7 +38,7 @@ const Doctors = () => {
       const uniqueDepartments = [...new Set(response.data.map((d) => d.departmentName))];
       setDepartments(uniqueDepartments.sort());
     } catch (err) {
-      setError('Failed to load doctors. Please try again.');
+      setError(getErrorMessage(err, 'Unable to load the doctor list. Please refresh the page.'));
       console.error('Error fetching doctors:', err);
     } finally {
       setLoading(false);

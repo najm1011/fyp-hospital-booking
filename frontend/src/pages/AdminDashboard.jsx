@@ -22,8 +22,9 @@ import {
 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import { Card, Alert, LoadingSpinner } from '../components/ui';
+import { Card, Alert, LoadingSpinner, EmptyState } from '../components/ui';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
@@ -62,8 +63,9 @@ const AdminDashboard = () => {
       setDoctors(doctorsRes.data || []);
     } catch (err) {
       console.error('Error fetching admin dashboard:', err);
-      setError('Failed to load dashboard data. Please try again.');
-      toast.error('Failed to load dashboard data');
+      const message = getErrorMessage(err, 'Unable to load the admin dashboard. Please refresh the page.');
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -96,7 +98,7 @@ const AdminDashboard = () => {
     const styles = {
       SCHEDULED: 'bg-blue-100 text-blue-700',
       CONFIRMED: 'bg-success-100 text-success-700',
-      COMPLETED: 'bg-primary-100 text-primary-700',
+      COMPLETED: 'bg-gray-100 text-gray-700',
       CANCELLED: 'bg-error-100 text-error-700',
       NO_SHOW: 'bg-orange-100 text-orange-700',
     };
@@ -149,7 +151,7 @@ const AdminDashboard = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Admin Dashboard</h1>
           <p className="text-gray-500 mt-1">
             Welcome back, {user?.firstName}. Here's your hospital overview.
           </p>
@@ -225,7 +227,7 @@ const AdminDashboard = () => {
       {/* System Statistics Overview */}
       <Card className="p-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">At a Glance</h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
           <div className="p-4 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl">
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 bg-indigo-200 rounded-lg">
@@ -409,10 +411,13 @@ const AdminDashboard = () => {
           </div>
 
           {recentAppointments.length === 0 ? (
-            <div className="text-center py-8">
-              <FiCalendar className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500">No upcoming appointments</p>
-            </div>
+            <EmptyState
+              icon={FiCalendar}
+              title="No upcoming appointments"
+              description="There are no upcoming appointments scheduled in the system."
+              actionLabel="View All Appointments"
+              actionPath="/admin/appointments"
+            />
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -504,9 +509,13 @@ const AdminDashboard = () => {
             ))}
 
             {Object.keys(doctorsByDept).length === 0 && (
-              <div className="text-center py-4">
-                <p className="text-gray-500 text-sm">No doctors found</p>
-              </div>
+              <EmptyState
+                icon={FiUserPlus}
+                title="No doctors registered"
+                description="No doctors have been added to the system yet."
+                actionLabel="Manage Doctors"
+                actionPath="/admin/doctors"
+              />
             )}
           </div>
         </Card>

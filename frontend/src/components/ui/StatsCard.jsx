@@ -86,7 +86,7 @@ const StatsCard = ({
         <div className="flex-1 min-w-0">
           <p className="text-sm text-gray-500 font-medium truncate mb-1">{label}</p>
           <div className="flex items-baseline gap-2 flex-wrap">
-            <p className="text-2xl font-semibold text-gray-900 tracking-tight">{value}</p>
+            <p className="text-2xl font-bold text-gray-900 tracking-tight">{value}</p>
             {trend && (
               <span
                 className={`

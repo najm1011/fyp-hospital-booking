@@ -7,6 +7,7 @@ import {
   FiUser,
 } from 'react-icons/fi';
 import { Button, LoadingSpinner } from './ui';
+import useModalAccessibility from '../hooks/useModalAccessibility';
 
 const CancelAppointmentModal = ({
   isOpen,
@@ -17,6 +18,13 @@ const CancelAppointmentModal = ({
 }) => {
   const [reason, setReason] = useState('');
   const [selectedReason, setSelectedReason] = useState('');
+  const modalRef = useModalAccessibility(isOpen, () => {
+    if (!loading) {
+      setReason('');
+      setSelectedReason('');
+      onClose();
+    }
+  });
 
   if (!isOpen || !appointment) return null;
 
@@ -70,13 +78,19 @@ const CancelAppointmentModal = ({
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+        className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm transition-opacity"
         onClick={handleClose}
       />
 
       {/* Modal */}
       <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative bg-white rounded-2xl shadow-xl max-w-md w-full overflow-hidden">
+        <div
+          ref={modalRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Cancel appointment"
+          className="relative bg-white rounded-2xl shadow-xl max-w-md w-full overflow-hidden animate-scale-in"
+        >
           {/* Header */}
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
@@ -89,6 +103,7 @@ const CancelAppointmentModal = ({
               <button
                 onClick={handleClose}
                 disabled={loading}
+                aria-label="Close"
                 className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
               >
                 <FiX className="h-5 w-5" />
@@ -142,10 +157,10 @@ const CancelAppointmentModal = ({
             </div>
 
             {/* Cancellation Reason */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+            <fieldset>
+              <legend className="block text-sm font-medium text-gray-700 mb-2">
                 Reason for cancellation
-              </label>
+              </legend>
               <div className="space-y-2 mb-3">
                 {cancellationReasons.map((reasonOption) => (
                   <label
@@ -175,11 +190,12 @@ const CancelAppointmentModal = ({
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
                   placeholder="Please specify your reason..."
+                  aria-label="Custom cancellation reason"
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
                 />
               )}
-            </div>
+            </fieldset>
           </div>
 
           {/* Footer */}

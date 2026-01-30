@@ -140,13 +140,13 @@ const Footer = () => {
                 Get health tips and updates delivered to your inbox.
               </p>
             </div>
-            <div className="flex">
+            <div className="flex flex-col sm:flex-row">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="px-4 py-3 bg-gray-800 border border-gray-700 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-white placeholder-gray-500 w-64"
+                className="px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl sm:rounded-l-xl sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-white text-base placeholder-gray-500 w-full sm:w-64"
               />
-              <button className="px-6 py-3 bg-primary-600 text-white font-medium rounded-r-xl hover:bg-primary-700 transition-all duration-200 shadow-primary-sm hover:shadow-primary">
+              <button className="px-6 py-3 bg-primary-600 text-white font-medium rounded-xl sm:rounded-r-xl sm:rounded-l-none hover:bg-primary-700 transition-all duration-200 shadow-primary-sm hover:shadow-primary mt-2 sm:mt-0">
                 Subscribe
               </button>
             </div>

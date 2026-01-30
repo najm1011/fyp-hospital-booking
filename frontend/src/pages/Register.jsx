@@ -165,7 +165,7 @@ const Register = () => {
             <FiActivity className="h-10 w-10 text-white" />
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
           Create Your Account
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">

@@ -21,6 +21,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { Card, EmptyState, Button, Alert, LoadingSpinner } from '../components/ui';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 
 const UpcomingAppointments = () => {
   const { user } = useAuth();
@@ -61,8 +62,9 @@ const UpcomingAppointments = () => {
       setAppointments(response.data || []);
     } catch (err) {
       console.error('Error fetching upcoming appointments:', err);
-      setError('Failed to load upcoming appointments. Please try again.');
-      toast.error('Failed to load appointments');
+      const message = getErrorMessage(err, 'Unable to load upcoming appointments. Please refresh the page.');
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -122,36 +124,36 @@ const UpcomingAppointments = () => {
     const configs = {
       SCHEDULED: {
         bg: 'bg-blue-100',
-        text: 'text-blue-800',
+        text: 'text-blue-700',
         border: 'border-blue-200',
         icon: FiClock,
         label: 'Scheduled',
       },
       CONFIRMED: {
         bg: 'bg-success-100',
-        text: 'text-success-800',
+        text: 'text-success-700',
         border: 'border-success-200',
         icon: FiCheckCircle,
         label: 'Confirmed',
       },
       COMPLETED: {
         bg: 'bg-gray-100',
-        text: 'text-gray-800',
+        text: 'text-gray-700',
         border: 'border-gray-200',
         icon: FiCheckCircle,
         label: 'Completed',
       },
       CANCELLED: {
         bg: 'bg-error-100',
-        text: 'text-error-800',
+        text: 'text-error-700',
         border: 'border-error-200',
         icon: FiXCircle,
         label: 'Cancelled',
       },
       NO_SHOW: {
-        bg: 'bg-yellow-100',
-        text: 'text-yellow-800',
-        border: 'border-yellow-200',
+        bg: 'bg-orange-100',
+        text: 'text-orange-700',
+        border: 'border-orange-200',
         icon: FiAlertCircle,
         label: 'No Show',
       },
@@ -167,7 +169,7 @@ const UpcomingAppointments = () => {
       toast.success('Appointment marked as completed');
       fetchUpcomingAppointments(true);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to complete appointment');
+      toast.error(getErrorMessage(err, 'Unable to mark this appointment as completed. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [appointmentId]: null }));
     }
@@ -181,7 +183,7 @@ const UpcomingAppointments = () => {
       toast.success('Appointment marked as no-show');
       fetchUpcomingAppointments(true);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to mark as no-show');
+      toast.error(getErrorMessage(err, 'Unable to record no-show. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [appointmentId]: null }));
     }
@@ -197,7 +199,7 @@ const UpcomingAppointments = () => {
       toast.success('Appointment cancelled');
       fetchUpcomingAppointments(true);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to cancel appointment');
+      toast.error(getErrorMessage(err, 'Unable to cancel this appointment. Please try again.'));
     } finally {
       setActionLoading((prev) => ({ ...prev, [appointmentId]: null }));
     }
@@ -705,10 +707,10 @@ const UpcomingAppointments = () => {
                         key={appointment.id}
                         className="p-4 hover:bg-gray-50 transition-colors"
                       >
-                        <div className="flex items-start justify-between">
+                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                           <div className="flex items-start space-x-4">
                             {/* Time */}
-                            <div className="text-center min-w-[80px]">
+                            <div className="text-center min-w-[60px] sm:min-w-[80px]">
                               <p className="text-lg font-bold text-gray-900">
                                 {formatTime(appointment.startTime)}
                               </p>

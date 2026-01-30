@@ -20,6 +20,7 @@ import {
 import { useToast } from '../context/ToastContext';
 import { Card, Alert, LoadingSpinner } from '../components/ui';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 
 const UserManagement = () => {
   const { toast } = useToast();
@@ -43,6 +44,7 @@ const UserManagement = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [togglingUserId, setTogglingUserId] = useState(null);
 
   // Form states
   const [formData, setFormData] = useState({
@@ -83,8 +85,9 @@ const UserManagement = () => {
       setStats(statsRes.data || {});
     } catch (err) {
       console.error('Error fetching users:', err);
-      setError('Failed to load users. Please try again.');
-      toast.error('Failed to load users');
+      const message = getErrorMessage(err, 'Unable to load users. Please refresh the page.');
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -197,7 +200,7 @@ const UserManagement = () => {
       fetchData(true);
     } catch (err) {
       console.error('Error creating user:', err);
-      toast.error(err.response?.data?.message || 'Failed to create user');
+      toast.error(getErrorMessage(err, 'Unable to create user. Please try again.'));
     } finally {
       setSubmitting(false);
     }
@@ -221,7 +224,7 @@ const UserManagement = () => {
       fetchData(true);
     } catch (err) {
       console.error('Error updating user:', err);
-      toast.error(err.response?.data?.message || 'Failed to update user');
+      toast.error(getErrorMessage(err, 'Unable to update user. Please try again.'));
     } finally {
       setSubmitting(false);
     }
@@ -237,20 +240,23 @@ const UserManagement = () => {
       fetchData(true);
     } catch (err) {
       console.error('Error deleting user:', err);
-      toast.error(err.response?.data?.message || 'Failed to delete user');
+      toast.error(getErrorMessage(err, 'Unable to delete this user. Please try again.'));
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleToggleStatus = async (user) => {
+    setTogglingUserId(user.id);
     try {
       await api.patch(`/users/${user.id}/toggle-status`);
       toast.success(`User ${user.isActive ? 'deactivated' : 'activated'} successfully`);
       fetchData(true);
     } catch (err) {
       console.error('Error toggling user status:', err);
-      toast.error('Failed to update user status');
+      toast.error(getErrorMessage(err, 'Unable to update this user\'s status. Please try again.'));
+    } finally {
+      setTogglingUserId(null);
     }
   };
 
@@ -315,7 +321,7 @@ const UserManagement = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">User Management</h1>
           <p className="text-gray-500 mt-1">Manage all users in the system</p>
         </div>
         <div className="flex items-center gap-3">
@@ -535,14 +541,19 @@ const UserManagement = () => {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => handleToggleStatus(user)}
+                          disabled={togglingUserId === user.id}
                           className={`p-2 rounded-lg transition-colors ${
-                            user.isActive
+                            togglingUserId === user.id
+                              ? 'opacity-50 cursor-not-allowed'
+                              : user.isActive
                               ? 'text-orange-600 hover:bg-orange-50'
                               : 'text-success-600 hover:bg-success-50'
                           }`}
                           title={user.isActive ? 'Deactivate' : 'Activate'}
                         >
-                          {user.isActive ? (
+                          {togglingUserId === user.id ? (
+                            <LoadingSpinner size="xs" />
+                          ) : user.isActive ? (
                             <FiToggleRight className="h-5 w-5" />
                           ) : (
                             <FiToggleLeft className="h-5 w-5" />
@@ -574,7 +585,7 @@ const UserManagement = () => {
 
       {/* Add User Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
@@ -588,7 +599,7 @@ const UserManagement = () => {
               </div>
             </div>
             <form onSubmit={handleAddUser} className="p-6 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     First Name *
@@ -701,7 +712,7 @@ const UserManagement = () => {
                   disabled={submitting}
                   className="flex-1 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all disabled:opacity-50"
                 >
-                  {submitting ? 'Creating...' : 'Create User'}
+                  {submitting ? <><LoadingSpinner size="xs" color="white" /> Creating...</> : 'Create User'}
                 </button>
               </div>
             </form>
@@ -711,7 +722,7 @@ const UserManagement = () => {
 
       {/* Edit User Modal */}
       {showEditModal && selectedUser && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
@@ -728,7 +739,7 @@ const UserManagement = () => {
               </div>
             </div>
             <form onSubmit={handleEditUser} className="p-6 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     First Name *
@@ -842,7 +853,7 @@ const UserManagement = () => {
                   disabled={submitting}
                   className="flex-1 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all disabled:opacity-50"
                 >
-                  {submitting ? 'Saving...' : 'Save Changes'}
+                  {submitting ? <><LoadingSpinner size="xs" color="white" /> Saving...</> : 'Save Changes'}
                 </button>
               </div>
             </form>
@@ -852,7 +863,7 @@ const UserManagement = () => {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && selectedUser && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl w-full max-w-md">
             <div className="p-6">
               <div className="flex items-center justify-center w-12 h-12 bg-error-100 rounded-full mx-auto mb-4">
@@ -883,7 +894,7 @@ const UserManagement = () => {
                   disabled={submitting}
                   className="flex-1 px-4 py-2.5 bg-error-600 text-white rounded-xl hover:bg-error-700 transition-colors disabled:opacity-50"
                 >
-                  {submitting ? 'Deleting...' : 'Delete User'}
+                  {submitting ? <><LoadingSpinner size="xs" color="white" /> Deleting...</> : 'Delete User'}
                 </button>
               </div>
             </div>

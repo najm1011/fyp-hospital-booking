@@ -22,6 +22,7 @@ import { useToast } from '../context/ToastContext';
 import { StatsCard, Card, EmptyState, Alert } from '../components/ui';
 import AppointmentCard from '../components/AppointmentCard';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -60,7 +61,7 @@ const Dashboard = () => {
         setUpcomingAppointments(appointmentsResponse.data.slice(0, 3));
       } catch (err) {
         console.error("Error fetching dashboard data:", err);
-        toast.error("Failed to load dashboard data");
+        toast.error(getErrorMessage(err, "Unable to load your dashboard. Please refresh the page."));
         // Set default values on error
         setStats({
           upcoming: 0,
@@ -270,7 +271,7 @@ const Dashboard = () => {
           setTodayAppointments(todayResponse.data || []);
         } catch (err) {
           console.error("Error fetching doctor dashboard data:", err);
-          toast.error("Failed to load dashboard data");
+          toast.error(getErrorMessage(err, "Unable to load your dashboard. Please refresh the page."));
           setDoctorStats({
             todayAppointments: 0,
             completedToday: 0,
@@ -410,7 +411,7 @@ const Dashboard = () => {
           });
         } catch (err) {
           console.error("Error fetching admin dashboard data:", err);
-          toast.error("Failed to load dashboard data");
+          toast.error(getErrorMessage(err, "Unable to load the admin dashboard. Please refresh the page."));
           setAdminStats({
             totalDoctors: 0,
             totalPatients: 0,

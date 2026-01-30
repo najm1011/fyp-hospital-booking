@@ -55,38 +55,38 @@ const AppointmentSummary = ({
   const getStatusBadge = (status) => {
     const statusConfig = {
       SCHEDULED: {
-        bg: 'bg-primary-100',
-        text: 'text-primary-800',
+        bg: 'bg-blue-100',
+        text: 'text-blue-700',
         icon: FiClock,
         label: 'Scheduled',
       },
       CONFIRMED: {
         bg: 'bg-success-100',
-        text: 'text-success-800',
+        text: 'text-success-700',
         icon: FiCheckCircle,
         label: 'Confirmed',
       },
       COMPLETED: {
         bg: 'bg-gray-100',
-        text: 'text-gray-800',
+        text: 'text-gray-700',
         icon: FiCheckCircle,
         label: 'Completed',
       },
       CANCELLED: {
         bg: 'bg-error-100',
-        text: 'text-error-800',
+        text: 'text-error-700',
         icon: FiXCircle,
         label: 'Cancelled',
       },
       NO_SHOW: {
         bg: 'bg-orange-100',
-        text: 'text-orange-800',
+        text: 'text-orange-700',
         icon: FiAlertCircle,
         label: 'No Show',
       },
       PENDING: {
         bg: 'bg-yellow-100',
-        text: 'text-yellow-800',
+        text: 'text-yellow-700',
         icon: FiClock,
         label: 'Pending',
       },

@@ -72,12 +72,14 @@ const Input = ({
           disabled={disabled}
           placeholder={placeholder}
           autoComplete={autoComplete}
+          aria-invalid={hasError ? 'true' : undefined}
+          aria-describedby={hasError ? `${name}-error` : helpText ? `${name}-help` : undefined}
           className={`
             block w-full rounded-xl border-2 transition-all duration-200
             ${Icon ? 'pl-11' : 'pl-4'}
             ${isPassword || hasError ? 'pr-11' : 'pr-4'}
             py-3
-            text-gray-900 placeholder-gray-400
+            text-base text-gray-900 placeholder-gray-400
             ${hasError
               ? 'border-error-300 bg-error-50/50 focus:border-error-500 focus:ring-4 focus:ring-error-500/10'
               : 'border-gray-200 bg-white hover:border-gray-300 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10'
@@ -90,8 +92,8 @@ const Input = ({
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
             className="absolute inset-y-0 right-0 pr-3.5 flex items-center group/btn"
-            tabIndex={-1}
           >
             {showPassword ? (
               <FiEyeOff className="h-5 w-5 text-gray-400 group-hover/btn:text-gray-600 transition-colors" />
@@ -107,12 +109,12 @@ const Input = ({
         )}
       </div>
       {hasError && (
-        <p className="mt-1.5 text-sm text-error-600 flex items-center gap-1" role="alert">
+        <p id={`${name}-error`} className="mt-1.5 text-sm text-error-600 flex items-center gap-1" role="alert">
           {error}
         </p>
       )}
       {helpText && !hasError && (
-        <p className="mt-1.5 text-sm text-gray-500">{helpText}</p>
+        <p id={`${name}-help`} className="mt-1.5 text-sm text-gray-500">{helpText}</p>
       )}
     </div>
   );

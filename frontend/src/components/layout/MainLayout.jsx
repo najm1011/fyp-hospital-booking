@@ -23,6 +23,14 @@ const MainLayout = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Skip to content link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg focus:text-sm focus:font-medium"
+      >
+        Skip to main content
+      </a>
+
       {/* Navbar */}
       <Navbar onMenuClick={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
@@ -33,12 +41,13 @@ const MainLayout = () => {
 
       {/* Main content */}
       <main
+        id="main-content"
         className={`
           pt-16 flex-1 transition-all duration-300
           ${isAuthenticated ? 'lg:pl-64' : ''}
         `}
       >
-        <div className="p-4 sm:p-6 lg:p-8">
+        <div key={location.pathname} className="p-4 sm:p-6 lg:p-8 animate-fade-in">
           <Outlet />
         </div>
       </main>

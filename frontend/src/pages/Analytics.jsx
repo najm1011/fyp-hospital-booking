@@ -31,6 +31,7 @@ import {
 import { useToast } from '../context/ToastContext';
 import { Card, Alert, LoadingSpinner } from '../components/ui';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 
 const Analytics = () => {
   const { toast } = useToast();
@@ -78,8 +79,9 @@ const Analytics = () => {
       setAnalytics(response.data);
     } catch (err) {
       console.error('Error fetching analytics:', err);
-      setError('Failed to load analytics data. Please try again.');
-      toast.error('Failed to load analytics');
+      const message = getErrorMessage(err, 'Unable to load analytics data. Please refresh the page.');
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -146,14 +148,14 @@ const Analytics = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Analytics Dashboard</h1>
           <p className="text-gray-500 mt-1">Appointment statistics and trends</p>
         </div>
         <div className="flex items-center gap-3">
           <select
             value={months}
             onChange={(e) => setMonths(Number(e.target.value))}
-            className="px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
+            className="px-4 py-2 text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
           >
             <option value={3}>Last 3 Months</option>
             <option value={6}>Last 6 Months</option>
@@ -183,7 +185,7 @@ const Analytics = () => {
         <Card className="p-4 bg-gradient-to-br from-primary-500 to-primary-600 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-3xl font-bold">{analytics?.totalAppointments || 0}</p>
+              <p className="text-2xl sm:text-3xl font-bold">{analytics?.totalAppointments || 0}</p>
               <p className="text-primary-100 text-sm mt-1">Total Appointments</p>
             </div>
             <div className="p-3 bg-white/20 rounded-xl">
@@ -195,7 +197,7 @@ const Analytics = () => {
         <Card className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-3xl font-bold">{analytics?.totalPatients || 0}</p>
+              <p className="text-2xl sm:text-3xl font-bold">{analytics?.totalPatients || 0}</p>
               <p className="text-blue-100 text-sm mt-1">Unique Patients</p>
             </div>
             <div className="p-3 bg-white/20 rounded-xl">
@@ -207,7 +209,7 @@ const Analytics = () => {
         <Card className="p-4 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-3xl font-bold">{analytics?.totalDoctors || 0}</p>
+              <p className="text-2xl sm:text-3xl font-bold">{analytics?.totalDoctors || 0}</p>
               <p className="text-purple-100 text-sm mt-1">Active Doctors</p>
             </div>
             <div className="p-3 bg-white/20 rounded-xl">
@@ -219,7 +221,7 @@ const Analytics = () => {
         <Card className="p-4 bg-gradient-to-br from-success-500 to-emerald-600 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-3xl font-bold">{analytics?.completionRate || 0}%</p>
+              <p className="text-2xl sm:text-3xl font-bold">{analytics?.completionRate || 0}%</p>
               <p className="text-success-100 text-sm mt-1">Completion Rate</p>
             </div>
             <div className="p-3 bg-white/20 rounded-xl">
@@ -230,7 +232,7 @@ const Analytics = () => {
       </div>
 
       {/* Rate Cards */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card className="p-4">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-success-100 rounded-xl">
@@ -349,7 +351,7 @@ const Analytics = () => {
                   outerRadius={100}
                   paddingAngle={2}
                   dataKey="value"
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}
                   labelLine={false}
                 >
                   {getStatusPieData().map((entry, index) => (
@@ -429,7 +431,7 @@ const Analytics = () => {
               <YAxis
                 type="category"
                 dataKey="name"
-                width={120}
+                width={90}
                 tick={{ fill: '#6b7280', fontSize: 12 }}
                 tickLine={false}
                 axisLine={{ stroke: '#e5e7eb' }}
@@ -473,7 +475,7 @@ const Analytics = () => {
           <div className="p-4 border-b border-gray-100">
             <h2 className="text-lg font-semibold text-gray-900">Monthly Breakdown</h2>
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto -webkit-overflow-scrolling-touch">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr className="text-left text-sm text-gray-500">

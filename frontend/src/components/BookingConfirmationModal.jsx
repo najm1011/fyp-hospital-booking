@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useModalAccessibility from '../hooks/useModalAccessibility';
 import {
   FiX,
   FiCheck,
@@ -35,6 +36,7 @@ const BookingConfirmationModal = ({
 }) => {
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
+  const modalRef = useModalAccessibility(isOpen, () => { if (!loading) onClose(); });
 
   if (!isOpen) return null;
 
@@ -61,11 +63,25 @@ const BookingConfirmationModal = ({
   };
 
   // Copy confirmation number
-  const copyConfirmationNumber = () => {
+  const copyConfirmationNumber = async () => {
     if (bookingResult?.confirmationNumber) {
-      navigator.clipboard.writeText(bookingResult.confirmationNumber);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      try {
+        await navigator.clipboard.writeText(bookingResult.confirmationNumber);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {
+        // Fallback for non-HTTPS or unsupported browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = bookingResult.confirmationNumber;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
     }
   };
 
@@ -96,6 +112,7 @@ const BookingConfirmationModal = ({
           <h2 className="text-xl font-semibold text-gray-900">Confirm Appointment</h2>
           <button
             onClick={onClose}
+            aria-label="Close"
             className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
           >
             <FiX className="h-5 w-5" />
@@ -319,13 +336,19 @@ const BookingConfirmationModal = ({
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+        className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm transition-opacity"
         onClick={!loading ? onClose : undefined}
       />
 
       {/* Modal */}
       <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative bg-white rounded-2xl shadow-xl max-w-md w-full overflow-hidden transform transition-all">
+        <div
+          ref={modalRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={isSuccess ? 'Booking confirmed' : 'Confirm appointment'}
+          className="relative bg-white rounded-2xl shadow-xl max-w-md w-full overflow-hidden animate-scale-in"
+        >
           {isSuccess ? renderSuccess() : renderConfirmation()}
         </div>
       </div>

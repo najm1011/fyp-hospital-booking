@@ -14,6 +14,7 @@ import {
 } from 'react-icons/fi';
 import { LuPoundSterling } from 'react-icons/lu';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
 import { Button, LoadingSpinner, Alert } from '../components/ui';
 
 const DoctorDetail = () => {
@@ -42,7 +43,7 @@ const DoctorDetail = () => {
         setAvailability(availabilityRes.data);
       }
     } catch (err) {
-      setError('Failed to load doctor details. Please try again.');
+      setError(getErrorMessage(err, 'Unable to load doctor details. Please go back and try again.'));
       console.error('Error fetching doctor:', err);
     } finally {
       setLoading(false);

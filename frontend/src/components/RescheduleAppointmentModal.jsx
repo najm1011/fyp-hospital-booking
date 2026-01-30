@@ -8,6 +8,8 @@ import {
 } from 'react-icons/fi';
 import { Button, LoadingSpinner, DatePicker, TimeSlotPicker } from './ui';
 import api from '../services/api';
+import { getErrorMessage } from '../utils/errorMessages';
+import useModalAccessibility from '../hooks/useModalAccessibility';
 
 const RescheduleAppointmentModal = ({
   isOpen,
@@ -21,6 +23,15 @@ const RescheduleAppointmentModal = ({
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [slotsLoading, setSlotsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const modalRef = useModalAccessibility(isOpen, () => {
+    if (!loading) {
+      setSelectedDate('');
+      setSelectedSlot(null);
+      setAvailableSlots([]);
+      setError(null);
+      onClose();
+    }
+  });
 
   // Reset state when modal opens/closes
   useEffect(() => {
@@ -56,7 +67,7 @@ const RescheduleAppointmentModal = ({
       }
     } catch (err) {
       console.error('Error fetching slots:', err);
-      setError('Failed to load available slots. Please try again.');
+      setError(getErrorMessage(err, 'Unable to load available time slots. Please try a different date.'));
       setAvailableSlots([]);
     } finally {
       setSlotsLoading(false);
@@ -114,13 +125,19 @@ const RescheduleAppointmentModal = ({
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+        className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm transition-opacity"
         onClick={handleClose}
       />
 
       {/* Modal */}
       <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative bg-white rounded-2xl shadow-xl max-w-lg w-full overflow-hidden">
+        <div
+          ref={modalRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Reschedule appointment"
+          className="relative bg-white rounded-2xl shadow-xl max-w-lg w-full overflow-hidden animate-scale-in"
+        >
           {/* Header */}
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
@@ -133,6 +150,7 @@ const RescheduleAppointmentModal = ({
               <button
                 onClick={handleClose}
                 disabled={loading}
+                aria-label="Close"
                 className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
               >
                 <FiX className="h-5 w-5" />
