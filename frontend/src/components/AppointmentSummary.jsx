@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   FiCalendar,
   FiClock,
@@ -28,7 +27,6 @@ const AppointmentSummary = ({
   onViewDetails,
   className = '',
 }) => {
-  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
 
   if (!appointment) return null;
@@ -110,8 +108,6 @@ const AppointmentSummary = ({
   const handleViewDetails = () => {
     if (onViewDetails) {
       onViewDetails(appointment);
-    } else {
-      navigate(`/appointments/${appointment.id}`);
     }
   };
 

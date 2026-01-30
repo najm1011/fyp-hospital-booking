@@ -30,7 +30,6 @@ const Sidebar = ({ isOpen, onClose }) => {
       { name: 'Dashboard', path: '/doctor', icon: FiHome },
       { name: "Today's Appointments", path: '/doctor/appointments/today', icon: FiCalendar },
       { name: 'Upcoming', path: '/doctor/appointments/upcoming', icon: FiClock },
-      { name: 'My Patients', path: '/doctor/patients', icon: FiUsers },
       { name: 'Availability', path: '/doctor/availability', icon: FiClipboard },
     ];
 

@@ -167,12 +167,12 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-sm">
-                <Link
-                  to="/forgot-password"
-                  className="font-medium text-primary-600 hover:text-primary-500 transition-colors"
+                <span
+                  className="font-medium text-primary-600 hover:text-primary-500 transition-colors cursor-pointer"
+                  onClick={() => alert('Please contact the hospital administrator to reset your password.')}
                 >
                   Forgot password?
-                </Link>
+                </span>
               </div>
             </div>
 
@@ -216,13 +216,9 @@ const Login = () => {
         {/* Footer */}
         <p className="mt-8 text-center text-xs text-gray-500">
           By signing in, you agree to our{' '}
-          <Link to="/terms" className="text-primary-600 hover:text-primary-700 hover:underline transition-colors">
-            Terms of Service
-          </Link>{' '}
+          <span className="text-primary-600">Terms of Service</span>{' '}
           and{' '}
-          <Link to="/privacy" className="text-primary-600 hover:text-primary-700 hover:underline transition-colors">
-            Privacy Policy
-          </Link>
+          <span className="text-primary-600">Privacy Policy</span>
         </p>
       </div>
     </div>

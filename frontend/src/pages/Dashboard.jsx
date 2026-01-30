@@ -352,24 +352,24 @@ const Dashboard = () => {
           <Card title="Quick Actions" loading={doctorLoading}>
             <div className="space-y-3">
               <Link
-                to="/doctor/schedule"
+                to="/doctor/appointments/today"
                 className="flex items-center justify-between p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
               >
                 <div className="flex items-center">
                   <FiCalendar className="h-5 w-5 text-primary-600 mr-3" />
                   <span className="font-medium text-gray-900">
-                    View Schedule
+                    Today&apos;s Appointments
                   </span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
               </Link>
               <Link
-                to="/doctor/patients"
+                to="/doctor/appointments/upcoming"
                 className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <div className="flex items-center">
                   <FiUsers className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">My Patients</span>
+                  <span className="font-medium text-gray-900">Upcoming Appointments</span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
               </Link>

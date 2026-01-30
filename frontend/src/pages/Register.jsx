@@ -344,13 +344,9 @@ const Register = () => {
               </div>
               <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 cursor-pointer">
                 I agree to the{' '}
-                <Link to="/terms" className="text-primary-600 hover:underline">
-                  Terms of Service
-                </Link>{' '}
+                <span className="text-primary-600">Terms of Service</span>{' '}
                 and{' '}
-                <Link to="/privacy" className="text-primary-600 hover:underline">
-                  Privacy Policy
-                </Link>
+                <span className="text-primary-600">Privacy Policy</span>
               </label>
             </div>
 

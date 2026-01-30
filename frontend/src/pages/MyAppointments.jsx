@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   FiCalendar,
   FiClock,
@@ -20,7 +20,6 @@ import CancelAppointmentModal from '../components/CancelAppointmentModal';
 import RescheduleAppointmentModal from '../components/RescheduleAppointmentModal';
 
 const MyAppointments = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   // Data states
@@ -228,9 +227,9 @@ const MyAppointments = () => {
     }
   };
 
-  // Handle view details
+  // Handle view details - appointment info is shown in the card itself
   const handleViewDetails = (appointment) => {
-    navigate(`/appointments/${appointment.id}`);
+    setSelectedAppointment(appointment);
   };
 
   // Status options for filter

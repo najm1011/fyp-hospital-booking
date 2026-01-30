@@ -17,24 +17,17 @@ const Footer = () => {
     { name: 'Home', path: '/' },
     { name: 'Find Doctors', path: '/doctors' },
     { name: 'Book Appointment', path: '/appointments/book' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Contact', path: '/contact' },
-  ];
-
-  const supportLinks = [
-    { name: 'Help Center', path: '/help' },
-    { name: 'FAQs', path: '/faqs' },
-    { name: 'Privacy Policy', path: '/privacy' },
-    { name: 'Terms of Service', path: '/terms' },
-    { name: 'Accessibility', path: '/accessibility' },
+    { name: 'Register', path: '/register' },
+    { name: 'Sign In', path: '/login' },
   ];
 
   const departments = [
-    { name: 'Cardiology', path: '/departments/cardiology' },
-    { name: 'Neurology', path: '/departments/neurology' },
-    { name: 'Orthopedics', path: '/departments/orthopedics' },
-    { name: 'Pediatrics', path: '/departments/pediatrics' },
-    { name: 'Dermatology', path: '/departments/dermatology' },
+    { name: 'Cardiology' },
+    { name: 'Neurology' },
+    { name: 'Orthopedics' },
+    { name: 'Pediatrics' },
+    { name: 'Dermatology' },
+    { name: 'General Medicine' },
   ];
 
   const socialLinks = [
@@ -103,32 +96,35 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-4">Departments</h3>
             <ul className="space-y-2">
               {departments.map((dept) => (
-                <li key={dept.path}>
-                  <Link
-                    to={dept.path}
-                    className="text-sm hover:text-primary-400 transition-colors"
-                  >
+                <li key={dept.name}>
+                  <span className="text-sm text-gray-400">
                     {dept.name}
-                  </Link>
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Contact */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Support</h3>
+            <h3 className="text-white font-semibold mb-4">Opening Hours</h3>
             <ul className="space-y-2">
-              {supportLinks.map((link) => (
-                <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-sm hover:text-primary-400 transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+              <li className="text-sm">
+                <span className="text-gray-400">Mon - Fri:</span>
+                <span className="text-gray-300 ml-2">8:00 AM - 6:00 PM</span>
+              </li>
+              <li className="text-sm">
+                <span className="text-gray-400">Saturday:</span>
+                <span className="text-gray-300 ml-2">9:00 AM - 2:00 PM</span>
+              </li>
+              <li className="text-sm">
+                <span className="text-gray-400">Sunday:</span>
+                <span className="text-gray-300 ml-2">Closed</span>
+              </li>
+              <li className="text-sm mt-3">
+                <span className="text-gray-400">Emergency:</span>
+                <span className="text-gray-300 ml-2">24/7</span>
+              </li>
             </ul>
           </div>
         </div>

@@ -458,12 +458,12 @@ const DoctorDashboard = () => {
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
               </Link>
               <Link
-                to="/doctor/patients"
+                to="/doctor/availability"
                 className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <div className="flex items-center">
                   <FiUsers className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">My Patients</span>
+                  <span className="font-medium text-gray-900">Set Availability</span>
                 </div>
                 <FiArrowRight className="h-5 w-5 text-gray-400" />
               </Link>

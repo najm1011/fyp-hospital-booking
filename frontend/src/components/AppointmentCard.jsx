@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import {
   FiCalendar,
   FiClock,
@@ -22,7 +21,6 @@ const AppointmentCard = ({
   loading = false,
   className = '',
 }) => {
-  const navigate = useNavigate();
 
   // Loading skeleton for mini variant
   if (loading && variant === 'mini') {
@@ -189,8 +187,6 @@ const AppointmentCard = ({
   const handleClick = () => {
     if (onViewDetails) {
       onViewDetails(appointment);
-    } else {
-      navigate(`/appointments/${appointment.id}`);
     }
   };
 
