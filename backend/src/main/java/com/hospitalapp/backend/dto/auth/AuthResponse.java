@@ -75,16 +75,18 @@ public class AuthResponse {
         private String firstName;
         private String lastName;
         private String role;
+        private String phoneNumber;
 
         public UserInfo() {
         }
 
-        public UserInfo(Long id, String email, String firstName, String lastName, String role) {
+        public UserInfo(Long id, String email, String firstName, String lastName, String role, String phoneNumber) {
             this.id = id;
             this.email = email;
             this.firstName = firstName;
             this.lastName = lastName;
             this.role = role;
+            this.phoneNumber = phoneNumber;
         }
 
         public Long getId() {
@@ -125,6 +127,14 @@ public class AuthResponse {
 
         public void setRole(String role) {
             this.role = role;
+        }
+
+        public String getPhoneNumber() {
+            return phoneNumber;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
         }
     }
 }

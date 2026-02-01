@@ -1,6 +1,8 @@
 package com.hospitalapp.backend.service;
 
+import com.hospitalapp.backend.dto.user.ChangePasswordRequest;
 import com.hospitalapp.backend.dto.user.CreateUserRequest;
+import com.hospitalapp.backend.dto.user.UpdateProfileRequest;
 import com.hospitalapp.backend.dto.user.UpdateUserRequest;
 import com.hospitalapp.backend.dto.user.UserResponse;
 import com.hospitalapp.backend.model.User;
@@ -147,5 +149,31 @@ public class UserService {
 
     public long countAllUsers() {
         return userRepository.count();
+    }
+
+    @Transactional
+    public UserResponse updateProfile(Long userId, UpdateProfileRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setPhoneNumber(request.getPhoneNumber());
+
+        User savedUser = userRepository.save(user);
+        return new UserResponse(savedUser);
+    }
+
+    @Transactional
+    public void changePassword(Long userId, ChangePasswordRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPasswordHash())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+
+        user.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
     }
 }

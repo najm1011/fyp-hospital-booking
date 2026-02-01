@@ -1,22 +1,20 @@
 -- =============================================================================
--- Hospital Booking System - MySQL Database Schema
+-- Hospital Booking System - PostgreSQL Database Schema
 -- =============================================================================
 -- Project: Hospital Appointment Booking System
 -- Student: Najm (2356070)
--- Database: MySQL 8.0+
--- Character Set: utf8mb4
--- Collation: utf8mb4_unicode_ci
+-- Database: PostgreSQL 14+
+-- Encoding: UTF-8
 -- =============================================================================
 
 -- Drop existing database if exists (WARNING: This will delete all data!)
 -- DROP DATABASE IF EXISTS hospital_booking;
 
--- Create database with UTF-8 support
-CREATE DATABASE IF NOT EXISTS hospital_booking
-    CHARACTER SET utf8mb4
-    COLLATE utf8mb4_unicode_ci;
+-- Create database
+-- CREATE DATABASE hospital_booking WITH ENCODING 'UTF8' LC_COLLATE 'en_US.UTF-8' LC_CTYPE 'en_US.UTF-8';
 
-USE hospital_booking;
+-- Connect to the database
+-- \c hospital_booking;
 
 -- =============================================================================
 -- TABLE: users
@@ -25,22 +23,23 @@ USE hospital_booking;
 -- =============================================================================
 
 CREATE TABLE users (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20),
-    role ENUM('PATIENT', 'DOCTOR', 'ADMIN') NOT NULL,
+    role VARCHAR(20) NOT NULL CHECK (role IN ('PATIENT', 'DOCTOR', 'ADMIN')),
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-    INDEX idx_email (email),
-    INDEX idx_role (role),
-    INDEX idx_active (is_active),
-    INDEX idx_created (created_at)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_role ON users(role);
+CREATE INDEX idx_users_active ON users(is_active);
+CREATE INDEX idx_users_created ON users(created_at);
+CREATE INDEX idx_users_role_active ON users(role, is_active);
 
 -- =============================================================================
 -- TABLE: departments
@@ -49,13 +48,13 @@ CREATE TABLE users (
 -- =============================================================================
 
 CREATE TABLE departments (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE,
     description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-    INDEX idx_name (name)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE INDEX idx_departments_name ON departments(name);
 
 -- =============================================================================
 -- TABLE: doctors
@@ -64,23 +63,20 @@ CREATE TABLE departments (
 -- =============================================================================
 
 CREATE TABLE doctors (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL UNIQUE,
-    department_id BIGINT NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+    department_id BIGINT NOT NULL REFERENCES departments(id) ON DELETE RESTRICT,
     specialty VARCHAR(255),
     qualifications TEXT,
     bio TEXT,
     photo_url VARCHAR(500),
     consultation_fee DECIMAL(10, 2) DEFAULT 0.00,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE RESTRICT,
-
-    INDEX idx_user (user_id),
-    INDEX idx_department (department_id),
-    INDEX idx_specialty (specialty)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE INDEX idx_doctors_user ON doctors(user_id);
+CREATE INDEX idx_doctors_department ON doctors(department_id);
+CREATE INDEX idx_doctors_specialty ON doctors(specialty);
 
 -- =============================================================================
 -- TABLE: time_slots
@@ -89,22 +85,20 @@ CREATE TABLE doctors (
 -- =============================================================================
 
 CREATE TABLE time_slots (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    doctor_id BIGINT NOT NULL,
-    day_of_week ENUM('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY') NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
+    doctor_id BIGINT NOT NULL REFERENCES doctors(id) ON DELETE CASCADE,
+    day_of_week VARCHAR(10) NOT NULL CHECK (day_of_week IN ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY')),
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
     is_available BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (doctor_id) REFERENCES doctors(id) ON DELETE CASCADE,
-
-    INDEX idx_doctor (doctor_id),
-    INDEX idx_day (day_of_week),
-    INDEX idx_available (is_available),
-
     CONSTRAINT chk_time_order CHECK (end_time > start_time)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
+
+CREATE INDEX idx_timeslots_doctor ON time_slots(doctor_id);
+CREATE INDEX idx_timeslots_day ON time_slots(day_of_week);
+CREATE INDEX idx_timeslots_available ON time_slots(is_available);
 
 -- =============================================================================
 -- TABLE: appointments
@@ -113,34 +107,33 @@ CREATE TABLE time_slots (
 -- =============================================================================
 
 CREATE TABLE appointments (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    patient_id BIGINT NOT NULL,
-    doctor_id BIGINT NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
+    patient_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    doctor_id BIGINT NOT NULL REFERENCES doctors(id) ON DELETE RESTRICT,
     appointment_date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
-    status ENUM('SCHEDULED', 'COMPLETED', 'CANCELLED', 'NO_SHOW') DEFAULT 'SCHEDULED',
+    status VARCHAR(20) DEFAULT 'SCHEDULED' CHECK (status IN ('SCHEDULED', 'COMPLETED', 'CANCELLED', 'NO_SHOW')),
     patient_notes TEXT,
     doctor_notes TEXT,
     cancellation_reason TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
-    FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (doctor_id) REFERENCES doctors(id) ON DELETE RESTRICT,
-
-    INDEX idx_patient (patient_id),
-    INDEX idx_doctor (doctor_id),
-    INDEX idx_date (appointment_date),
-    INDEX idx_status (status),
-    INDEX idx_created (created_at),
-    INDEX idx_composite (doctor_id, appointment_date, start_time),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT chk_appointment_time CHECK (end_time > start_time),
-    CONSTRAINT chk_future_date CHECK (appointment_date >= CURDATE()),
+    CONSTRAINT unique_doctor_slot UNIQUE (doctor_id, appointment_date, start_time)
+);
 
-    UNIQUE KEY unique_doctor_slot (doctor_id, appointment_date, start_time)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE INDEX idx_appointments_patient ON appointments(patient_id);
+CREATE INDEX idx_appointments_doctor ON appointments(doctor_id);
+CREATE INDEX idx_appointments_date ON appointments(appointment_date);
+CREATE INDEX idx_appointments_status ON appointments(status);
+CREATE INDEX idx_appointments_created ON appointments(created_at);
+CREATE INDEX idx_appointments_composite ON appointments(doctor_id, appointment_date, start_time);
+
+-- Partial index for upcoming scheduled appointments
+CREATE INDEX idx_appointments_upcoming ON appointments(status, appointment_date, start_time)
+    WHERE status = 'SCHEDULED';
 
 -- =============================================================================
 -- INITIAL DATA: Departments
@@ -190,7 +183,7 @@ JOIN doctors d ON a.doctor_id = d.id
 JOIN users du ON d.user_id = du.id
 JOIN departments dep ON d.department_id = dep.id
 WHERE a.status = 'SCHEDULED'
-AND a.appointment_date >= CURDATE()
+AND a.appointment_date >= CURRENT_DATE
 ORDER BY a.appointment_date, a.start_time;
 
 -- View: Doctor statistics
@@ -204,7 +197,7 @@ SELECT
     SUM(CASE WHEN a.status = 'COMPLETED' THEN 1 ELSE 0 END) AS completed_appointments,
     SUM(CASE WHEN a.status = 'CANCELLED' THEN 1 ELSE 0 END) AS cancelled_appointments,
     SUM(CASE WHEN a.status = 'NO_SHOW' THEN 1 ELSE 0 END) AS no_show_appointments,
-    SUM(CASE WHEN a.status = 'SCHEDULED' AND a.appointment_date >= CURDATE() THEN 1 ELSE 0 END) AS upcoming_appointments
+    SUM(CASE WHEN a.status = 'SCHEDULED' AND a.appointment_date >= CURRENT_DATE THEN 1 ELSE 0 END) AS upcoming_appointments
 FROM doctors d
 JOIN users u ON d.user_id = u.id
 JOIN departments dep ON d.department_id = dep.id
@@ -212,55 +205,68 @@ LEFT JOIN appointments a ON d.id = a.doctor_id
 GROUP BY d.id, u.first_name, u.last_name, dep.name, d.specialty;
 
 -- =============================================================================
--- STORED PROCEDURES
+-- FUNCTIONS (PostgreSQL equivalent of stored procedures)
 -- =============================================================================
 
-DELIMITER $$
-
--- Procedure: Get available time slots for a doctor on a specific date
-CREATE PROCEDURE get_available_slots(
-    IN p_doctor_id BIGINT,
-    IN p_date DATE
+-- Function: Get available time slots for a doctor on a specific date
+CREATE OR REPLACE FUNCTION get_available_slots(
+    p_doctor_id BIGINT,
+    p_date DATE
 )
+RETURNS TABLE (
+    slot_id BIGINT,
+    slot_start_time TIME,
+    slot_end_time TIME,
+    slot_available BOOLEAN,
+    booked_status VARCHAR
+) AS $$
 BEGIN
-    DECLARE v_day_of_week VARCHAR(10);
-
-    SET v_day_of_week = UPPER(DAYNAME(p_date));
-
+    RETURN QUERY
     SELECT
         ts.id,
         ts.start_time,
         ts.end_time,
-        CASE
-            WHEN a.id IS NOT NULL THEN FALSE
-            ELSE TRUE
-        END AS is_available,
-        a.status AS booked_status
+        CASE WHEN a.id IS NOT NULL THEN FALSE ELSE TRUE END,
+        a.status
     FROM time_slots ts
     LEFT JOIN appointments a ON ts.doctor_id = a.doctor_id
         AND a.appointment_date = p_date
         AND a.start_time = ts.start_time
         AND a.status = 'SCHEDULED'
     WHERE ts.doctor_id = p_doctor_id
-        AND ts.day_of_week = v_day_of_week
+        AND ts.day_of_week = UPPER(TRIM(TO_CHAR(p_date, 'Day')))
         AND ts.is_available = TRUE
     ORDER BY ts.start_time;
-END$$
+END;
+$$ LANGUAGE plpgsql;
 
--- Procedure: Get patient appointment history
-CREATE PROCEDURE get_patient_appointments(
-    IN p_patient_id BIGINT
+-- Function: Get patient appointment history
+CREATE OR REPLACE FUNCTION get_patient_appointments(
+    p_patient_id BIGINT
 )
+RETURNS TABLE (
+    appointment_id BIGINT,
+    appt_date DATE,
+    appt_start_time TIME,
+    appt_end_time TIME,
+    appt_status VARCHAR,
+    doctor_name TEXT,
+    doctor_specialty VARCHAR,
+    department VARCHAR,
+    notes TEXT,
+    appt_created_at TIMESTAMP
+) AS $$
 BEGIN
+    RETURN QUERY
     SELECT
         a.id,
         a.appointment_date,
         a.start_time,
         a.end_time,
         a.status,
-        CONCAT(du.first_name, ' ', du.last_name) AS doctor_name,
+        CONCAT(du.first_name, ' ', du.last_name),
         d.specialty,
-        dep.name AS department,
+        dep.name,
         a.patient_notes,
         a.created_at
     FROM appointments a
@@ -269,24 +275,38 @@ BEGIN
     JOIN departments dep ON d.department_id = dep.id
     WHERE a.patient_id = p_patient_id
     ORDER BY a.appointment_date DESC, a.start_time DESC;
-END$$
+END;
+$$ LANGUAGE plpgsql;
 
--- Procedure: Get doctor schedule for a date range
-CREATE PROCEDURE get_doctor_schedule(
-    IN p_doctor_id BIGINT,
-    IN p_start_date DATE,
-    IN p_end_date DATE
+-- Function: Get doctor schedule for a date range
+CREATE OR REPLACE FUNCTION get_doctor_schedule(
+    p_doctor_id BIGINT,
+    p_start_date DATE,
+    p_end_date DATE
 )
+RETURNS TABLE (
+    appointment_id BIGINT,
+    appt_date DATE,
+    appt_start_time TIME,
+    appt_end_time TIME,
+    appt_status VARCHAR,
+    patient_name TEXT,
+    patient_email VARCHAR,
+    patient_phone VARCHAR,
+    notes TEXT,
+    appt_created_at TIMESTAMP
+) AS $$
 BEGIN
+    RETURN QUERY
     SELECT
         a.id,
         a.appointment_date,
         a.start_time,
         a.end_time,
         a.status,
-        CONCAT(p.first_name, ' ', p.last_name) AS patient_name,
-        p.email AS patient_email,
-        p.phone_number AS patient_phone,
+        CONCAT(p.first_name, ' ', p.last_name),
+        p.email,
+        p.phone_number,
         a.patient_notes,
         a.created_at
     FROM appointments a
@@ -294,76 +314,29 @@ BEGIN
     WHERE a.doctor_id = p_doctor_id
         AND a.appointment_date BETWEEN p_start_date AND p_end_date
     ORDER BY a.appointment_date, a.start_time;
-END$$
-
-DELIMITER ;
+END;
+$$ LANGUAGE plpgsql;
 
 -- =============================================================================
--- TRIGGERS
+-- TRIGGER FUNCTIONS
 -- =============================================================================
 
-DELIMITER $$
-
--- Trigger: Prevent overlapping appointments
-CREATE TRIGGER prevent_overlapping_appointments
-BEFORE INSERT ON appointments
-FOR EACH ROW
+-- Trigger function: Auto-update updated_at timestamp
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
 BEGIN
-    DECLARE overlap_count INT;
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-    SELECT COUNT(*) INTO overlap_count
-    FROM appointments
-    WHERE doctor_id = NEW.doctor_id
-        AND appointment_date = NEW.appointment_date
-        AND status = 'SCHEDULED'
-        AND (
-            (NEW.start_time >= start_time AND NEW.start_time < end_time)
-            OR (NEW.end_time > start_time AND NEW.end_time <= end_time)
-            OR (NEW.start_time <= start_time AND NEW.end_time >= end_time)
-        );
+CREATE TRIGGER trigger_users_updated_at
+    BEFORE UPDATE ON users
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
-    IF overlap_count > 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Time slot already booked for this doctor';
-    END IF;
-END$$
-
--- Trigger: Validate appointment is within doctor's working hours
-CREATE TRIGGER validate_doctor_availability
-BEFORE INSERT ON appointments
-FOR EACH ROW
-BEGIN
-    DECLARE availability_count INT;
-    DECLARE v_day_of_week VARCHAR(10);
-
-    SET v_day_of_week = UPPER(DAYNAME(NEW.appointment_date));
-
-    SELECT COUNT(*) INTO availability_count
-    FROM time_slots
-    WHERE doctor_id = NEW.doctor_id
-        AND day_of_week = v_day_of_week
-        AND start_time <= NEW.start_time
-        AND end_time >= NEW.end_time
-        AND is_available = TRUE;
-
-    IF availability_count = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Doctor is not available at the selected time';
-    END IF;
-END$$
-
-DELIMITER ;
-
--- =============================================================================
--- INDEXES FOR PERFORMANCE
--- =============================================================================
--- Additional composite indexes for common query patterns
--- =============================================================================
-
-CREATE INDEX idx_appointments_upcoming ON appointments(status, appointment_date, start_time)
-    WHERE status = 'SCHEDULED' AND appointment_date >= CURDATE();
-
-CREATE INDEX idx_user_role_active ON users(role, is_active);
+CREATE TRIGGER trigger_appointments_updated_at
+    BEFORE UPDATE ON appointments
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- =============================================================================
 -- GRANTS AND PERMISSIONS
@@ -373,24 +346,12 @@ CREATE INDEX idx_user_role_active ON users(role, is_active);
 
 -- Create application database user
 -- IMPORTANT: Change the password in production
-CREATE USER IF NOT EXISTS 'hospital_app'@'localhost' IDENTIFIED BY 'CHANGE_THIS_PASSWORD';
+-- CREATE USER hospital_app WITH PASSWORD 'CHANGE_THIS_PASSWORD';
 
 -- Grant necessary privileges
-GRANT SELECT, INSERT, UPDATE, DELETE ON hospital_booking.* TO 'hospital_app'@'localhost';
-GRANT EXECUTE ON hospital_booking.* TO 'hospital_app'@'localhost';
-
--- Flush privileges
-FLUSH PRIVILEGES;
-
--- =============================================================================
--- DATABASE MAINTENANCE
--- =============================================================================
-
--- Optimize tables
-OPTIMIZE TABLE users, doctors, departments, time_slots, appointments;
-
--- Analyze tables for query optimization
-ANALYZE TABLE users, doctors, departments, time_slots, appointments;
+-- GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO hospital_app;
+-- GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO hospital_app;
+-- GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO hospital_app;
 
 -- =============================================================================
 -- VERIFICATION QUERIES
@@ -398,9 +359,6 @@ ANALYZE TABLE users, doctors, departments, time_slots, appointments;
 
 -- Verify schema creation
 SELECT 'Database schema created successfully' AS status;
-
--- Show table structure
-SHOW TABLES;
 
 -- Count rows in each table
 SELECT 'users' AS table_name, COUNT(*) AS row_count FROM users

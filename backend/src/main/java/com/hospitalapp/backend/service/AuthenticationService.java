@@ -111,7 +111,8 @@ public class AuthenticationService {
                 user.getEmail(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getRole().name()
+                user.getRole().name(),
+                user.getPhoneNumber()
         );
 
         return new AuthResponse(

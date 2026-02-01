@@ -18,6 +18,8 @@ import BookAppointment from './pages/BookAppointment';
 import Doctors from './pages/Doctors';
 import DoctorDetail from './pages/DoctorDetail';
 import MyAppointments from './pages/MyAppointments';
+import MedicalHistory from './pages/MedicalHistory';
+import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -83,7 +85,7 @@ function App() {
           path="/medical-history"
           element={
             <ProtectedRoute allowedRoles={['PATIENT']}>
-              <Dashboard /> {/* Replace with Medical History later */}
+              <MedicalHistory />
             </ProtectedRoute>
           }
         />
@@ -226,7 +228,7 @@ function App() {
           path="/settings"
           element={
             <ProtectedRoute>
-              <Dashboard /> {/* Replace with Settings component later */}
+              <Settings />
             </ProtectedRoute>
           }
         />

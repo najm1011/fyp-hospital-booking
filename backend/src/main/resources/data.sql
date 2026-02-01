@@ -368,89 +368,89 @@ INSERT INTO time_slots (doctor_id, day_of_week, start_time, end_time, is_availab
 -- =============================================================================
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, end_time, status, patient_notes, created_at, updated_at) VALUES
 -- Tomorrow
-(17, 1, DATEADD('DAY', 1, CURRENT_DATE), '09:00:00', '09:30:00', 'SCHEDULED', 'Annual heart checkup. Have been experiencing occasional chest tightness.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(18, 10, DATEADD('DAY', 1, CURRENT_DATE), '09:30:00', '10:00:00', 'SCHEDULED', 'General health checkup and blood pressure monitoring.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(19, 3, DATEADD('DAY', 1, CURRENT_DATE), '10:00:00', '10:30:00', 'SCHEDULED', 'Follow-up for eczema treatment. Skin has improved.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(17, 1, CURRENT_DATE + 1, '09:00:00', '09:30:00', 'SCHEDULED', 'Annual heart checkup. Have been experiencing occasional chest tightness.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(18, 10, CURRENT_DATE + 1, '09:30:00', '10:00:00', 'SCHEDULED', 'General health checkup and blood pressure monitoring.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(19, 3, CURRENT_DATE + 1, '10:00:00', '10:30:00', 'SCHEDULED', 'Follow-up for eczema treatment. Skin has improved.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 2 days from now
-(20, 6, DATEADD('DAY', 2, CURRENT_DATE), '08:30:00', '09:00:00', 'SCHEDULED', 'Knee pain after marathon training. Need assessment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(21, 8, DATEADD('DAY', 2, CURRENT_DATE), '09:00:00', '09:30:00', 'SCHEDULED', 'Child vaccination appointment - 6 month checkup.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(22, 13, DATEADD('DAY', 2, CURRENT_DATE), '10:30:00', '11:00:00', 'SCHEDULED', 'Initial consultation for anxiety management.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(20, 6, CURRENT_DATE + 2, '08:30:00', '09:00:00', 'SCHEDULED', 'Knee pain after marathon training. Need assessment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(21, 8, CURRENT_DATE + 2, '09:00:00', '09:30:00', 'SCHEDULED', 'Child vaccination appointment - 6 month checkup.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(22, 13, CURRENT_DATE + 2, '10:30:00', '11:00:00', 'SCHEDULED', 'Initial consultation for anxiety management.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 3 days from now
-(23, 5, DATEADD('DAY', 3, CURRENT_DATE), '10:00:00', '10:30:00', 'SCHEDULED', 'Recurring migraines for the past month. Need evaluation.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(24, 11, DATEADD('DAY', 3, CURRENT_DATE), '10:30:00', '11:00:00', 'SCHEDULED', 'Eye strain from computer work. Considering glasses.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(25, 14, DATEADD('DAY', 3, CURRENT_DATE), '09:30:00', '10:00:00', 'SCHEDULED', 'Annual gynecological exam.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(23, 5, CURRENT_DATE + 3, '10:00:00', '10:30:00', 'SCHEDULED', 'Recurring migraines for the past month. Need evaluation.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(24, 11, CURRENT_DATE + 3, '10:30:00', '11:00:00', 'SCHEDULED', 'Eye strain from computer work. Considering glasses.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(25, 14, CURRENT_DATE + 3, '09:30:00', '10:00:00', 'SCHEDULED', 'Annual gynecological exam.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 5 days from now
-(26, 2, DATEADD('DAY', 5, CURRENT_DATE), '08:00:00', '08:30:00', 'SCHEDULED', 'Palpitations and irregular heartbeat concerns.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(27, 7, DATEADD('DAY', 5, CURRENT_DATE), '09:00:00', '09:30:00', 'SCHEDULED', 'Lower back pain radiating to legs.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(28, 12, DATEADD('DAY', 5, CURRENT_DATE), '11:00:00', '11:30:00', 'SCHEDULED', 'Chronic sinusitis follow-up appointment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(26, 2, CURRENT_DATE + 5, '08:00:00', '08:30:00', 'SCHEDULED', 'Palpitations and irregular heartbeat concerns.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(27, 7, CURRENT_DATE + 5, '09:00:00', '09:30:00', 'SCHEDULED', 'Lower back pain radiating to legs.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(28, 12, CURRENT_DATE + 5, '11:00:00', '11:30:00', 'SCHEDULED', 'Chronic sinusitis follow-up appointment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 1 week from now
-(29, 4, DATEADD('DAY', 7, CURRENT_DATE), '10:00:00', '10:30:00', 'SCHEDULED', 'Acne treatment consultation. Previous treatments ineffective.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(30, 9, DATEADD('DAY', 7, CURRENT_DATE), '10:30:00', '11:00:00', 'SCHEDULED', 'Child developmental assessment - ADHD concerns.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(31, 1, DATEADD('DAY', 7, CURRENT_DATE), '14:00:00', '14:30:00', 'SCHEDULED', 'Post-stent placement follow-up.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(29, 4, CURRENT_DATE + 7, '10:00:00', '10:30:00', 'SCHEDULED', 'Acne treatment consultation. Previous treatments ineffective.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(30, 9, CURRENT_DATE + 7, '10:30:00', '11:00:00', 'SCHEDULED', 'Child developmental assessment - ADHD concerns.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(31, 1, CURRENT_DATE + 7, '14:00:00', '14:30:00', 'SCHEDULED', 'Post-stent placement follow-up.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 10 days from now
-(32, 10, DATEADD('DAY', 10, CURRENT_DATE), '09:00:00', '09:30:00', 'SCHEDULED', 'Diabetes management review and HbA1c check.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(33, 6, DATEADD('DAY', 10, CURRENT_DATE), '14:00:00', '14:30:00', 'SCHEDULED', 'Shoulder injury from tennis. Possible rotator cuff issue.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(32, 10, CURRENT_DATE + 10, '09:00:00', '09:30:00', 'SCHEDULED', 'Diabetes management review and HbA1c check.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(33, 6, CURRENT_DATE + 10, '14:00:00', '14:30:00', 'SCHEDULED', 'Shoulder injury from tennis. Possible rotator cuff issue.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 2 weeks from now
-(34, 13, DATEADD('DAY', 14, CURRENT_DATE), '14:00:00', '14:30:00', 'SCHEDULED', 'Depression follow-up. Adjusting medication.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(35, 3, DATEADD('DAY', 14, CURRENT_DATE), '15:00:00', '15:30:00', 'SCHEDULED', 'Psoriasis flare-up assessment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(36, 11, DATEADD('DAY', 14, CURRENT_DATE), '14:30:00', '15:00:00', 'SCHEDULED', 'Pre-LASIK consultation and eligibility assessment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(34, 13, CURRENT_DATE + 14, '14:00:00', '14:30:00', 'SCHEDULED', 'Depression follow-up. Adjusting medication.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(35, 3, CURRENT_DATE + 14, '15:00:00', '15:30:00', 'SCHEDULED', 'Psoriasis flare-up assessment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(36, 11, CURRENT_DATE + 14, '14:30:00', '15:00:00', 'SCHEDULED', 'Pre-LASIK consultation and eligibility assessment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- =============================================================================
 -- COMPLETED APPOINTMENTS (Past appointments with doctor notes)
 -- =============================================================================
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, end_time, status, patient_notes, doctor_notes, created_at, updated_at) VALUES
 -- Yesterday
-(17, 10, DATEADD('DAY', -1, CURRENT_DATE), '09:00:00', '09:30:00', 'COMPLETED', 'Feeling fatigued and low energy.', 'Patient shows signs of vitamin D deficiency. Prescribed supplements 1000 IU daily. Blood test scheduled for follow-up in 4 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(17, 10, CURRENT_DATE - 1, '09:00:00', '09:30:00', 'COMPLETED', 'Feeling fatigued and low energy.', 'Patient shows signs of vitamin D deficiency. Prescribed supplements 1000 IU daily. Blood test scheduled for follow-up in 4 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 2 days ago
-(18, 1, DATEADD('DAY', -2, CURRENT_DATE), '10:00:00', '10:30:00', 'COMPLETED', 'Chest pain during exercise.', 'ECG normal. Stress test recommended. Patient advised to reduce workout intensity and monitor symptoms. Follow-up in 2 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(19, 3, DATEADD('DAY', -2, CURRENT_DATE), '09:30:00', '10:00:00', 'COMPLETED', 'Persistent acne problem not responding to OTC treatments.', 'Moderate acne vulgaris diagnosed. Prescribed topical retinoid and oral antibiotics. Skincare routine discussed. Follow-up in 6 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(18, 1, CURRENT_DATE - 2, '10:00:00', '10:30:00', 'COMPLETED', 'Chest pain during exercise.', 'ECG normal. Stress test recommended. Patient advised to reduce workout intensity and monitor symptoms. Follow-up in 2 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(19, 3, CURRENT_DATE - 2, '09:30:00', '10:00:00', 'COMPLETED', 'Persistent acne problem not responding to OTC treatments.', 'Moderate acne vulgaris diagnosed. Prescribed topical retinoid and oral antibiotics. Skincare routine discussed. Follow-up in 6 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 5 days ago
-(20, 6, DATEADD('DAY', -5, CURRENT_DATE), '14:00:00', '14:30:00', 'COMPLETED', 'Back pain for 2 weeks after lifting heavy boxes.', 'Mild muscle strain with no nerve involvement. Prescribed physiotherapy sessions (6 weeks), NSAIDs for pain. No heavy lifting for 3 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(21, 8, DATEADD('DAY', -5, CURRENT_DATE), '09:30:00', '10:00:00', 'COMPLETED', 'Child has fever (38.5C) and persistent cough for 3 days.', 'Viral upper respiratory infection diagnosed. Prescribed rest, increased fluids, paracetamol for fever. No antibiotics needed. Return if symptoms worsen.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(20, 6, CURRENT_DATE - 5, '14:00:00', '14:30:00', 'COMPLETED', 'Back pain for 2 weeks after lifting heavy boxes.', 'Mild muscle strain with no nerve involvement. Prescribed physiotherapy sessions (6 weeks), NSAIDs for pain. No heavy lifting for 3 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(21, 8, CURRENT_DATE - 5, '09:30:00', '10:00:00', 'COMPLETED', 'Child has fever (38.5C) and persistent cough for 3 days.', 'Viral upper respiratory infection diagnosed. Prescribed rest, increased fluids, paracetamol for fever. No antibiotics needed. Return if symptoms worsen.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 1 week ago
-(22, 5, DATEADD('DAY', -7, CURRENT_DATE), '10:30:00', '11:00:00', 'COMPLETED', 'Numbness in hands and feet.', 'Nerve conduction study ordered. Initial exam suggests possible carpal tunnel syndrome. MRI scheduled to rule out other conditions.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(23, 12, DATEADD('DAY', -7, CURRENT_DATE), '14:30:00', '15:00:00', 'COMPLETED', 'Hearing loss in left ear noticed over past month.', 'Mild sensorineural hearing loss detected. Audiogram confirms moderate loss at high frequencies. Hearing aid consultation recommended.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(22, 5, CURRENT_DATE - 7, '10:30:00', '11:00:00', 'COMPLETED', 'Numbness in hands and feet.', 'Nerve conduction study ordered. Initial exam suggests possible carpal tunnel syndrome. MRI scheduled to rule out other conditions.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(23, 12, CURRENT_DATE - 7, '14:30:00', '15:00:00', 'COMPLETED', 'Hearing loss in left ear noticed over past month.', 'Mild sensorineural hearing loss detected. Audiogram confirms moderate loss at high frequencies. Hearing aid consultation recommended.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 10 days ago
-(24, 2, DATEADD('DAY', -10, CURRENT_DATE), '08:30:00', '09:00:00', 'COMPLETED', 'Heart racing episodes at night.', 'Holter monitor prescribed for 48 hours. ECG shows normal sinus rhythm. Likely anxiety-related. Lifestyle modifications discussed.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(25, 13, DATEADD('DAY', -10, CURRENT_DATE), '10:00:00', '10:30:00', 'COMPLETED', 'Feeling overwhelmed and anxious about work.', 'Generalized anxiety disorder diagnosis. Started on low-dose SSRI. CBT therapy recommended. Follow-up in 4 weeks to assess response.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(24, 2, CURRENT_DATE - 10, '08:30:00', '09:00:00', 'COMPLETED', 'Heart racing episodes at night.', 'Holter monitor prescribed for 48 hours. ECG shows normal sinus rhythm. Likely anxiety-related. Lifestyle modifications discussed.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(25, 13, CURRENT_DATE - 10, '10:00:00', '10:30:00', 'COMPLETED', 'Feeling overwhelmed and anxious about work.', 'Generalized anxiety disorder diagnosis. Started on low-dose SSRI. CBT therapy recommended. Follow-up in 4 weeks to assess response.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 2 weeks ago
-(26, 4, DATEADD('DAY', -14, CURRENT_DATE), '10:30:00', '11:00:00', 'COMPLETED', 'Dark patches appearing on face.', 'Melasma diagnosed. Sun protection emphasized. Prescribed hydroquinone cream 4%. Chemical peel series recommended.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(27, 7, DATEADD('DAY', -14, CURRENT_DATE), '14:00:00', '14:30:00', 'COMPLETED', 'Neck pain and stiffness for 3 weeks.', 'Cervical spondylosis identified on X-ray. Physical therapy ordered. Ergonomic workstation setup discussed. NSAIDs for flare-ups.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(26, 4, CURRENT_DATE - 14, '10:30:00', '11:00:00', 'COMPLETED', 'Dark patches appearing on face.', 'Melasma diagnosed. Sun protection emphasized. Prescribed hydroquinone cream 4%. Chemical peel series recommended.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(27, 7, CURRENT_DATE - 14, '14:00:00', '14:30:00', 'COMPLETED', 'Neck pain and stiffness for 3 weeks.', 'Cervical spondylosis identified on X-ray. Physical therapy ordered. Ergonomic workstation setup discussed. NSAIDs for flare-ups.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 3 weeks ago
-(28, 11, DATEADD('DAY', -21, CURRENT_DATE), '10:00:00', '10:30:00', 'COMPLETED', 'Blurry vision while reading.', 'Presbyopia confirmed. Reading glasses prescription provided (+1.75). Annual eye exam recommended.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(29, 9, DATEADD('DAY', -21, CURRENT_DATE), '14:00:00', '14:30:00', 'COMPLETED', 'Concerned about child''s speech delay at age 3.', 'Speech evaluation shows mild expressive language delay. Speech therapy sessions recommended twice weekly. Hearing test normal.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(28, 11, CURRENT_DATE - 21, '10:00:00', '10:30:00', 'COMPLETED', 'Blurry vision while reading.', 'Presbyopia confirmed. Reading glasses prescription provided (+1.75). Annual eye exam recommended.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(29, 9, CURRENT_DATE - 21, '14:00:00', '14:30:00', 'COMPLETED', 'Concerned about child''s speech delay at age 3.', 'Speech evaluation shows mild expressive language delay. Speech therapy sessions recommended twice weekly. Hearing test normal.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 -- 1 month ago
-(30, 14, DATEADD('DAY', -30, CURRENT_DATE), '09:00:00', '09:30:00', 'COMPLETED', 'Irregular menstrual cycles for 4 months.', 'Ultrasound shows polycystic ovaries. PCOS likely diagnosis. Hormonal panel ordered. Lifestyle modifications discussed. Metformin considered.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(31, 10, DATEADD('DAY', -30, CURRENT_DATE), '14:30:00', '15:00:00', 'COMPLETED', 'Chronic fatigue and weight gain.', 'Thyroid function tests ordered. TSH elevated suggesting hypothyroidism. Started on levothyroxine 50mcg. Recheck in 6 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(30, 14, CURRENT_DATE - 30, '09:00:00', '09:30:00', 'COMPLETED', 'Irregular menstrual cycles for 4 months.', 'Ultrasound shows polycystic ovaries. PCOS likely diagnosis. Hormonal panel ordered. Lifestyle modifications discussed. Metformin considered.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(31, 10, CURRENT_DATE - 30, '14:30:00', '15:00:00', 'COMPLETED', 'Chronic fatigue and weight gain.', 'Thyroid function tests ordered. TSH elevated suggesting hypothyroidism. Started on levothyroxine 50mcg. Recheck in 6 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- =============================================================================
 -- CANCELLED APPOINTMENTS
 -- =============================================================================
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, end_time, status, patient_notes, cancellation_reason, created_at, updated_at) VALUES
-(32, 5, DATEADD('DAY', -3, CURRENT_DATE), '14:00:00', '14:30:00', 'CANCELLED', 'Dizziness and balance issues.', 'Patient had work emergency and could not attend.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(33, 11, DATEADD('DAY', -2, CURRENT_DATE), '10:00:00', '10:30:00', 'CANCELLED', 'Annual eye examination.', 'Doctor unavailable due to medical conference.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(34, 8, DATEADD('DAY', -4, CURRENT_DATE), '09:30:00', '10:00:00', 'CANCELLED', 'Child wellness checkup.', 'Family had to travel unexpectedly.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(35, 1, DATEADD('DAY', -6, CURRENT_DATE), '09:00:00', '09:30:00', 'CANCELLED', 'Follow-up for hypertension.', 'Patient feeling much better, requested to postpone.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(32, 5, CURRENT_DATE - 3, '14:00:00', '14:30:00', 'CANCELLED', 'Dizziness and balance issues.', 'Patient had work emergency and could not attend.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(33, 11, CURRENT_DATE - 2, '10:00:00', '10:30:00', 'CANCELLED', 'Annual eye examination.', 'Doctor unavailable due to medical conference.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(34, 8, CURRENT_DATE - 4, '09:30:00', '10:00:00', 'CANCELLED', 'Child wellness checkup.', 'Family had to travel unexpectedly.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(35, 1, CURRENT_DATE - 6, '09:00:00', '09:30:00', 'CANCELLED', 'Follow-up for hypertension.', 'Patient feeling much better, requested to postpone.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- =============================================================================
 -- NO-SHOW APPOINTMENTS (Patients who didn't attend)
 -- =============================================================================
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, end_time, status, patient_notes, created_at, updated_at) VALUES
-(36, 3, DATEADD('DAY', -8, CURRENT_DATE), '15:00:00', '15:30:00', 'NO_SHOW', 'Rash on arms and legs.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(17, 12, DATEADD('DAY', -12, CURRENT_DATE), '14:00:00', '14:30:00', 'NO_SHOW', 'Persistent sore throat.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(36, 3, CURRENT_DATE - 8, '15:00:00', '15:30:00', 'NO_SHOW', 'Rash on arms and legs.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(17, 12, CURRENT_DATE - 12, '14:00:00', '14:30:00', 'NO_SHOW', 'Persistent sore throat.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- =============================================================================
 -- END OF SEED DATA
