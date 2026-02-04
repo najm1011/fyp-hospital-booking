@@ -182,22 +182,24 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     /**
      * Count appointments by year and month
      */
-    @Query("SELECT YEAR(a.appointmentDate), MONTH(a.appointmentDate), COUNT(a) " +
-           "FROM Appointment a " +
-           "WHERE a.appointmentDate BETWEEN :startDate AND :endDate " +
-           "GROUP BY YEAR(a.appointmentDate), MONTH(a.appointmentDate) " +
-           "ORDER BY YEAR(a.appointmentDate), MONTH(a.appointmentDate)")
+    @Query(value = "SELECT EXTRACT(YEAR FROM a.appointment_date), EXTRACT(MONTH FROM a.appointment_date), COUNT(*) " +
+           "FROM appointments a " +
+           "WHERE a.appointment_date BETWEEN :startDate AND :endDate " +
+           "GROUP BY EXTRACT(YEAR FROM a.appointment_date), EXTRACT(MONTH FROM a.appointment_date) " +
+           "ORDER BY EXTRACT(YEAR FROM a.appointment_date), EXTRACT(MONTH FROM a.appointment_date)",
+           nativeQuery = true)
     List<Object[]> countAppointmentsByMonth(@Param("startDate") LocalDate startDate,
                                             @Param("endDate") LocalDate endDate);
 
     /**
      * Count appointments by year, month and status
      */
-    @Query("SELECT YEAR(a.appointmentDate), MONTH(a.appointmentDate), a.status, COUNT(a) " +
-           "FROM Appointment a " +
-           "WHERE a.appointmentDate BETWEEN :startDate AND :endDate " +
-           "GROUP BY YEAR(a.appointmentDate), MONTH(a.appointmentDate), a.status " +
-           "ORDER BY YEAR(a.appointmentDate), MONTH(a.appointmentDate)")
+    @Query(value = "SELECT EXTRACT(YEAR FROM a.appointment_date), EXTRACT(MONTH FROM a.appointment_date), a.status, COUNT(*) " +
+           "FROM appointments a " +
+           "WHERE a.appointment_date BETWEEN :startDate AND :endDate " +
+           "GROUP BY EXTRACT(YEAR FROM a.appointment_date), EXTRACT(MONTH FROM a.appointment_date), a.status " +
+           "ORDER BY EXTRACT(YEAR FROM a.appointment_date), EXTRACT(MONTH FROM a.appointment_date)",
+           nativeQuery = true)
     List<Object[]> countAppointmentsByMonthAndStatus(@Param("startDate") LocalDate startDate,
                                                       @Param("endDate") LocalDate endDate);
 
@@ -214,10 +216,11 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     /**
      * Count appointments by day of week
      */
-    @Query("SELECT DAYOFWEEK(a.appointmentDate), COUNT(a) FROM Appointment a " +
-           "WHERE a.appointmentDate BETWEEN :startDate AND :endDate " +
-           "GROUP BY DAYOFWEEK(a.appointmentDate) " +
-           "ORDER BY DAYOFWEEK(a.appointmentDate)")
+    @Query(value = "SELECT EXTRACT(DOW FROM a.appointment_date) + 1, COUNT(*) FROM appointments a " +
+           "WHERE a.appointment_date BETWEEN :startDate AND :endDate " +
+           "GROUP BY EXTRACT(DOW FROM a.appointment_date) " +
+           "ORDER BY EXTRACT(DOW FROM a.appointment_date)",
+           nativeQuery = true)
     List<Object[]> countAppointmentsByDayOfWeek(@Param("startDate") LocalDate startDate,
                                                  @Param("endDate") LocalDate endDate);
 

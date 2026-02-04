@@ -621,8 +621,8 @@ public class AppointmentService {
         String[] dayNames = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
         List<Object[]> weekdayData = appointmentRepository.countAppointmentsByDayOfWeek(startDate, endDate);
         for (Object[] row : weekdayData) {
-            Integer dayNum = (Integer) row[0];
-            Long count = (Long) row[1];
+            int dayNum = ((Number) row[0]).intValue();
+            long count = ((Number) row[1]).longValue();
             if (dayNum >= 1 && dayNum <= 7) {
                 weekdayDistribution.put(dayNames[dayNum - 1], count);
             }
@@ -663,10 +663,10 @@ public class AppointmentService {
         Map<String, MonthlyAppointmentStats> statsMap = new LinkedHashMap<>();
 
         for (Object[] row : monthlyData) {
-            int year = (Integer) row[0];
-            int month = (Integer) row[1];
-            Appointment.Status status = (Appointment.Status) row[2];
-            long count = (Long) row[3];
+            int year = ((Number) row[0]).intValue();
+            int month = ((Number) row[1]).intValue();
+            String statusStr = row[2].toString();
+            long count = ((Number) row[3]).longValue();
 
             String key = year + "-" + month;
             MonthlyAppointmentStats stats = statsMap.computeIfAbsent(key, k -> {
@@ -678,17 +678,17 @@ public class AppointmentService {
 
             stats.setTotal(stats.getTotal() + count);
 
-            switch (status) {
-                case SCHEDULED:
+            switch (statusStr) {
+                case "SCHEDULED":
                     stats.setScheduled(count);
                     break;
-                case COMPLETED:
+                case "COMPLETED":
                     stats.setCompleted(count);
                     break;
-                case CANCELLED:
+                case "CANCELLED":
                     stats.setCancelled(count);
                     break;
-                case NO_SHOW:
+                case "NO_SHOW":
                     stats.setNoShow(count);
                     break;
             }

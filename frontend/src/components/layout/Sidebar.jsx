@@ -27,14 +27,14 @@ const Sidebar = ({ isOpen, onClose }) => {
     ];
 
     const doctorItems = [
-      { name: 'Dashboard', path: '/doctor', icon: FiHome },
+      { name: 'Dashboard', path: '/doctor', icon: FiHome, end: true },
       { name: "Today's Appointments", path: '/doctor/appointments/today', icon: FiCalendar },
       { name: 'Upcoming', path: '/doctor/appointments/upcoming', icon: FiClock },
       { name: 'Availability', path: '/doctor/availability', icon: FiClipboard },
     ];
 
     const adminItems = [
-      { name: 'Overview', path: '/admin', icon: FiGrid },
+      { name: 'Overview', path: '/admin', icon: FiGrid, end: true },
       { name: 'Manage Doctors', path: '/admin/doctors', icon: FiUserPlus },
       { name: 'Manage Patients', path: '/admin/patients', icon: FiUsers },
       { name: 'Departments', path: '/admin/departments', icon: FiActivity },

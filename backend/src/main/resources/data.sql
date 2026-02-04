@@ -29,8 +29,8 @@ INSERT INTO departments (name, description, created_at) VALUES
 
 -- Admin Users (IDs: 1-2)
 INSERT INTO users (email, password_hash, first_name, last_name, phone_number, role, is_active, created_at, updated_at) VALUES
-('admin@hospital.com', '$2a$12$yhVaRgEzok4tG81fwQJ0F.laHOaBD7w74rlqS3Gzqj/uGbRYDIaD6', 'System', 'Administrator', '+44 20 7123 4567', 'ADMIN', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('manager@hospital.com', '$2a$12$yhVaRgEzok4tG81fwQJ0F.laHOaBD7w74rlqS3Gzqj/uGbRYDIaD6', 'Hospital', 'Manager', '+44 20 7123 4568', 'ADMIN', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('najamarab@gmail.com', '$2a$12$yhVaRgEzok4tG81fwQJ0F.laHOaBD7w74rlqS3Gzqj/uGbRYDIaD6', 'System', 'Administrator', '+44 7721037334', 'ADMIN', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('najmm@gmail.com', '$2a$12$yhVaRgEzok4tG81fwQJ0F.laHOaBD7w74rlqS3Gzqj/uGbRYDIaD6', 'Hospital', 'Manager', '+44 7721037334', 'ADMIN', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- Doctor Users (IDs: 3-16)
 INSERT INTO users (email, password_hash, first_name, last_name, phone_number, role, is_active, created_at, updated_at) VALUES
