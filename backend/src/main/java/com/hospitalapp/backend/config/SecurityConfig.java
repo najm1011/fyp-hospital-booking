@@ -52,6 +52,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/departments/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/doctors/**").permitAll()
 
+                        // Symptom checker endpoints (public)
+                        .requestMatchers(HttpMethod.GET, "/api/v1/symptoms/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/symptoms/**").permitAll()
+
                         // Patient endpoints
                         .requestMatchers("/api/v1/patient/**").hasRole("PATIENT")
 

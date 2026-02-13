@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiUser, FiCheck, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import api from '../services/api';
@@ -6,13 +6,18 @@ import { getErrorMessage } from '../utils/errorMessages';
 import { useToast } from '../context/ToastContext';
 import { Button, Alert, LoadingSpinner, DatePicker, TimeSlotPicker, EmptyState } from '../components/ui';
 import BookingConfirmationModal from '../components/BookingConfirmationModal';
+import SymptomChecker from '../components/SymptomChecker';
 
 const BookAppointment = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Steps: 1 = Select Doctor, 2 = Select Date/Time, 3 = Confirm
-  const [step, setStep] = useState(1);
+  // Steps: 0 = Symptoms (optional), 1 = Select Doctor, 2 = Select Date/Time, 3 = Confirm
+  const [step, setStep] = useState(0);
+
+  // Symptom checker state
+  const [symptomMatchData, setSymptomMatchData] = useState(null);
+  const [symptomCheckerUsed, setSymptomCheckerUsed] = useState(false);
 
   // Data states
   const [doctors, setDoctors] = useState([]);
@@ -116,6 +121,22 @@ const BookAppointment = () => {
     }
   };
 
+  // Symptom checker callbacks
+  const handleSymptomsMatched = (data) => {
+    setSymptomMatchData(data);
+    setSymptomCheckerUsed(true);
+    if (data.matchedDepartments.length > 0) {
+      setSelectedDepartment(data.matchedDepartments[0]);
+    }
+    setStep(1);
+  };
+
+  const handleSkipSymptoms = () => {
+    setSymptomCheckerUsed(false);
+    setSymptomMatchData(null);
+    setStep(1);
+  };
+
   // Open confirmation modal
   const handleOpenConfirmModal = () => {
     setShowConfirmModal(true);
@@ -124,8 +145,11 @@ const BookAppointment = () => {
 
   // Reset booking form
   const handleBookAnother = () => {
-    setStep(1);
+    setStep(0);
+    setSymptomMatchData(null);
+    setSymptomCheckerUsed(false);
     setSelectedDoctor(null);
+    setSelectedDepartment('');
     setSelectedDate('');
     setSelectedSlot(null);
     setPatientNotes('');
@@ -146,10 +170,21 @@ const BookAppointment = () => {
     }
   };
 
-  // Filter doctors by department
-  const filteredDoctors = selectedDepartment
-    ? doctors.filter(d => d.departmentName === selectedDepartment)
-    : doctors;
+  // Filter and sort doctors by department and symptom match
+  const filteredDoctors = useMemo(() => {
+    let filtered = selectedDepartment
+      ? doctors.filter(d => d.departmentName === selectedDepartment)
+      : doctors;
+
+    if (symptomMatchData && symptomMatchData.recommendedDoctorIds.length > 0) {
+      const recommendedIds = new Set(symptomMatchData.recommendedDoctorIds);
+      const recommended = filtered.filter(d => recommendedIds.has(d.id));
+      const others = filtered.filter(d => !recommendedIds.has(d.id));
+      filtered = [...recommended, ...others];
+    }
+
+    return filtered;
+  }, [doctors, selectedDepartment, symptomMatchData]);
 
   // Get minimum date (today) and maximum date (90 days from now)
   const today = new Date().toISOString().split('T')[0];
@@ -169,6 +204,29 @@ const BookAppointment = () => {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Select a Doctor</h2>
+
+        {/* Symptom match info banner */}
+        {symptomMatchData && (
+          <div className="mb-4 bg-success-50 border border-success-200 rounded-xl p-4">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm font-medium text-success-800">
+                  Doctors matched to your symptoms
+                </p>
+                <p className="text-sm text-success-700 mt-1">
+                  Based on: {symptomMatchData.selectedSymptoms.join(', ')}.
+                  {' '}Recommended: {symptomMatchData.matchedDepartments.join(', ')}.
+                </p>
+              </div>
+              <button
+                onClick={() => setSymptomMatchData(null)}
+                className="text-success-600 hover:text-success-800 text-sm font-medium flex-shrink-0 ml-4"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Department Filter */}
         <div className="mb-4">
@@ -198,12 +256,18 @@ const BookAppointment = () => {
             <div
               key={doctor.id}
               onClick={() => setSelectedDoctor(doctor)}
-              className={`p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+              className={`relative p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                 selectedDoctor?.id === doctor.id
                   ? 'border-primary-500 bg-primary-50 shadow-primary-sm'
                   : 'border-gray-200 hover:border-primary-200 hover:shadow-soft'
               }`}
             >
+              {/* Recommended badge */}
+              {symptomMatchData?.recommendedDoctorIds?.includes(doctor.id) && (
+                <span className="absolute top-2 right-2 inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-semibold bg-success-100 text-success-700 border border-success-200">
+                  Recommended
+                </span>
+              )}
               <div className="flex items-start space-x-3">
                 <div className={`p-3 rounded-xl ${selectedDoctor?.id === doctor.id ? 'bg-primary-500' : 'bg-primary-100'}`}>
                   <FiUser className={`h-6 w-6 ${selectedDoctor?.id === doctor.id ? 'text-white' : 'text-primary-600'}`} />
@@ -364,18 +428,7 @@ const BookAppointment = () => {
       )}
 
       <div className="flex justify-center space-x-4 pt-4">
-        <Button
-          variant="outline"
-          onClick={() => {
-            setStep(1);
-            setSelectedDoctor(null);
-            setSelectedDate('');
-            setSelectedSlot(null);
-            setPatientNotes('');
-            setBookingResult(null);
-            setSuccess(null);
-          }}
-        >
+        <Button variant="outline" onClick={handleBookAnother}>
           Book Another
         </Button>
         <Button onClick={() => navigate('/dashboard')}>
@@ -387,16 +440,22 @@ const BookAppointment = () => {
 
   // Navigation buttons
   const renderNavigation = () => {
-    if (step === 4) return null;
+    if (step === 0 || step === 4) return null;
 
     return (
       <div className="flex justify-between pt-6 border-t border-gray-200">
         <Button
           variant="outline"
-          onClick={() => step === 1 ? navigate('/dashboard') : setStep(step - 1)}
+          onClick={() => {
+            if (step === 1) {
+              setStep(0);
+            } else {
+              setStep(step - 1);
+            }
+          }}
         >
           <FiArrowLeft className="mr-2" />
-          {step === 1 ? 'Cancel' : 'Back'}
+          Back
         </Button>
 
         {step < 3 ? (
@@ -424,7 +483,8 @@ const BookAppointment = () => {
   const renderProgress = () => {
     if (step === 4) return null;
 
-    const steps = [
+    const progressSteps = [
+      { num: 0, label: 'Symptoms' },
       { num: 1, label: 'Select Doctor' },
       { num: 2, label: 'Date & Time' },
       { num: 3, label: 'Confirm' },
@@ -433,7 +493,7 @@ const BookAppointment = () => {
     return (
       <div className="mb-8 overflow-x-auto">
         <div className="flex items-center justify-center min-w-0">
-          {steps.map((s, index) => (
+          {progressSteps.map((s, index) => (
             <div key={s.num} className="flex items-center flex-shrink-0">
               <div
                 className={`flex items-center justify-center w-9 h-9 rounded-xl text-sm font-semibold transition-all duration-200 ${
@@ -442,12 +502,12 @@ const BookAppointment = () => {
                     : 'bg-gray-100 text-gray-500'
                 }`}
               >
-                {step > s.num ? <FiCheck /> : s.num}
+                {step > s.num ? <FiCheck /> : index + 1}
               </div>
               <span className={`ml-2 text-sm hidden sm:inline ${step >= s.num ? 'text-primary-700 font-medium' : 'text-gray-500'}`}>
                 {s.label}
               </span>
-              {index < steps.length - 1 && (
+              {index < progressSteps.length - 1 && (
                 <div className={`w-8 sm:w-12 h-1 mx-2 sm:mx-4 rounded-full transition-colors duration-200 ${step > s.num ? 'bg-primary-500' : 'bg-gray-200'}`} />
               )}
             </div>
@@ -475,6 +535,12 @@ const BookAppointment = () => {
       <div className="bg-white rounded-xl shadow-soft border border-gray-100 p-6">
         {renderProgress()}
 
+        {step === 0 && (
+          <SymptomChecker
+            onSymptomsMatched={handleSymptomsMatched}
+            onSkip={handleSkipSymptoms}
+          />
+        )}
         {step === 1 && renderDoctorSelection()}
         {step === 2 && renderDateTimeSelection()}
         {step === 3 && renderConfirmation()}
