@@ -1,26 +1,26 @@
-import { Routes, Route } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute';
-import { MainLayout, AuthLayout } from './components/layout';
+import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { MainLayout, AuthLayout } from "./components/layout";
 
 // Pages
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import DoctorDashboard from './pages/DoctorDashboard';
-import TodayAppointments from './pages/TodayAppointments';
-import UpcomingAppointments from './pages/UpcomingAppointments';
-import AvailabilitySettings from './pages/AvailabilitySettings';
-import AdminDashboard from './pages/AdminDashboard';
-import UserManagement from './pages/UserManagement';
-import Analytics from './pages/Analytics';
-import BookAppointment from './pages/BookAppointment';
-import Doctors from './pages/Doctors';
-import DoctorDetail from './pages/DoctorDetail';
-import MyAppointments from './pages/MyAppointments';
-import MedicalHistory from './pages/MedicalHistory';
-import Settings from './pages/Settings';
-import NotFound from './pages/NotFound';
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import DoctorDashboard from "./pages/DoctorDashboard";
+import TodayAppointments from "./pages/TodayAppointments";
+import UpcomingAppointments from "./pages/UpcomingAppointments";
+import AvailabilitySettings from "./pages/AvailabilitySettings";
+import AdminDashboard from "./pages/AdminDashboard";
+import UserManagement from "./pages/UserManagement";
+import Analytics from "./pages/Analytics";
+import BookAppointment from "./pages/BookAppointment";
+import Doctors from "./pages/Doctors";
+import DoctorDetail from "./pages/DoctorDetail";
+import MyAppointments from "./pages/MyAppointments";
+import MedicalHistory from "./pages/MedicalHistory";
+import Settings from "./pages/Settings";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -50,7 +50,7 @@ function App() {
         <Route
           path="/appointments/book"
           element={
-            <ProtectedRoute allowedRoles={['PATIENT']}>
+            <ProtectedRoute allowedRoles={["PATIENT"]}>
               <BookAppointment />
             </ProtectedRoute>
           }
@@ -58,7 +58,7 @@ function App() {
         <Route
           path="/appointments"
           element={
-            <ProtectedRoute allowedRoles={['PATIENT']}>
+            <ProtectedRoute allowedRoles={["PATIENT"]}>
               <MyAppointments />
             </ProtectedRoute>
           }
@@ -67,7 +67,7 @@ function App() {
         <Route
           path="/doctors"
           element={
-            <ProtectedRoute allowedRoles={['PATIENT']}>
+            <ProtectedRoute allowedRoles={["PATIENT"]}>
               <Doctors />
             </ProtectedRoute>
           }
@@ -75,7 +75,7 @@ function App() {
         <Route
           path="/doctors/:doctorId"
           element={
-            <ProtectedRoute allowedRoles={['PATIENT']}>
+            <ProtectedRoute allowedRoles={["PATIENT"]}>
               <DoctorDetail />
             </ProtectedRoute>
           }
@@ -84,7 +84,7 @@ function App() {
         <Route
           path="/medical-history"
           element={
-            <ProtectedRoute allowedRoles={['PATIENT']}>
+            <ProtectedRoute allowedRoles={["PATIENT"]}>
               <MedicalHistory />
             </ProtectedRoute>
           }
@@ -94,7 +94,7 @@ function App() {
         <Route
           path="/doctor"
           element={
-            <ProtectedRoute allowedRoles={['DOCTOR']}>
+            <ProtectedRoute allowedRoles={["DOCTOR"]}>
               <DoctorDashboard />
             </ProtectedRoute>
           }
@@ -102,7 +102,7 @@ function App() {
         <Route
           path="/doctor/dashboard"
           element={
-            <ProtectedRoute allowedRoles={['DOCTOR']}>
+            <ProtectedRoute allowedRoles={["DOCTOR"]}>
               <DoctorDashboard />
             </ProtectedRoute>
           }
@@ -110,7 +110,7 @@ function App() {
         <Route
           path="/doctor/appointments/today"
           element={
-            <ProtectedRoute allowedRoles={['DOCTOR']}>
+            <ProtectedRoute allowedRoles={["DOCTOR"]}>
               <TodayAppointments />
             </ProtectedRoute>
           }
@@ -118,7 +118,7 @@ function App() {
         <Route
           path="/doctor/appointments/upcoming"
           element={
-            <ProtectedRoute allowedRoles={['DOCTOR']}>
+            <ProtectedRoute allowedRoles={["DOCTOR"]}>
               <UpcomingAppointments />
             </ProtectedRoute>
           }
@@ -126,7 +126,7 @@ function App() {
         <Route
           path="/doctor/availability"
           element={
-            <ProtectedRoute allowedRoles={['DOCTOR']}>
+            <ProtectedRoute allowedRoles={["DOCTOR"]}>
               <AvailabilitySettings />
             </ProtectedRoute>
           }
@@ -134,7 +134,7 @@ function App() {
         <Route
           path="/doctor/*"
           element={
-            <ProtectedRoute allowedRoles={['DOCTOR']}>
+            <ProtectedRoute allowedRoles={["DOCTOR"]}>
               <DoctorDashboard />
             </ProtectedRoute>
           }
@@ -144,7 +144,7 @@ function App() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
               <AdminDashboard />
             </ProtectedRoute>
           }
@@ -152,7 +152,7 @@ function App() {
         <Route
           path="/admin/users"
           element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
               <UserManagement />
             </ProtectedRoute>
           }
@@ -160,7 +160,7 @@ function App() {
         <Route
           path="/admin/doctors"
           element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
               <UserManagement />
             </ProtectedRoute>
           }
@@ -168,7 +168,7 @@ function App() {
         <Route
           path="/admin/patients"
           element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
               <UserManagement />
             </ProtectedRoute>
           }
@@ -176,7 +176,7 @@ function App() {
         <Route
           path="/admin/departments"
           element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
               <AdminDashboard /> {/* Replace with ManageDepartments later */}
             </ProtectedRoute>
           }
@@ -184,7 +184,7 @@ function App() {
         <Route
           path="/admin/appointments"
           element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
               <AdminDashboard /> {/* Replace with AllAppointments later */}
             </ProtectedRoute>
           }
@@ -192,7 +192,7 @@ function App() {
         <Route
           path="/admin/analytics"
           element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
               <Analytics />
             </ProtectedRoute>
           }
@@ -200,7 +200,7 @@ function App() {
         <Route
           path="/admin/reports"
           element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
               <Analytics />
             </ProtectedRoute>
           }
@@ -208,7 +208,7 @@ function App() {
         <Route
           path="/admin/*"
           element={
-            <ProtectedRoute allowedRoles={['ADMIN']}>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
               <AdminDashboard />
             </ProtectedRoute>
           }

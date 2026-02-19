@@ -5,6 +5,8 @@ import com.hospitalapp.backend.exception.AppointmentException;
 import com.hospitalapp.backend.exception.ResourceNotFoundException;
 import com.hospitalapp.backend.model.*;
 import com.hospitalapp.backend.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class AppointmentService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AppointmentService.class);
 
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;
@@ -436,7 +440,7 @@ public class AppointmentService {
         for (TimeSlot timeSlot : doctorTimeSlots) {
             LocalTime currentTime = timeSlot.getStartTime();
             while (currentTime.plusMinutes(slotDurationMinutes).isBefore(timeSlot.getEndTime()) ||
-                   currentTime.plusMinutes(slotDurationMinutes).equals(timeSlot.getEndTime())) {
+                    currentTime.plusMinutes(slotDurationMinutes).equals(timeSlot.getEndTime())) {
 
                 LocalTime endTime = currentTime.plusMinutes(slotDurationMinutes);
                 boolean isAvailable = !bookedTimes.contains(currentTime);
@@ -870,8 +874,7 @@ public class AppointmentService {
                     appointment.getConfirmationNumber()
             );
         } catch (Exception e) {
-            // Log error but don't fail the booking
-            // Email sending is async and non-critical
+            logger.error("Failed to send booking confirmation email: {}", e.getMessage());
         }
     }
 
@@ -892,8 +895,7 @@ public class AppointmentService {
                     reason
             );
         } catch (Exception e) {
-            // Log error but don't fail the cancellation
-            // Email sending is async and non-critical
+            logger.error("Failed to send cancellation email: {}", e.getMessage());
         }
     }
 }
