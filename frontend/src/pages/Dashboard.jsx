@@ -8,6 +8,7 @@ import {
   FiArrowRight,
   FiPlus,
   FiFileText,
+  FiMapPin,
 } from 'react-icons/fi';
 import {
   CalendarIllustration,
@@ -153,15 +154,15 @@ const Dashboard = () => {
               <FiArrowRight className="h-5 w-5 text-gray-400" />
             </Link>
             <Link
-              to="/doctors"
+              to="/hospitals"
               className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
             >
               <div className="flex items-center">
                 <div className="bg-gray-100 p-2 rounded-lg">
-                  <FiUsers className="h-5 w-5 text-gray-600" />
+                  <FiMapPin className="h-5 w-5 text-gray-600" />
                 </div>
                 <span className="ml-3 font-medium text-gray-900">
-                  Find Doctors
+                  Browse NHS Hospitals
                 </span>
               </div>
               <FiArrowRight className="h-5 w-5 text-gray-400" />
