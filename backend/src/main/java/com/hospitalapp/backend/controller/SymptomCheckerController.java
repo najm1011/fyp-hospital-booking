@@ -31,7 +31,7 @@ public class SymptomCheckerController {
     @PostMapping("/match")
     public ResponseEntity<Map<String, Object>> matchSymptoms(
             @Valid @RequestBody SymptomMatchRequest request) {
-        SymptomMatchResult result = symptomCheckerService.matchSymptoms(request.getSymptoms());
+        SymptomMatchResult result = symptomCheckerService.matchSymptoms(request.getSymptoms(), request.getHospitalId());
 
         Map<String, Object> response = new HashMap<>();
         response.put("matchedDepartments", result.getMatchedDepartments());

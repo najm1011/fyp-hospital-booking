@@ -21,6 +21,8 @@ public class DoctorResponse {
     private String photoUrl;
     private BigDecimal consultationFee;
     private boolean isActive;
+    private Long hospitalId;
+    private String hospitalName;
 
     public DoctorResponse() {
     }
@@ -42,6 +44,10 @@ public class DoctorResponse {
         response.setPhotoUrl(doctor.getPhotoUrl());
         response.setConsultationFee(doctor.getConsultationFee());
         response.setActive(doctor.getUser().getIsActive());
+        if (doctor.getHospital() != null) {
+            response.setHospitalId(doctor.getHospital().getId());
+            response.setHospitalName(doctor.getHospital().getName());
+        }
         return response;
     }
 
@@ -165,5 +171,21 @@ public class DoctorResponse {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Long getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(Long hospitalId) {
+        this.hospitalId = hospitalId;
+    }
+
+    public String getHospitalName() {
+        return hospitalName;
+    }
+
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 }

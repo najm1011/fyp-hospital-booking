@@ -4,7 +4,7 @@ import api from '../services/api';
 import { LoadingSpinner, Alert } from './ui';
 import { Button } from './ui';
 
-const SymptomChecker = ({ onSymptomsMatched, onSkip }) => {
+const SymptomChecker = ({ onSymptomsMatched, onSkip, hospitalId }) => {
   const [symptomsByCategory, setSymptomsByCategory] = useState({});
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,9 +40,11 @@ const SymptomChecker = ({ onSymptomsMatched, onSkip }) => {
     setMatching(true);
     setError(null);
     try {
-      const response = await api.post('/symptoms/match', {
-        symptoms: selectedSymptoms
-      });
+      const payload = { symptoms: selectedSymptoms };
+      if (hospitalId) {
+        payload.hospitalId = hospitalId;
+      }
+      const response = await api.post('/symptoms/match', payload);
       onSymptomsMatched({
         selectedSymptoms,
         matchedDepartments: response.data.matchedDepartments,

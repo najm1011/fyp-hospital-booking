@@ -109,6 +109,14 @@ public class SymptomCheckerService {
      * Match selected symptoms to departments and return recommended doctors.
      */
     public SymptomMatchResult matchSymptoms(List<String> symptoms) {
+        return matchSymptoms(symptoms, null);
+    }
+
+    /**
+     * Match selected symptoms to departments and return recommended doctors,
+     * optionally filtered to a specific hospital.
+     */
+    public SymptomMatchResult matchSymptoms(List<String> symptoms, Long hospitalId) {
         Map<String, Integer> departmentScores = new LinkedHashMap<>();
 
         for (String symptom : symptoms) {
@@ -134,6 +142,7 @@ public class SymptomCheckerService {
         List<DoctorResponse> recommendedDoctors = new ArrayList<>();
         Set<Long> seenIds = new HashSet<>();
         for (Long deptId : matchedDepartmentIds) {
+            // Prototype: return all matching doctors regardless of hospital
             List<Doctor> doctors = doctorRepository.findActiveDoctorsByDepartmentId(deptId);
             for (Doctor doctor : doctors) {
                 if (seenIds.add(doctor.getId())) {

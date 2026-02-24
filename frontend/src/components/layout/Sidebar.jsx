@@ -10,6 +10,7 @@ import {
   FiActivity,
   FiGrid,
   FiClipboard,
+  FiMapPin,
 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 
@@ -23,7 +24,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       { name: 'Book Appointment', path: '/appointments/book', icon: FiCalendar },
       { name: 'My Appointments', path: '/appointments', icon: FiClock, end: true },
       { name: 'Medical History', path: '/medical-history', icon: FiFileText },
-      { name: 'Find Doctors', path: '/doctors', icon: FiUsers },
+      { name: 'NHS Hospitals', path: '/hospitals', icon: FiMapPin },
     ];
 
     const doctorItems = [

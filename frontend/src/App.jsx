@@ -19,6 +19,8 @@ import Doctors from "./pages/Doctors";
 import DoctorDetail from "./pages/DoctorDetail";
 import MyAppointments from "./pages/MyAppointments";
 import MedicalHistory from "./pages/MedicalHistory";
+import Hospitals from "./pages/Hospitals";
+import HospitalDetail from "./pages/HospitalDetail";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -35,6 +37,8 @@ function App() {
       <Route element={<MainLayout />}>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
+        <Route path="/hospitals" element={<Hospitals />} />
+        <Route path="/hospitals/:hospitalId" element={<HospitalDetail />} />
 
         {/* Protected Routes - Any authenticated user */}
         <Route

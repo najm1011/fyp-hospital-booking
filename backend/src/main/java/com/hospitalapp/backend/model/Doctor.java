@@ -15,7 +15,8 @@ import java.util.Objects;
 @Table(name = "doctors", indexes = {
     @Index(name = "idx_user", columnList = "user_id"),
     @Index(name = "idx_department", columnList = "department_id"),
-    @Index(name = "idx_specialty", columnList = "specialty")
+    @Index(name = "idx_specialty", columnList = "specialty"),
+    @Index(name = "idx_hospital", columnList = "hospital_id")
 })
 public class Doctor {
 
@@ -30,6 +31,10 @@ public class Doctor {
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
 
     @Size(max = 255, message = "Specialty must not exceed 255 characters")
     @Column(length = 255)
@@ -91,6 +96,14 @@ public class Doctor {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
     }
 
     public String getSpecialty() {

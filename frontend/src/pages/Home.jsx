@@ -6,6 +6,7 @@ import {
   FiShield,
   FiActivity,
   FiArrowRight,
+  FiMapPin,
 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 
@@ -27,6 +28,11 @@ const Home = () => {
       icon: FiClock,
       title: '24/7 Access',
       description: 'Manage your appointments anytime, anywhere with our online platform.',
+    },
+    {
+      icon: FiMapPin,
+      title: 'NHS Hospitals',
+      description: 'Browse real NHS hospital data and find healthcare services near you.',
     },
     {
       icon: FiShield,
@@ -80,6 +86,16 @@ const Home = () => {
                 </>
               )}
             </div>
+            <div className="mt-6">
+              <Link
+                to="/hospitals"
+                className="inline-flex items-center text-primary-200 hover:text-white text-sm font-medium transition-colors"
+              >
+                <FiMapPin className="mr-1.5 h-4 w-4" />
+                Browse NHS Hospitals
+                <FiArrowRight className="ml-1.5 h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -99,7 +115,7 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {features.map((feature, index) => (
               <div
                 key={index}
@@ -133,8 +149,8 @@ const Home = () => {
               <p className="text-gray-600 mt-2 font-medium">Happy Patients</p>
             </div>
             <div className="text-center p-6">
-              <p className="text-4xl font-bold text-primary-600 tracking-tight">15+</p>
-              <p className="text-gray-600 mt-2 font-medium">Departments</p>
+              <p className="text-4xl font-bold text-primary-600 tracking-tight">220+</p>
+              <p className="text-gray-600 mt-2 font-medium">NHS Hospitals</p>
             </div>
             <div className="text-center p-6">
               <p className="text-4xl font-bold text-primary-600 tracking-tight">24/7</p>

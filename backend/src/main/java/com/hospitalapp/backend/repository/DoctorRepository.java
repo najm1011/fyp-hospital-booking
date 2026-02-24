@@ -21,8 +21,17 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     @Query("SELECT d FROM Doctor d WHERE d.department.id = :departmentId AND d.user.isActive = true")
     List<Doctor> findActiveDoctorsByDepartmentId(@Param("departmentId") Long departmentId);
 
+    @Query("SELECT d FROM Doctor d WHERE d.department.id = :departmentId AND d.hospital.id = :hospitalId AND d.user.isActive = true")
+    List<Doctor> findActiveDoctorsByDepartmentIdAndHospitalId(@Param("departmentId") Long departmentId, @Param("hospitalId") Long hospitalId);
+
     @Query("SELECT d FROM Doctor d WHERE d.user.isActive = true ORDER BY d.createdAt DESC")
     List<Doctor> findAllActiveDoctors();
+
+    @Query("SELECT COUNT(d) FROM Doctor d WHERE d.user.isActive = true")
+    long countAllActiveDoctors();
+
+    @Query("SELECT COUNT(DISTINCT d.department.id) FROM Doctor d WHERE d.user.isActive = true")
+    long countAllActiveDepartments();
 
     @Query("SELECT d FROM Doctor d JOIN FETCH d.user WHERE d.id = :id")
     Optional<Doctor> findByIdWithUser(@Param("id") Long id);
@@ -56,4 +65,10 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     @Query("SELECT d FROM Doctor d LEFT JOIN FETCH d.timeSlots WHERE d.id = :id")
     Optional<Doctor> findByIdWithTimeSlots(@Param("id") Long id);
+
+    @Query("SELECT d FROM Doctor d WHERE d.hospital.id = :hospitalId AND d.user.isActive = true ORDER BY d.createdAt DESC")
+    List<Doctor> findByHospitalIdAndUserIsActiveTrue(@Param("hospitalId") Long hospitalId);
+
+    @Query("SELECT d FROM Doctor d JOIN FETCH d.user JOIN FETCH d.department LEFT JOIN FETCH d.hospital WHERE d.id = :id")
+    Optional<Doctor> findByIdWithUserAndDepartmentAndHospital(@Param("id") Long id);
 }

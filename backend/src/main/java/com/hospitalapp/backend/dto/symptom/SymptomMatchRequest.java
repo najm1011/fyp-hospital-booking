@@ -8,6 +8,8 @@ public class SymptomMatchRequest {
     @NotEmpty(message = "At least one symptom must be selected")
     private List<String> symptoms;
 
+    private Long hospitalId;
+
     public SymptomMatchRequest() {}
 
     public List<String> getSymptoms() {
@@ -16,5 +18,13 @@ public class SymptomMatchRequest {
 
     public void setSymptoms(List<String> symptoms) {
         this.symptoms = symptoms;
+    }
+
+    public Long getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(Long hospitalId) {
+        this.hospitalId = hospitalId;
     }
 }
