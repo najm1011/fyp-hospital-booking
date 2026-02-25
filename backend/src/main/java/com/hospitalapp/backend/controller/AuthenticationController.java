@@ -1,9 +1,11 @@
 package com.hospitalapp.backend.controller;
 
 import com.hospitalapp.backend.dto.auth.AuthResponse;
+import com.hospitalapp.backend.dto.auth.ForgotPasswordRequest;
 import com.hospitalapp.backend.dto.auth.LoginRequest;
 import com.hospitalapp.backend.dto.auth.RefreshTokenRequest;
 import com.hospitalapp.backend.dto.auth.RegisterRequest;
+import com.hospitalapp.backend.dto.auth.ResetPasswordRequest;
 import com.hospitalapp.backend.service.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,22 @@ public class AuthenticationController {
     @PostMapping("/refresh")
     public ResponseEntity<AuthResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
         AuthResponse response = authenticationService.refreshToken(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<Map<String, String>> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        authenticationService.forgotPassword(request.getEmail());
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "If an account exists with that email, a password reset link has been sent.");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<Map<String, String>> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        authenticationService.resetPassword(request.getToken(), request.getNewPassword());
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Your password has been reset successfully. You can now log in with your new password.");
         return ResponseEntity.ok(response);
     }
 

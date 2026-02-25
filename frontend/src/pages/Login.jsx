@@ -14,6 +14,7 @@ const Login = () => {
   const { login } = useAuth();
   const { toast } = useToast();
   const [apiError, setApiError] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
 
   // Get redirect path from location state or default to dashboard
   const from = location.state?.from?.pathname || '/dashboard';
@@ -50,7 +51,7 @@ const Login = () => {
   const onSubmit = async (formValues) => {
     setApiError('');
     try {
-      await login(formValues);
+      await login(formValues, rememberMe);
       toast.success('Welcome back!', { title: 'Login Successful' });
       navigate(from, { replace: true });
     } catch (error) {
@@ -157,6 +158,8 @@ const Login = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
                   className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded cursor-pointer"
                 />
                 <label
@@ -167,12 +170,12 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-sm">
-                <span
-                  className="font-medium text-primary-600 hover:text-primary-500 transition-colors cursor-pointer"
-                  onClick={() => alert('Please contact the hospital administrator to reset your password.')}
+                <Link
+                  to="/forgot-password"
+                  className="font-medium text-primary-600 hover:text-primary-500 transition-colors"
                 >
                   Forgot password?
-                </span>
+                </Link>
               </div>
             </div>
 

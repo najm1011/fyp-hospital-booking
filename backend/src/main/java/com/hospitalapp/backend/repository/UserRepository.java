@@ -56,4 +56,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.role = 'ADMIN' ORDER BY u.createdAt DESC")
     List<User> findAllAdmins();
+
+    @Query("SELECT u FROM User u WHERE u.passwordResetToken IS NOT NULL AND u.passwordResetExpiry > :now")
+    List<User> findUsersWithValidResetToken(@Param("now") LocalDateTime now);
 }

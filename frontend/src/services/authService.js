@@ -6,6 +6,7 @@ const STORAGE_KEYS = {
   REFRESH_TOKEN: 'refreshToken',
   USER: 'user',
   TOKEN_EXPIRY: 'tokenExpiry',
+  REMEMBER_ME: 'rememberMe',
 };
 
 // Helper to decode JWT and get expiry
@@ -37,39 +38,59 @@ const isTokenExpired = (token) => {
   return decoded.exp < currentTime + 60;
 };
 
-// Helper to safely get item from localStorage
+// Get the active storage based on rememberMe preference
+const getStorage = () => {
+  try {
+    return localStorage.getItem(STORAGE_KEYS.REMEMBER_ME) === 'true'
+      ? localStorage
+      : sessionStorage;
+  } catch {
+    return localStorage;
+  }
+};
+
+// Helper to safely get item from active storage
 const getStorageItem = (key) => {
   try {
-    return localStorage.getItem(key);
+    // Check active storage first, fallback to the other (handles mid-session switches)
+    return getStorage().getItem(key) || localStorage.getItem(key) || sessionStorage.getItem(key);
   } catch (error) {
-    console.error(`Error reading ${key} from localStorage:`, error);
+    console.error(`Error reading ${key} from storage:`, error);
     return null;
   }
 };
 
-// Helper to safely set item in localStorage
+// Helper to safely set item in active storage
 const setStorageItem = (key, value) => {
   try {
-    localStorage.setItem(key, value);
+    getStorage().setItem(key, value);
     return true;
   } catch (error) {
-    console.error(`Error writing ${key} to localStorage:`, error);
+    console.error(`Error writing ${key} to storage:`, error);
     return false;
   }
 };
 
-// Helper to safely remove item from localStorage
+// Helper to safely remove item from both storages
 const removeStorageItem = (key) => {
   try {
     localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
     return true;
   } catch (error) {
-    console.error(`Error removing ${key} from localStorage:`, error);
+    console.error(`Error removing ${key} from storage:`, error);
     return false;
   }
 };
 
-// Store auth data in localStorage
+// Set remember me preference (always in localStorage so we can find it on reload)
+const setRememberMe = (value) => {
+  try {
+    localStorage.setItem(STORAGE_KEYS.REMEMBER_ME, value ? 'true' : 'false');
+  } catch {}
+};
+
+// Store auth data in the active storage
 const storeAuthData = (data) => {
   if (data.accessToken) {
     setStorageItem(STORAGE_KEYS.ACCESS_TOKEN, data.accessToken);
@@ -93,20 +114,22 @@ const storeAuthData = (data) => {
   window.dispatchEvent(new Event('auth-storage-change'));
 };
 
-// Clear all auth data from localStorage
+// Clear all auth data from both storages
 const clearAuthData = () => {
   removeStorageItem(STORAGE_KEYS.ACCESS_TOKEN);
   removeStorageItem(STORAGE_KEYS.REFRESH_TOKEN);
   removeStorageItem(STORAGE_KEYS.USER);
   removeStorageItem(STORAGE_KEYS.TOKEN_EXPIRY);
+  localStorage.removeItem(STORAGE_KEYS.REMEMBER_ME);
 
   // Dispatch storage event for cross-tab sync
   window.dispatchEvent(new Event('auth-storage-change'));
 };
 
 const authService = {
-  // Register a new user
+  // Register a new user (always remembers session)
   register: async (userData) => {
+    setRememberMe(true);
     const response = await api.post('/auth/register', userData);
     if (response.data.accessToken) {
       storeAuthData(response.data);
@@ -115,7 +138,8 @@ const authService = {
   },
 
   // Login user
-  login: async (credentials) => {
+  login: async (credentials, rememberMe = false) => {
+    setRememberMe(rememberMe);
     const response = await api.post('/auth/login', credentials);
     if (response.data.accessToken) {
       storeAuthData(response.data);
@@ -222,6 +246,18 @@ const authService = {
     }
 
     return { valid: true };
+  },
+
+  // Request password reset email
+  forgotPassword: async (email) => {
+    const response = await api.post('/auth/forgot-password', { email });
+    return response.data;
+  },
+
+  // Reset password with token
+  resetPassword: async (token, newPassword) => {
+    const response = await api.post('/auth/reset-password', { token, newPassword });
+    return response.data;
   },
 
   // Storage keys for external use

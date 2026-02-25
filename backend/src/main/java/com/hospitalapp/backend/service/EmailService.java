@@ -64,7 +64,8 @@ public class EmailService {
             "appointment-cancellation",
             "appointment-reminder",
             "appointment-rescheduled",
-            "welcome"
+            "welcome",
+            "password-reset"
         };
 
         for (String templateName : templateNames) {
@@ -268,6 +269,25 @@ public class EmailService {
         sendHtmlEmail(email, subject, htmlContent);
     }
 
+    /**
+     * Send password reset email
+     */
+    @Async
+    public void sendPasswordResetEmail(String email, String firstName, String resetLink) {
+        String subject = "Reset Your Password - Hospital Booking System";
+
+        Map<String, String> variables = new HashMap<>();
+        variables.put("firstName", firstName);
+        variables.put("resetLink", resetLink);
+
+        String template = getTemplate("password-reset");
+        String htmlContent = template != null
+            ? processTemplate(template, variables)
+            : buildFallbackPasswordResetEmail(variables);
+
+        sendHtmlEmail(email, subject, htmlContent);
+    }
+
     // ==================== FALLBACK TEMPLATES ====================
 
     private String buildFallbackConfirmationEmail(Map<String, String> vars) {
@@ -368,6 +388,23 @@ public class EmailService {
                 vars.get("newDate"),
                 vars.get("newTime")
             );
+    }
+
+    private String buildFallbackPasswordResetEmail(Map<String, String> vars) {
+        return """
+            <!DOCTYPE html>
+            <html>
+            <body style="font-family: Arial, sans-serif; padding: 20px;">
+                <h2 style="color: #14b8a6;">Reset Your Password</h2>
+                <p>Dear %s,</p>
+                <p>We received a request to reset your password. Click the link below to set a new password:</p>
+                <p><a href="%s" style="display: inline-block; background: #14b8a6; color: #ffffff; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 600;">Reset My Password</a></p>
+                <p>This link will expire in 1 hour.</p>
+                <p>If you didn't request this, you can safely ignore this email.</p>
+                <p>Hospital Booking System</p>
+            </body>
+            </html>
+            """.formatted(vars.get("firstName"), vars.get("resetLink"));
     }
 
     private String buildFallbackWelcomeEmail(Map<String, String> vars) {

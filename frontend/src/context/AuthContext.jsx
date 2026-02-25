@@ -119,9 +119,9 @@ export const AuthProvider = ({ children }) => {
   }, [isAuthenticated, syncAuthState]);
 
   // Login function
-  const login = async (credentials) => {
+  const login = async (credentials, rememberMe = false) => {
     setSessionError(null);
-    const response = await authService.login(credentials);
+    const response = await authService.login(credentials, rememberMe);
     setUser(response.user);
     setIsAuthenticated(true);
     return response;

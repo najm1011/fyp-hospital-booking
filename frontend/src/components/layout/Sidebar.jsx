@@ -123,18 +123,6 @@ const Sidebar = ({ isOpen, onClose }) => {
                 </>
               )}
             </NavLink>
-
-            {/* Help card */}
-            <div className="mt-4 p-4 bg-primary-50 rounded-xl border border-primary-100/50">
-              <h4 className="text-sm font-medium text-primary-900">Need Help?</h4>
-              <p className="text-xs text-primary-700/80 mt-1">
-                Contact support for assistance with your account.
-              </p>
-              <button className="mt-3 text-xs font-medium text-primary-600 hover:text-primary-700 transition-colors flex items-center group">
-                Get Support
-                <span className="ml-1 group-hover:translate-x-0.5 transition-transform">→</span>
-              </button>
-            </div>
           </div>
         </div>
       </aside>

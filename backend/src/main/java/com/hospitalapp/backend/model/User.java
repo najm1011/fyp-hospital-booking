@@ -53,6 +53,12 @@ public class User {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
+    @Column(name = "password_reset_token")
+    private String passwordResetToken;
+
+    @Column(name = "password_reset_expiry")
+    private LocalDateTime passwordResetExpiry;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -157,6 +163,22 @@ public class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getPasswordResetToken() {
+        return passwordResetToken;
+    }
+
+    public void setPasswordResetToken(String passwordResetToken) {
+        this.passwordResetToken = passwordResetToken;
+    }
+
+    public LocalDateTime getPasswordResetExpiry() {
+        return passwordResetExpiry;
+    }
+
+    public void setPasswordResetExpiry(LocalDateTime passwordResetExpiry) {
+        this.passwordResetExpiry = passwordResetExpiry;
     }
 
     public String getFullName() {

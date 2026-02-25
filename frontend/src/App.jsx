@@ -6,6 +6,8 @@ import { MainLayout, AuthLayout } from "./components/layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import TodayAppointments from "./pages/TodayAppointments";
@@ -31,6 +33,8 @@ function App() {
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Route>
 
       {/* Main Layout Routes */}
