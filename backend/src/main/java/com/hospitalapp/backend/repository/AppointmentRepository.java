@@ -177,6 +177,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
                                                        @Param("endTime") LocalTime endTime,
                                                        @Param("excludeAppointmentId") Long excludeAppointmentId);
 
+    // ==================== REMINDER QUERIES ====================
+
+    @Query("SELECT a FROM Appointment a JOIN FETCH a.patient JOIN FETCH a.doctor d JOIN FETCH d.department " +
+           "WHERE a.appointmentDate = :date AND a.status = 'SCHEDULED' AND a.reminderSent = false")
+    List<Appointment> findAppointmentsNeedingReminder(@Param("date") LocalDate date);
+
     // ==================== ANALYTICS QUERIES ====================
 
     /**

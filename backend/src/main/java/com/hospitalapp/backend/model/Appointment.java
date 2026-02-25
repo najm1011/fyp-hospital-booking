@@ -63,6 +63,9 @@ public class Appointment {
     @Column(name = "cancellation_reason", columnDefinition = "TEXT")
     private String cancellationReason;
 
+    @Column(name = "reminder_sent", nullable = false)
+    private boolean reminderSent = false;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -185,6 +188,14 @@ public class Appointment {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public boolean isReminderSent() {
+        return reminderSent;
+    }
+
+    public void setReminderSent(boolean reminderSent) {
+        this.reminderSent = reminderSent;
     }
 
     public String getConfirmationNumber() {
