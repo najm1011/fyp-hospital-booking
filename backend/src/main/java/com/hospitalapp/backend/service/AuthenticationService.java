@@ -61,6 +61,10 @@ public class AuthenticationService {
     }
 
     public AuthResponse login(LoginRequest request) {
+        // Check if account exists first
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("No account found with this email. Please create an account."));
+
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -69,11 +73,8 @@ public class AuthenticationService {
                     )
             );
         } catch (BadCredentialsException e) {
-            throw new BadCredentialsException("Invalid email or password");
+            throw new BadCredentialsException("Incorrect password. Please try again.");
         }
-
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
 
         CustomUserDetailsService.CustomUserDetails userDetails =
                 new CustomUserDetailsService.CustomUserDetails(user);

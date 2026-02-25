@@ -490,9 +490,11 @@ const BookAppointment = () => {
             >
               {/* Recommended badge */}
               {symptomMatchData?.recommendedDoctorIds?.includes(doctor.id) && (
-                <span className="absolute top-2 right-2 inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-semibold bg-success-100 text-success-700 border border-success-200">
-                  Recommended
-                </span>
+                <div className="mb-2">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-semibold bg-success-100 text-success-700 border border-success-200">
+                    Recommended
+                  </span>
+                </div>
               )}
               <div className="flex items-start space-x-3">
                 <div
@@ -510,8 +512,8 @@ const BookAppointment = () => {
                     }`}
                   />
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-gray-900 truncate">
                     Dr. {doctor.fullName}
                   </h3>
                   <p className="text-sm text-gray-500">{doctor.specialty}</p>

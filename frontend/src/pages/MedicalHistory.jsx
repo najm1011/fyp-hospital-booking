@@ -56,6 +56,7 @@ const MedicalHistory = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
   const [expandedRecordId, setExpandedRecordId] = useState(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -270,12 +271,9 @@ const MedicalHistory = () => {
     }
   };
 
-  const handleDelete = async (recordId) => {
-    if (!window.confirm('Are you sure you want to delete this record? This cannot be undone.')) {
-      return;
-    }
-
+  const handleDeleteConfirm = async (recordId) => {
     setDeletingId(recordId);
+    setConfirmDeleteId(null);
     try {
       await api.delete(`/medical-records/${recordId}`);
       toast.success('Record deleted successfully.');
@@ -530,7 +528,7 @@ const MedicalHistory = () => {
                             <FiDownload className="h-4 w-4" />
                           </button>
                           <button
-                            onClick={() => handleDelete(record.id)}
+                            onClick={() => setConfirmDeleteId(record.id)}
                             disabled={deletingId === record.id}
                             className="p-2 rounded-lg text-gray-500 hover:text-error-600 hover:bg-error-50 transition-colors disabled:opacity-50"
                             title="Delete"
@@ -543,6 +541,34 @@ const MedicalHistory = () => {
                           </button>
                         </div>
                       </div>
+
+                      {/* Delete Confirmation */}
+                      {confirmDeleteId === record.id && (
+                        <div className="px-4 pb-3">
+                          <div className="bg-error-50 border border-error-200 rounded-xl p-4 flex items-center justify-between gap-4">
+                            <div className="flex items-center gap-2 min-w-0">
+                              <FiAlertCircle className="h-5 w-5 text-error-500 flex-shrink-0" />
+                              <p className="text-sm text-error-700 font-medium">
+                                Are you sure you want to delete this record? This cannot be undone.
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                              <button
+                                onClick={() => setConfirmDeleteId(null)}
+                                className="px-3 py-1.5 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                onClick={() => handleDeleteConfirm(record.id)}
+                                className="px-3 py-1.5 text-sm font-medium text-white bg-error-600 rounded-lg hover:bg-error-700 transition-colors"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
                       {/* AI Extracted Text Badge — always visible if text exists */}
                       {record.extractedText && (
