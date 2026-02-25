@@ -5,6 +5,13 @@ import com.hospitalapp.backend.model.MedicalRecord;
 import com.hospitalapp.backend.model.User;
 import com.hospitalapp.backend.repository.MedicalRecordRepository;
 import com.hospitalapp.backend.repository.UserRepository;
+import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -12,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -27,8 +35,11 @@ import java.util.stream.Collectors;
 @Transactional
 public class MedicalRecordService {
 
+    private static final Logger logger = LoggerFactory.getLogger(MedicalRecordService.class);
+
     private final MedicalRecordRepository medicalRecordRepository;
     private final UserRepository userRepository;
+    private final GeminiService geminiService;
     private final Path uploadDir;
 
     private static final Set<String> ALLOWED_TYPES = Set.of(
@@ -38,13 +49,21 @@ public class MedicalRecordService {
             "image/jpg"
     );
 
+    private static final Set<String> IMAGE_TYPES = Set.of(
+            "image/jpeg",
+            "image/png",
+            "image/jpg"
+    );
+
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
     public MedicalRecordService(MedicalRecordRepository medicalRecordRepository,
                                  UserRepository userRepository,
+                                 GeminiService geminiService,
                                  @Value("${app.upload.dir:uploads/}") String uploadPath) {
         this.medicalRecordRepository = medicalRecordRepository;
         this.userRepository = userRepository;
+        this.geminiService = geminiService;
         this.uploadDir = Paths.get(uploadPath).resolve("medical-records").toAbsolutePath().normalize();
         try {
             Files.createDirectories(this.uploadDir);
@@ -89,6 +108,45 @@ public class MedicalRecordService {
                     file.getSize(),
                     description
             );
+
+            // ── 3-Layer Text Extraction ──
+            // Layer 1: PDFs     → Apache PDFBox (local, instant, no API)
+            // Layer 2: Images   → Gemini AI (cloud, primary OCR)
+            // Layer 3: Fallback → Tesseract OCR (local, when Gemini fails)
+            try {
+                String extractedText = null;
+
+                if ("application/pdf".equals(contentType)) {
+                    // LAYER 1: PDFBox — extract embedded text from PDFs locally
+                    logger.info("Extracting text from PDF using PDFBox: {}", originalFileName);
+                    extractedText = extractTextWithPdfBox(targetPath);
+
+                    // If PDFBox returns nothing (scanned PDF), fall back to Gemini
+                    if (extractedText == null || extractedText.isBlank()) {
+                        logger.info("PDFBox found no embedded text (likely scanned PDF), trying Gemini AI: {}", originalFileName);
+                        extractedText = geminiService.extractTextFromPdf(targetPath);
+                    }
+                } else if (IMAGE_TYPES.contains(contentType)) {
+                    // LAYER 2: Gemini AI — primary OCR for images
+                    logger.info("Extracting text from image using Gemini AI: {}", originalFileName);
+                    extractedText = geminiService.extractTextFromImage(targetPath, contentType);
+
+                    // LAYER 3: Tesseract fallback — if Gemini fails (quota, network, etc.)
+                    if (extractedText == null || extractedText.isBlank()) {
+                        logger.info("Gemini AI unavailable, falling back to Tesseract OCR: {}", originalFileName);
+                        extractedText = extractTextWithTesseract(targetPath);
+                    }
+                }
+
+                if (extractedText != null && !extractedText.isBlank()) {
+                    record.setExtractedText(extractedText);
+                    logger.info("Text extraction successful for: {} ({} chars)", originalFileName, extractedText.length());
+                } else {
+                    logger.info("No text extracted for: {}", originalFileName);
+                }
+            } catch (Exception e) {
+                logger.warn("Text extraction failed for {} — upload continues without extracted text: {}", originalFileName, e.getMessage());
+            }
 
             MedicalRecord saved = medicalRecordRepository.save(record);
             return MedicalRecordResponse.fromEntity(saved);
@@ -141,5 +199,44 @@ public class MedicalRecordService {
         }
 
         medicalRecordRepository.delete(record);
+    }
+
+    /**
+     * Extract embedded text from a PDF using Apache PDFBox (local, no API).
+     */
+    private String extractTextWithPdfBox(Path pdfPath) {
+        try (PDDocument document = Loader.loadPDF(pdfPath.toFile())) {
+            PDFTextStripper stripper = new PDFTextStripper();
+            String text = stripper.getText(document).trim();
+            if (text.isEmpty()) {
+                return null;
+            }
+            logger.info("PDFBox extracted {} characters from PDF", text.length());
+            return text;
+        } catch (IOException e) {
+            logger.warn("PDFBox extraction failed: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Extract text from an image using Tesseract OCR (local fallback).
+     */
+    private String extractTextWithTesseract(Path imagePath) {
+        try {
+            Tesseract tesseract = new Tesseract();
+            tesseract.setDatapath("/opt/homebrew/share/tessdata");
+            tesseract.setLanguage("eng");
+
+            String text = tesseract.doOCR(imagePath.toFile()).trim();
+            if (text.isEmpty()) {
+                return null;
+            }
+            logger.info("Tesseract OCR extracted {} characters from image", text.length());
+            return text;
+        } catch (TesseractException e) {
+            logger.warn("Tesseract OCR failed: {}", e.getMessage());
+            return null;
+        }
     }
 }

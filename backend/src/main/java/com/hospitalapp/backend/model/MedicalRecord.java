@@ -41,6 +41,9 @@ public class MedicalRecord {
     @Column(name = "description", length = 500)
     private String description;
 
+    @Column(name = "extracted_text", columnDefinition = "TEXT")
+    private String extractedText;
+
     @CreationTimestamp
     @Column(name = "uploaded_at", nullable = false, updatable = false)
     private LocalDateTime uploadedAt;
@@ -111,6 +114,14 @@ public class MedicalRecord {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getExtractedText() {
+        return extractedText;
+    }
+
+    public void setExtractedText(String extractedText) {
+        this.extractedText = extractedText;
     }
 
     public LocalDateTime getUploadedAt() {

@@ -55,6 +55,7 @@ const MedicalHistory = () => {
   const [uploadDescription, setUploadDescription] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
+  const [expandedRecordId, setExpandedRecordId] = useState(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -229,11 +230,16 @@ const MedicalHistory = () => {
         formData.append('description', uploadDescription.trim());
       }
 
-      await api.post('/medical-records', formData, {
+      const response = await api.post('/medical-records', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
+        timeout: 60000, // 60 seconds — Gemini AI text extraction takes time
       });
 
-      toast.success('File uploaded successfully!');
+      const hasExtractedText = response.data?.extractedText;
+      toast.success(hasExtractedText
+        ? 'File uploaded and text extracted successfully!'
+        : 'File uploaded successfully!'
+      );
       setSelectedFile(null);
       setUploadDescription('');
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -437,7 +443,7 @@ const MedicalHistory = () => {
                 {uploading ? (
                   <span className="flex items-center gap-2">
                     <LoadingSpinner size="small" />
-                    Uploading...
+                    Uploading & Extracting Text...
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
@@ -465,61 +471,114 @@ const MedicalHistory = () => {
               <p className="text-sm text-gray-500 mb-4">
                 {records.length} record{records.length !== 1 ? 's' : ''} uploaded
               </p>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {records.map((record) => {
                   const FileIcon = getFileIcon(record.fileType);
+                  const isRecordExpanded = expandedRecordId === record.id;
                   return (
                     <div
                       key={record.id}
-                      className="bg-white rounded-xl border border-gray-100 shadow-soft p-4 flex items-center gap-4 hover:shadow-soft-md transition-all duration-200"
+                      className="bg-white rounded-xl border border-gray-100 shadow-soft overflow-hidden hover:shadow-soft-md transition-all duration-200"
                     >
-                      {/* File Icon */}
-                      <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${
-                        record.fileType?.startsWith('image/')
-                          ? 'bg-purple-50 border border-purple-200'
-                          : 'bg-red-50 border border-red-200'
-                      }`}>
-                        <FileIcon className={`h-6 w-6 ${
-                          record.fileType?.startsWith('image/') ? 'text-purple-500' : 'text-red-500'
-                        }`} />
-                      </div>
+                      {/* Main Row */}
+                      <div className="p-4 flex items-center gap-4">
+                        {/* File Icon */}
+                        <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${
+                          record.fileType?.startsWith('image/')
+                            ? 'bg-purple-50 border border-purple-200'
+                            : 'bg-red-50 border border-red-200'
+                        }`}>
+                          <FileIcon className={`h-6 w-6 ${
+                            record.fileType?.startsWith('image/') ? 'text-purple-500' : 'text-red-500'
+                          }`} />
+                        </div>
 
-                      {/* File Info */}
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
-                          {record.fileName}
-                        </h4>
-                        {record.description && (
-                          <p className="text-xs text-gray-500 truncate mt-0.5">{record.description}</p>
-                        )}
-                        <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
-                          <span>{formatFileSize(record.fileSize)}</span>
-                          <span>{formatRecordDate(record.uploadedAt)}</span>
+                        {/* File Info */}
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-sm font-semibold text-gray-900 truncate">
+                            {record.fileName}
+                          </h4>
+                          {record.description && (
+                            <p className="text-xs text-gray-500 truncate mt-0.5">{record.description}</p>
+                          )}
+                          <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
+                            <span>{formatFileSize(record.fileSize)}</span>
+                            <span>{formatRecordDate(record.uploadedAt)}</span>
+                          </div>
+                        </div>
+
+                        {/* Actions */}
+                        <div className="flex items-center gap-1 flex-shrink-0">
+                          {record.extractedText && (
+                            <button
+                              onClick={() => setExpandedRecordId(isRecordExpanded ? null : record.id)}
+                              className={`p-2 rounded-lg transition-colors ${
+                                isRecordExpanded
+                                  ? 'text-primary-600 bg-primary-50'
+                                  : 'text-gray-500 hover:text-primary-600 hover:bg-primary-50'
+                              }`}
+                              title={isRecordExpanded ? 'Hide extracted text' : 'Show extracted text'}
+                            >
+                              {isRecordExpanded ? <FiChevronUp className="h-4 w-4" /> : <FiChevronDown className="h-4 w-4" />}
+                            </button>
+                          )}
+                          <button
+                            onClick={() => handleDownload(record)}
+                            className="p-2 rounded-lg text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition-colors"
+                            title="Download"
+                          >
+                            <FiDownload className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(record.id)}
+                            disabled={deletingId === record.id}
+                            className="p-2 rounded-lg text-gray-500 hover:text-error-600 hover:bg-error-50 transition-colors disabled:opacity-50"
+                            title="Delete"
+                          >
+                            {deletingId === record.id ? (
+                              <LoadingSpinner size="small" />
+                            ) : (
+                              <FiTrash2 className="h-4 w-4" />
+                            )}
+                          </button>
                         </div>
                       </div>
 
-                      {/* Actions */}
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <button
-                          onClick={() => handleDownload(record)}
-                          className="p-2 rounded-lg text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition-colors"
-                          title="Download"
-                        >
-                          <FiDownload className="h-4 w-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(record.id)}
-                          disabled={deletingId === record.id}
-                          className="p-2 rounded-lg text-gray-500 hover:text-error-600 hover:bg-error-50 transition-colors disabled:opacity-50"
-                          title="Delete"
-                        >
-                          {deletingId === record.id ? (
-                            <LoadingSpinner size="small" />
-                          ) : (
-                            <FiTrash2 className="h-4 w-4" />
-                          )}
-                        </button>
-                      </div>
+                      {/* AI Extracted Text Badge — always visible if text exists */}
+                      {record.extractedText && (
+                        <div className="px-4 pb-2">
+                          <button
+                            onClick={() => setExpandedRecordId(isRecordExpanded ? null : record.id)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-50 border border-primary-200 rounded-lg text-xs font-medium text-primary-700 hover:bg-primary-100 transition-colors"
+                          >
+                            <FiFileText className="h-3.5 w-3.5" />
+                            AI-Extracted Text Available
+                            {isRecordExpanded ? <FiChevronUp className="h-3 w-3" /> : <FiChevronDown className="h-3 w-3" />}
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Extracted Text Content */}
+                      {isRecordExpanded && record.extractedText && (
+                        <div className="px-4 pb-4 pt-2">
+                          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                            <div className="flex items-center gap-2 mb-3 pb-3 border-b border-gray-200">
+                              <div className="bg-primary-100 p-1.5 rounded-lg">
+                                <FiFileText className="h-4 w-4 text-primary-600" />
+                              </div>
+                              <div>
+                                <p className="text-sm font-semibold text-gray-900">Extracted Text</p>
+                                <p className="text-xs text-gray-500">Powered by Google Gemini AI</p>
+                              </div>
+                            </div>
+                            <div className="max-h-80 overflow-y-auto">
+                              <div className="text-sm text-gray-800 leading-relaxed whitespace-pre-wrap">
+                                {record.extractedText}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   );
                 })}

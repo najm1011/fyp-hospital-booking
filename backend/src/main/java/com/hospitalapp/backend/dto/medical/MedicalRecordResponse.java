@@ -11,6 +11,7 @@ public class MedicalRecordResponse {
     private String fileType;
     private Long fileSize;
     private String description;
+    private String extractedText;
     private LocalDateTime uploadedAt;
 
     public MedicalRecordResponse() {
@@ -23,6 +24,7 @@ public class MedicalRecordResponse {
         response.setFileType(record.getFileType());
         response.setFileSize(record.getFileSize());
         response.setDescription(record.getDescription());
+        response.setExtractedText(record.getExtractedText());
         response.setUploadedAt(record.getUploadedAt());
         return response;
     }
@@ -65,6 +67,14 @@ public class MedicalRecordResponse {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getExtractedText() {
+        return extractedText;
+    }
+
+    public void setExtractedText(String extractedText) {
+        this.extractedText = extractedText;
     }
 
     public LocalDateTime getUploadedAt() {
