@@ -197,6 +197,7 @@ const HospitalDetail = () => {
               <DoctorCard
                 key={doctor.id}
                 doctor={doctor}
+                onBookClick={(doc) => navigate(`/appointments/book?hospitalId=${hospital.id}&doctorId=${doc.id}`)}
               />
             ))}
           </div>

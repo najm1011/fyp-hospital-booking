@@ -109,6 +109,10 @@ const AvailabilitySettings = () => {
     replaceExisting: true,
   });
 
+  // Confirmation states
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+  const [confirmClearAll, setConfirmClearAll] = useState(false);
+
   // Action loading states
   const [actionLoading, setActionLoading] = useState({});
 
@@ -293,10 +297,7 @@ const AvailabilitySettings = () => {
 
   // Handle delete slot
   const handleDeleteSlot = async (slotId) => {
-    if (!window.confirm('Are you sure you want to delete this time slot?')) {
-      return;
-    }
-
+    setConfirmDeleteId(null);
     setActionLoading((prev) => ({ ...prev, [slotId]: 'delete' }));
 
     try {
@@ -329,14 +330,7 @@ const AvailabilitySettings = () => {
 
   // Handle clear all slots
   const handleClearAll = async () => {
-    if (
-      !window.confirm(
-        'Are you sure you want to clear all your availability slots? This cannot be undone.'
-      )
-    ) {
-      return;
-    }
-
+    setConfirmClearAll(false);
     setSaving(true);
 
     try {
@@ -532,13 +526,31 @@ const AvailabilitySettings = () => {
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Weekly Schedule</h2>
-            {timeSlots.length > 0 && (
+            {timeSlots.length > 0 && !confirmClearAll && (
               <button
-                onClick={handleClearAll}
+                onClick={() => setConfirmClearAll(true)}
                 className="text-sm text-error-600 hover:text-error-700 hover:underline"
               >
                 Clear All
               </button>
+            )}
+            {confirmClearAll && (
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-error-600 font-medium">Clear all slots?</span>
+                <button
+                  onClick={handleClearAll}
+                  disabled={saving}
+                  className="px-3 py-1 text-xs font-medium text-white bg-error-500 hover:bg-error-600 rounded-lg transition-colors"
+                >
+                  Yes, clear all
+                </button>
+                <button
+                  onClick={() => setConfirmClearAll(false)}
+                  className="px-3 py-1 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
             )}
           </div>
           <div className="space-y-4">
@@ -595,7 +607,7 @@ const AvailabilitySettings = () => {
                               <FiEdit2 className="h-4 w-4" />
                             </button>
                             <button
-                              onClick={() => handleDeleteSlot(slot.id)}
+                              onClick={() => setConfirmDeleteId(confirmDeleteId === slot.id ? null : slot.id)}
                               disabled={actionLoading[slot.id]}
                               className="p-2 text-error-600 hover:bg-error-50 rounded transition-colors"
                               aria-label="Delete slot"
@@ -607,6 +619,24 @@ const AvailabilitySettings = () => {
                               )}
                             </button>
                           </div>
+                          {/* Inline delete confirmation */}
+                          {confirmDeleteId === slot.id && (
+                            <div className="flex items-center gap-2 ml-2 pl-2 border-l border-error-200">
+                              <span className="text-xs text-error-600 font-medium">Delete?</span>
+                              <button
+                                onClick={() => handleDeleteSlot(slot.id)}
+                                className="px-2 py-1 text-xs font-medium text-white bg-error-500 hover:bg-error-600 rounded-lg transition-colors"
+                              >
+                                Yes
+                              </button>
+                              <button
+                                onClick={() => setConfirmDeleteId(null)}
+                                className="px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                              >
+                                No
+                              </button>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>

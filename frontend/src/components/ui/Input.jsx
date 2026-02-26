@@ -96,9 +96,9 @@ const Input = ({
             className="absolute inset-y-0 right-0 pr-3.5 flex items-center group/btn"
           >
             {showPassword ? (
-              <FiEyeOff className="h-5 w-5 text-gray-400 group-hover/btn:text-gray-600 transition-colors" />
-            ) : (
               <FiEye className="h-5 w-5 text-gray-400 group-hover/btn:text-gray-600 transition-colors" />
+            ) : (
+              <FiEyeOff className="h-5 w-5 text-gray-400 group-hover/btn:text-gray-600 transition-colors" />
             )}
           </button>
         )}

@@ -70,10 +70,10 @@ const BookAppointment = () => {
     fetchHospitals();
   }, []);
 
-  // Pre-select hospital if passed via URL query param
+  // Pre-select hospital (and optionally doctor) if passed via URL query params
   useEffect(() => {
     const hospitalId = searchParams.get('hospitalId');
-    if (hospitalId && hospitals.length > 0) {
+    if (hospitalId && hospitals.length > 0 && !selectedHospital) {
       const hospital = hospitals.find(
         (h) => h.id === parseInt(hospitalId, 10)
       );
@@ -82,6 +82,19 @@ const BookAppointment = () => {
       }
     }
   }, [searchParams, hospitals]);
+
+  // Pre-select doctor if doctorId is in URL and doctors are loaded
+  useEffect(() => {
+    const doctorId = searchParams.get('doctorId');
+    if (doctorId && doctors.length > 0 && !selectedDoctor) {
+      const doctor = doctors.find(
+        (d) => d.id === parseInt(doctorId, 10)
+      );
+      if (doctor) {
+        setSelectedDoctor(doctor);
+      }
+    }
+  }, [searchParams, doctors]);
 
   // Fetch available slots when doctor and date are selected
   useEffect(() => {
