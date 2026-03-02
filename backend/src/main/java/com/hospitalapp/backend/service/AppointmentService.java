@@ -61,7 +61,7 @@ public class AppointmentService {
         this.emailService = emailService;
     }
 
-    // ==================== PATIENT OPERATIONS ====================
+    // ---------------- PATIENT OPERATIONS --------------
 
     /**
      * Book a new appointment for a patient
@@ -110,7 +110,7 @@ public class AppointmentService {
             );
         }
 
-        // ==================== DOUBLE BOOKING PREVENTION ====================
+        // ----------------- DOUBLE BOOKING PREVENTION -------------------
 
         // 1. Check if doctor's slot is already booked (existing check)
         if (!isSlotAvailable(doctor.getId(), request.getAppointmentDate(), request.getStartTime())) {
@@ -139,7 +139,7 @@ public class AppointmentService {
                     AppointmentException.SAME_DAY_SAME_DOCTOR);
         }
 
-        // ==================== CREATE APPOINTMENT ====================
+        // -------------------- CREATE APPOINTMENT -----------------
 
         Appointment appointment = new Appointment(
                 patient,
@@ -208,7 +208,7 @@ public class AppointmentService {
         return rescheduleAppointment(appointment, request);
     }
 
-    // ==================== DOCTOR OPERATIONS ====================
+    // ----------------- DOCTOR OPERATIONS -------------------
 
     /**
      * Get all appointments for a doctor
@@ -362,7 +362,7 @@ public class AppointmentService {
         return cancelAppointment(appointment, request.getReason());
     }
 
-    // ==================== ADMIN OPERATIONS ====================
+    // --------------------- ADMIN OPERATIONS --------------------
 
     /**
      * Get all appointments (admin only)
@@ -405,7 +405,7 @@ public class AppointmentService {
         return cancelAppointment(appointment, request.getReason() + " (Cancelled by Admin)");
     }
 
-    // ==================== AVAILABILITY OPERATIONS ====================
+    // ---------------------- AVAILABILITY OPERATIONS -------------------
 
     /**
      * Get available slots for a doctor on a specific date

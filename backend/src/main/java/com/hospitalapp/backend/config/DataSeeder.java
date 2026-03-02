@@ -70,11 +70,44 @@ public class DataSeeder implements CommandLineRunner {
             seedAdmin();
             seedDoctors();
             seedPatients();
+        } else {
+            // Backfill photo URLs for existing doctors that are missing them
+            backfillDoctorPhotos();
         }
 
         log.info("Startup complete. Hospitals: {}, Departments: {}, Doctors: {}, Users: {}",
                 hospitalRepository.count(), departmentRepository.count(),
                 doctorRepository.count(), userRepository.count());
+    }
+
+    private void backfillDoctorPhotos() {
+        Set<String> femaleNames = Set.of(
+                "Priya", "Sarah", "Emma", "Catherine", "Lisa", "Fatima", "Anita",
+                "Sophie", "Zara", "Helen", "Olivia", "Victoria", "Charlotte", "Nadia",
+                "Elizabeth", "Amara", "Jasmine", "Emily", "Rachel", "Hannah",
+                "Isabella", "Lucy", "Claire", "Fiona", "Megan", "Karen", "Grace"
+        );
+
+        List<Doctor> doctorsWithoutPhotos = doctorRepository.findAll().stream()
+                .filter(d -> d.getPhotoUrl() == null || d.getPhotoUrl().isBlank())
+                .toList();
+
+        if (doctorsWithoutPhotos.isEmpty()) {
+            return;
+        }
+
+        int maleIdx = 1;
+        int femaleIdx = 1;
+        for (Doctor doctor : doctorsWithoutPhotos) {
+            String firstName = doctor.getUser().getFirstName();
+            if (femaleNames.contains(firstName)) {
+                doctor.setPhotoUrl("https://randomuser.me/api/portraits/women/" + (femaleIdx++) + ".jpg");
+            } else {
+                doctor.setPhotoUrl("https://randomuser.me/api/portraits/men/" + (maleIdx++) + ".jpg");
+            }
+            doctorRepository.save(doctor);
+        }
+        log.info("Backfilled photo URLs for {} doctors", doctorsWithoutPhotos.size());
     }
 
     private void seedAdmin() {

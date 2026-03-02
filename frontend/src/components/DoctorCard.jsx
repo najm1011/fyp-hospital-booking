@@ -52,25 +52,32 @@ const DoctorCard = ({
     return colors[id % colors.length];
   };
 
+  // Handle image load error by showing initials fallback
+  const handleImgError = (e) => {
+    e.target.style.display = 'none';
+    e.target.nextSibling.style.display = 'flex';
+  };
+
   // Compact variant - for lists and small spaces
   if (variant === 'compact') {
     return (
       <div className="flex items-center p-4 bg-white rounded-2xl border border-gray-100/80 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300 group">
         {/* Avatar */}
         <div className="flex-shrink-0">
-          {doctor.photoUrl ? (
+          {doctor.photoUrl && (
             <img
               src={doctor.photoUrl}
               alt={doctor.fullName}
               className="h-12 w-12 rounded-xl object-cover ring-2 ring-white shadow-sm"
+              onError={handleImgError}
             />
-          ) : (
-            <div
-              className={`h-12 w-12 rounded-xl bg-gradient-to-br ${getAvatarColor(doctor.id)} flex items-center justify-center text-white font-semibold shadow-sm ring-2 ring-white`}
-            >
-              {getInitials(doctor.fullName)}
-            </div>
           )}
+          <div
+            className={`h-12 w-12 rounded-xl bg-gradient-to-br ${getAvatarColor(doctor.id)} flex items-center justify-center text-white font-semibold shadow-sm ring-2 ring-white`}
+            style={{ display: doctor.photoUrl ? 'none' : 'flex' }}
+          >
+            {getInitials(doctor.fullName)}
+          </div>
         </div>
 
         {/* Info */}
@@ -108,19 +115,20 @@ const DoctorCard = ({
         <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 px-6 py-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             {/* Photo */}
-            {doctor.photoUrl ? (
+            {doctor.photoUrl && (
               <img
                 src={doctor.photoUrl}
                 alt={doctor.fullName}
                 className="h-32 w-32 rounded-2xl object-cover border-4 border-white/20 shadow-lg"
+                onError={handleImgError}
               />
-            ) : (
-              <div
-                className={`h-32 w-32 rounded-2xl bg-gradient-to-br ${getAvatarColor(doctor.id)} flex items-center justify-center text-white text-4xl font-bold border-4 border-white/20 shadow-lg`}
-              >
-                {getInitials(doctor.fullName)}
-              </div>
             )}
+            <div
+              className={`h-32 w-32 rounded-2xl bg-gradient-to-br ${getAvatarColor(doctor.id)} flex items-center justify-center text-white text-4xl font-bold border-4 border-white/20 shadow-lg`}
+              style={{ display: doctor.photoUrl ? 'none' : 'flex' }}
+            >
+              {getInitials(doctor.fullName)}
+            </div>
 
             {/* Basic Info */}
             <div className="text-center sm:text-left text-white">
@@ -205,19 +213,20 @@ const DoctorCard = ({
       <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 px-6 py-5">
         <div className="flex items-center space-x-4">
           {/* Photo/Avatar */}
-          {doctor.photoUrl ? (
+          {doctor.photoUrl && (
             <img
               src={doctor.photoUrl}
               alt={doctor.fullName}
               className="h-16 w-16 rounded-xl object-cover border-2 border-white/30 shadow-lg group-hover:scale-105 transition-transform duration-300"
+              onError={handleImgError}
             />
-          ) : (
-            <div
-              className={`h-16 w-16 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-white text-xl font-bold border-2 border-white/20 shadow-lg group-hover:scale-105 transition-transform duration-300`}
-            >
-              {getInitials(doctor.fullName)}
-            </div>
           )}
+          <div
+            className={`h-16 w-16 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-white text-xl font-bold border-2 border-white/20 shadow-lg group-hover:scale-105 transition-transform duration-300`}
+            style={{ display: doctor.photoUrl ? 'none' : 'flex' }}
+          >
+            {getInitials(doctor.fullName)}
+          </div>
           <div className="text-white flex-1 min-w-0">
             <h3 className="text-lg font-bold truncate">Dr. {doctor.fullName}</h3>
             <p className="text-primary-200 text-sm truncate">{doctor.specialty}</p>

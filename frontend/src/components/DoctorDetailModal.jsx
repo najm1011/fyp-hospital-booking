@@ -103,19 +103,20 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
           <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-8">
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:space-x-6">
               {/* Photo/Avatar */}
-              {doctor.photoUrl ? (
+              {doctor.photoUrl && (
                 <img
                   src={doctor.photoUrl}
                   alt={doctor.fullName}
                   className="h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover border-4 border-white shadow-lg flex-shrink-0"
+                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
                 />
-              ) : (
-                <div
-                  className={`h-20 w-20 sm:h-24 sm:w-24 rounded-full ${getAvatarColor(doctor.id)} flex items-center justify-center text-white text-2xl sm:text-3xl font-bold border-4 border-white shadow-lg flex-shrink-0`}
-                >
-                  {getInitials(doctor.fullName)}
-                </div>
               )}
+              <div
+                className={`h-20 w-20 sm:h-24 sm:w-24 rounded-full ${getAvatarColor(doctor.id)} items-center justify-center text-white text-2xl sm:text-3xl font-bold border-4 border-white shadow-lg flex-shrink-0`}
+                style={{ display: doctor.photoUrl ? 'none' : 'flex' }}
+              >
+                {getInitials(doctor.fullName)}
+              </div>
 
               {/* Basic Info */}
               <div className="text-white text-center sm:text-left">

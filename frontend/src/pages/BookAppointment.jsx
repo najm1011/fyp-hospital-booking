@@ -510,12 +510,21 @@ const BookAppointment = () => {
                 </div>
               )}
               <div className="flex items-start space-x-3">
+                {doctor.photoUrl ? (
+                  <img
+                    src={doctor.photoUrl}
+                    alt={doctor.fullName}
+                    className="h-12 w-12 rounded-xl object-cover flex-shrink-0"
+                    onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+                  />
+                ) : null}
                 <div
-                  className={`p-3 rounded-xl ${
+                  className={`h-12 w-12 rounded-xl flex-shrink-0 items-center justify-center ${
                     selectedDoctor?.id === doctor.id
                       ? 'bg-primary-500'
                       : 'bg-primary-100'
                   }`}
+                  style={{ display: doctor.photoUrl ? 'none' : 'flex' }}
                 >
                   <FiUser
                     className={`h-6 w-6 ${
