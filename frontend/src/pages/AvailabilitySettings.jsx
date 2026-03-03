@@ -399,20 +399,20 @@ const AvailabilitySettings = () => {
           <Link
             to="/doctor"
             aria-label="Back to dashboard"
-            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
           >
             <FiArrowLeft className="h-5 w-5" />
           </Link>
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Availability Settings</h1>
-            <p className="text-gray-500 mt-1">Manage your weekly schedule and working hours</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">Availability Settings</h1>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">Manage your weekly schedule and working hours</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={() => fetchTimeSlots(true)}
             disabled={refreshing}
-            className="flex items-center gap-2 px-4 py-2 text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors disabled:opacity-50"
           >
             <FiRefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             <span className="hidden sm:inline">Refresh</span>
@@ -449,8 +449,8 @@ const AvailabilitySettings = () => {
               <FiClock className="h-5 w-5 text-blue-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalSlots}</p>
-              <p className="text-sm text-gray-500">Total Slots</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.totalSlots}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Total Slots</p>
             </div>
           </div>
         </Card>
@@ -460,19 +460,19 @@ const AvailabilitySettings = () => {
               <FiCheck className="h-5 w-5 text-success-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{stats.activeSlots}</p>
-              <p className="text-sm text-gray-500">Active Slots</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.activeSlots}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Active Slots</p>
             </div>
           </div>
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gray-100 rounded-lg">
-              <FiX className="h-5 w-5 text-gray-600" />
+            <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
+              <FiX className="h-5 w-5 text-gray-600 dark:text-gray-400" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{stats.inactiveSlots}</p>
-              <p className="text-sm text-gray-500">Inactive Slots</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.inactiveSlots}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Inactive Slots</p>
             </div>
           </div>
         </Card>
@@ -482,8 +482,8 @@ const AvailabilitySettings = () => {
               <FiCalendar className="h-5 w-5 text-primary-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{stats.workingDays}</p>
-              <p className="text-sm text-gray-500">Working Days</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.workingDays}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Working Days</p>
             </div>
           </div>
         </Card>
@@ -496,8 +496,8 @@ const AvailabilitySettings = () => {
             <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <FiCalendar className="h-8 w-8 text-primary-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No Working Hours Set</h3>
-            <p className="text-gray-500 mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">No Working Hours Set</h3>
+            <p className="text-gray-500 dark:text-gray-400 mb-6">
               Set up your weekly availability so patients can book appointments with you. Use Quick
               Setup for a fast configuration or add individual time slots.
             </p>
@@ -525,7 +525,7 @@ const AvailabilitySettings = () => {
       {timeSlots.length > 0 && (
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Weekly Schedule</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Weekly Schedule</h2>
             {timeSlots.length > 0 && !confirmClearAll && (
               <button
                 onClick={() => setConfirmClearAll(true)}
@@ -546,7 +546,7 @@ const AvailabilitySettings = () => {
                 </button>
                 <button
                   onClick={() => setConfirmClearAll(false)}
-                  className="px-3 py-1 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                  className="px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 rounded-lg transition-colors"
                 >
                   Cancel
                 </button>
@@ -557,14 +557,14 @@ const AvailabilitySettings = () => {
             {DAYS_OF_WEEK.map((day) => (
               <div
                 key={day.value}
-                className="flex flex-col sm:flex-row sm:items-start gap-4 p-4 bg-gray-50 rounded-xl"
+                className="flex flex-col sm:flex-row sm:items-start gap-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl"
               >
                 <div className="w-28 flex-shrink-0">
-                  <span className="font-semibold text-gray-900">{day.label}</span>
+                  <span className="font-semibold text-gray-900 dark:text-gray-100">{day.label}</span>
                 </div>
                 <div className="flex-1">
                   {slotsByDay[day.value].length === 0 ? (
-                    <p className="text-gray-400 text-sm italic">Day off</p>
+                    <p className="text-gray-400 dark:text-gray-500 text-sm italic">Day off</p>
                   ) : (
                     <div className="flex flex-wrap gap-2">
                       {slotsByDay[day.value].map((slot) => (
@@ -572,22 +572,22 @@ const AvailabilitySettings = () => {
                           key={slot.id}
                           className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${
                             slot.isAvailable
-                              ? 'bg-white border-primary-200 text-primary-700'
-                              : 'bg-gray-100 border-gray-300 text-gray-500 line-through'
+                              ? 'bg-white dark:bg-gray-800 border-primary-200 text-primary-700'
+                              : 'bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400 line-through'
                           }`}
                         >
                           <FiClock className="h-4 w-4" />
                           <span className="text-sm font-medium">
                             {formatTime(slot.startTime)} - {formatTime(slot.endTime)}
                           </span>
-                          <div className="flex items-center gap-1 ml-2 border-l pl-2 border-gray-200">
+                          <div className="flex items-center gap-1 ml-2 border-l pl-2 border-gray-200 dark:border-gray-600">
                             <button
                               onClick={() => handleToggleAvailability(slot.id)}
                               disabled={actionLoading[slot.id]}
                               className={`p-2 rounded transition-colors ${
                                 slot.isAvailable
                                   ? 'text-success-600 hover:bg-success-50'
-                                  : 'text-gray-400 hover:bg-gray-100'
+                                  : 'text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700'
                               }`}
                               aria-label={slot.isAvailable ? 'Disable slot' : 'Enable slot'}
                             >
@@ -631,7 +631,7 @@ const AvailabilitySettings = () => {
                               </button>
                               <button
                                 onClick={() => setConfirmDeleteId(null)}
-                                className="px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                                className="px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 rounded-lg transition-colors"
                               >
                                 No
                               </button>
@@ -674,16 +674,16 @@ const AvailabilitySettings = () => {
             role="dialog"
             aria-modal="true"
             aria-label={editingSlot ? 'Edit time slot' : 'Add time slot'}
-            className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto animate-scale-in"
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto animate-scale-in"
           >
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {editingSlot ? 'Edit Time Slot' : 'Add Time Slot'}
               </h3>
               <button
                 onClick={() => setShowAddModal(false)}
                 aria-label="Close"
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
               >
                 <FiX className="h-5 w-5" />
               </button>
@@ -698,14 +698,14 @@ const AvailabilitySettings = () => {
 
               {/* Day of Week */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Day of Week</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Day of Week</label>
                 <select
                   value={formData.dayOfWeek}
                   onChange={(e) => {
                     setFormData({ ...formData, dayOfWeek: e.target.value });
                     setCopyToDays((prev) => prev.filter((d) => d !== e.target.value));
                   }}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 >
                   {DAYS_OF_WEEK.map((day) => (
                     <option key={day.value} value={day.value}>
@@ -718,11 +718,11 @@ const AvailabilitySettings = () => {
               {/* Time Range */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start Time</label>
                   <select
                     value={formData.startTime}
                     onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -732,11 +732,11 @@ const AvailabilitySettings = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End Time</label>
                   <select
                     value={formData.endTime}
                     onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -749,7 +749,7 @@ const AvailabilitySettings = () => {
 
               {/* Active Toggle */}
               <div className="flex items-center justify-between py-2">
-                <span className="text-sm font-medium text-gray-700">Slot is active</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Slot is active</span>
                 <button
                   type="button"
                   role="switch"
@@ -760,7 +760,7 @@ const AvailabilitySettings = () => {
                   }`}
                 >
                   <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-gray-800 transition-transform ${
                       formData.isAvailable ? 'translate-x-6' : 'translate-x-1'
                     }`}
                   />
@@ -769,10 +769,10 @@ const AvailabilitySettings = () => {
 
               {/* Copy to Other Days (only for new slots) */}
               {!editingSlot && (
-                <div className="pt-2 border-t border-gray-100">
+                <div className="pt-2 border-t border-gray-100 dark:border-gray-700">
                   <div className="flex items-center gap-2 mb-3">
-                    <FiCopy className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm font-medium text-gray-700">
+                    <FiCopy className="h-4 w-4 text-gray-400 dark:text-gray-500" />
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       Also add to other days
                     </span>
                   </div>
@@ -785,7 +785,7 @@ const AvailabilitySettings = () => {
                         className={`px-3 py-1.5 text-sm rounded-lg border transition-colors ${
                           copyToDays.includes(day.value)
                             ? 'bg-primary-50 border-primary-300 text-primary-700'
-                            : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
+                            : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-600'
                         }`}
                       >
                         {day.short}
@@ -800,7 +800,7 @@ const AvailabilitySettings = () => {
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="flex-1 px-4 py-2.5 text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors font-medium"
+                  className="flex-1 px-4 py-2.5 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
                 >
                   Cancel
                 </button>
@@ -835,7 +835,7 @@ const AvailabilitySettings = () => {
             role="dialog"
             aria-modal="true"
             aria-label="Quick setup"
-            className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto animate-scale-in"
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto animate-scale-in"
           >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
@@ -843,14 +843,14 @@ const AvailabilitySettings = () => {
                   <FiZap className="h-5 w-5 text-primary-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Quick Setup</h3>
-                  <p className="text-sm text-gray-500">Set your working hours quickly</p>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Quick Setup</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Set your working hours quickly</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowQuickSetup(false)}
                 aria-label="Close"
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
               >
                 <FiX className="h-5 w-5" />
               </button>
@@ -858,7 +858,7 @@ const AvailabilitySettings = () => {
 
             {/* Templates */}
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Choose a template
               </label>
               <div className="grid grid-cols-1 gap-2">
@@ -867,21 +867,21 @@ const AvailabilitySettings = () => {
                     key={index}
                     type="button"
                     onClick={() => applyTemplate(template)}
-                    className="text-left px-4 py-3 rounded-xl border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors"
+                    className="text-left px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-primary-300 hover:bg-primary-50 transition-colors"
                   >
-                    <span className="font-medium text-gray-900">{template.name}</span>
+                    <span className="font-medium text-gray-900 dark:text-gray-100">{template.name}</span>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Custom Configuration */}
-            <div className="space-y-4 border-t border-gray-100 pt-4">
-              <p className="text-sm font-medium text-gray-700">Or customise:</p>
+            <div className="space-y-4 border-t border-gray-100 dark:border-gray-700 pt-4">
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Or customise:</p>
 
               {/* Working Days */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Working Days</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Working Days</label>
                 <div className="flex flex-wrap gap-2">
                   {DAYS_OF_WEEK.map((day) => (
                     <button
@@ -891,7 +891,7 @@ const AvailabilitySettings = () => {
                       className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${
                         quickSetupData.selectedDays.includes(day.value)
                           ? 'bg-primary-500 border-primary-500 text-white'
-                          : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
+                          : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-600'
                       }`}
                     >
                       {day.short}
@@ -903,13 +903,13 @@ const AvailabilitySettings = () => {
               {/* Time Range */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start Time</label>
                   <select
                     value={quickSetupData.startTime}
                     onChange={(e) =>
                       setQuickSetupData({ ...quickSetupData, startTime: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -919,13 +919,13 @@ const AvailabilitySettings = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End Time</label>
                   <select
                     value={quickSetupData.endTime}
                     onChange={(e) =>
                       setQuickSetupData({ ...quickSetupData, endTime: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -959,7 +959,7 @@ const AvailabilitySettings = () => {
                   }`}
                 >
                   <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-gray-800 transition-transform ${
                       quickSetupData.replaceExisting ? 'translate-x-6' : 'translate-x-1'
                     }`}
                   />
@@ -972,7 +972,7 @@ const AvailabilitySettings = () => {
               <button
                 type="button"
                 onClick={() => setShowQuickSetup(false)}
-                className="flex-1 px-4 py-2.5 text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors font-medium"
+                className="flex-1 px-4 py-2.5 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
               >
                 Cancel
               </button>

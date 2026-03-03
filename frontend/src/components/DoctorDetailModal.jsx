@@ -88,13 +88,13 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
           role="dialog"
           aria-modal="true"
           aria-label={`Doctor details: Dr. ${doctor.fullName}`}
-          className="relative bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-scale-in"
+          className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-scale-in"
         >
           {/* Close Button */}
           <button
             onClick={onClose}
             aria-label="Close"
-            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-gray-600 hover:text-gray-900 transition-colors"
+            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
           >
             <FiX className="h-5 w-5" />
           </button>
@@ -140,40 +140,40 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
           <div className="p-6 overflow-y-auto max-h-[calc(90vh-300px)] sm:max-h-[calc(90vh-250px)]">
             {/* Qualifications */}
             <div className="mb-6">
-              <h3 className="flex items-center text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
+              <h3 className="flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-2">
                 <FiAward className="h-4 w-4 mr-2 text-primary-500" />
                 Qualifications
               </h3>
-              <p className="text-gray-600">{doctor.qualifications}</p>
+              <p className="text-gray-600 dark:text-gray-400">{doctor.qualifications}</p>
             </div>
 
             {/* About */}
             <div className="mb-6">
-              <h3 className="flex items-center text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
+              <h3 className="flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-2">
                 <FiUser className="h-4 w-4 mr-2 text-primary-500" />
                 About
               </h3>
-              <p className="text-gray-600 leading-relaxed">{doctor.bio}</p>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{doctor.bio}</p>
             </div>
 
             {/* Contact Information */}
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">
                 Contact Information
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                  <FiMail className="h-5 w-5 text-gray-400 mr-3 flex-shrink-0" />
+                <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                  <FiMail className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3 flex-shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-xs text-gray-500">Email</p>
-                    <p className="text-sm text-gray-900 truncate">{doctor.email}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Email</p>
+                    <p className="text-sm text-gray-900 dark:text-gray-100 truncate">{doctor.email}</p>
                   </div>
                 </div>
-                <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                  <FiPhone className="h-5 w-5 text-gray-400 mr-3 flex-shrink-0" />
+                <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                  <FiPhone className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3 flex-shrink-0" />
                   <div>
-                    <p className="text-xs text-gray-500">Phone</p>
-                    <p className="text-sm text-gray-900">{doctor.phoneNumber}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Phone</p>
+                    <p className="text-sm text-gray-900 dark:text-gray-100">{doctor.phoneNumber}</p>
                   </div>
                 </div>
               </div>
@@ -181,7 +181,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
 
             {/* Availability */}
             <div className="mb-6">
-              <h3 className="flex items-center text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+              <h3 className="flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">
                 <FiClock className="h-4 w-4 mr-2 text-primary-500" />
                 Weekly Availability
               </h3>
@@ -197,10 +197,10 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
                       className={`p-3 rounded-lg text-center ${
                         slots.length > 0
                           ? 'bg-success-50 border border-success-200'
-                          : 'bg-gray-50 border border-gray-200'
+                          : 'bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-600'
                       }`}
                     >
-                      <p className="text-xs font-medium text-gray-700 capitalize">
+                      <p className="text-xs font-medium text-gray-700 dark:text-gray-300 capitalize">
                         {day.toLowerCase()}
                       </p>
                       {slots.length > 0 ? (
@@ -208,7 +208,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
                           {slots[0].startTime.slice(0, 5)} - {slots[slots.length - 1].endTime.slice(0, 5)}
                         </p>
                       ) : (
-                        <p className="text-xs text-gray-400 mt-1">Off</p>
+                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Off</p>
                       )}
                     </div>
                   ))}
@@ -220,7 +220,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
                       key={day}
                       className="p-3 rounded-lg text-center bg-success-50 border border-success-200"
                     >
-                      <p className="text-xs font-medium text-gray-700">{day}</p>
+                      <p className="text-xs font-medium text-gray-700 dark:text-gray-300">{day}</p>
                       <p className="text-xs text-success-600 mt-1">
                         <FiCheckCircle className="inline h-3 w-3 mr-1" />
                         Available
@@ -235,7 +235,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
             <div className="bg-gradient-to-r from-success-50 to-emerald-50 rounded-xl p-4 mb-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Consultation Fee</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Consultation Fee</p>
                   <p className="text-2xl font-bold text-success-600">
                     £{doctor.consultationFee}
                   </p>
@@ -246,7 +246,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
           </div>
 
           {/* Footer */}
-          <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
+          <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-600">
             <div className="flex space-x-3">
               <Button variant="outline" onClick={onClose} className="flex-1">
                 Close

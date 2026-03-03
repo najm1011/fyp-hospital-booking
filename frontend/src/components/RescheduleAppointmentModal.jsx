@@ -136,22 +136,22 @@ const RescheduleAppointmentModal = ({
           role="dialog"
           aria-modal="true"
           aria-label="Reschedule appointment"
-          className="relative bg-white rounded-2xl shadow-xl max-w-lg w-full overflow-hidden animate-scale-in"
+          className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-lg w-full overflow-hidden animate-scale-in"
         >
           {/* Header */}
-          <div className="px-6 py-4 border-b border-gray-200">
+          <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-600">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="bg-primary-100 p-2 rounded-full">
                   <FiRefreshCw className="h-5 w-5 text-primary-600" />
                 </div>
-                <h2 className="text-lg font-semibold text-gray-900">Reschedule Appointment</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Reschedule Appointment</h2>
               </div>
               <button
                 onClick={handleClose}
                 disabled={loading}
                 aria-label="Close"
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
+                className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors disabled:opacity-50"
               >
                 <FiX className="h-5 w-5" />
               </button>
@@ -161,27 +161,27 @@ const RescheduleAppointmentModal = ({
           {/* Body */}
           <div className="px-6 py-5 max-h-[70vh] overflow-y-auto">
             {/* Current Appointment Details */}
-            <div className="bg-gray-50 rounded-lg p-4 mb-5">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">Current Appointment</h4>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 mb-5">
+              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Current Appointment</h4>
               <div className="space-y-2">
                 <div className="flex items-center text-sm">
-                  <FiUser className="h-4 w-4 text-gray-400 mr-2" />
-                  <span className="text-gray-600">Doctor:</span>
-                  <span className="ml-auto font-medium text-gray-900">
+                  <FiUser className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2" />
+                  <span className="text-gray-600 dark:text-gray-400">Doctor:</span>
+                  <span className="ml-auto font-medium text-gray-900 dark:text-gray-100">
                     Dr. {appointment.doctorName}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
-                  <FiCalendar className="h-4 w-4 text-gray-400 mr-2" />
-                  <span className="text-gray-600">Date:</span>
-                  <span className="ml-auto font-medium text-gray-900">
+                  <FiCalendar className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2" />
+                  <span className="text-gray-600 dark:text-gray-400">Date:</span>
+                  <span className="ml-auto font-medium text-gray-900 dark:text-gray-100">
                     {formatDate(appointment.appointmentDate)}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
-                  <FiClock className="h-4 w-4 text-gray-400 mr-2" />
-                  <span className="text-gray-600">Time:</span>
-                  <span className="ml-auto font-medium text-gray-900">
+                  <FiClock className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2" />
+                  <span className="text-gray-600 dark:text-gray-400">Time:</span>
+                  <span className="ml-auto font-medium text-gray-900 dark:text-gray-100">
                     {formatTime(appointment.startTime)}
                   </span>
                 </div>
@@ -190,7 +190,7 @@ const RescheduleAppointmentModal = ({
 
             {/* New Date Selection */}
             <div className="mb-5">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">Select New Date & Time</h4>
+              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Select New Date & Time</h4>
 
               <DatePicker
                 label="New Date"
@@ -212,7 +212,7 @@ const RescheduleAppointmentModal = ({
                 {slotsLoading ? (
                   <div className="flex flex-col items-center justify-center py-8">
                     <LoadingSpinner size="medium" />
-                    <p className="mt-2 text-sm text-gray-500">Loading available slots...</p>
+                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Loading available slots...</p>
                   </div>
                 ) : error ? (
                   <div className="bg-error-50 border border-error-200 rounded-lg p-4">
@@ -252,7 +252,7 @@ const RescheduleAppointmentModal = ({
           </div>
 
           {/* Footer */}
-          <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex space-x-3">
+          <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-600 flex space-x-3">
             <Button
               variant="outline"
               onClick={handleClose}

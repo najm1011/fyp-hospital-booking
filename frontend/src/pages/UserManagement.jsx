@@ -294,7 +294,7 @@ const UserManagement = () => {
       DOCTOR: 'bg-blue-100 text-blue-700',
       PATIENT: 'bg-primary-100 text-primary-700',
     };
-    return styles[role] || 'bg-gray-100 text-gray-700';
+    return styles[role] || 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300';
   };
 
   const getRoleIcon = (role) => {
@@ -321,14 +321,14 @@ const UserManagement = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">User Management</h1>
-          <p className="text-gray-500 mt-1">Manage all users in the system</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">User Management</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Manage all users in the system</p>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={() => fetchData(true)}
             disabled={refreshing}
-            className="flex items-center gap-2 px-4 py-2 text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors disabled:opacity-50"
           >
             <FiRefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh
@@ -409,23 +409,23 @@ const UserManagement = () => {
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1 relative">
-            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-500" />
             <input
               type="text"
               placeholder="Search by name, email, or phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
             />
           </div>
 
           {/* Role Filter */}
           <div className="flex items-center gap-2">
-            <FiFilter className="h-5 w-5 text-gray-400" />
+            <FiFilter className="h-5 w-5 text-gray-400 dark:text-gray-500" />
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
-              className="px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
+              className="px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800"
             >
               <option value="ALL">All Roles</option>
               <option value="PATIENT">Patients</option>
@@ -438,7 +438,7 @@ const UserManagement = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
+            className="px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800"
           >
             <option value="ALL">All Status</option>
             <option value="ACTIVE">Active</option>
@@ -449,8 +449,8 @@ const UserManagement = () => {
 
       {/* Users Table */}
       <Card className="overflow-hidden">
-        <div className="p-4 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-gray-900">
+        <div className="p-4 border-b border-gray-100 dark:border-gray-700">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             Users ({filteredUsers.length})
           </h2>
         </div>
@@ -458,14 +458,14 @@ const UserManagement = () => {
         {filteredUsers.length === 0 ? (
           <div className="text-center py-12">
             <FiUsers className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500">No users found</p>
-            <p className="text-sm text-gray-400 mt-1">Try adjusting your search or filters</p>
+            <p className="text-gray-500 dark:text-gray-400">No users found</p>
+            <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">Try adjusting your search or filters</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr className="text-left text-sm text-gray-500">
+              <thead className="bg-gray-50 dark:bg-gray-800/50">
+                <tr className="text-left text-sm text-gray-500 dark:text-gray-400">
                   <th className="px-4 py-3 font-medium">User</th>
                   <th className="px-4 py-3 font-medium">Contact</th>
                   <th className="px-4 py-3 font-medium">Role</th>
@@ -474,9 +474,9 @@ const UserManagement = () => {
                   <th className="px-4 py-3 font-medium text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                 {filteredUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-gradient-to-br from-primary-400 to-primary-500 rounded-full flex items-center justify-center text-white font-medium">
@@ -484,22 +484,22 @@ const UserManagement = () => {
                           {user.lastName?.[0]}
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900">
+                          <p className="font-medium text-gray-900 dark:text-gray-100">
                             {user.firstName} {user.lastName}
                           </p>
-                          <p className="text-sm text-gray-500">ID: {user.id}</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">ID: {user.id}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-4">
                       <div className="space-y-1">
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
-                          <FiMail className="h-4 w-4 text-gray-400" />
+                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                          <FiMail className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                           {user.email}
                         </div>
                         {user.phoneNumber && (
-                          <div className="flex items-center gap-2 text-sm text-gray-600">
-                            <FiPhone className="h-4 w-4 text-gray-400" />
+                          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                            <FiPhone className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                             {user.phoneNumber}
                           </div>
                         )}
@@ -534,7 +534,7 @@ const UserManagement = () => {
                         )}
                       </span>
                     </td>
-                    <td className="px-4 py-4 text-sm text-gray-600">
+                    <td className="px-4 py-4 text-sm text-gray-600 dark:text-gray-400">
                       {formatDate(user.createdAt)}
                     </td>
                     <td className="px-4 py-4">
@@ -586,13 +586,13 @@ const UserManagement = () => {
       {/* Add User Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-100 dark:border-gray-700">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900">Add New User</h2>
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Add New User</h2>
                 <button
                   onClick={() => setShowAddModal(false)}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 >
                   <FiX className="h-5 w-5" />
                 </button>
@@ -601,7 +601,7 @@ const UserManagement = () => {
             <form onSubmit={handleAddUser} className="p-6 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     First Name *
                   </label>
                   <input
@@ -609,7 +609,7 @@ const UserManagement = () => {
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                     className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
-                      formErrors.firstName ? 'border-error-300' : 'border-gray-200'
+                      formErrors.firstName ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                     }`}
                     placeholder="Enter first name"
                   />
@@ -618,7 +618,7 @@ const UserManagement = () => {
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Last Name *
                   </label>
                   <input
@@ -626,7 +626,7 @@ const UserManagement = () => {
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                     className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
-                      formErrors.lastName ? 'border-error-300' : 'border-gray-200'
+                      formErrors.lastName ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                     }`}
                     placeholder="Enter last name"
                   />
@@ -637,13 +637,13 @@ const UserManagement = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email *</label>
                 <input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
-                    formErrors.email ? 'border-error-300' : 'border-gray-200'
+                    formErrors.email ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                   placeholder="user@example.com"
                 />
@@ -653,13 +653,13 @@ const UserManagement = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Password *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password *</label>
                 <input
                   type="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
-                    formErrors.password ? 'border-error-300' : 'border-gray-200'
+                    formErrors.password ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                   placeholder="Min. 6 characters"
                 />
@@ -669,7 +669,7 @@ const UserManagement = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Phone Number
                 </label>
                 <input
@@ -677,7 +677,7 @@ const UserManagement = () => {
                   value={formData.phoneNumber}
                   onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                   className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
-                    formErrors.phoneNumber ? 'border-error-300' : 'border-gray-200'
+                    formErrors.phoneNumber ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                   placeholder="+44 7700 900000"
                 />
@@ -687,11 +687,11 @@ const UserManagement = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Role *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Role *</label>
                 <select
                   value={formData.role}
                   onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
+                  className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800"
                 >
                   <option value="PATIENT">Patient</option>
                   <option value="DOCTOR">Doctor</option>
@@ -703,7 +703,7 @@ const UserManagement = () => {
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="flex-1 px-4 py-2.5 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+                  className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 >
                   Cancel
                 </button>
@@ -723,16 +723,16 @@ const UserManagement = () => {
       {/* Edit User Modal */}
       {showEditModal && selectedUser && (
         <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-100 dark:border-gray-700">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900">Edit User</h2>
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Edit User</h2>
                 <button
                   onClick={() => {
                     setShowEditModal(false);
                     setSelectedUser(null);
                   }}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 >
                   <FiX className="h-5 w-5" />
                 </button>
@@ -741,7 +741,7 @@ const UserManagement = () => {
             <form onSubmit={handleEditUser} className="p-6 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     First Name *
                   </label>
                   <input
@@ -749,7 +749,7 @@ const UserManagement = () => {
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                     className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
-                      formErrors.firstName ? 'border-error-300' : 'border-gray-200'
+                      formErrors.firstName ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                     }`}
                   />
                   {formErrors.firstName && (
@@ -757,7 +757,7 @@ const UserManagement = () => {
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Last Name *
                   </label>
                   <input
@@ -765,7 +765,7 @@ const UserManagement = () => {
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                     className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
-                      formErrors.lastName ? 'border-error-300' : 'border-gray-200'
+                      formErrors.lastName ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                     }`}
                   />
                   {formErrors.lastName && (
@@ -775,13 +775,13 @@ const UserManagement = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email *</label>
                 <input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
-                    formErrors.email ? 'border-error-300' : 'border-gray-200'
+                    formErrors.email ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                 />
                 {formErrors.email && (
@@ -790,7 +790,7 @@ const UserManagement = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   New Password
                 </label>
                 <input
@@ -798,7 +798,7 @@ const UserManagement = () => {
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
-                    formErrors.password ? 'border-error-300' : 'border-gray-200'
+                    formErrors.password ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                   placeholder="Leave empty to keep current"
                 />
@@ -808,7 +808,7 @@ const UserManagement = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Phone Number
                 </label>
                 <input
@@ -816,7 +816,7 @@ const UserManagement = () => {
                   value={formData.phoneNumber}
                   onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                   className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
-                    formErrors.phoneNumber ? 'border-error-300' : 'border-gray-200'
+                    formErrors.phoneNumber ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                 />
                 {formErrors.phoneNumber && (
@@ -825,11 +825,11 @@ const UserManagement = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Role *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Role *</label>
                 <select
                   value={formData.role}
                   onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
+                  className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800"
                 >
                   <option value="PATIENT">Patient</option>
                   <option value="DOCTOR">Doctor</option>
@@ -844,7 +844,7 @@ const UserManagement = () => {
                     setShowEditModal(false);
                     setSelectedUser(null);
                   }}
-                  className="flex-1 px-4 py-2.5 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+                  className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 >
                   Cancel
                 </button>
@@ -864,17 +864,17 @@ const UserManagement = () => {
       {/* Delete Confirmation Modal */}
       {showDeleteModal && selectedUser && (
         <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-md">
             <div className="p-6">
               <div className="flex items-center justify-center w-12 h-12 bg-error-100 rounded-full mx-auto mb-4">
                 <FiAlertCircle className="h-6 w-6 text-error-600" />
               </div>
-              <h2 className="text-xl font-semibold text-gray-900 text-center mb-2">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 text-center mb-2">
                 Delete User
               </h2>
-              <p className="text-gray-500 text-center mb-6">
+              <p className="text-gray-500 dark:text-gray-400 text-center mb-6">
                 Are you sure you want to delete{' '}
-                <span className="font-medium text-gray-900">
+                <span className="font-medium text-gray-900 dark:text-gray-100">
                   {selectedUser.firstName} {selectedUser.lastName}
                 </span>
                 ? This action cannot be undone.
@@ -885,7 +885,7 @@ const UserManagement = () => {
                     setShowDeleteModal(false);
                     setSelectedUser(null);
                   }}
-                  className="flex-1 px-4 py-2.5 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+                  className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 >
                   Cancel
                 </button>

@@ -98,11 +98,11 @@ const AdminDashboard = () => {
     const styles = {
       SCHEDULED: 'bg-blue-100 text-blue-700',
       CONFIRMED: 'bg-success-100 text-success-700',
-      COMPLETED: 'bg-gray-100 text-gray-700',
+      COMPLETED: 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300',
       CANCELLED: 'bg-error-100 text-error-700',
       NO_SHOW: 'bg-orange-100 text-orange-700',
     };
-    return styles[status] || 'bg-gray-100 text-gray-700';
+    return styles[status] || 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300';
   };
 
   // Get status icon
@@ -151,15 +151,15 @@ const AdminDashboard = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">Admin Dashboard</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
             Welcome back, {user?.firstName}. Here's your hospital overview.
           </p>
         </div>
         <button
           onClick={() => fetchDashboardData(true)}
           disabled={refreshing}
-          className="flex items-center gap-2 px-4 py-2 text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors disabled:opacity-50"
         >
           <FiRefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
           Refresh
@@ -226,7 +226,7 @@ const AdminDashboard = () => {
 
       {/* System Statistics Overview */}
       <Card className="p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">At a Glance</h2>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">At a Glance</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
           <div className="p-4 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl">
             <div className="flex items-center gap-3 mb-2">
@@ -288,8 +288,8 @@ const AdminDashboard = () => {
               <FiClock className="h-5 w-5 text-blue-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{stats?.scheduled || stats?.upcoming || 0}</p>
-              <p className="text-sm text-gray-500">Upcoming Bookings</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.scheduled || stats?.upcoming || 0}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Upcoming Bookings</p>
             </div>
           </div>
         </Card>
@@ -300,8 +300,8 @@ const AdminDashboard = () => {
               <FiXCircle className="h-5 w-5 text-error-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{stats?.cancelled || 0}</p>
-              <p className="text-sm text-gray-500">Cancellations</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.cancelled || 0}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Cancellations</p>
             </div>
           </div>
         </Card>
@@ -312,8 +312,8 @@ const AdminDashboard = () => {
               <FiAlertCircle className="h-5 w-5 text-orange-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{stats?.noShow || 0}</p>
-              <p className="text-sm text-gray-500">Missed Appointments</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.noShow || 0}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Missed Appointments</p>
             </div>
           </div>
         </Card>
@@ -324,8 +324,8 @@ const AdminDashboard = () => {
               <FiTrendingUp className="h-5 w-5 text-primary-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{stats?.total || 0}</p>
-              <p className="text-sm text-gray-500">All-Time Bookings</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.total || 0}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">All-Time Bookings</p>
             </div>
           </div>
         </Card>
@@ -333,7 +333,7 @@ const AdminDashboard = () => {
 
       {/* Quick Actions */}
       <Card className="p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <Link
             to="/admin/users"
@@ -342,7 +342,7 @@ const AdminDashboard = () => {
             <div className="p-3 bg-indigo-100 rounded-xl group-hover:bg-indigo-200 transition-colors">
               <FiUsers className="h-6 w-6 text-indigo-600" />
             </div>
-            <span className="text-sm font-medium text-gray-700">Manage Users</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Manage Users</span>
           </Link>
 
           <Link
@@ -352,7 +352,7 @@ const AdminDashboard = () => {
             <div className="p-3 bg-blue-100 rounded-xl group-hover:bg-blue-200 transition-colors">
               <FiUserPlus className="h-6 w-6 text-blue-600" />
             </div>
-            <span className="text-sm font-medium text-gray-700">Manage Doctors</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Manage Doctors</span>
           </Link>
 
           <Link
@@ -362,7 +362,7 @@ const AdminDashboard = () => {
             <div className="p-3 bg-primary-100 rounded-xl group-hover:bg-primary-200 transition-colors">
               <FiUser className="h-6 w-6 text-primary-600" />
             </div>
-            <span className="text-sm font-medium text-gray-700">Manage Patients</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Manage Patients</span>
           </Link>
 
           <Link
@@ -372,7 +372,7 @@ const AdminDashboard = () => {
             <div className="p-3 bg-purple-100 rounded-xl group-hover:bg-purple-200 transition-colors">
               <FiCalendar className="h-6 w-6 text-purple-600" />
             </div>
-            <span className="text-sm font-medium text-gray-700">All Appointments</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">All Appointments</span>
           </Link>
 
           <Link
@@ -382,7 +382,7 @@ const AdminDashboard = () => {
             <div className="p-3 bg-amber-100 rounded-xl group-hover:bg-amber-200 transition-colors">
               <FiActivity className="h-6 w-6 text-amber-600" />
             </div>
-            <span className="text-sm font-medium text-gray-700">Departments</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Departments</span>
           </Link>
 
           <Link
@@ -392,7 +392,7 @@ const AdminDashboard = () => {
             <div className="p-3 bg-rose-100 rounded-xl group-hover:bg-rose-200 transition-colors">
               <FiBarChart2 className="h-6 w-6 text-rose-600" />
             </div>
-            <span className="text-sm font-medium text-gray-700">Analytics</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Analytics</span>
           </Link>
         </div>
       </Card>
@@ -401,7 +401,7 @@ const AdminDashboard = () => {
         {/* Recent Appointments */}
         <Card className="lg:col-span-2 p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Upcoming Appointments</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Upcoming Appointments</h2>
             <Link
               to="/admin/appointments"
               className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
@@ -422,7 +422,7 @@ const AdminDashboard = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="text-left text-sm text-gray-500 border-b border-gray-100">
+                  <tr className="text-left text-sm text-gray-500 dark:text-gray-400 border-b border-gray-100 dark:border-gray-700">
                     <th className="pb-3 font-medium">Patient</th>
                     <th className="pb-3 font-medium">Doctor</th>
                     <th className="pb-3 font-medium">Date & Time</th>
@@ -431,24 +431,24 @@ const AdminDashboard = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-50">
                   {recentAppointments.map((appointment) => (
-                    <tr key={appointment.id} className="hover:bg-gray-50">
+                    <tr key={appointment.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <td className="py-3">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                            <FiUser className="h-4 w-4 text-gray-500" />
+                          <div className="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                            <FiUser className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                           </div>
-                          <span className="font-medium text-gray-900 text-sm">
+                          <span className="font-medium text-gray-900 dark:text-gray-100 text-sm">
                             {appointment.patientName}
                           </span>
                         </div>
                       </td>
                       <td className="py-3">
-                        <span className="text-sm text-gray-600">Dr. {appointment.doctorName}</span>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">Dr. {appointment.doctorName}</span>
                       </td>
                       <td className="py-3">
                         <div className="text-sm">
-                          <p className="text-gray-900">{formatDate(appointment.appointmentDate)}</p>
-                          <p className="text-gray-500">{formatTime(appointment.appointmentTime)}</p>
+                          <p className="text-gray-900 dark:text-gray-100">{formatDate(appointment.appointmentDate)}</p>
+                          <p className="text-gray-500 dark:text-gray-400">{formatTime(appointment.appointmentTime)}</p>
                         </div>
                       </td>
                       <td className="py-3">
@@ -472,7 +472,7 @@ const AdminDashboard = () => {
         {/* Doctors by Department */}
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Doctors Overview</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Doctors Overview</h2>
             <Link
               to="/admin/doctors"
               className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
@@ -483,10 +483,10 @@ const AdminDashboard = () => {
 
           <div className="space-y-4">
             {Object.entries(doctorsByDept).slice(0, 5).map(([dept, deptDoctors]) => (
-              <div key={dept} className="p-3 bg-gray-50 rounded-xl">
+              <div key={dept} className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium text-gray-900 text-sm">{dept}</span>
-                  <span className="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">
+                  <span className="font-medium text-gray-900 dark:text-gray-100 text-sm">{dept}</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 px-2 py-1 rounded-full">
                     {deptDoctors.length} doctor{deptDoctors.length !== 1 ? 's' : ''}
                   </span>
                 </div>
@@ -494,7 +494,7 @@ const AdminDashboard = () => {
                   {deptDoctors.slice(0, 3).map((doctor) => (
                     <span
                       key={doctor.id}
-                      className="text-xs text-gray-600 bg-white px-2 py-1 rounded-lg"
+                      className="text-xs text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 px-2 py-1 rounded-lg"
                     >
                       Dr. {doctor.lastName}
                     </span>
@@ -523,46 +523,46 @@ const AdminDashboard = () => {
 
       {/* Appointment Status Breakdown */}
       <Card className="p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Booking Overview</h2>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Booking Overview</h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           <div className="text-center p-4 bg-blue-50 rounded-xl">
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <FiClock className="h-6 w-6 text-blue-600" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{stats?.scheduled || stats?.upcoming || 0}</p>
-            <p className="text-sm text-gray-500">Upcoming</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.scheduled || stats?.upcoming || 0}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Upcoming</p>
           </div>
 
           <div className="text-center p-4 bg-success-50 rounded-xl">
             <div className="w-12 h-12 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <FiCheckCircle className="h-6 w-6 text-success-600" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{stats?.completed || 0}</p>
-            <p className="text-sm text-gray-500">Completed</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.completed || 0}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Completed</p>
           </div>
 
           <div className="text-center p-4 bg-error-50 rounded-xl">
             <div className="w-12 h-12 bg-error-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <FiXCircle className="h-6 w-6 text-error-600" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{stats?.cancelled || 0}</p>
-            <p className="text-sm text-gray-500">Cancelled</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.cancelled || 0}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Cancelled</p>
           </div>
 
           <div className="text-center p-4 bg-orange-50 rounded-xl">
             <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <FiAlertCircle className="h-6 w-6 text-orange-600" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{stats?.noShow || 0}</p>
-            <p className="text-sm text-gray-500">Missed</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.noShow || 0}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Missed</p>
           </div>
 
           <div className="text-center p-4 bg-purple-50 rounded-xl">
             <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <FiCalendar className="h-6 w-6 text-purple-600" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{stats?.todayCount || 0}</p>
-            <p className="text-sm text-gray-500">Today</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.todayCount || 0}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Today</p>
           </div>
         </div>
       </Card>
@@ -581,19 +581,19 @@ const AdminDashboard = () => {
                 <span className="text-gray-300">System Online</span>
               </div>
               <div className="flex items-center gap-2">
-                <FiUsers className="h-4 w-4 text-gray-400" />
+                <FiUsers className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                 <span className="text-gray-300">{stats?.totalUsers || 0} Total Users</span>
               </div>
               <div className="flex items-center gap-2">
-                <FiLayers className="h-4 w-4 text-gray-400" />
+                <FiLayers className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                 <span className="text-gray-300">{stats?.totalDepartments || 0} Departments</span>
               </div>
               <div className="flex items-center gap-2">
-                <FiUserPlus className="h-4 w-4 text-gray-400" />
+                <FiUserPlus className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                 <span className="text-gray-300">{stats?.totalDoctors || 0} Doctors</span>
               </div>
               <div className="flex items-center gap-2">
-                <FiCalendar className="h-4 w-4 text-gray-400" />
+                <FiCalendar className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                 <span className="text-gray-300">{stats?.total || 0} Total Appointments</span>
               </div>
             </div>

@@ -61,19 +61,19 @@ const DoctorCard = ({
   // Compact variant - for lists and small spaces
   if (variant === 'compact') {
     return (
-      <div className="flex items-center p-4 bg-white rounded-2xl border border-gray-100/80 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300 group">
+      <div className="flex items-center p-4 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100/80 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300 group">
         {/* Avatar */}
         <div className="flex-shrink-0">
           {doctor.photoUrl && (
             <img
               src={doctor.photoUrl}
               alt={doctor.fullName}
-              className="h-12 w-12 rounded-xl object-cover ring-2 ring-white shadow-sm"
+              className="h-12 w-12 rounded-xl object-cover ring-2 ring-white dark:ring-gray-900 shadow-sm"
               onError={handleImgError}
             />
           )}
           <div
-            className={`h-12 w-12 rounded-xl bg-gradient-to-br ${getAvatarColor(doctor.id)} flex items-center justify-center text-white font-semibold shadow-sm ring-2 ring-white`}
+            className={`h-12 w-12 rounded-xl bg-gradient-to-br ${getAvatarColor(doctor.id)} flex items-center justify-center text-white font-semibold shadow-sm ring-2 ring-white dark:ring-gray-900`}
             style={{ display: doctor.photoUrl ? 'none' : 'flex' }}
           >
             {getInitials(doctor.fullName)}
@@ -82,14 +82,14 @@ const DoctorCard = ({
 
         {/* Info */}
         <div className="ml-4 flex-1 min-w-0">
-          <h4 className="text-sm font-semibold text-gray-900 truncate group-hover:text-primary-600 transition-colors">
+          <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-primary-600 transition-colors">
             Dr. {doctor.fullName}
           </h4>
-          <p className="text-xs text-gray-500 truncate">{doctor.specialty}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{doctor.specialty}</p>
           <div className="flex items-center mt-1.5 gap-2">
             <span className="inline-flex items-center text-xs">
               <FiStar className="h-3 w-3 text-amber-400 fill-current mr-0.5" />
-              <span className="text-gray-600 font-medium">4.8</span>
+              <span className="text-gray-600 dark:text-gray-400 font-medium">4.8</span>
             </span>
             <span className="text-xs text-success-600 font-semibold bg-success-50 px-2 py-0.5 rounded-full">
               £{doctor.consultationFee}
@@ -110,7 +110,7 @@ const DoctorCard = ({
   // Detailed variant - for doctor profile pages
   if (variant === 'detailed') {
     return (
-      <div className="bg-white rounded-2xl shadow-soft border border-gray-100 overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100 dark:border-gray-700 overflow-hidden">
         {/* Header with gradient */}
         <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 px-6 py-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
@@ -152,41 +152,41 @@ const DoctorCard = ({
         <div className="p-6">
           {/* Qualifications */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-2">
               <FiAward className="inline h-4 w-4 mr-2 text-primary-500" />
               Qualifications
             </h3>
-            <p className="text-gray-600">{doctor.qualifications}</p>
+            <p className="text-gray-600 dark:text-gray-400">{doctor.qualifications}</p>
           </div>
 
           {/* Bio */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-2">
               About
             </h3>
-            <p className="text-gray-600 leading-relaxed">{doctor.bio}</p>
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{doctor.bio}</p>
           </div>
 
           {/* Contact & Fee */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <div className="flex items-center p-3 bg-gray-50 rounded-xl">
-              <FiMail className="h-5 w-5 text-gray-400 mr-3" />
+            <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+              <FiMail className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3" />
               <div>
-                <p className="text-xs text-gray-500">Email</p>
-                <p className="text-sm text-gray-900 truncate">{doctor.email}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Email</p>
+                <p className="text-sm text-gray-900 dark:text-gray-100 truncate">{doctor.email}</p>
               </div>
             </div>
-            <div className="flex items-center p-3 bg-gray-50 rounded-xl">
-              <FiPhone className="h-5 w-5 text-gray-400 mr-3" />
+            <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+              <FiPhone className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3" />
               <div>
-                <p className="text-xs text-gray-500">Phone</p>
-                <p className="text-sm text-gray-900">{doctor.phoneNumber}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Phone</p>
+                <p className="text-sm text-gray-900 dark:text-gray-100">{doctor.phoneNumber}</p>
               </div>
             </div>
             <div className="flex items-center p-3 bg-success-50 rounded-xl">
               <LuPoundSterling className="h-5 w-5 text-success-500 mr-3" />
               <div>
-                <p className="text-xs text-gray-500">Consultation Fee</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Consultation Fee</p>
                 <p className="text-sm font-semibold text-success-600">
                   £{doctor.consultationFee}
                 </p>
@@ -208,7 +208,7 @@ const DoctorCard = ({
 
   // Default variant - card for grid layout
   return (
-    <div className="bg-white rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 group">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 group">
       {/* Card Header */}
       <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 px-6 py-5">
         <div className="flex items-center space-x-4">
@@ -250,31 +250,31 @@ const DoctorCard = ({
         </div>
 
         {/* Qualifications */}
-        <p className="text-gray-600 text-sm mb-3 line-clamp-1">
+        <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-1">
           <FiAward className="inline h-4 w-4 mr-1.5 text-primary-400" />
           {doctor.qualifications}
         </p>
 
         {/* Bio */}
-        <p className="text-gray-500 text-sm mb-4 line-clamp-2 leading-relaxed">{doctor.bio}</p>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">{doctor.bio}</p>
 
         {/* Contact Info */}
         <div className="space-y-2 mb-4 text-sm">
-          <div className="flex items-center text-gray-600 hover:text-primary-600 transition-colors">
-            <FiMail className="h-4 w-4 mr-2 text-gray-400 flex-shrink-0" />
+          <div className="flex items-center text-gray-600 dark:text-gray-400 hover:text-primary-600 transition-colors">
+            <FiMail className="h-4 w-4 mr-2 text-gray-400 dark:text-gray-500 flex-shrink-0" />
             <span className="truncate">{doctor.email}</span>
           </div>
-          <div className="flex items-center text-gray-600">
-            <FiPhone className="h-4 w-4 mr-2 text-gray-400 flex-shrink-0" />
+          <div className="flex items-center text-gray-600 dark:text-gray-400">
+            <FiPhone className="h-4 w-4 mr-2 text-gray-400 dark:text-gray-500 flex-shrink-0" />
             <span>{doctor.phoneNumber}</span>
           </div>
         </div>
 
         {/* Fee & Book */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
           <div className="flex items-baseline">
-            <span className="text-2xl font-bold text-gray-900">£{doctor.consultationFee}</span>
-            <span className="text-gray-500 text-sm ml-1">/ visit</span>
+            <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">£{doctor.consultationFee}</span>
+            <span className="text-gray-500 dark:text-gray-400 text-sm ml-1">/ visit</span>
           </div>
         </div>
 

@@ -119,7 +119,7 @@ const ResetPassword = () => {
             />
             <Link
               to="/forgot-password"
-              className="w-full inline-flex justify-center py-3 px-4 border-2 border-primary-500 rounded-xl shadow-sm text-sm font-semibold text-primary-600 bg-white hover:bg-primary-50 hover:border-primary-600 transition-all duration-200"
+              className="w-full inline-flex justify-center py-3 px-4 border-2 border-primary-500 rounded-xl shadow-sm text-sm font-semibold text-primary-600 bg-white dark:bg-gray-800 hover:bg-primary-50 hover:border-primary-600 transition-all duration-200"
             >
               Request New Reset Link
             </Link>
@@ -144,10 +144,10 @@ const ResetPassword = () => {
             <FiActivity className="h-10 w-10 text-white" />
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900 dark:text-gray-100">
           {resetSuccess ? 'Password Reset!' : 'Set New Password'}
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
           {resetSuccess
             ? 'Redirecting you to sign in...'
             : 'Create a strong password for your account'}
@@ -163,12 +163,12 @@ const ResetPassword = () => {
               <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
                 <FiCheckCircle className="h-8 w-8 text-green-600" />
               </div>
-              <p className="text-gray-700 mb-6">
+              <p className="text-gray-700 dark:text-gray-300 mb-6">
                 Your password has been reset successfully. You will be redirected to the login page shortly.
               </p>
               <Link
                 to="/login"
-                className="w-full inline-flex justify-center py-3 px-4 border-2 border-primary-500 rounded-xl shadow-sm text-sm font-semibold text-primary-600 bg-white hover:bg-primary-50 hover:border-primary-600 transition-all duration-200"
+                className="w-full inline-flex justify-center py-3 px-4 border-2 border-primary-500 rounded-xl shadow-sm text-sm font-semibold text-primary-600 bg-white dark:bg-gray-800 hover:bg-primary-50 hover:border-primary-600 transition-all duration-200"
               >
                 Sign In Now
               </Link>
@@ -218,7 +218,7 @@ const ResetPassword = () => {
                         {passwordStrength.label}
                       </span>
                     </div>
-                    <ul className="mt-2 text-xs text-gray-500 space-y-1">
+                    <ul className="mt-2 text-xs text-gray-500 dark:text-gray-400 space-y-1">
                       <li className="flex items-center gap-1">
                         <FiCheck className={values.newPassword.length >= 8 ? 'text-success-500' : 'text-gray-300'} />
                         At least 8 characters

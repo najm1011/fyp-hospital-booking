@@ -63,7 +63,7 @@ const Home = () => {
               {isAuthenticated ? (
                 <Link
                   to="/dashboard"
-                  className="inline-flex items-center justify-center bg-white text-primary-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary-50 shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="inline-flex items-center justify-center bg-white dark:bg-gray-800 text-primary-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary-50 shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   Go to Dashboard
                   <FiArrowRight className="ml-2 h-5 w-5" />
@@ -72,7 +72,7 @@ const Home = () => {
                 <>
                   <Link
                     to="/register"
-                    className="inline-flex items-center justify-center bg-white text-primary-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary-50 shadow-lg hover:shadow-xl transition-all duration-200"
+                    className="inline-flex items-center justify-center bg-white dark:bg-gray-800 text-primary-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary-50 shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     Get Started
                     <FiArrowRight className="ml-2 h-5 w-5" />
@@ -107,10 +107,10 @@ const Home = () => {
             <span className="inline-block px-4 py-1.5 bg-primary-50 text-primary-700 text-sm font-medium rounded-full mb-4">
               Our Benefits
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 tracking-tight">
               Why Choose Us?
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               We provide the best healthcare booking experience with modern technology and caring service.
             </p>
           </div>
@@ -119,15 +119,15 @@ const Home = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-xl shadow-soft border border-gray-100/60 hover:shadow-soft-md hover:-translate-y-1 transition-all duration-300"
+                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-soft border border-gray-100/60 hover:shadow-soft-md hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="bg-primary-500 w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-primary-sm">
                   <feature.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -137,24 +137,24 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gradient-to-br from-gray-50 to-gray-100/80 py-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-gray-50 dark:from-gray-800 to-gray-100/80 py-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center p-6">
               <p className="text-4xl font-bold text-primary-600 tracking-tight">50+</p>
-              <p className="text-gray-600 mt-2 font-medium">Expert Doctors</p>
+              <p className="text-gray-600 dark:text-gray-400 mt-2 font-medium">Expert Doctors</p>
             </div>
             <div className="text-center p-6">
               <p className="text-4xl font-bold text-primary-600 tracking-tight">10k+</p>
-              <p className="text-gray-600 mt-2 font-medium">Happy Patients</p>
+              <p className="text-gray-600 dark:text-gray-400 mt-2 font-medium">Happy Patients</p>
             </div>
             <div className="text-center p-6">
               <p className="text-4xl font-bold text-primary-600 tracking-tight">220+</p>
-              <p className="text-gray-600 mt-2 font-medium">NHS Hospitals</p>
+              <p className="text-gray-600 dark:text-gray-400 mt-2 font-medium">NHS Hospitals</p>
             </div>
             <div className="text-center p-6">
               <p className="text-4xl font-bold text-primary-600 tracking-tight">24/7</p>
-              <p className="text-gray-600 mt-2 font-medium">Online Support</p>
+              <p className="text-gray-600 dark:text-gray-400 mt-2 font-medium">Online Support</p>
             </div>
           </div>
         </div>
@@ -163,10 +163,10 @@ const Home = () => {
       {/* CTA Section */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 tracking-tight">
             Ready to Book Your Appointment?
           </h2>
-          <p className="text-lg text-gray-600 mb-10">
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-10">
             Join thousands of patients who trust us with their healthcare needs.
           </p>
           {!isAuthenticated && (

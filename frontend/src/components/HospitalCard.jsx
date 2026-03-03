@@ -41,7 +41,7 @@ const HospitalCard = ({ hospital, onViewDetails }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 group">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 group">
       {/* Card Header */}
       <div className={`bg-gradient-to-br ${getGradient(hospital.id)} px-6 py-5`}>
         <div className="flex items-center space-x-4">
@@ -62,20 +62,20 @@ const HospitalCard = ({ hospital, onViewDetails }) => {
       <div className="p-6">
         {/* Location */}
         <div className="flex items-start mb-3">
-          <FiMapPin className="h-4 w-4 text-gray-400 mr-2 mt-0.5 flex-shrink-0" />
-          <div className="text-sm text-gray-600">
+          <FiMapPin className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2 mt-0.5 flex-shrink-0" />
+          <div className="text-sm text-gray-600 dark:text-gray-400">
             {hospital.address1 && <span>{hospital.address1}</span>}
             {hospital.city && <span>, {hospital.city}</span>}
             {hospital.postcode && (
-              <span className="font-medium text-gray-700"> {hospital.postcode}</span>
+              <span className="font-medium text-gray-700 dark:text-gray-300"> {hospital.postcode}</span>
             )}
           </div>
         </div>
 
         {/* Phone */}
         {hospital.phone && (
-          <div className="flex items-center mb-4 text-sm text-gray-600">
-            <FiPhone className="h-4 w-4 text-gray-400 mr-2 flex-shrink-0" />
+          <div className="flex items-center mb-4 text-sm text-gray-600 dark:text-gray-400">
+            <FiPhone className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2 flex-shrink-0" />
             <span>{hospital.phone}</span>
           </div>
         )}
@@ -95,7 +95,7 @@ const HospitalCard = ({ hospital, onViewDetails }) => {
         {/* Website */}
         {hospital.website && (
           <div className="flex items-center mb-4 text-sm">
-            <FiExternalLink className="h-4 w-4 text-gray-400 mr-2 flex-shrink-0" />
+            <FiExternalLink className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2 flex-shrink-0" />
             <a
               href={hospital.website.startsWith('http') ? hospital.website : `https://${hospital.website}`}
               target="_blank"
@@ -108,7 +108,7 @@ const HospitalCard = ({ hospital, onViewDetails }) => {
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-2 pt-4 border-t border-gray-100">
+        <div className="flex gap-2 pt-4 border-t border-gray-100 dark:border-gray-700">
           {onViewDetails && (
             <Button variant="outline" onClick={() => onViewDetails(hospital)} className="flex-1">
               Details

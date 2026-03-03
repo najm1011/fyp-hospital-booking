@@ -122,8 +122,8 @@ const Analytics = () => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
-          <p className="font-medium text-gray-900">{label}</p>
+        <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
+          <p className="font-medium text-gray-900 dark:text-gray-100">{label}</p>
           {payload.map((entry, index) => (
             <p key={index} style={{ color: entry.color }} className="text-sm">
               {entry.name}: {entry.value}
@@ -148,14 +148,14 @@ const Analytics = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Analytics Dashboard</h1>
-          <p className="text-gray-500 mt-1">Appointment statistics and trends</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">Analytics Dashboard</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Appointment statistics and trends</p>
         </div>
         <div className="flex items-center gap-3">
           <select
             value={months}
             onChange={(e) => setMonths(Number(e.target.value))}
-            className="px-4 py-2 text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white"
+            className="px-4 py-2 text-base border border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800"
           >
             <option value={3}>Last 3 Months</option>
             <option value={6}>Last 6 Months</option>
@@ -165,7 +165,7 @@ const Analytics = () => {
           <button
             onClick={() => fetchAnalytics(true)}
             disabled={refreshing}
-            className="flex items-center gap-2 px-4 py-2 text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors disabled:opacity-50"
           >
             <FiRefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh
@@ -239,8 +239,8 @@ const Analytics = () => {
               <FiCheckCircle className="h-6 w-6 text-success-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{analytics?.completionRate || 0}%</p>
-              <p className="text-sm text-gray-500">Completion Rate</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{analytics?.completionRate || 0}%</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Completion Rate</p>
             </div>
           </div>
         </Card>
@@ -251,8 +251,8 @@ const Analytics = () => {
               <FiXCircle className="h-6 w-6 text-error-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{analytics?.cancellationRate || 0}%</p>
-              <p className="text-sm text-gray-500">Cancellation Rate</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{analytics?.cancellationRate || 0}%</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Cancellation Rate</p>
             </div>
           </div>
         </Card>
@@ -263,8 +263,8 @@ const Analytics = () => {
               <FiAlertCircle className="h-6 w-6 text-orange-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{analytics?.noShowRate || 0}%</p>
-              <p className="text-sm text-gray-500">No-Show Rate</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{analytics?.noShowRate || 0}%</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">No-Show Rate</p>
             </div>
           </div>
         </Card>
@@ -274,7 +274,7 @@ const Analytics = () => {
       <Card className="p-6">
         <div className="flex items-center gap-2 mb-6">
           <FiTrendingUp className="h-5 w-5 text-primary-600" />
-          <h2 className="text-lg font-semibold text-gray-900">Appointments Per Month</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Appointments Per Month</h2>
         </div>
         {analytics?.monthlyStats?.length > 0 ? (
           <ResponsiveContainer width="100%" height={350}>
@@ -324,7 +324,7 @@ const Analytics = () => {
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <div className="flex items-center justify-center h-[350px] text-gray-400">
+          <div className="flex items-center justify-center h-[350px] text-gray-400 dark:text-gray-500">
             <div className="text-center">
               <FiBarChart2 className="h-12 w-12 mx-auto mb-2" />
               <p>No data available for selected period</p>
@@ -338,7 +338,7 @@ const Analytics = () => {
         <Card className="p-6">
           <div className="flex items-center gap-2 mb-6">
             <FiPieChart className="h-5 w-5 text-primary-600" />
-            <h2 className="text-lg font-semibold text-gray-900">Status Distribution</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Status Distribution</h2>
           </div>
           {getStatusPieData().length > 0 ? (
             <ResponsiveContainer width="100%" height={300}>
@@ -362,7 +362,7 @@ const Analytics = () => {
               </PieChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-[300px] text-gray-400">
+            <div className="flex items-center justify-center h-[300px] text-gray-400 dark:text-gray-500">
               <div className="text-center">
                 <FiPieChart className="h-12 w-12 mx-auto mb-2" />
                 <p>No status data available</p>
@@ -375,7 +375,7 @@ const Analytics = () => {
         <Card className="p-6">
           <div className="flex items-center gap-2 mb-6">
             <FiBarChart2 className="h-5 w-5 text-primary-600" />
-            <h2 className="text-lg font-semibold text-gray-900">Appointments by Day of Week</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Appointments by Day of Week</h2>
           </div>
           {getWeekdayData().length > 0 ? (
             <ResponsiveContainer width="100%" height={300}>
@@ -402,7 +402,7 @@ const Analytics = () => {
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-[300px] text-gray-400">
+            <div className="flex items-center justify-center h-[300px] text-gray-400 dark:text-gray-500">
               <div className="text-center">
                 <FiBarChart2 className="h-12 w-12 mx-auto mb-2" />
                 <p>No weekday data available</p>
@@ -416,7 +416,7 @@ const Analytics = () => {
       <Card className="p-6">
         <div className="flex items-center gap-2 mb-6">
           <FiBarChart2 className="h-5 w-5 text-primary-600" />
-          <h2 className="text-lg font-semibold text-gray-900">Appointments by Department</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Appointments by Department</h2>
         </div>
         {getDepartmentData().length > 0 ? (
           <ResponsiveContainer width="100%" height={350}>
@@ -440,8 +440,8 @@ const Analytics = () => {
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     return (
-                      <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
-                        <p className="font-medium text-gray-900">{payload[0].payload.fullName}</p>
+                      <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
+                        <p className="font-medium text-gray-900 dark:text-gray-100">{payload[0].payload.fullName}</p>
                         <p className="text-sm text-primary-600">
                           Appointments: {payload[0].value}
                         </p>
@@ -460,7 +460,7 @@ const Analytics = () => {
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <div className="flex items-center justify-center h-[350px] text-gray-400">
+          <div className="flex items-center justify-center h-[350px] text-gray-400 dark:text-gray-500">
             <div className="text-center">
               <FiBarChart2 className="h-12 w-12 mx-auto mb-2" />
               <p>No department data available</p>
@@ -472,13 +472,13 @@ const Analytics = () => {
       {/* Monthly Breakdown Table */}
       {analytics?.monthlyStats?.length > 0 && (
         <Card className="overflow-hidden">
-          <div className="p-4 border-b border-gray-100">
-            <h2 className="text-lg font-semibold text-gray-900">Monthly Breakdown</h2>
+          <div className="p-4 border-b border-gray-100 dark:border-gray-700">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Monthly Breakdown</h2>
           </div>
           <div className="overflow-x-auto -webkit-overflow-scrolling-touch">
             <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr className="text-left text-sm text-gray-500">
+              <thead className="bg-gray-50 dark:bg-gray-800/50">
+                <tr className="text-left text-sm text-gray-500 dark:text-gray-400">
                   <th className="px-4 py-3 font-medium">Month</th>
                   <th className="px-4 py-3 font-medium text-right">Total</th>
                   <th className="px-4 py-3 font-medium text-right">Scheduled</th>
@@ -487,13 +487,13 @@ const Analytics = () => {
                   <th className="px-4 py-3 font-medium text-right">No Show</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                 {analytics.monthlyStats.map((month, index) => (
-                  <tr key={index} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-gray-900">
+                  <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">
                       {month.monthName} {month.year}
                     </td>
-                    <td className="px-4 py-3 text-right text-gray-900 font-semibold">
+                    <td className="px-4 py-3 text-right text-gray-900 dark:text-gray-100 font-semibold">
                       {month.total}
                     </td>
                     <td className="px-4 py-3 text-right">

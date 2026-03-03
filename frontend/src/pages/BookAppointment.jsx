@@ -325,28 +325,28 @@ const BookAppointment = () => {
   const renderHospitalSelection = () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
           Select a Hospital
         </h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400">
           Choose the NHS hospital where you'd like to book your appointment.
         </p>
       </div>
 
       {/* Search */}
       <div className="relative">
-        <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+        <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-500" />
         <input
           type="text"
           value={hospitalSearch}
           onChange={(e) => setHospitalSearch(e.target.value)}
           placeholder="Search by hospital name, city, or postcode..."
-          className="w-full pl-10 pr-10 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
+          className="w-full pl-10 pr-10 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         />
         {hospitalSearch && (
           <button
             onClick={() => setHospitalSearch('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
           >
             <FiX className="h-4 w-4" />
           </button>
@@ -359,7 +359,7 @@ const BookAppointment = () => {
         </div>
       ) : (
         <>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             {filteredHospitals.length} hospital
             {filteredHospitals.length !== 1 ? 's' : ''} found
           </p>
@@ -371,7 +371,7 @@ const BookAppointment = () => {
                 className={`p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                   selectedHospital?.id === hospital.id
                     ? 'border-teal-500 bg-teal-50 shadow-sm'
-                    : 'border-gray-200 hover:border-teal-200 hover:shadow-soft'
+                    : 'border-gray-200 dark:border-gray-600 hover:border-teal-200 hover:shadow-soft'
                 }`}
               >
                 <div className="flex items-start space-x-3">
@@ -391,11 +391,11 @@ const BookAppointment = () => {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900 truncate">
+                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 truncate">
                       {hospital.name}
                     </h3>
                     {hospital.city && (
-                      <p className="text-sm text-gray-500 mt-0.5">
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                         {hospital.city}
                         {hospital.postcode && ` · ${hospital.postcode}`}
                       </p>
@@ -441,10 +441,10 @@ const BookAppointment = () => {
   const renderDoctorSelection = () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
           Select a Doctor
         </h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400">
           Showing doctors at{' '}
           <span className="font-medium text-teal-700">
             {selectedHospital?.name}
@@ -477,13 +477,13 @@ const BookAppointment = () => {
 
       {/* Department filter */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Filter by Department
         </label>
         <select
           value={selectedDepartment}
           onChange={(e) => setSelectedDepartment(e.target.value)}
-          className="w-full md:w-64 px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
+          className="w-full md:w-64 px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         >
           <option value="">All Departments</option>
           {departments.map((dept) => (
@@ -507,7 +507,7 @@ const BookAppointment = () => {
               className={`relative p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                 selectedDoctor?.id === doctor.id
                   ? 'border-primary-500 bg-primary-50 shadow-primary-sm'
-                  : 'border-gray-200 hover:border-primary-200 hover:shadow-soft'
+                  : 'border-gray-200 dark:border-gray-600 hover:border-primary-200 hover:shadow-soft'
               }`}
             >
               {/* Recommended badge */}
@@ -544,10 +544,10 @@ const BookAppointment = () => {
                   />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-gray-900 truncate">
+                  <h3 className="font-semibold text-gray-900 dark:text-gray-100 truncate">
                     Dr. {doctor.fullName}
                   </h3>
-                  <p className="text-sm text-gray-500">{doctor.specialty}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{doctor.specialty}</p>
                   <p className="text-sm text-primary-600 font-medium">
                     {doctor.departmentName}
                   </p>
@@ -586,10 +586,10 @@ const BookAppointment = () => {
   const renderDateTimeSelection = () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
           Select Date & Time
         </h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400">
           Booking with{' '}
           <span className="font-medium">Dr. {selectedDoctor?.fullName}</span> at{' '}
           <span className="font-medium text-teal-700">
@@ -625,7 +625,7 @@ const BookAppointment = () => {
       {/* Patient Notes */}
       {selectedSlot && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Notes for Doctor (Optional)
           </label>
           <textarea
@@ -633,7 +633,7 @@ const BookAppointment = () => {
             onChange={(e) => setPatientNotes(e.target.value)}
             placeholder="Describe your symptoms or reason for visit..."
             rows={3}
-            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
+            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
           />
         </div>
       )}
@@ -643,38 +643,38 @@ const BookAppointment = () => {
   // Step 4: Confirmation
   const renderConfirmation = () => (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900">
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
         Confirm Your Appointment
       </h2>
 
-      <div className="bg-gray-50 rounded-xl p-4 sm:p-6 space-y-4 border border-gray-100">
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
-          <span className="text-gray-500 flex-shrink-0">Hospital</span>
+      <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 sm:p-6 space-y-4 border border-gray-100 dark:border-gray-700">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-600 gap-2">
+          <span className="text-gray-500 dark:text-gray-400 flex-shrink-0">Hospital</span>
           <span className="font-medium text-teal-700 text-right truncate">
             {selectedHospital?.name}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
-          <span className="text-gray-500 flex-shrink-0">Doctor</span>
-          <span className="font-medium text-gray-900 text-right truncate">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-600 gap-2">
+          <span className="text-gray-500 dark:text-gray-400 flex-shrink-0">Doctor</span>
+          <span className="font-medium text-gray-900 dark:text-gray-100 text-right truncate">
             Dr. {selectedDoctor?.fullName}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
-          <span className="text-gray-500 flex-shrink-0">Specialty</span>
-          <span className="font-medium text-gray-900 text-right truncate">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-600 gap-2">
+          <span className="text-gray-500 dark:text-gray-400 flex-shrink-0">Specialty</span>
+          <span className="font-medium text-gray-900 dark:text-gray-100 text-right truncate">
             {selectedDoctor?.specialty}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
-          <span className="text-gray-500 flex-shrink-0">Department</span>
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-600 gap-2">
+          <span className="text-gray-500 dark:text-gray-400 flex-shrink-0">Department</span>
           <span className="font-medium text-primary-600 text-right truncate">
             {selectedDoctor?.departmentName}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
-          <span className="text-gray-500 flex-shrink-0">Date</span>
-          <span className="font-medium text-gray-900 text-right">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-600 gap-2">
+          <span className="text-gray-500 dark:text-gray-400 flex-shrink-0">Date</span>
+          <span className="font-medium text-gray-900 dark:text-gray-100 text-right">
             {new Date(selectedDate).toLocaleDateString('en-GB', {
               weekday: 'short',
               year: 'numeric',
@@ -683,23 +683,23 @@ const BookAppointment = () => {
             })}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
-          <span className="text-gray-500 flex-shrink-0">Time</span>
-          <span className="font-medium text-gray-900 text-right">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-600 gap-2">
+          <span className="text-gray-500 dark:text-gray-400 flex-shrink-0">Time</span>
+          <span className="font-medium text-gray-900 dark:text-gray-100 text-right">
             {formatTime(selectedSlot?.startTime)} -{' '}
             {formatTime(selectedSlot?.endTime)}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
-          <span className="text-gray-500 flex-shrink-0">Consultation Fee</span>
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-600 gap-2">
+          <span className="text-gray-500 dark:text-gray-400 flex-shrink-0">Consultation Fee</span>
           <span className="font-semibold text-success-600">
             £{selectedDoctor?.consultationFee}
           </span>
         </div>
         {patientNotes && (
           <div className="pt-2">
-            <span className="text-gray-500 block mb-2">Your Notes</span>
-            <p className="text-gray-900 bg-white p-3 rounded-lg border border-gray-200">
+            <span className="text-gray-500 dark:text-gray-400 block mb-2">Your Notes</span>
+            <p className="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-600">
               {patientNotes}
             </p>
           </div>
@@ -714,40 +714,40 @@ const BookAppointment = () => {
       <div className="inline-flex items-center justify-center w-16 h-16 bg-success-100 rounded-2xl">
         <FiCheck className="h-8 w-8 text-success-600" />
       </div>
-      <h2 className="text-2xl font-semibold text-gray-900">
+      <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
         Appointment Booked!
       </h2>
-      <p className="text-gray-600">Your appointment has been confirmed.</p>
+      <p className="text-gray-600 dark:text-gray-400">Your appointment has been confirmed.</p>
 
       {bookingResult && (
-        <div className="bg-gray-50 rounded-xl p-6 text-left max-w-md mx-auto space-y-3 border border-gray-100">
+        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 text-left max-w-md mx-auto space-y-3 border border-gray-100 dark:border-gray-700">
           <div className="flex justify-between">
-            <span className="text-gray-500">Confirmation #</span>
+            <span className="text-gray-500 dark:text-gray-400">Confirmation #</span>
             <span className="font-mono font-semibold text-primary-600">
               {bookingResult.confirmationNumber}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">Hospital</span>
+            <span className="text-gray-500 dark:text-gray-400">Hospital</span>
             <span className="font-medium text-teal-700">
               {selectedHospital?.name}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">Doctor</span>
-            <span className="font-medium text-gray-900">
+            <span className="text-gray-500 dark:text-gray-400">Doctor</span>
+            <span className="font-medium text-gray-900 dark:text-gray-100">
               {bookingResult.doctorName}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">Date</span>
-            <span className="font-medium text-gray-900">
+            <span className="text-gray-500 dark:text-gray-400">Date</span>
+            <span className="font-medium text-gray-900 dark:text-gray-100">
               {bookingResult.appointmentDate}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">Time</span>
-            <span className="font-medium text-gray-900">
+            <span className="text-gray-500 dark:text-gray-400">Time</span>
+            <span className="font-medium text-gray-900 dark:text-gray-100">
               {formatTime(bookingResult.startTime)}
             </span>
           </div>
@@ -771,7 +771,7 @@ const BookAppointment = () => {
     if (step === 5) return null;
 
     return (
-      <div className="flex justify-between pt-6 border-t border-gray-200">
+      <div className="flex justify-between pt-6 border-t border-gray-200 dark:border-gray-600">
         {/* Back button */}
         {step > 0 && step !== 1 ? (
           <Button
@@ -860,7 +860,7 @@ const BookAppointment = () => {
                 className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
                   step >= s.num
                     ? 'bg-primary-600 text-white shadow-primary-sm'
-                    : 'bg-gray-100 text-gray-500'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
                 }`}
               >
                 {step > s.num ? <FiCheck /> : index + 1}
@@ -869,7 +869,7 @@ const BookAppointment = () => {
                 className={`ml-2 text-sm hidden sm:inline ${
                   step >= s.num
                     ? 'text-primary-700 font-medium'
-                    : 'text-gray-500'
+                    : 'text-gray-500 dark:text-gray-400'
                 }`}
               >
                 {s.label}
@@ -893,10 +893,10 @@ const BookAppointment = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
           Book Appointment
         </h1>
-        <p className="text-gray-600 mt-1">
+        <p className="text-gray-600 dark:text-gray-400 mt-1">
           Select a hospital, then choose your doctor and time
         </p>
       </div>
@@ -919,7 +919,7 @@ const BookAppointment = () => {
         />
       )}
 
-      <div ref={formRef} className="bg-white rounded-xl shadow-soft border border-gray-100 p-6">
+      <div ref={formRef} className="bg-white dark:bg-gray-800 rounded-xl shadow-soft border border-gray-100 dark:border-gray-700 p-6">
         {renderProgress()}
 
         {step === 0 && renderHospitalSelection()}

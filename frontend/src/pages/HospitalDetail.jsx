@@ -88,14 +88,14 @@ const HospitalDetail = () => {
       {/* Back Button */}
       <button
         onClick={() => navigate('/hospitals')}
-        className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition-colors"
+        className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mb-6 transition-colors"
       >
         <FiArrowLeft className="mr-2 h-4 w-4" />
         Back to Hospitals
       </button>
 
       {/* Hospital Header Card */}
-      <div className="bg-white rounded-2xl shadow-soft border border-gray-100 overflow-hidden mb-8">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100 dark:border-gray-700 overflow-hidden mb-8">
         <div className={`bg-gradient-to-br ${getGradient(hospital.id)} px-6 sm:px-8 py-8`}>
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             {/* Hospital Icon */}
@@ -122,7 +122,7 @@ const HospitalDetail = () => {
               {isAuthenticated && user?.role === 'PATIENT' && (
                 <button
                   onClick={() => navigate(`/appointments/book?hospitalId=${hospital.id}`)}
-                  className="mt-4 inline-flex items-center px-5 py-2.5 rounded-xl text-sm font-semibold bg-white text-teal-700 hover:bg-teal-50 shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="mt-4 inline-flex items-center px-5 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-gray-800 text-teal-700 hover:bg-teal-50 shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   <FiCalendar className="h-4 w-4 mr-2" />
                   Book at this Hospital
@@ -136,11 +136,11 @@ const HospitalDetail = () => {
         <div className="p-6 sm:p-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {/* Address */}
-            <div className="flex items-start p-4 bg-gray-50 rounded-xl">
+            <div className="flex items-start p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
               <FiMapPin className="h-5 w-5 text-teal-500 mr-3 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-xs text-gray-500 mb-1">Address</p>
-                <p className="text-sm text-gray-900">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Address</p>
+                <p className="text-sm text-gray-900 dark:text-gray-100">
                   {hospital.address1}
                   {hospital.address2 && <>, {hospital.address2}</>}
                   {hospital.city && <><br />{hospital.city}</>}
@@ -151,19 +151,19 @@ const HospitalDetail = () => {
             </div>
 
             {/* Phone */}
-            <div className="flex items-start p-4 bg-gray-50 rounded-xl">
+            <div className="flex items-start p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
               <FiPhone className="h-5 w-5 text-teal-500 mr-3 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-xs text-gray-500 mb-1">Phone</p>
-                <p className="text-sm text-gray-900">{hospital.phone || 'Not available'}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Phone</p>
+                <p className="text-sm text-gray-900 dark:text-gray-100">{hospital.phone || 'Not available'}</p>
               </div>
             </div>
 
             {/* Website */}
-            <div className="flex items-start p-4 bg-gray-50 rounded-xl">
+            <div className="flex items-start p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
               <FiExternalLink className="h-5 w-5 text-teal-500 mr-3 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-xs text-gray-500 mb-1">Website</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Website</p>
                 {hospital.website ? (
                   <a
                     href={hospital.website.startsWith('http') ? hospital.website : `https://${hospital.website}`}
@@ -174,7 +174,7 @@ const HospitalDetail = () => {
                     {hospital.website}
                   </a>
                 ) : (
-                  <p className="text-sm text-gray-900">Not available</p>
+                  <p className="text-sm text-gray-900 dark:text-gray-100">Not available</p>
                 )}
               </div>
             </div>
@@ -185,10 +185,10 @@ const HospitalDetail = () => {
       {/* Doctors Section */}
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-900">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
             Doctors at this Hospital
           </h2>
-          <span className="text-sm text-gray-500">{doctors.length} doctors</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">{doctors.length} doctors</span>
         </div>
 
         {doctors.length > 0 ? (
@@ -202,12 +202,12 @@ const HospitalDetail = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-white rounded-xl border border-gray-100 shadow-soft">
+          <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-soft">
             <div className="bg-amber-50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <FiUser className="h-10 w-10 text-amber-400" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No doctors registered yet</h3>
-            <p className="text-gray-500 max-w-md mx-auto mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">No doctors registered yet</h3>
+            <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-6">
               This hospital doesn't have any doctors registered on our platform yet.
               You can browse other NHS hospitals that have doctors available for booking.
             </p>

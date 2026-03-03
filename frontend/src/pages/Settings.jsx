@@ -158,15 +158,15 @@ const Settings = () => {
     <div className="max-w-2xl mx-auto">
       {/* Page Header */}
       <div className="mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Settings</h1>
-        <p className="text-gray-600 mt-1">Manage your account settings and preferences</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">Settings</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your account settings and preferences</p>
       </div>
 
       {/* Profile Section */}
       <Card className="mb-6">
         <div className="p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-1">Profile Information</h2>
-          <p className="text-sm text-gray-500 mb-6">Update your personal details</p>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">Profile Information</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Update your personal details</p>
 
           {profileSuccess && (
             <Alert type="success" message={profileSuccess} onClose={() => setProfileSuccess(null)} className="mb-4" />
@@ -181,10 +181,10 @@ const Settings = () => {
               {getInitials()}
             </div>
             <div>
-              <p className="text-lg font-semibold text-gray-900">
+              <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {profileForm.firstName} {profileForm.lastName}
               </p>
-              <p className="text-sm text-gray-500 capitalize">{user?.role?.toLowerCase()}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 capitalize">{user?.role?.toLowerCase()}</p>
             </div>
           </div>
 
@@ -255,8 +255,8 @@ const Settings = () => {
       {/* Password Section */}
       <Card>
         <div className="p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-1">Change Password</h2>
-          <p className="text-sm text-gray-500 mb-6">Update your password to keep your account secure</p>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">Change Password</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Update your password to keep your account secure</p>
 
           {passwordSuccess && (
             <Alert type="success" message={passwordSuccess} onClose={() => setPasswordSuccess(null)} className="mb-4" />

@@ -67,8 +67,8 @@ const AppointmentSummary = ({
         label: 'Confirmed',
       },
       COMPLETED: {
-        bg: 'bg-gray-100',
-        text: 'text-gray-700',
+        bg: 'bg-gray-100 dark:bg-gray-700',
+        text: 'text-gray-700 dark:text-gray-300',
         icon: FiCheckCircle,
         label: 'Completed',
       },
@@ -118,7 +118,7 @@ const AppointmentSummary = ({
   if (variant === 'compact') {
     return (
       <div
-        className={`flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200 hover:border-gray-300 transition-colors cursor-pointer ${className}`}
+        className={`flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer ${className}`}
         onClick={handleViewDetails}
       >
         <div className="flex items-center space-x-3 min-w-0">
@@ -126,10 +126,10 @@ const AppointmentSummary = ({
             <FiCalendar className="h-4 w-4 text-primary-600" />
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">
+            <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
               Dr. {appointment.doctorName}
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               {formatDate(appointment.appointmentDate, false)} • {formatTime(appointment.startTime)}
             </p>
           </div>
@@ -144,7 +144,7 @@ const AppointmentSummary = ({
   // Card variant - for grid displays
   if (variant === 'card') {
     return (
-      <div className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow ${className}`}>
+      <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 overflow-hidden hover:shadow-md transition-shadow ${className}`}>
         {/* Card Header */}
         <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-4 py-3">
           <div className="flex items-center justify-between">
@@ -162,18 +162,18 @@ const AppointmentSummary = ({
         <div className="p-4">
           {/* Doctor Info */}
           <div className="flex items-start space-x-3 mb-4">
-            <div className="bg-gray-100 p-2 rounded-full">
-              <FiUser className="h-5 w-5 text-gray-600" />
+            <div className="bg-gray-100 dark:bg-gray-700 p-2 rounded-full">
+              <FiUser className="h-5 w-5 text-gray-600 dark:text-gray-400" />
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900">Dr. {appointment.doctorName}</h4>
-              <p className="text-sm text-gray-500">{appointment.specialty || appointment.departmentName}</p>
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100">Dr. {appointment.doctorName}</h4>
+              <p className="text-sm text-gray-500 dark:text-gray-400">{appointment.specialty || appointment.departmentName}</p>
             </div>
           </div>
 
           {/* Time */}
-          <div className="flex items-center text-sm text-gray-600 mb-3">
-            <FiClock className="h-4 w-4 mr-2 text-gray-400" />
+          <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <FiClock className="h-4 w-4 mr-2 text-gray-400 dark:text-gray-500" />
             <span>
               {formatTime(appointment.startTime)}
               {appointment.endTime && ` - ${formatTime(appointment.endTime)}`}
@@ -182,16 +182,16 @@ const AppointmentSummary = ({
 
           {/* Department */}
           {appointment.departmentName && (
-            <div className="flex items-center text-sm text-gray-600 mb-3">
-              <FiMapPin className="h-4 w-4 mr-2 text-gray-400" />
+            <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-3">
+              <FiMapPin className="h-4 w-4 mr-2 text-gray-400 dark:text-gray-500" />
               <span>{appointment.departmentName}</span>
             </div>
           )}
 
           {/* Confirmation Number */}
           {appointment.confirmationNumber && (
-            <div className="bg-gray-50 rounded-lg px-3 py-2 mb-4">
-              <p className="text-xs text-gray-500">Confirmation #</p>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg px-3 py-2 mb-4">
+              <p className="text-xs text-gray-500 dark:text-gray-400">Confirmation #</p>
               <p className="font-mono text-sm font-medium text-primary-600">
                 {appointment.confirmationNumber}
               </p>
@@ -200,7 +200,7 @@ const AppointmentSummary = ({
 
           {/* Actions */}
           {showActions && canModify() && (
-            <div className="flex gap-2 pt-3 border-t border-gray-100">
+            <div className="flex gap-2 pt-3 border-t border-gray-100 dark:border-gray-700">
               {onReschedule && (
                 <Button
                   variant="outline"
@@ -239,7 +239,7 @@ const AppointmentSummary = ({
   // Detailed variant - for appointment detail pages
   if (variant === 'detailed') {
     return (
-      <div className={`bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden ${className}`}>
+      <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-600 overflow-hidden ${className}`}>
         {/* Header */}
         <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-6">
           <div className="flex items-center justify-between">
@@ -268,7 +268,7 @@ const AppointmentSummary = ({
           {/* Confirmation Number */}
           {appointment.confirmationNumber && (
             <div className="bg-primary-50 rounded-xl p-4 mb-6">
-              <p className="text-xs text-gray-500 uppercase tracking-wide">Confirmation Number</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Confirmation Number</p>
               <p className="text-xl font-mono font-bold text-primary-600 mt-1">
                 {appointment.confirmationNumber}
               </p>
@@ -277,7 +277,7 @@ const AppointmentSummary = ({
 
           {/* Doctor Information */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">
               Doctor Information
             </h3>
             <div className="flex items-start space-x-4">
@@ -285,21 +285,21 @@ const AppointmentSummary = ({
                 <FiUser className="h-6 w-6 text-primary-600" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 text-lg">Dr. {appointment.doctorName}</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-lg">Dr. {appointment.doctorName}</h4>
                 {appointment.specialty && (
-                  <p className="text-gray-600">{appointment.specialty}</p>
+                  <p className="text-gray-600 dark:text-gray-400">{appointment.specialty}</p>
                 )}
                 {appointment.departmentName && (
                   <p className="text-primary-600 text-sm">{appointment.departmentName}</p>
                 )}
                 {appointment.doctorEmail && (
-                  <div className="flex items-center text-sm text-gray-500 mt-2">
+                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-2">
                     <FiMail className="h-4 w-4 mr-2" />
                     {appointment.doctorEmail}
                   </div>
                 )}
                 {appointment.doctorPhone && (
-                  <div className="flex items-center text-sm text-gray-500 mt-1">
+                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-1">
                     <FiPhone className="h-4 w-4 mr-2" />
                     {appointment.doctorPhone}
                   </div>
@@ -310,41 +310,41 @@ const AppointmentSummary = ({
 
           {/* Appointment Details */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">
               Appointment Details
             </h3>
             <div className="space-y-3">
-              <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                <div className="flex items-center text-gray-600">
+              <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700">
+                <div className="flex items-center text-gray-600 dark:text-gray-400">
                   <FiCalendar className="h-4 w-4 mr-2" />
                   <span>Date</span>
                 </div>
-                <span className="font-medium text-gray-900">
+                <span className="font-medium text-gray-900 dark:text-gray-100">
                   {formatDate(appointment.appointmentDate)}
                 </span>
               </div>
-              <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                <div className="flex items-center text-gray-600">
+              <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700">
+                <div className="flex items-center text-gray-600 dark:text-gray-400">
                   <FiClock className="h-4 w-4 mr-2" />
                   <span>Time</span>
                 </div>
-                <span className="font-medium text-gray-900">
+                <span className="font-medium text-gray-900 dark:text-gray-100">
                   {formatTime(appointment.startTime)}
                   {appointment.endTime && ` - ${formatTime(appointment.endTime)}`}
                 </span>
               </div>
               {appointment.departmentName && (
-                <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                  <div className="flex items-center text-gray-600">
+                <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700">
+                  <div className="flex items-center text-gray-600 dark:text-gray-400">
                     <FiMapPin className="h-4 w-4 mr-2" />
                     <span>Department</span>
                   </div>
-                  <span className="font-medium text-gray-900">{appointment.departmentName}</span>
+                  <span className="font-medium text-gray-900 dark:text-gray-100">{appointment.departmentName}</span>
                 </div>
               )}
               {appointment.consultationFee && (
-                <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                  <div className="flex items-center text-gray-600">
+                <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700">
+                  <div className="flex items-center text-gray-600 dark:text-gray-400">
                     <LuPoundSterling className="h-4 w-4 mr-2" />
                     <span>Consultation Fee</span>
                   </div>
@@ -357,11 +357,11 @@ const AppointmentSummary = ({
           {/* Patient Notes */}
           {appointment.patientNotes && (
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">
                 <FiFileText className="inline h-4 w-4 mr-1" />
                 Patient Notes
               </h3>
-              <div className="bg-gray-50 rounded-lg p-4 text-gray-700">
+              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 text-gray-700 dark:text-gray-300">
                 {appointment.patientNotes}
               </div>
             </div>
@@ -370,10 +370,10 @@ const AppointmentSummary = ({
           {/* Doctor Notes */}
           {appointment.doctorNotes && (
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3">
                 Doctor Notes
               </h3>
-              <div className="bg-primary-50 rounded-lg p-4 text-gray-700">
+              <div className="bg-primary-50 rounded-lg p-4 text-gray-700 dark:text-gray-300">
                 {appointment.doctorNotes}
               </div>
             </div>
@@ -381,7 +381,7 @@ const AppointmentSummary = ({
 
           {/* Actions */}
           {showActions && canModify() && (
-            <div className="flex gap-3 pt-4 border-t border-gray-200">
+            <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-600">
               {onReschedule && (
                 <Button variant="outline" onClick={() => onReschedule(appointment)} className="flex-1">
                   <FiEdit className="mr-2" />
@@ -408,7 +408,7 @@ const AppointmentSummary = ({
   // Default variant - for standard list items
   return (
     <div
-      className={`relative p-4 bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all ${className}`}
+      className={`relative p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm transition-all ${className}`}
     >
       <div className="flex items-start justify-between">
         {/* Main Content */}
@@ -429,17 +429,17 @@ const AppointmentSummary = ({
           {/* Details */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <h4 className="font-semibold text-gray-900 truncate">Dr. {appointment.doctorName}</h4>
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100 truncate">Dr. {appointment.doctorName}</h4>
               <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusInfo.bg} ${statusInfo.text} ml-2 flex-shrink-0`}>
                 {statusInfo.label}
               </span>
             </div>
 
             {appointment.specialty && (
-              <p className="text-sm text-gray-600 truncate">{appointment.specialty}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 truncate">{appointment.specialty}</p>
             )}
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-sm text-gray-500">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-sm text-gray-500 dark:text-gray-400">
               <span className="flex items-center">
                 <FiClock className="h-4 w-4 mr-1" />
                 {formatTime(appointment.startTime)}
@@ -464,7 +464,7 @@ const AppointmentSummary = ({
           <div className="relative ml-2">
             <button
               onClick={() => setShowMenu(!showMenu)}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
               <FiMoreVertical className="h-5 w-5" />
             </button>
@@ -475,13 +475,13 @@ const AppointmentSummary = ({
                   className="fixed inset-0 z-10"
                   onClick={() => setShowMenu(false)}
                 />
-                <div className="absolute right-0 top-10 z-20 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1">
+                <div className="absolute right-0 top-10 z-20 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 py-1">
                   <button
                     onClick={() => {
                       setShowMenu(false);
                       handleViewDetails();
                     }}
-                    className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    className="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50"
                   >
                     <FiFileText className="h-4 w-4 mr-2" />
                     View Details
@@ -492,7 +492,7 @@ const AppointmentSummary = ({
                         setShowMenu(false);
                         onReschedule(appointment);
                       }}
-                      className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      className="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50"
                     >
                       <FiEdit className="h-4 w-4 mr-2" />
                       Reschedule

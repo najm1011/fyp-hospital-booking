@@ -103,7 +103,7 @@ const DoctorDetail = () => {
     return (
       <div className="text-center py-20">
         <FiUser className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-        <h3 className="text-lg font-medium text-gray-900 mb-2">Doctor not found</h3>
+        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Doctor not found</h3>
         <Button variant="outline" onClick={() => navigate('/doctors')}>
           <FiArrowLeft className="mr-2" />
           Back to Doctors
@@ -117,14 +117,14 @@ const DoctorDetail = () => {
       {/* Back Button */}
       <button
         onClick={() => navigate('/doctors')}
-        className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition-colors"
+        className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mb-6 transition-colors"
       >
         <FiArrowLeft className="h-5 w-5 mr-2" />
         Back to Doctors
       </button>
 
       {/* Doctor Profile Card */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-600 overflow-hidden">
         {/* Header with gradient */}
         <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-8 py-10">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
@@ -164,7 +164,7 @@ const DoctorDetail = () => {
             <div className="hidden sm:block">
               <Button
                 onClick={handleBookAppointment}
-                className="bg-white text-primary-600 hover:bg-primary-50"
+                className="bg-white dark:bg-gray-800 text-primary-600 hover:bg-primary-50"
               >
                 <FiCalendar className="mr-2" />
                 Book Now
@@ -180,25 +180,25 @@ const DoctorDetail = () => {
             <div className="lg:col-span-2 space-y-8">
               {/* Qualifications */}
               <div>
-                <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-3">
+                <h3 className="flex items-center text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
                   <FiAward className="h-5 w-5 mr-2 text-primary-500" />
                   Qualifications
                 </h3>
-                <p className="text-gray-600">{doctor.qualifications}</p>
+                <p className="text-gray-600 dark:text-gray-400">{doctor.qualifications}</p>
               </div>
 
               {/* About */}
               <div>
-                <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-3">
+                <h3 className="flex items-center text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
                   <FiUser className="h-5 w-5 mr-2 text-primary-500" />
                   About
                 </h3>
-                <p className="text-gray-600 leading-relaxed">{doctor.bio}</p>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{doctor.bio}</p>
               </div>
 
               {/* Availability */}
               <div>
-                <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-3">
+                <h3 className="flex items-center text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
                   <FiClock className="h-5 w-5 mr-2 text-primary-500" />
                   Weekly Schedule
                 </h3>
@@ -213,10 +213,10 @@ const DoctorDetail = () => {
                             className={`p-3 rounded-lg text-center ${
                               slots.length > 0
                                 ? 'bg-success-50 border border-success-200'
-                                : 'bg-gray-50 border border-gray-200'
+                                : 'bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-600'
                             }`}
                           >
-                            <p className="text-xs font-medium text-gray-700">
+                            <p className="text-xs font-medium text-gray-700 dark:text-gray-300">
                               {day.slice(0, 3)}
                             </p>
                             {slots.length > 0 ? (
@@ -227,7 +227,7 @@ const DoctorDetail = () => {
                                 </p>
                               </div>
                             ) : (
-                              <p className="text-xs text-gray-400 mt-1">Off</p>
+                              <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Off</p>
                             )}
                           </div>
                         );
@@ -241,7 +241,7 @@ const DoctorDetail = () => {
                         key={day}
                         className="p-3 rounded-lg text-center bg-success-50 border border-success-200"
                       >
-                        <p className="text-xs font-medium text-gray-700">{day}</p>
+                        <p className="text-xs font-medium text-gray-700 dark:text-gray-300">{day}</p>
                         <FiCheckCircle className="h-4 w-4 text-success-500 mx-auto mt-1" />
                       </div>
                     ))}
@@ -253,23 +253,23 @@ const DoctorDetail = () => {
             {/* Sidebar */}
             <div className="space-y-6">
               {/* Contact Card */}
-              <div className="bg-gray-50 rounded-xl p-5">
-                <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4">
+              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-4">
                   Contact Information
                 </h3>
                 <div className="space-y-3">
                   <div className="flex items-start">
-                    <FiMail className="h-5 w-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" />
+                    <FiMail className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3 mt-0.5 flex-shrink-0" />
                     <div className="min-w-0">
-                      <p className="text-xs text-gray-500">Email</p>
-                      <p className="text-sm text-gray-900 break-all">{doctor.email}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Email</p>
+                      <p className="text-sm text-gray-900 dark:text-gray-100 break-all">{doctor.email}</p>
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <FiPhone className="h-5 w-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" />
+                    <FiPhone className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-3 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="text-xs text-gray-500">Phone</p>
-                      <p className="text-sm text-gray-900">{doctor.phoneNumber}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Phone</p>
+                      <p className="text-sm text-gray-900 dark:text-gray-100">{doctor.phoneNumber}</p>
                     </div>
                   </div>
                 </div>
@@ -279,11 +279,11 @@ const DoctorDetail = () => {
               <div className="bg-gradient-to-br from-success-50 to-emerald-50 rounded-xl p-5 border border-success-100">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Consultation Fee</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Consultation Fee</p>
                     <p className="text-3xl font-bold text-success-600">
                       £{doctor.consultationFee}
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">per visit</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">per visit</p>
                   </div>
                   <LuPoundSterling className="h-12 w-12 text-success-500 opacity-30" />
                 </div>

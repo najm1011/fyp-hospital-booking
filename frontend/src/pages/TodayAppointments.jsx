@@ -115,9 +115,9 @@ const TodayAppointments = () => {
         label: 'Confirmed',
       },
       COMPLETED: {
-        bg: 'bg-gray-100',
-        text: 'text-gray-700',
-        border: 'border-gray-200',
+        bg: 'bg-gray-100 dark:bg-gray-700',
+        text: 'text-gray-700 dark:text-gray-300',
+        border: 'border-gray-200 dark:border-gray-600',
         icon: FiCheckCircle,
         label: 'Completed',
       },
@@ -222,7 +222,7 @@ const TodayAppointments = () => {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <LoadingSpinner size="large" />
-        <p className="mt-4 text-gray-500">Loading today's appointments...</p>
+        <p className="mt-4 text-gray-500 dark:text-gray-400">Loading today's appointments...</p>
       </div>
     );
   }
@@ -233,7 +233,7 @@ const TodayAppointments = () => {
       <div className="mb-6">
         <Link
           to="/doctor"
-          className="inline-flex items-center text-sm text-gray-500 hover:text-primary-600 mb-4 transition-colors"
+          className="inline-flex items-center text-sm text-gray-500 dark:text-gray-400 hover:text-primary-600 mb-4 transition-colors"
         >
           <FiArrowLeft className="mr-2 h-4 w-4" />
           Back to Dashboard
@@ -241,10 +241,10 @@ const TodayAppointments = () => {
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
               Today's Appointments
             </h1>
-            <p className="text-gray-600 mt-1">{getCurrentDate()}</p>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">{getCurrentDate()}</p>
           </div>
 
           <Button
@@ -265,9 +265,9 @@ const TodayAppointments = () => {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
-        <div className="bg-white rounded-xl p-4 border border-gray-200 text-center">
-          <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
-          <p className="text-xs text-gray-500 mt-1">Total</p>
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-600 text-center">
+          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.total}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Total</p>
         </div>
         <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 text-center">
           <p className="text-2xl font-bold text-blue-600">{stats.scheduled}</p>
@@ -277,9 +277,9 @@ const TodayAppointments = () => {
           <p className="text-2xl font-bold text-success-600">{stats.confirmed}</p>
           <p className="text-xs text-success-600 mt-1">Confirmed</p>
         </div>
-        <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 text-center">
-          <p className="text-2xl font-bold text-gray-600">{stats.completed}</p>
-          <p className="text-xs text-gray-600 mt-1">Completed</p>
+        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 border border-gray-200 dark:border-gray-600 text-center">
+          <p className="text-2xl font-bold text-gray-600 dark:text-gray-400">{stats.completed}</p>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Completed</p>
         </div>
         <div className="bg-error-50 rounded-xl p-4 border border-error-100 text-center">
           <p className="text-2xl font-bold text-error-600">{stats.cancelled}</p>
@@ -296,23 +296,23 @@ const TodayAppointments = () => {
         <div className="flex flex-col sm:flex-row gap-4">
           {/* Search */}
           <div className="flex-1 relative">
-            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 h-5 w-5" />
             <input
               type="text"
               placeholder="Search by patient name or email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
 
           {/* Status Filter */}
           <div className="relative">
-            <FiFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <FiFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 h-4 w-4" />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="pl-9 pr-8 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white appearance-none cursor-pointer"
+              className="pl-9 pr-8 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 appearance-none cursor-pointer"
             >
               <option value="all">All Status</option>
               <option value="SCHEDULED">Scheduled</option>
@@ -324,13 +324,13 @@ const TodayAppointments = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex border border-gray-300 rounded-lg overflow-hidden">
+          <div className="flex border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
             <button
               onClick={() => setViewMode('table')}
               className={`px-4 py-2.5 text-sm font-medium transition-colors ${
                 viewMode === 'table'
                   ? 'bg-primary-500 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
               }`}
             >
               Table
@@ -340,7 +340,7 @@ const TodayAppointments = () => {
               className={`px-4 py-2.5 text-sm font-medium transition-colors ${
                 viewMode === 'cards'
                   ? 'bg-primary-500 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
               }`}
             >
               Cards
@@ -350,7 +350,7 @@ const TodayAppointments = () => {
       </Card>
 
       {/* Results Count */}
-      <p className="text-sm text-gray-500 mb-4">
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
         Showing {sortedAppointments.length} of {appointments.length} appointments
       </p>
 
@@ -373,28 +373,28 @@ const TodayAppointments = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-600">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                     Time
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                     Patient
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                     Contact
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                     Notes
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                 {sortedAppointments.map((appointment) => {
                   const statusConfig = getStatusConfig(appointment.status);
                   const StatusIcon = statusConfig.icon;
@@ -403,17 +403,17 @@ const TodayAppointments = () => {
                   return (
                     <tr
                       key={appointment.id}
-                      className="hover:bg-gray-50 transition-colors"
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                     >
                       {/* Time */}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <FiClock className="h-4 w-4 text-gray-400 mr-2" />
+                          <FiClock className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2" />
                           <div>
-                            <p className="text-sm font-medium text-gray-900">
+                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                               {formatTime(appointment.startTime)}
                             </p>
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
                               to {formatTime(appointment.endTime)}
                             </p>
                           </div>
@@ -427,10 +427,10 @@ const TodayAppointments = () => {
                             <FiUser className="h-5 w-5 text-primary-600" />
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-900">
+                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                               {appointment.patientName}
                             </p>
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
                               ID: {appointment.patientId}
                             </p>
                           </div>
@@ -441,16 +441,16 @@ const TodayAppointments = () => {
                       <td className="px-6 py-4">
                         <div className="space-y-1">
                           {appointment.patientEmail && (
-                            <div className="flex items-center text-sm text-gray-600">
-                              <FiMail className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
+                            <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                              <FiMail className="h-3.5 w-3.5 mr-1.5 text-gray-400 dark:text-gray-500" />
                               <span className="truncate max-w-[150px]">
                                 {appointment.patientEmail}
                               </span>
                             </div>
                           )}
                           {appointment.patientPhone && (
-                            <div className="flex items-center text-sm text-gray-600">
-                              <FiPhone className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
+                            <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                              <FiPhone className="h-3.5 w-3.5 mr-1.5 text-gray-400 dark:text-gray-500" />
                               {appointment.patientPhone}
                             </div>
                           )}
@@ -461,12 +461,12 @@ const TodayAppointments = () => {
                       <td className="px-6 py-4">
                         {appointment.patientNotes ? (
                           <div className="max-w-[200px]">
-                            <p className="text-sm text-gray-600 truncate" title={appointment.patientNotes}>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 truncate" title={appointment.patientNotes}>
                               {appointment.patientNotes}
                             </p>
                           </div>
                         ) : (
-                          <span className="text-sm text-gray-400 italic">No notes</span>
+                          <span className="text-sm text-gray-400 dark:text-gray-500 italic">No notes</span>
                         )}
                       </td>
 
@@ -522,7 +522,7 @@ const TodayAppointments = () => {
                             </button>
                           </div>
                         ) : (
-                          <span className="text-sm text-gray-400">-</span>
+                          <span className="text-sm text-gray-400 dark:text-gray-500">-</span>
                         )}
                       </td>
                     </tr>
@@ -543,7 +543,7 @@ const TodayAppointments = () => {
             return (
               <div
                 key={appointment.id}
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-600 overflow-hidden hover:shadow-md transition-shadow"
               >
                 {/* Card Header */}
                 <div className={`px-4 py-3 ${statusConfig.bg} border-b ${statusConfig.border}`}>
@@ -571,11 +571,11 @@ const TodayAppointments = () => {
                       <FiUser className="h-6 w-6 text-primary-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-base font-semibold text-gray-900 truncate">
+                      <h4 className="text-base font-semibold text-gray-900 dark:text-gray-100 truncate">
                         {appointment.patientName}
                       </h4>
                       {appointment.patientEmail && (
-                        <p className="text-sm text-gray-500 truncate">
+                        <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
                           {appointment.patientEmail}
                         </p>
                       )}
@@ -584,10 +584,10 @@ const TodayAppointments = () => {
 
                   {/* Notes */}
                   {appointment.patientNotes && (
-                    <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                    <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                       <div className="flex items-start">
-                        <FiFileText className="h-4 w-4 text-gray-400 mr-2 mt-0.5 flex-shrink-0" />
-                        <p className="text-sm text-gray-600 line-clamp-2">
+                        <FiFileText className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2 mt-0.5 flex-shrink-0" />
+                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
                           {appointment.patientNotes}
                         </p>
                       </div>
@@ -596,7 +596,7 @@ const TodayAppointments = () => {
 
                   {/* Actions */}
                   {canTakeAction(appointment.status) && (
-                    <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-700">
                       <button
                         onClick={() => handleMarkCompleted(appointment.id)}
                         disabled={isLoading}

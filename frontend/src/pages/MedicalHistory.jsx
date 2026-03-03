@@ -317,25 +317,25 @@ const MedicalHistory = () => {
     <div>
       {/* Page Header */}
       <div className="mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Medical History</h1>
-        <p className="text-gray-600 mt-1">View your past appointments and upload medical records</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">Medical History</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">View your past appointments and upload medical records</p>
       </div>
 
       {/* Main Tabs: Records vs History */}
-      <div className="flex space-x-1 bg-gray-100 rounded-xl p-1 mb-6">
+      <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-xl p-1 mb-6">
         <button
           onClick={() => setMainTab('records')}
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
             mainTab === 'records'
-              ? 'bg-white text-primary-600 shadow-soft'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'bg-white dark:bg-gray-800 text-primary-600 shadow-soft'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
           }`}
         >
           <FiUploadCloud className="h-4 w-4" />
           My Records
           {records.length > 0 && (
             <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
-              mainTab === 'records' ? 'bg-primary-100 text-primary-600' : 'bg-gray-200 text-gray-600'
+              mainTab === 'records' ? 'bg-primary-100 text-primary-600' : 'bg-gray-200 text-gray-600 dark:text-gray-400'
             }`}>
               {records.length}
             </span>
@@ -345,15 +345,15 @@ const MedicalHistory = () => {
           onClick={() => setMainTab('history')}
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
             mainTab === 'history'
-              ? 'bg-white text-primary-600 shadow-soft'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'bg-white dark:bg-gray-800 text-primary-600 shadow-soft'
+              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
           }`}
         >
           <FiActivity className="h-4 w-4" />
           Appointment History
           {stats.total > 0 && (
             <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
-              mainTab === 'history' ? 'bg-primary-100 text-primary-600' : 'bg-gray-200 text-gray-600'
+              mainTab === 'history' ? 'bg-primary-100 text-primary-600' : 'bg-gray-200 text-gray-600 dark:text-gray-400'
             }`}>
               {stats.total}
             </span>
@@ -365,9 +365,9 @@ const MedicalHistory = () => {
       {mainTab === 'records' && (
         <div>
           {/* Upload Section */}
-          <div className="bg-white rounded-xl shadow-soft border border-gray-100 p-6 mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-1">Upload Medical Record</h3>
-            <p className="text-sm text-gray-500 mb-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-soft border border-gray-100 dark:border-gray-700 p-6 mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">Upload Medical Record</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
               Upload prescriptions, lab reports, discharge summaries, or any medical documents (PDF, JPEG, PNG — max 5MB)
             </p>
 
@@ -378,7 +378,7 @@ const MedicalHistory = () => {
                 className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-200 ${
                   selectedFile
                     ? 'border-primary-300 bg-primary-50'
-                    : 'border-gray-300 hover:border-primary-400 hover:bg-gray-50'
+                    : 'border-gray-300 dark:border-gray-600 hover:border-primary-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
                 }`}
               >
                 <input
@@ -394,8 +394,8 @@ const MedicalHistory = () => {
                       <FiFile className="h-5 w-5 text-primary-600" />
                     </div>
                     <div className="text-left">
-                      <p className="text-sm font-medium text-gray-900">{selectedFile.name}</p>
-                      <p className="text-xs text-gray-500">{formatFileSize(selectedFile.size)}</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{selectedFile.name}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{formatFileSize(selectedFile.size)}</p>
                     </div>
                     <button
                       onClick={(e) => {
@@ -403,23 +403,23 @@ const MedicalHistory = () => {
                         setSelectedFile(null);
                         if (fileInputRef.current) fileInputRef.current.value = '';
                       }}
-                      className="ml-2 text-gray-400 hover:text-error-500 transition-colors"
+                      className="ml-2 text-gray-400 dark:text-gray-500 hover:text-error-500 transition-colors"
                     >
                       <FiXCircle className="h-5 w-5" />
                     </button>
                   </div>
                 ) : (
                   <div>
-                    <FiUploadCloud className="h-10 w-10 text-gray-400 mx-auto mb-2" />
-                    <p className="text-sm font-medium text-gray-700">Click to select a file</p>
-                    <p className="text-xs text-gray-400 mt-1">PDF, JPEG, or PNG up to 5MB</p>
+                    <FiUploadCloud className="h-10 w-10 text-gray-400 dark:text-gray-500 mx-auto mb-2" />
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Click to select a file</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">PDF, JPEG, or PNG up to 5MB</p>
                   </div>
                 )}
               </div>
 
               {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Description (optional)
                 </label>
                 <input
@@ -427,7 +427,7 @@ const MedicalHistory = () => {
                   value={uploadDescription}
                   onChange={(e) => setUploadDescription(e.target.value)}
                   placeholder="e.g., Blood test results from January 2026"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   maxLength={500}
                 />
               </div>
@@ -460,13 +460,13 @@ const MedicalHistory = () => {
 
           {/* Records List */}
           {recordsLoading ? (
-            <div className="flex flex-col justify-center items-center py-20 bg-white rounded-xl border border-gray-100 shadow-soft">
+            <div className="flex flex-col justify-center items-center py-20 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-soft">
               <LoadingSpinner size="large" />
-              <p className="mt-4 text-gray-500">Loading your records...</p>
+              <p className="mt-4 text-gray-500 dark:text-gray-400">Loading your records...</p>
             </div>
           ) : records.length > 0 ? (
             <div>
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 {records.length} record{records.length !== 1 ? 's' : ''} uploaded
               </p>
               <div className="space-y-4">
@@ -476,7 +476,7 @@ const MedicalHistory = () => {
                   return (
                     <div
                       key={record.id}
-                      className="bg-white rounded-xl border border-gray-100 shadow-soft overflow-hidden hover:shadow-soft-md transition-all duration-200"
+                      className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-soft overflow-hidden hover:shadow-soft-md transition-all duration-200"
                     >
                       {/* Main Row */}
                       <div className="p-4 flex items-center gap-4">
@@ -493,13 +493,13 @@ const MedicalHistory = () => {
 
                         {/* File Info */}
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm font-semibold text-gray-900 truncate">
+                          <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
                             {record.fileName}
                           </h4>
                           {record.description && (
-                            <p className="text-xs text-gray-500 truncate mt-0.5">{record.description}</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">{record.description}</p>
                           )}
-                          <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
+                          <div className="flex items-center gap-3 mt-1 text-xs text-gray-400 dark:text-gray-500">
                             <span>{formatFileSize(record.fileSize)}</span>
                             <span>{formatRecordDate(record.uploadedAt)}</span>
                           </div>
@@ -513,7 +513,7 @@ const MedicalHistory = () => {
                               className={`p-2 rounded-lg transition-colors ${
                                 isRecordExpanded
                                   ? 'text-primary-600 bg-primary-50'
-                                  : 'text-gray-500 hover:text-primary-600 hover:bg-primary-50'
+                                  : 'text-gray-500 dark:text-gray-400 hover:text-primary-600 hover:bg-primary-50'
                               }`}
                               title={isRecordExpanded ? 'Hide extracted text' : 'Show extracted text'}
                             >
@@ -522,7 +522,7 @@ const MedicalHistory = () => {
                           )}
                           <button
                             onClick={() => handleDownload(record)}
-                            className="p-2 rounded-lg text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition-colors"
+                            className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-primary-600 hover:bg-primary-50 transition-colors"
                             title="Download"
                           >
                             <FiDownload className="h-4 w-4" />
@@ -530,7 +530,7 @@ const MedicalHistory = () => {
                           <button
                             onClick={() => setConfirmDeleteId(record.id)}
                             disabled={deletingId === record.id}
-                            className="p-2 rounded-lg text-gray-500 hover:text-error-600 hover:bg-error-50 transition-colors disabled:opacity-50"
+                            className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-error-600 hover:bg-error-50 transition-colors disabled:opacity-50"
                             title="Delete"
                           >
                             {deletingId === record.id ? (
@@ -555,7 +555,7 @@ const MedicalHistory = () => {
                             <div className="flex items-center gap-2 flex-shrink-0">
                               <button
                                 onClick={() => setConfirmDeleteId(null)}
-                                className="px-3 py-1.5 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                                className="px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                               >
                                 Cancel
                               </button>
@@ -587,18 +587,18 @@ const MedicalHistory = () => {
                       {/* Extracted Text Content */}
                       {isRecordExpanded && record.extractedText && (
                         <div className="px-4 pb-4 pt-2">
-                          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-                            <div className="flex items-center gap-2 mb-3 pb-3 border-b border-gray-200">
+                          <div className="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-600 rounded-xl p-5">
+                            <div className="flex items-center gap-2 mb-3 pb-3 border-b border-gray-200 dark:border-gray-600">
                               <div className="bg-primary-100 p-1.5 rounded-lg">
                                 <FiFileText className="h-4 w-4 text-primary-600" />
                               </div>
                               <div>
-                                <p className="text-sm font-semibold text-gray-900">Extracted Text</p>
-                                <p className="text-xs text-gray-500">Powered by Google Gemini AI</p>
+                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Extracted Text</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">Powered by Google Gemini AI</p>
                               </div>
                             </div>
                             <div className="max-h-80 overflow-y-auto">
-                              <div className="text-sm text-gray-800 leading-relaxed whitespace-pre-wrap">
+                              <div className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">
                                 {record.extractedText}
                               </div>
                             </div>
@@ -611,7 +611,7 @@ const MedicalHistory = () => {
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-xl border border-gray-100 shadow-soft">
+            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-soft">
               <EmptyState
                 icon={FiFileText}
                 title="No medical records uploaded"
@@ -639,15 +639,15 @@ const MedicalHistory = () => {
           </div>
 
           {/* Tab Filters */}
-          <div className="flex space-x-1 bg-gray-100 rounded-xl p-1 mb-6">
+          <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-xl p-1 mb-6">
             {historyTabs.map((tab) => (
               <button
                 key={tab.value}
                 onClick={() => setStatusFilter(tab.value)}
                 className={`flex-1 flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   statusFilter === tab.value
-                    ? 'bg-white text-primary-600 shadow-soft'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-white dark:bg-gray-800 text-primary-600 shadow-soft'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
                 }`}
               >
                 {tab.label}
@@ -655,7 +655,7 @@ const MedicalHistory = () => {
                   className={`ml-2 px-2 py-0.5 rounded-full text-xs font-semibold ${
                     statusFilter === tab.value
                       ? 'bg-primary-100 text-primary-600'
-                      : 'bg-gray-200 text-gray-600'
+                      : 'bg-gray-200 text-gray-600 dark:text-gray-400'
                   }`}
                 >
                   {tab.count}
@@ -665,23 +665,23 @@ const MedicalHistory = () => {
           </div>
 
           {/* Search & Sort Bar */}
-          <div className="bg-white rounded-xl shadow-soft border border-gray-100 p-5 mb-6">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-soft border border-gray-100 dark:border-gray-700 p-5 mb-6">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1 relative">
-                <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
                 <input
                   type="text"
                   placeholder="Search by doctor name or specialty..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
               <div className="sm:w-48">
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none bg-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none bg-white dark:bg-gray-800"
                 >
                   <option value="date-desc">Newest First</option>
                   <option value="date-asc">Oldest First</option>
@@ -692,16 +692,16 @@ const MedicalHistory = () => {
 
           {/* Results Count */}
           {!loading && (
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
               Showing {paginatedAppointments.length} of {filteredAppointments.length} records
             </p>
           )}
 
           {/* Appointment List */}
           {loading ? (
-            <div className="flex flex-col justify-center items-center py-20 bg-white rounded-xl border border-gray-100 shadow-soft">
+            <div className="flex flex-col justify-center items-center py-20 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-soft">
               <LoadingSpinner size="large" />
-              <p className="mt-4 text-gray-500">Loading your medical history...</p>
+              <p className="mt-4 text-gray-500 dark:text-gray-400">Loading your medical history...</p>
             </div>
           ) : filteredAppointments.length > 0 ? (
             <>
@@ -714,7 +714,7 @@ const MedicalHistory = () => {
                   return (
                     <div
                       key={appointment.id}
-                      className="bg-white rounded-xl border border-gray-100 shadow-soft overflow-hidden transition-all duration-200 hover:shadow-soft-md"
+                      className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-soft overflow-hidden transition-all duration-200 hover:shadow-soft-md"
                     >
                       {/* Main Row */}
                       <div
@@ -734,7 +734,7 @@ const MedicalHistory = () => {
                         {/* Info */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between mb-1">
-                            <h4 className="text-sm font-semibold text-gray-900 truncate">
+                            <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
                               Dr. {appointment.doctorName}
                             </h4>
                             <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${statusConfig.bg} ${statusConfig.text} flex-shrink-0 ml-2`}>
@@ -742,7 +742,7 @@ const MedicalHistory = () => {
                               {statusConfig.label}
                             </span>
                           </div>
-                          <div className="flex items-center text-xs text-gray-500 space-x-3">
+                          <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 space-x-3">
                             <span className="flex items-center">
                               <FiClock className="h-3 w-3 mr-1" />
                               {formatTime(appointment.startTime)}
@@ -758,36 +758,36 @@ const MedicalHistory = () => {
                         </div>
 
                         {/* Expand Toggle */}
-                        <div className="ml-3 text-gray-400">
+                        <div className="ml-3 text-gray-400 dark:text-gray-500">
                           {isExpanded ? <FiChevronUp className="h-5 w-5" /> : <FiChevronDown className="h-5 w-5" />}
                         </div>
                       </div>
 
                       {/* Expanded Details */}
                       {isExpanded && (
-                        <div className="px-4 pb-4 border-t border-gray-100 pt-3">
+                        <div className="px-4 pb-4 border-t border-gray-100 dark:border-gray-700 pt-3">
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {/* Visit Details */}
                             <div>
-                              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">Visit Details</p>
+                              <p className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">Visit Details</p>
                               <div className="space-y-2 text-sm">
-                                <div className="flex items-center text-gray-600">
-                                  <FiUser className="h-4 w-4 mr-2 text-gray-400" />
+                                <div className="flex items-center text-gray-600 dark:text-gray-400">
+                                  <FiUser className="h-4 w-4 mr-2 text-gray-400 dark:text-gray-500" />
                                   Dr. {appointment.doctorName}
                                 </div>
                                 {appointment.specialty && (
-                                  <div className="flex items-center text-gray-600">
-                                    <FiActivity className="h-4 w-4 mr-2 text-gray-400" />
+                                  <div className="flex items-center text-gray-600 dark:text-gray-400">
+                                    <FiActivity className="h-4 w-4 mr-2 text-gray-400 dark:text-gray-500" />
                                     {appointment.specialty}
                                   </div>
                                 )}
-                                <div className="flex items-center text-gray-600">
-                                  <FiClock className="h-4 w-4 mr-2 text-gray-400" />
+                                <div className="flex items-center text-gray-600 dark:text-gray-400">
+                                  <FiClock className="h-4 w-4 mr-2 text-gray-400 dark:text-gray-500" />
                                   {formatDate(appointment.appointmentDate)}, {formatTime(appointment.startTime)}
                                 </div>
                                 {appointment.departmentName && (
-                                  <div className="flex items-center text-gray-600">
-                                    <FiMapPin className="h-4 w-4 mr-2 text-gray-400" />
+                                  <div className="flex items-center text-gray-600 dark:text-gray-400">
+                                    <FiMapPin className="h-4 w-4 mr-2 text-gray-400 dark:text-gray-500" />
                                     {appointment.departmentName}
                                   </div>
                                 )}
@@ -796,7 +796,7 @@ const MedicalHistory = () => {
 
                             {/* Notes */}
                             <div>
-                              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">Notes</p>
+                              <p className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">Notes</p>
                               <div className="space-y-3">
                                 {appointment.doctorNotes && (
                                   <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
@@ -808,12 +808,12 @@ const MedicalHistory = () => {
                                   </div>
                                 )}
                                 {appointment.patientNotes && (
-                                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                                    <p className="text-xs font-medium text-gray-600 mb-1 flex items-center">
+                                  <div className="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-600 rounded-lg p-3">
+                                    <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 flex items-center">
                                       <FiFileText className="h-3 w-3 mr-1" />
                                       Your Notes
                                     </p>
-                                    <p className="text-sm text-gray-700">{appointment.patientNotes}</p>
+                                    <p className="text-sm text-gray-700 dark:text-gray-300">{appointment.patientNotes}</p>
                                   </div>
                                 )}
                                 {appointment.cancellationReason && (
@@ -826,7 +826,7 @@ const MedicalHistory = () => {
                                   </div>
                                 )}
                                 {!appointment.doctorNotes && !appointment.patientNotes && !appointment.cancellationReason && (
-                                  <p className="text-sm text-gray-400 italic">No notes available</p>
+                                  <p className="text-sm text-gray-400 dark:text-gray-500 italic">No notes available</p>
                                 )}
                               </div>
                             </div>
@@ -840,15 +840,15 @@ const MedicalHistory = () => {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="flex items-center justify-between mt-6 bg-white rounded-xl border border-gray-100 shadow-soft px-4 py-3">
-                  <div className="text-sm text-gray-600">
+                <div className="flex items-center justify-between mt-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-soft px-4 py-3">
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
                     Page {currentPage} of {totalPages}
                   </div>
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                       disabled={currentPage === 1}
-                      className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="p-2 rounded-lg border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       <FiChevronLeft className="h-4 w-4" />
                     </button>
@@ -870,7 +870,7 @@ const MedicalHistory = () => {
                           className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                             currentPage === pageNum
                               ? 'bg-primary-600 text-white shadow-primary-sm'
-                              : 'text-gray-600 hover:bg-gray-50'
+                              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
                           }`}
                         >
                           {pageNum}
@@ -880,7 +880,7 @@ const MedicalHistory = () => {
                     <button
                       onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                       disabled={currentPage === totalPages}
-                      className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="p-2 rounded-lg border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       <FiChevronRight className="h-4 w-4" />
                     </button>
@@ -889,7 +889,7 @@ const MedicalHistory = () => {
               )}
             </>
           ) : (
-            <div className="bg-white rounded-xl border border-gray-100 shadow-soft">
+            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-soft">
               <EmptyState
                 icon={FiActivity}
                 title="No medical history found"

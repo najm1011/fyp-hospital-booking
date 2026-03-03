@@ -66,10 +66,10 @@ const ForgotPassword = () => {
             <FiActivity className="h-10 w-10 text-white" />
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900 dark:text-gray-100">
           {emailSent ? 'Check Your Email' : 'Forgot Password?'}
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
           {emailSent
             ? 'We\'ve sent you a password reset link'
             : 'Enter your email and we\'ll send you a reset link'}
@@ -85,16 +85,16 @@ const ForgotPassword = () => {
               <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
                 <FiCheckCircle className="h-8 w-8 text-green-600" />
               </div>
-              <p className="text-gray-700 mb-2">
+              <p className="text-gray-700 dark:text-gray-300 mb-2">
                 We've sent a password reset link to:
               </p>
-              <p className="font-semibold text-gray-900 mb-6">{sentEmail}</p>
-              <p className="text-sm text-gray-500 mb-8">
+              <p className="font-semibold text-gray-900 dark:text-gray-100 mb-6">{sentEmail}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-8">
                 The link will expire in 1 hour. If you don't see the email, check your spam folder.
               </p>
               <Link
                 to="/login"
-                className="w-full inline-flex justify-center py-3 px-4 border-2 border-primary-500 rounded-xl shadow-sm text-sm font-semibold text-primary-600 bg-white hover:bg-primary-50 hover:border-primary-600 transition-all duration-200"
+                className="w-full inline-flex justify-center py-3 px-4 border-2 border-primary-500 rounded-xl shadow-sm text-sm font-semibold text-primary-600 bg-white dark:bg-gray-800 hover:bg-primary-50 hover:border-primary-600 transition-all duration-200"
               >
                 Back to Sign In
               </Link>

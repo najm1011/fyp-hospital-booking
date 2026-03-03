@@ -80,10 +80,10 @@ const SymptomChecker = ({ onSymptomsMatched, onSkip, hospitalId }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
           What symptoms are you experiencing?
         </h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400">
           Select your symptoms and we'll recommend the best doctors for you.
           You can also{' '}
           <button
@@ -102,18 +102,18 @@ const SymptomChecker = ({ onSymptomsMatched, onSkip, hospitalId }) => {
 
       {/* Search */}
       <div className="relative">
-        <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+        <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-500" />
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search symptoms..."
-          className="w-full pl-10 pr-10 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
+          className="w-full pl-10 pr-10 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         />
         {searchTerm && (
           <button
             onClick={() => setSearchTerm('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
           >
             <FiX className="h-4 w-4" />
           </button>
@@ -145,7 +145,7 @@ const SymptomChecker = ({ onSymptomsMatched, onSkip, hospitalId }) => {
       <div className="space-y-5">
         {Object.entries(filteredCategories).map(([category, symptoms]) => (
           <div key={category}>
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2.5 flex items-center">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-2.5 flex items-center">
               <FiActivity className="h-4 w-4 mr-2 text-primary-500" />
               {category}
             </h3>
@@ -159,7 +159,7 @@ const SymptomChecker = ({ onSymptomsMatched, onSkip, hospitalId }) => {
                     className={`px-3 py-2 rounded-xl text-sm font-medium border-2 transition-all duration-200 ${
                       isSelected
                         ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-primary-sm'
-                        : 'border-gray-200 bg-white text-gray-700 hover:border-primary-200 hover:shadow-soft'
+                        : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-primary-200 hover:shadow-soft'
                     }`}
                   >
                     {symptom}
@@ -172,13 +172,13 @@ const SymptomChecker = ({ onSymptomsMatched, onSkip, hospitalId }) => {
       </div>
 
       {Object.keys(filteredCategories).length === 0 && searchTerm && (
-        <p className="text-center text-gray-500 py-4">
+        <p className="text-center text-gray-500 dark:text-gray-400 py-4">
           No symptoms found matching "{searchTerm}"
         </p>
       )}
 
       {/* Action Buttons */}
-      <div className="flex justify-between pt-6 border-t border-gray-200">
+      <div className="flex justify-between pt-6 border-t border-gray-200 dark:border-gray-600">
         <Button variant="outline" onClick={onSkip}>
           Skip
         </Button>

@@ -89,22 +89,22 @@ const CancelAppointmentModal = ({
           role="dialog"
           aria-modal="true"
           aria-label="Cancel appointment"
-          className="relative bg-white rounded-2xl shadow-xl max-w-md w-full overflow-hidden animate-scale-in"
+          className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-md w-full overflow-hidden animate-scale-in"
         >
           {/* Header */}
-          <div className="px-6 py-4 border-b border-gray-200">
+          <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-600">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="bg-error-100 p-2 rounded-full">
                   <FiAlertTriangle className="h-5 w-5 text-error-600" />
                 </div>
-                <h2 className="text-lg font-semibold text-gray-900">Cancel Appointment</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Cancel Appointment</h2>
               </div>
               <button
                 onClick={handleClose}
                 disabled={loading}
                 aria-label="Close"
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50"
+                className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors disabled:opacity-50"
               >
                 <FiX className="h-5 w-5" />
               </button>
@@ -121,33 +121,33 @@ const CancelAppointmentModal = ({
             </div>
 
             {/* Appointment Details */}
-            <div className="bg-gray-50 rounded-lg p-4 mb-5">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">Appointment Details</h4>
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 mb-5">
+              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Appointment Details</h4>
               <div className="space-y-2">
                 <div className="flex items-center text-sm">
-                  <FiUser className="h-4 w-4 text-gray-400 mr-2" />
-                  <span className="text-gray-600">Doctor:</span>
-                  <span className="ml-auto font-medium text-gray-900">
+                  <FiUser className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2" />
+                  <span className="text-gray-600 dark:text-gray-400">Doctor:</span>
+                  <span className="ml-auto font-medium text-gray-900 dark:text-gray-100">
                     Dr. {appointment.doctorName}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
-                  <FiCalendar className="h-4 w-4 text-gray-400 mr-2" />
-                  <span className="text-gray-600">Date:</span>
-                  <span className="ml-auto font-medium text-gray-900">
+                  <FiCalendar className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2" />
+                  <span className="text-gray-600 dark:text-gray-400">Date:</span>
+                  <span className="ml-auto font-medium text-gray-900 dark:text-gray-100">
                     {formatDate(appointment.appointmentDate)}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
-                  <FiClock className="h-4 w-4 text-gray-400 mr-2" />
-                  <span className="text-gray-600">Time:</span>
-                  <span className="ml-auto font-medium text-gray-900">
+                  <FiClock className="h-4 w-4 text-gray-400 dark:text-gray-500 mr-2" />
+                  <span className="text-gray-600 dark:text-gray-400">Time:</span>
+                  <span className="ml-auto font-medium text-gray-900 dark:text-gray-100">
                     {formatTime(appointment.startTime)}
                   </span>
                 </div>
                 {appointment.confirmationNumber && (
                   <div className="flex items-center text-sm">
-                    <span className="text-gray-600">Confirmation #:</span>
+                    <span className="text-gray-600 dark:text-gray-400">Confirmation #:</span>
                     <span className="ml-auto font-mono text-sm text-primary-600">
                       {appointment.confirmationNumber}
                     </span>
@@ -158,7 +158,7 @@ const CancelAppointmentModal = ({
 
             {/* Cancellation Reason */}
             <fieldset>
-              <legend className="block text-sm font-medium text-gray-700 mb-2">
+              <legend className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Reason for cancellation
               </legend>
               <div className="space-y-2 mb-3">
@@ -168,7 +168,7 @@ const CancelAppointmentModal = ({
                     className={`flex items-center p-3 rounded-lg border cursor-pointer transition-colors ${
                       selectedReason === reasonOption
                         ? 'border-primary-500 bg-primary-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-600'
                     }`}
                   >
                     <input
@@ -179,7 +179,7 @@ const CancelAppointmentModal = ({
                       onChange={(e) => setSelectedReason(e.target.value)}
                       className="h-4 w-4 text-primary-600 focus:ring-primary-500"
                     />
-                    <span className="ml-3 text-sm text-gray-700">{reasonOption}</span>
+                    <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">{reasonOption}</span>
                   </label>
                 ))}
               </div>
@@ -192,14 +192,14 @@ const CancelAppointmentModal = ({
                   placeholder="Please specify your reason..."
                   aria-label="Custom cancellation reason"
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
                 />
               )}
             </fieldset>
           </div>
 
           {/* Footer */}
-          <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex space-x-3">
+          <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-600 flex space-x-3">
             <Button
               variant="outline"
               onClick={handleClose}

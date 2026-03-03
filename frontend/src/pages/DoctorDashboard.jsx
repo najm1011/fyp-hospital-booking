@@ -104,11 +104,11 @@ const DoctorDashboard = () => {
     const badges = {
       SCHEDULED: 'bg-blue-100 text-blue-700',
       CONFIRMED: 'bg-success-100 text-success-700',
-      COMPLETED: 'bg-gray-100 text-gray-700',
+      COMPLETED: 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300',
       CANCELLED: 'bg-error-100 text-error-700',
       NO_SHOW: 'bg-orange-100 text-orange-700',
     };
-    return badges[status] || 'bg-gray-100 text-gray-700';
+    return badges[status] || 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300';
   };
 
   // Handle mark as completed
@@ -195,7 +195,7 @@ const DoctorDashboard = () => {
     return (
       <div
         key={appointment.id}
-        className="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow"
+        className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl p-4 hover:shadow-md transition-shadow"
       >
         <div className="flex items-start justify-between">
           <div className="flex items-start space-x-4">
@@ -203,8 +203,8 @@ const DoctorDashboard = () => {
               <FiUser className="h-5 w-5 text-primary-600" />
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900">{appointment.patientName}</h4>
-              <div className="text-sm text-gray-500 space-y-1 mt-1">
+              <h4 className="font-semibold text-gray-900 dark:text-gray-100">{appointment.patientName}</h4>
+              <div className="text-sm text-gray-500 dark:text-gray-400 space-y-1 mt-1">
                 <div className="flex items-center">
                   <FiCalendar className="h-3.5 w-3.5 mr-1.5" />
                   {formatDate(appointment.appointmentDate)}
@@ -215,7 +215,7 @@ const DoctorDashboard = () => {
                 </div>
               </div>
               {appointment.patientNotes && (
-                <div className="mt-2 text-sm text-gray-600 bg-gray-50 p-2 rounded">
+                <div className="mt-2 text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 p-2 rounded">
                   <FiFileText className="inline h-3.5 w-3.5 mr-1" />
                   {appointment.patientNotes}
                 </div>
@@ -282,7 +282,7 @@ const DoctorDashboard = () => {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <LoadingSpinner size="large" />
-        <p className="mt-4 text-gray-500">Loading dashboard...</p>
+        <p className="mt-4 text-gray-500 dark:text-gray-400">Loading dashboard...</p>
       </div>
     );
   }
@@ -292,10 +292,10 @@ const DoctorDashboard = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
             Welcome, Dr. {user?.lastName}!
           </h1>
-          <p className="text-gray-600 mt-1">Manage your appointments and patients</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your appointments and patients</p>
         </div>
         <Button onClick={fetchDashboardData} variant="outline" className="mt-4 sm:mt-0">
           <FiRefreshCw className="mr-2 h-4 w-4" />
@@ -342,7 +342,7 @@ const DoctorDashboard = () => {
           <Card>
             {/* Tabs */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
-              <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
+              <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
                 {[
                   { value: 'today', label: 'Today', count: todayAppointments.length },
                   { value: 'upcoming', label: 'Upcoming', count: upcomingAppointments.length },
@@ -352,8 +352,8 @@ const DoctorDashboard = () => {
                     onClick={() => setActiveTab(tab.value)}
                     className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                       activeTab === tab.value
-                        ? 'bg-white text-primary-600 shadow-sm'
-                        : 'text-gray-600 hover:text-gray-900'
+                        ? 'bg-white dark:bg-gray-800 text-primary-600 shadow-sm'
+                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
                     }`}
                   >
                     {tab.label}
@@ -361,7 +361,7 @@ const DoctorDashboard = () => {
                       className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
                         activeTab === tab.value
                           ? 'bg-primary-100 text-primary-600'
-                          : 'bg-gray-200 text-gray-600'
+                          : 'bg-gray-200 text-gray-600 dark:text-gray-400'
                       }`}
                     >
                       {tab.count}
@@ -372,11 +372,11 @@ const DoctorDashboard = () => {
 
               {/* Status Filter */}
               <div className="relative">
-                <FiFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <FiFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 h-4 w-4" />
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="pl-9 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 >
                   <option value="all">All Status</option>
                   <option value="SCHEDULED">Scheduled</option>
@@ -409,22 +409,22 @@ const DoctorDashboard = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
-                <span className="text-sm text-gray-500">
+              <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200 dark:border-gray-600">
+                <span className="text-sm text-gray-500 dark:text-gray-400">
                   Page {currentPage} of {totalPages}
                 </span>
                 <div className="flex space-x-2">
                   <button
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="p-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <FiChevronLeft className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="p-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <FiChevronRight className="h-4 w-4" />
                   </button>
@@ -445,9 +445,9 @@ const DoctorDashboard = () => {
               >
                 <div className="flex items-center">
                   <FiCalendar className="h-5 w-5 text-primary-600 mr-3" />
-                  <span className="font-medium text-gray-900">Today's Appointments</span>
+                  <span className="font-medium text-gray-900 dark:text-gray-100">Today's Appointments</span>
                 </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
+                <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </Link>
               <Link
                 to="/doctor/appointments/upcoming"
@@ -455,19 +455,19 @@ const DoctorDashboard = () => {
               >
                 <div className="flex items-center">
                   <FiClock className="h-5 w-5 text-blue-600 mr-3" />
-                  <span className="font-medium text-gray-900">Upcoming Appointments</span>
+                  <span className="font-medium text-gray-900 dark:text-gray-100">Upcoming Appointments</span>
                 </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
+                <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </Link>
               <Link
                 to="/doctor/availability"
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiUsers className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">Set Availability</span>
+                  <FiUsers className="h-5 w-5 text-gray-600 dark:text-gray-400 mr-3" />
+                  <span className="font-medium text-gray-900 dark:text-gray-100">Set Availability</span>
                 </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
+                <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </Link>
             </div>
           </Card>
@@ -478,14 +478,14 @@ const DoctorDashboard = () => {
               <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                 <div className="flex items-center">
                   <FiCalendar className="h-5 w-5 text-blue-600 mr-3" />
-                  <span className="text-sm text-gray-700">Total Appointments</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Total Appointments</span>
                 </div>
                 <span className="text-lg font-bold text-blue-600">{stats?.weekCount || 0}</span>
               </div>
               <div className="flex items-center justify-between p-3 bg-success-50 rounded-lg">
                 <div className="flex items-center">
                   <FiCheckCircle className="h-5 w-5 text-success-600 mr-3" />
-                  <span className="text-sm text-gray-700">Completed</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Completed</span>
                 </div>
                 <span className="text-lg font-bold text-success-600">
                   {stats?.completedTodayCount || 0}
@@ -494,7 +494,7 @@ const DoctorDashboard = () => {
               <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
                 <div className="flex items-center">
                   <FiAlertCircle className="h-5 w-5 text-yellow-600 mr-3" />
-                  <span className="text-sm text-gray-700">Pending</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Pending</span>
                 </div>
                 <span className="text-lg font-bold text-yellow-600">{stats?.pendingCount || 0}</span>
               </div>

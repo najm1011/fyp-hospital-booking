@@ -94,10 +94,10 @@ const Dashboard = () => {
 
       {/* Welcome Section */}
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
           Welcome back, {user?.firstName}!
         </h1>
-        <p className="text-gray-600 mt-1">
+        <p className="text-gray-600 dark:text-gray-400 mt-1">
           Manage your appointments and health records
         </p>
       </div>
@@ -147,53 +147,53 @@ const Dashboard = () => {
                 <div className="bg-primary-100 p-2 rounded-lg">
                   <FiPlus className="h-5 w-5 text-primary-600" />
                 </div>
-                <span className="ml-3 font-medium text-gray-900">
+                <span className="ml-3 font-medium text-gray-900 dark:text-gray-100">
                   Book New Appointment
                 </span>
               </div>
-              <FiArrowRight className="h-5 w-5 text-gray-400" />
+              <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
             </Link>
             <Link
               to="/hospitals"
-              className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               <div className="flex items-center">
-                <div className="bg-gray-100 p-2 rounded-lg">
-                  <FiMapPin className="h-5 w-5 text-gray-600" />
+                <div className="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
+                  <FiMapPin className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                 </div>
-                <span className="ml-3 font-medium text-gray-900">
+                <span className="ml-3 font-medium text-gray-900 dark:text-gray-100">
                   Browse NHS Hospitals
                 </span>
               </div>
-              <FiArrowRight className="h-5 w-5 text-gray-400" />
+              <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
             </Link>
             <Link
               to="/appointments"
-              className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               <div className="flex items-center">
-                <div className="bg-gray-100 p-2 rounded-lg">
-                  <FiClock className="h-5 w-5 text-gray-600" />
+                <div className="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
+                  <FiClock className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                 </div>
-                <span className="ml-3 font-medium text-gray-900">
+                <span className="ml-3 font-medium text-gray-900 dark:text-gray-100">
                   View All Appointments
                 </span>
               </div>
-              <FiArrowRight className="h-5 w-5 text-gray-400" />
+              <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
             </Link>
             <Link
               to="/medical-history"
-              className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               <div className="flex items-center">
-                <div className="bg-gray-100 p-2 rounded-lg">
-                  <FiFileText className="h-5 w-5 text-gray-600" />
+                <div className="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
+                  <FiFileText className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                 </div>
-                <span className="ml-3 font-medium text-gray-900">
+                <span className="ml-3 font-medium text-gray-900 dark:text-gray-100">
                   Medical History
                 </span>
               </div>
-              <FiArrowRight className="h-5 w-5 text-gray-400" />
+              <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
             </Link>
           </div>
         </Card>
@@ -290,10 +290,10 @@ const Dashboard = () => {
     return (
       <>
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
             Welcome, Dr. {user?.lastName}!
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
             Manage your schedule and patient appointments
           </p>
         </div>
@@ -359,33 +359,33 @@ const Dashboard = () => {
               >
                 <div className="flex items-center">
                   <FiCalendar className="h-5 w-5 text-primary-600 mr-3" />
-                  <span className="font-medium text-gray-900">
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
                     Today&apos;s Appointments
                   </span>
                 </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
+                <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </Link>
               <Link
                 to="/doctor/appointments/upcoming"
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiUsers className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">Upcoming Appointments</span>
+                  <FiUsers className="h-5 w-5 text-gray-600 dark:text-gray-400 mr-3" />
+                  <span className="font-medium text-gray-900 dark:text-gray-100">Upcoming Appointments</span>
                 </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
+                <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </Link>
               <Link
                 to="/doctor/availability"
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiClock className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">
+                  <FiClock className="h-5 w-5 text-gray-600 dark:text-gray-400 mr-3" />
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
                     Set Availability
                   </span>
                 </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
+                <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </Link>
             </div>
           </Card>
@@ -429,10 +429,10 @@ const Dashboard = () => {
     return (
       <>
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
             Admin Dashboard
           </h1>
-          <p className="text-gray-600 mt-1">System overview and management</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">System overview and management</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -475,43 +475,43 @@ const Dashboard = () => {
               >
                 <div className="flex items-center">
                   <FiUsers className="h-5 w-5 text-primary-600 mr-3" />
-                  <span className="font-medium text-gray-900">
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
                     Manage Doctors
                   </span>
                 </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
+                <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </Link>
               <Link
                 to="/admin/patients"
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiUsers className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">
+                  <FiUsers className="h-5 w-5 text-gray-600 dark:text-gray-400 mr-3" />
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
                     Manage Patients
                   </span>
                 </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
+                <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </Link>
               <Link
                 to="/admin/departments"
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiActivity className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">Departments</span>
+                  <FiActivity className="h-5 w-5 text-gray-600 dark:text-gray-400 mr-3" />
+                  <span className="font-medium text-gray-900 dark:text-gray-100">Departments</span>
                 </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
+                <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </Link>
               <Link
                 to="/admin/reports"
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiFileText className="h-5 w-5 text-gray-600 mr-3" />
-                  <span className="font-medium text-gray-900">Reports</span>
+                  <FiFileText className="h-5 w-5 text-gray-600 dark:text-gray-400 mr-3" />
+                  <span className="font-medium text-gray-900 dark:text-gray-100">Reports</span>
                 </div>
-                <FiArrowRight className="h-5 w-5 text-gray-400" />
+                <FiArrowRight className="h-5 w-5 text-gray-400 dark:text-gray-500" />
               </Link>
             </div>
           </Card>

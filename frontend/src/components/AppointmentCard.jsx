@@ -25,7 +25,7 @@ const AppointmentCard = ({
   // Loading skeleton for mini variant
   if (loading && variant === 'mini') {
     return (
-      <div className={`flex items-center p-2 rounded-lg border border-gray-200 animate-pulse ${className}`}>
+      <div className={`flex items-center p-2 rounded-lg border border-gray-200 dark:border-gray-600 animate-pulse ${className}`}>
         <div className="flex-shrink-0 w-10 h-10 bg-gray-200 rounded-lg mr-3"></div>
         <div className="flex-1">
           <div className="h-4 bg-gray-200 rounded w-24 mb-1"></div>
@@ -39,7 +39,7 @@ const AppointmentCard = ({
   // Loading skeleton for compact variant
   if (loading && variant === 'compact') {
     return (
-      <div className={`flex items-center p-3 bg-white rounded-lg border border-gray-200 animate-pulse ${className}`}>
+      <div className={`flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 animate-pulse ${className}`}>
         <div className="flex-shrink-0 w-14 h-14 bg-gray-200 rounded-xl mr-4"></div>
         <div className="flex-1">
           <div className="flex items-center justify-between mb-2">
@@ -58,8 +58,8 @@ const AppointmentCard = ({
   // Loading skeleton for default variant
   if (loading) {
     return (
-      <div className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-pulse ${className}`}>
-        <div className="px-4 py-3 border-b border-gray-200 bg-gray-100">
+      <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 overflow-hidden animate-pulse ${className}`}>
+        <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
           <div className="flex items-center justify-between">
             <div className="h-4 bg-gray-200 rounded w-24"></div>
             <div className="h-4 bg-gray-200 rounded w-20"></div>
@@ -74,7 +74,7 @@ const AppointmentCard = ({
               <div className="h-3 bg-gray-200 rounded w-24"></div>
             </div>
           </div>
-          <div className="flex items-center p-3 bg-gray-50 rounded-lg mb-4">
+          <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg mb-4">
             <div className="w-10 h-10 bg-gray-200 rounded-full mr-3"></div>
             <div className="flex-1">
               <div className="h-4 bg-gray-200 rounded w-32 mb-1"></div>
@@ -82,7 +82,7 @@ const AppointmentCard = ({
             </div>
           </div>
           <div className="h-4 bg-gray-200 rounded w-36 mb-4"></div>
-          <div className="flex gap-2 pt-3 border-t border-gray-100">
+          <div className="flex gap-2 pt-3 border-t border-gray-100 dark:border-gray-700">
             <div className="flex-1 h-9 bg-gray-200 rounded-lg"></div>
             <div className="flex-1 h-9 bg-gray-200 rounded-lg"></div>
           </div>
@@ -140,9 +140,9 @@ const AppointmentCard = ({
         color: 'green',
       },
       COMPLETED: {
-        bg: 'bg-gray-100',
-        text: 'text-gray-700',
-        border: 'border-gray-200',
+        bg: 'bg-gray-100 dark:bg-gray-700',
+        text: 'text-gray-700 dark:text-gray-300',
+        border: 'border-gray-200 dark:border-gray-600',
         icon: FiCheckCircle,
         label: 'Completed',
         color: 'gray',
@@ -199,15 +199,15 @@ const AppointmentCard = ({
     return (
       <div
         onClick={handleClick}
-        className={`flex items-center p-2 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm cursor-pointer transition-all ${className}`}
+        className={`flex items-center p-2 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm cursor-pointer transition-all ${className}`}
       >
         <div className="flex-shrink-0 w-10 h-10 bg-primary-50 rounded-lg flex flex-col items-center justify-center mr-3">
           <span className="text-xs font-bold text-primary-600">{dateInfo.day}</span>
           <span className="text-[10px] text-primary-500 uppercase">{dateInfo.month}</span>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-gray-900 truncate">Dr. {appointment.doctorName}</p>
-          <p className="text-xs text-gray-500">{formatTime(appointment.startTime)}</p>
+          <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">Dr. {appointment.doctorName}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{formatTime(appointment.startTime)}</p>
         </div>
         <span className={`w-2 h-2 rounded-full bg-${statusConfig.color}-500 flex-shrink-0`} />
       </div>
@@ -218,7 +218,7 @@ const AppointmentCard = ({
   if (variant === 'compact') {
     return (
       <div
-        className={`flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all ${className}`}
+        className={`flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm transition-all ${className}`}
       >
         {/* Date Badge */}
         <div
@@ -232,14 +232,14 @@ const AppointmentCard = ({
         {/* Info */}
         <div className="flex-1 min-w-0 cursor-pointer" onClick={handleClick}>
           <div className="flex items-center justify-between mb-1">
-            <h4 className="text-sm font-semibold text-gray-900 truncate">
+            <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
               Dr. {appointment.doctorName}
             </h4>
             <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${statusConfig.bg} ${statusConfig.text} flex-shrink-0 ml-2`}>
               {statusConfig.label}
             </span>
           </div>
-          <div className="flex items-center text-xs text-gray-500 space-x-3">
+          <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 space-x-3">
             <span className="flex items-center">
               <FiClock className="h-3 w-3 mr-1" />
               {formatTime(appointment.startTime)}
@@ -288,7 +288,7 @@ const AppointmentCard = ({
 
   // Default variant - full card
   return (
-    <div className={`bg-white rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-0.5 transition-all duration-300 ${className}`}>
+    <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-0.5 transition-all duration-300 ${className}`}>
       {/* Card Header with Status Indicator */}
       <div className={`px-4 py-3 border-b ${statusConfig.border} ${statusConfig.bg}`}>
         <div className="flex items-center justify-between">
@@ -301,7 +301,7 @@ const AppointmentCard = ({
             </span>
           </div>
           {appointment.confirmationNumber && (
-            <span className="text-xs font-mono text-gray-500 bg-white/50 px-2 py-1 rounded-lg">
+            <span className="text-xs font-mono text-gray-500 dark:text-gray-400 bg-white/50 px-2 py-1 rounded-lg">
               #{appointment.confirmationNumber}
             </span>
           )}
@@ -320,9 +320,9 @@ const AppointmentCard = ({
 
           {/* Date/Time Details */}
           <div className="flex-1">
-            <p className="text-sm text-gray-500 font-medium">{dateInfo.weekday}</p>
-            <p className="text-base font-semibold text-gray-900">{dateInfo.full}</p>
-            <div className="flex items-center mt-1.5 text-sm text-gray-600">
+            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">{dateInfo.weekday}</p>
+            <p className="text-base font-semibold text-gray-900 dark:text-gray-100">{dateInfo.full}</p>
+            <div className="flex items-center mt-1.5 text-sm text-gray-600 dark:text-gray-400">
               <FiClock className="h-4 w-4 mr-1.5 text-primary-500" />
               {formatTime(appointment.startTime)}
               {appointment.endTime && ` - ${formatTime(appointment.endTime)}`}
@@ -331,13 +331,13 @@ const AppointmentCard = ({
         </div>
 
         {/* Doctor Info */}
-        <div className="flex items-center p-3 bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl mb-4 border border-gray-100">
+        <div className="flex items-center p-3 bg-gradient-to-r from-gray-50 dark:from-gray-800 to-slate-50 dark:to-gray-800 rounded-xl mb-4 border border-gray-100 dark:border-gray-700">
           <div className="bg-gradient-to-br from-primary-100 to-primary-50 p-2.5 rounded-xl mr-3">
             <FiUser className="h-5 w-5 text-primary-600" />
           </div>
           <div className="flex-1 min-w-0">
-            <h4 className="font-semibold text-gray-900 truncate">Dr. {appointment.doctorName}</h4>
-            <p className="text-sm text-gray-500 truncate">
+            <h4 className="font-semibold text-gray-900 dark:text-gray-100 truncate">Dr. {appointment.doctorName}</h4>
+            <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
               {appointment.specialty || appointment.departmentName}
             </p>
           </div>
@@ -345,15 +345,15 @@ const AppointmentCard = ({
 
         {/* Department & Location */}
         {appointment.departmentName && (
-          <div className="flex items-center text-sm text-gray-600 mb-4">
-            <FiMapPin className="h-4 w-4 mr-2 text-gray-400" />
+          <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-4">
+            <FiMapPin className="h-4 w-4 mr-2 text-gray-400 dark:text-gray-500" />
             {appointment.departmentName}
           </div>
         )}
 
         {/* Actions */}
         {showActions && canModify() && (
-          <div className="flex gap-2 pt-4 border-t border-gray-100">
+          <div className="flex gap-2 pt-4 border-t border-gray-100 dark:border-gray-700">
             {onReschedule && (
               <Button
                 variant="outline"
@@ -389,7 +389,7 @@ const AppointmentCard = ({
         {!showActions && (
           <button
             onClick={handleClick}
-            className="w-full text-center text-sm text-primary-600 hover:text-primary-700 font-semibold pt-4 border-t border-gray-100 hover:bg-primary-50/50 -mx-5 px-5 -mb-5 pb-4 transition-colors"
+            className="w-full text-center text-sm text-primary-600 hover:text-primary-700 font-semibold pt-4 border-t border-gray-100 dark:border-gray-700 hover:bg-primary-50/50 -mx-5 px-5 -mb-5 pb-4 transition-colors"
           >
             View Details
           </button>

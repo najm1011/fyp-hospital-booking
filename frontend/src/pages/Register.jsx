@@ -165,17 +165,17 @@ const Register = () => {
             <FiActivity className="h-10 w-10 text-white" />
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900 dark:text-gray-100">
           Create Your Account
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
           Join Hospital Booking to manage your appointments
         </p>
       </div>
 
       {/* Form Card */}
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
-        <div className="bg-white py-8 px-4 shadow-xl sm:rounded-xl sm:px-10">
+        <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow-xl sm:rounded-xl sm:px-10">
           {/* Success Alert */}
           {success && (
             <Alert
@@ -294,7 +294,7 @@ const Register = () => {
                     {passwordStrength.label}
                   </span>
                 </div>
-                <ul className="mt-2 text-xs text-gray-500 space-y-1">
+                <ul className="mt-2 text-xs text-gray-500 dark:text-gray-400 space-y-1">
                   <li className="flex items-center gap-1">
                     <FiCheck className={values.password.length >= 8 ? 'text-success-500' : 'text-gray-300'} />
                     At least 8 characters
@@ -347,10 +347,10 @@ const Register = () => {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+                <div className="w-full border-t border-gray-300 dark:border-gray-600" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
+                <span className="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
                   Already have an account?
                 </span>
               </div>
@@ -360,7 +360,7 @@ const Register = () => {
             <div className="mt-6">
               <Link
                 to="/login"
-                className="w-full inline-flex justify-center py-3 px-4 border-2 border-primary-600 rounded-lg shadow-sm text-sm font-semibold text-primary-600 bg-white hover:bg-primary-50 transition-colors duration-200"
+                className="w-full inline-flex justify-center py-3 px-4 border-2 border-primary-600 rounded-lg shadow-sm text-sm font-semibold text-primary-600 bg-white dark:bg-gray-800 hover:bg-primary-50 transition-colors duration-200"
               >
                 Sign In Instead
               </Link>

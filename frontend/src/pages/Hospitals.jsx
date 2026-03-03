@@ -64,8 +64,8 @@ const Hospitals = () => {
             <FiMapPin className="h-5 w-5 text-white" />
           </div>
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">NHS Hospitals</h1>
-            <p className="text-gray-600 mt-0.5">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">NHS Hospitals</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-0.5">
               Browse NHS hospitals and find doctors near you
             </p>
           </div>
@@ -73,17 +73,17 @@ const Hospitals = () => {
       </div>
 
       {/* Filters Section */}
-      <div className="bg-white rounded-xl shadow-soft border border-gray-100 p-5 mb-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-soft border border-gray-100 dark:border-gray-700 p-5 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1 relative">
-            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
             <input
               type="text"
               placeholder="Search by hospital name, city, or postcode..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
 
@@ -92,7 +92,7 @@ const Hospitals = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none bg-white"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none bg-white dark:bg-gray-800"
             >
               <option value="name">Sort by Name</option>
               <option value="doctors">Most Doctors</option>
@@ -102,8 +102,8 @@ const Hospitals = () => {
 
         {/* Active Filters */}
         {searchTerm && (
-          <div className="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-gray-100">
-            <span className="text-sm text-gray-500">Active filters:</span>
+          <div className="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+            <span className="text-sm text-gray-500 dark:text-gray-400">Active filters:</span>
             <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-primary-50 text-primary-700">
               Search: {searchTerm}
               <button
@@ -130,7 +130,7 @@ const Hospitals = () => {
 
       {/* Results Count */}
       {!loading && (
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
           Showing {filteredHospitals.length} of {hospitals.length} hospitals
         </p>
       )}
@@ -150,12 +150,12 @@ const Hospitals = () => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-20 bg-white rounded-xl border border-gray-100 shadow-soft">
-          <div className="bg-gray-50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <FiMapPin className="h-10 w-10 text-gray-400" />
+        <div className="text-center py-20 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-soft">
+          <div className="bg-gray-50 dark:bg-gray-800/50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <FiMapPin className="h-10 w-10 text-gray-400 dark:text-gray-500" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">No hospitals found</h3>
-          <p className="text-gray-500 mb-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">No hospitals found</h3>
+          <p className="text-gray-500 dark:text-gray-400 mb-6">
             Try adjusting your search criteria
           </p>
           <Button
