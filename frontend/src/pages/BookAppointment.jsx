@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   FiUser,
@@ -27,6 +27,8 @@ const BookAppointment = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
+
+  const formRef = useRef(null);
 
   // Steps: 0 = Select Hospital, 1 = Symptoms (optional), 2 = Select Doctor, 3 = Date & Time, 4 = Confirm
   const [step, setStep] = useState(0);
@@ -64,6 +66,13 @@ const BookAppointment = () => {
   // Modal states
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [isBookingSuccess, setIsBookingSuccess] = useState(false);
+
+  // Scroll to top of form when step changes
+  useEffect(() => {
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [step]);
 
   // Fetch hospitals on mount
   useEffect(() => {
@@ -910,7 +919,7 @@ const BookAppointment = () => {
         />
       )}
 
-      <div className="bg-white rounded-xl shadow-soft border border-gray-100 p-6">
+      <div ref={formRef} className="bg-white rounded-xl shadow-soft border border-gray-100 p-6">
         {renderProgress()}
 
         {step === 0 && renderHospitalSelection()}
