@@ -142,8 +142,8 @@ const RescheduleAppointmentModal = ({
           <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-600">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="bg-primary-100 p-2 rounded-full">
-                  <FiRefreshCw className="h-5 w-5 text-primary-600" />
+                <div className="bg-primary-100 dark:bg-primary-900/30 p-2 rounded-full">
+                  <FiRefreshCw className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                 </div>
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Reschedule Appointment</h2>
               </div>
@@ -215,8 +215,8 @@ const RescheduleAppointmentModal = ({
                     <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Loading available slots...</p>
                   </div>
                 ) : error ? (
-                  <div className="bg-error-50 border border-error-200 rounded-lg p-4">
-                    <p className="text-sm text-error-600">{error}</p>
+                  <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4">
+                    <p className="text-sm text-error-600 dark:text-error-400">{error}</p>
                   </div>
                 ) : availableSlots.length > 0 ? (
                   <TimeSlotPicker
@@ -233,16 +233,16 @@ const RescheduleAppointmentModal = ({
 
             {/* New Appointment Summary */}
             {selectedDate && selectedSlot && (
-              <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
-                <h4 className="text-sm font-medium text-primary-800 mb-2">New Appointment</h4>
+              <div className="bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 rounded-lg p-4">
+                <h4 className="text-sm font-medium text-primary-800 dark:text-primary-200 mb-2">New Appointment</h4>
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-primary-700">Date:</span>
-                    <span className="font-medium text-primary-900">{formatDate(selectedDate)}</span>
+                    <span className="text-primary-700 dark:text-primary-300">Date:</span>
+                    <span className="font-medium text-primary-900 dark:text-primary-100">{formatDate(selectedDate)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-primary-700">Time:</span>
-                    <span className="font-medium text-primary-900">
+                    <span className="text-primary-700 dark:text-primary-300">Time:</span>
+                    <span className="font-medium text-primary-900 dark:text-primary-100">
                       {formatTime(selectedSlot.startTime)} - {formatTime(selectedSlot.endTime)}
                     </span>
                   </div>

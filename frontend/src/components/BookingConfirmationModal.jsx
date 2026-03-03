@@ -124,9 +124,9 @@ const BookingConfirmationModal = ({
       {/* Body */}
       <div className="px-6 py-5 space-y-4">
         {/* Doctor Info */}
-        <div className="flex items-start space-x-4 p-4 bg-primary-50 rounded-xl">
-          <div className="bg-primary-100 p-3 rounded-full">
-            <FiUser className="h-6 w-6 text-primary-600" />
+        <div className="flex items-start space-x-4 p-4 bg-primary-50 dark:bg-primary-900/30 rounded-xl">
+          <div className="bg-primary-100 dark:bg-primary-900/50 p-3 rounded-full">
+            <FiUser className="h-6 w-6 text-primary-600 dark:text-primary-400" />
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100">Dr. {doctor?.fullName}</h3>
@@ -187,8 +187,8 @@ const BookingConfirmationModal = ({
         )}
 
         {/* Disclaimer */}
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-4">
-          <p className="text-xs text-amber-700">
+        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3 mt-4">
+          <p className="text-xs text-amber-700 dark:text-amber-300">
             By confirming this appointment, you agree to our cancellation policy.
             Please arrive 15 minutes before your scheduled time.
           </p>
@@ -222,7 +222,7 @@ const BookingConfirmationModal = ({
     <>
       {/* Header - Success */}
       <div className="px-6 pt-8 pb-4 text-center">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-success-100 rounded-full mb-4">
+        <div className="inline-flex items-center justify-center w-20 h-20 bg-success-100 dark:bg-success-900/30 rounded-full mb-4">
           <FiCheckCircle className="h-10 w-10 text-success-600" />
         </div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Booking Confirmed!</h2>
@@ -232,7 +232,7 @@ const BookingConfirmationModal = ({
       {/* Body */}
       <div className="px-6 py-4">
         {/* Confirmation Number */}
-        <div className="bg-gradient-to-r from-primary-50 to-primary-50 rounded-xl p-4 mb-4">
+        <div className="bg-gradient-to-r from-primary-50 to-primary-50 dark:from-primary-900/30 dark:to-primary-900/30 rounded-xl p-4 mb-4">
           <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Confirmation Number</p>
           <div className="flex items-center justify-between">
             <span className="text-xl font-mono font-bold text-primary-600">
@@ -303,8 +303,8 @@ const BookingConfirmationModal = ({
         </div>
 
         {/* Reminder */}
-        <div className="bg-primary-50 border border-primary-200 rounded-lg p-3 mt-4">
-          <p className="text-xs text-primary-700">
+        <div className="bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 rounded-lg p-3 mt-4">
+          <p className="text-xs text-primary-700 dark:text-primary-300">
             A confirmation email has been sent to your registered email address.
             Please save your confirmation number for reference.
           </p>

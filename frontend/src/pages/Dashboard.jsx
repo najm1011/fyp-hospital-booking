@@ -141,11 +141,11 @@ const Dashboard = () => {
           <div className="space-y-3">
             <Link
               to="/appointments/book"
-              className="flex items-center justify-between p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
+              className="flex items-center justify-between p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors"
             >
               <div className="flex items-center">
-                <div className="bg-primary-100 p-2 rounded-lg">
-                  <FiPlus className="h-5 w-5 text-primary-600" />
+                <div className="bg-primary-100 dark:bg-primary-800/50 p-2 rounded-lg">
+                  <FiPlus className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                 </div>
                 <span className="ml-3 font-medium text-gray-900 dark:text-gray-100">
                   Book New Appointment
@@ -355,10 +355,10 @@ const Dashboard = () => {
             <div className="space-y-3">
               <Link
                 to="/doctor/appointments/today"
-                className="flex items-center justify-between p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiCalendar className="h-5 w-5 text-primary-600 mr-3" />
+                  <FiCalendar className="h-5 w-5 text-primary-600 dark:text-primary-400 mr-3" />
                   <span className="font-medium text-gray-900 dark:text-gray-100">
                     Today&apos;s Appointments
                   </span>
@@ -471,10 +471,10 @@ const Dashboard = () => {
             <div className="space-y-3">
               <Link
                 to="/admin/doctors"
-                className="flex items-center justify-between p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-primary-50 dark:bg-primary-900/30 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors"
               >
                 <div className="flex items-center">
-                  <FiUsers className="h-5 w-5 text-primary-600 mr-3" />
+                  <FiUsers className="h-5 w-5 text-primary-600 dark:text-primary-400 mr-3" />
                   <span className="font-medium text-gray-900 dark:text-gray-100">
                     Manage Doctors
                   </span>

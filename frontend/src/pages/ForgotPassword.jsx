@@ -52,7 +52,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-primary-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-primary-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-400/10 rounded-full blur-3xl"></div>
@@ -78,12 +78,12 @@ const ForgotPassword = () => {
 
       {/* Form Card */}
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-        <div className="bg-white/80 backdrop-blur-xl py-8 px-4 shadow-soft-lg border border-white/50 sm:rounded-2xl sm:px-10">
+        <div className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-xl py-8 px-4 shadow-soft-lg border border-white/50 dark:border-gray-700/50 sm:rounded-2xl sm:px-10">
           {emailSent ? (
             /* Success State */
             <div className="text-center">
-              <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
-                <FiCheckCircle className="h-8 w-8 text-green-600" />
+              <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
+                <FiCheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
                 We've sent a password reset link to:

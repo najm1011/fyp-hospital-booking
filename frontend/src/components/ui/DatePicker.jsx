@@ -142,12 +142,12 @@ const DatePicker = ({
             h-9 w-9 rounded-full text-sm font-medium transition-all
             flex items-center justify-center
             ${disabled
-              ? 'text-gray-300 cursor-not-allowed'
+              ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed'
               : selected
                 ? 'bg-primary-600 text-white hover:bg-primary-700'
                 : today
-                  ? 'bg-primary-100 text-primary-600 hover:bg-primary-200'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 hover:bg-primary-200 dark:hover:bg-primary-900/50'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
             }
           `}
         >
@@ -179,7 +179,7 @@ const DatePicker = ({
   return (
     <div className={`relative ${className}`} ref={containerRef}>
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
           {label}
           {required && <span className="text-error-500 ml-1">*</span>}
         </label>
@@ -192,17 +192,17 @@ const DatePicker = ({
         disabled={disabled}
         className={`
           w-full flex items-center justify-between px-4 py-3 rounded-xl border-2
-          transition-all duration-200 text-left bg-white
+          transition-all duration-200 text-left bg-white dark:bg-gray-800
           ${disabled
-            ? 'bg-gray-50 cursor-not-allowed border-gray-200 opacity-60'
+            ? 'bg-gray-50 dark:bg-gray-800/50 cursor-not-allowed border-gray-200 dark:border-gray-600 opacity-60'
             : error
-              ? 'border-error-300 bg-error-50/50 focus:border-error-500 focus:ring-4 focus:ring-error-500/10'
-              : 'border-gray-200 hover:border-gray-300 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10'
+              ? 'border-error-300 bg-error-50/50 focus:border-error-500 focus:ring-4 focus:ring-error-500/10 dark:border-error-500/50 dark:bg-error-900/20'
+              : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10'
           }
           ${isOpen ? 'ring-4 ring-primary-500/10 border-primary-500' : ''}
         `}
       >
-        <span className={value ? 'text-gray-900 font-medium' : 'text-gray-400'}>
+        <span className={value ? 'text-gray-900 dark:text-gray-100 font-medium' : 'text-gray-400 dark:text-gray-500'}>
           {value ? formatDisplayDate(value) : placeholder}
         </span>
         <FiCalendar className={`h-5 w-5 ${isOpen ? 'text-primary-500' : error ? 'text-error-400' : 'text-gray-400'} transition-colors`} />
@@ -214,7 +214,7 @@ const DatePicker = ({
 
       {/* Calendar Dropdown */}
       {isOpen && (
-        <div className="absolute left-0 z-50 mt-2 bg-white rounded-2xl shadow-soft-lg border border-gray-100 p-3 sm:p-4 w-[calc(100vw-2rem)] sm:w-72">
+        <div className="absolute left-0 z-50 mt-2 bg-white dark:bg-gray-800 rounded-2xl shadow-soft-lg border border-gray-100 dark:border-gray-700 p-3 sm:p-4 w-[calc(100vw-2rem)] sm:w-72">
           {/* Month Navigation */}
           <div className="flex items-center justify-between mb-4">
             <button
@@ -224,15 +224,15 @@ const DatePicker = ({
               className={`
                 p-2 rounded-lg transition-colors
                 ${isPrevMonthDisabled()
-                  ? 'text-gray-300 cursor-not-allowed'
-                  : 'text-gray-600 hover:bg-gray-100'
+                  ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
                 }
               `}
             >
               <FiChevronLeft className="h-5 w-5" />
             </button>
 
-            <h3 className="text-sm font-semibold text-gray-900">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
               {currentMonth.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}
             </h3>
 
@@ -243,8 +243,8 @@ const DatePicker = ({
               className={`
                 p-2 rounded-lg transition-colors
                 ${isNextMonthDisabled()
-                  ? 'text-gray-300 cursor-not-allowed'
-                  : 'text-gray-600 hover:bg-gray-100'
+                  ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
                 }
               `}
             >
@@ -270,7 +270,7 @@ const DatePicker = ({
           </div>
 
           {/* Today Button */}
-          <div className="mt-4 pt-3 border-t border-gray-100">
+          <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700">
             <button
               type="button"
               onClick={() => {
@@ -281,7 +281,7 @@ const DatePicker = ({
                   setIsOpen(false);
                 }
               }}
-              className="w-full text-center text-sm text-primary-600 hover:text-primary-700 font-semibold py-1.5 hover:bg-primary-50 rounded-lg transition-colors"
+              className="w-full text-center text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 font-semibold py-1.5 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-lg transition-colors"
             >
               Today
             </button>

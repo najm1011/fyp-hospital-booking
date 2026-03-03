@@ -419,7 +419,7 @@ const AvailabilitySettings = () => {
           </button>
           <button
             onClick={() => setShowQuickSetup(true)}
-            className="flex items-center gap-2 px-4 py-2 text-primary-700 bg-primary-50 border border-primary-200 rounded-xl hover:bg-primary-100 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors"
           >
             <FiZap className="h-4 w-4" />
             <span className="hidden sm:inline">Quick Setup</span>
@@ -445,7 +445,7 @@ const AvailabilitySettings = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-100 rounded-lg">
+            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
               <FiClock className="h-5 w-5 text-blue-600" />
             </div>
             <div>
@@ -456,7 +456,7 @@ const AvailabilitySettings = () => {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-success-100 rounded-lg">
+            <div className="p-2 bg-success-100 dark:bg-success-900/30 rounded-lg">
               <FiCheck className="h-5 w-5 text-success-600" />
             </div>
             <div>
@@ -478,7 +478,7 @@ const AvailabilitySettings = () => {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary-100 rounded-lg">
+            <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
               <FiCalendar className="h-5 w-5 text-primary-600" />
             </div>
             <div>
@@ -493,7 +493,7 @@ const AvailabilitySettings = () => {
       {timeSlots.length === 0 && (
         <Card className="p-8 text-center">
           <div className="max-w-md mx-auto">
-            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
               <FiCalendar className="h-8 w-8 text-primary-600" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">No Working Hours Set</h3>
@@ -511,7 +511,7 @@ const AvailabilitySettings = () => {
               </button>
               <button
                 onClick={handleAddSlot}
-                className="flex items-center justify-center gap-2 px-6 py-2.5 text-primary-700 bg-primary-50 border border-primary-200 rounded-xl hover:bg-primary-100 transition-colors"
+                className="flex items-center justify-center gap-2 px-6 py-2.5 text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors"
               >
                 <FiPlus className="h-4 w-4" />
                 Add Manually
@@ -586,7 +586,7 @@ const AvailabilitySettings = () => {
                               disabled={actionLoading[slot.id]}
                               className={`p-2 rounded transition-colors ${
                                 slot.isAvailable
-                                  ? 'text-success-600 hover:bg-success-50'
+                                  ? 'text-success-600 hover:bg-success-50 dark:hover:bg-success-900/20'
                                   : 'text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700'
                               }`}
                               aria-label={slot.isAvailable ? 'Disable slot' : 'Enable slot'}
@@ -601,7 +601,7 @@ const AvailabilitySettings = () => {
                             </button>
                             <button
                               onClick={() => handleEditSlot(slot)}
-                              className="p-2 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                              className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded transition-colors"
                               aria-label="Edit slot"
                             >
                               <FiEdit2 className="h-4 w-4" />
@@ -609,7 +609,7 @@ const AvailabilitySettings = () => {
                             <button
                               onClick={() => setConfirmDeleteId(confirmDeleteId === slot.id ? null : slot.id)}
                               disabled={actionLoading[slot.id]}
-                              className="p-2 text-error-600 hover:bg-error-50 rounded transition-colors"
+                              className="p-2 text-error-600 hover:bg-error-50 dark:hover:bg-error-900/20 rounded transition-colors"
                               aria-label="Delete slot"
                             >
                               {actionLoading[slot.id] === 'delete' ? (
@@ -655,7 +655,7 @@ const AvailabilitySettings = () => {
                     setFormError('');
                     setShowAddModal(true);
                   }}
-                  className="flex items-center gap-1 px-3 py-1.5 text-sm text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+                  className="flex items-center gap-1 px-3 py-1.5 text-sm text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors"
                 >
                   <FiPlus className="h-4 w-4" />
                   Add
@@ -705,7 +705,7 @@ const AvailabilitySettings = () => {
                     setFormData({ ...formData, dayOfWeek: e.target.value });
                     setCopyToDays((prev) => prev.filter((d) => d !== e.target.value));
                   }}
-                  className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                 >
                   {DAYS_OF_WEEK.map((day) => (
                     <option key={day.value} value={day.value}>
@@ -722,7 +722,7 @@ const AvailabilitySettings = () => {
                   <select
                     value={formData.startTime}
                     onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -736,7 +736,7 @@ const AvailabilitySettings = () => {
                   <select
                     value={formData.endTime}
                     onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
-                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -867,7 +867,7 @@ const AvailabilitySettings = () => {
                     key={index}
                     type="button"
                     onClick={() => applyTemplate(template)}
-                    className="text-left px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-primary-300 hover:bg-primary-50 transition-colors"
+                    className="text-left px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-primary-300 dark:hover:border-primary-700 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
                   >
                     <span className="font-medium text-gray-900 dark:text-gray-100">{template.name}</span>
                   </button>
@@ -909,7 +909,7 @@ const AvailabilitySettings = () => {
                     onChange={(e) =>
                       setQuickSetupData({ ...quickSetupData, startTime: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -925,7 +925,7 @@ const AvailabilitySettings = () => {
                     onChange={(e) =>
                       setQuickSetupData({ ...quickSetupData, endTime: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   >
                     {TIME_OPTIONS.map((time) => (
                       <option key={time.value} value={time.value}>
@@ -937,10 +937,10 @@ const AvailabilitySettings = () => {
               </div>
 
               {/* Replace Option */}
-              <div className="flex items-center justify-between py-2 bg-amber-50 px-4 rounded-xl border border-amber-200">
+              <div className="flex items-center justify-between py-2 bg-amber-50 dark:bg-amber-900/20 px-4 rounded-xl border border-amber-200 dark:border-amber-800">
                 <div>
-                  <span className="text-sm font-medium text-amber-800">Replace existing slots</span>
-                  <p className="text-xs text-amber-600 mt-0.5">
+                  <span className="text-sm font-medium text-amber-800 dark:text-amber-300">Replace existing slots</span>
+                  <p className="text-xs text-amber-600 dark:text-amber-400 mt-0.5">
                     This will remove all current slots and create new ones
                   </p>
                 </div>

@@ -102,11 +102,11 @@ const DoctorDashboard = () => {
   // Get status badge color
   const getStatusBadge = (status) => {
     const badges = {
-      SCHEDULED: 'bg-blue-100 text-blue-700',
-      CONFIRMED: 'bg-success-100 text-success-700',
+      SCHEDULED: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+      CONFIRMED: 'bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-300',
       COMPLETED: 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300',
-      CANCELLED: 'bg-error-100 text-error-700',
-      NO_SHOW: 'bg-orange-100 text-orange-700',
+      CANCELLED: 'bg-error-100 dark:bg-error-900/30 text-error-700 dark:text-error-300',
+      NO_SHOW: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
     };
     return badges[status] || 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300';
   };
@@ -199,7 +199,7 @@ const DoctorDashboard = () => {
       >
         <div className="flex items-start justify-between">
           <div className="flex items-start space-x-4">
-            <div className="bg-primary-100 p-3 rounded-full">
+            <div className="bg-primary-100 dark:bg-primary-900/30 p-3 rounded-full">
               <FiUser className="h-5 w-5 text-primary-600" />
             </div>
             <div>
@@ -237,7 +237,7 @@ const DoctorDashboard = () => {
                 <button
                   onClick={() => handleMarkCompleted(appointment.id)}
                   disabled={isLoading}
-                  className="p-2 text-success-600 hover:bg-success-50 rounded-lg transition-colors disabled:opacity-50"
+                  className="p-2 text-success-600 hover:bg-success-50 dark:hover:bg-success-900/20 rounded-lg transition-colors disabled:opacity-50"
                   title="Mark as Completed"
                 >
                   {isLoading === 'complete' ? (
@@ -249,7 +249,7 @@ const DoctorDashboard = () => {
                 <button
                   onClick={() => handleMarkNoShow(appointment.id)}
                   disabled={isLoading}
-                  className="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors disabled:opacity-50"
+                  className="p-2 text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-lg transition-colors disabled:opacity-50"
                   title="Mark as No-Show"
                 >
                   {isLoading === 'noshow' ? (
@@ -261,7 +261,7 @@ const DoctorDashboard = () => {
                 <button
                   onClick={() => handleCancelAppointment(appointment.id)}
                   disabled={isLoading}
-                  className="p-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors disabled:opacity-50"
+                  className="p-2 text-error-600 hover:bg-error-50 dark:hover:bg-error-900/20 rounded-lg transition-colors disabled:opacity-50"
                   title="Cancel Appointment"
                 >
                   {isLoading === 'cancel' ? (
@@ -360,8 +360,8 @@ const DoctorDashboard = () => {
                     <span
                       className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
                         activeTab === tab.value
-                          ? 'bg-primary-100 text-primary-600'
-                          : 'bg-gray-200 text-gray-600 dark:text-gray-400'
+                          ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300'
+                          : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
                       }`}
                     >
                       {tab.count}
@@ -376,7 +376,7 @@ const DoctorDashboard = () => {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="pl-9 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="pl-9 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                 >
                   <option value="all">All Status</option>
                   <option value="SCHEDULED">Scheduled</option>
@@ -441,7 +441,7 @@ const DoctorDashboard = () => {
             <div className="space-y-3">
               <Link
                 to="/doctor/appointments/today"
-                className="flex items-center justify-between p-4 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors"
               >
                 <div className="flex items-center">
                   <FiCalendar className="h-5 w-5 text-primary-600 mr-3" />
@@ -451,7 +451,7 @@ const DoctorDashboard = () => {
               </Link>
               <Link
                 to="/doctor/appointments/upcoming"
-                className="flex items-center justify-between p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
               >
                 <div className="flex items-center">
                   <FiClock className="h-5 w-5 text-blue-600 mr-3" />
@@ -475,14 +475,14 @@ const DoctorDashboard = () => {
           {/* Weekly Summary */}
           <Card title="This Week">
             <div className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                 <div className="flex items-center">
                   <FiCalendar className="h-5 w-5 text-blue-600 mr-3" />
                   <span className="text-sm text-gray-700 dark:text-gray-300">Total Appointments</span>
                 </div>
                 <span className="text-lg font-bold text-blue-600">{stats?.weekCount || 0}</span>
               </div>
-              <div className="flex items-center justify-between p-3 bg-success-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-success-50 dark:bg-success-900/20 rounded-lg">
                 <div className="flex items-center">
                   <FiCheckCircle className="h-5 w-5 text-success-600 mr-3" />
                   <span className="text-sm text-gray-700 dark:text-gray-300">Completed</span>
@@ -491,7 +491,7 @@ const DoctorDashboard = () => {
                   {stats?.completedTodayCount || 0}
                 </span>
               </div>
-              <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
                 <div className="flex items-center">
                   <FiAlertCircle className="h-5 w-5 text-yellow-600 mr-3" />
                   <span className="text-sm text-gray-700 dark:text-gray-300">Pending</span>

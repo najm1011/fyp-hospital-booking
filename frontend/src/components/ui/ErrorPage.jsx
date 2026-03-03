@@ -45,18 +45,18 @@ const errorTypes = {
 
 const colorClasses = {
   red: {
-    bg: 'bg-error-100',
-    icon: 'text-error-600',
+    bg: 'bg-error-100 dark:bg-error-900/30',
+    icon: 'text-error-600 dark:text-error-400',
     button: 'bg-error-600 hover:bg-error-700',
   },
   yellow: {
-    bg: 'bg-yellow-100',
-    icon: 'text-yellow-600',
+    bg: 'bg-yellow-100 dark:bg-yellow-900/30',
+    icon: 'text-yellow-600 dark:text-yellow-400',
     button: 'bg-yellow-600 hover:bg-yellow-700',
   },
   gray: {
-    bg: 'bg-gray-100',
-    icon: 'text-gray-600',
+    bg: 'bg-gray-100 dark:bg-gray-800',
+    icon: 'text-gray-600 dark:text-gray-400',
     button: 'bg-gray-600 hover:bg-gray-700',
   },
 };
@@ -88,22 +88,22 @@ const ErrorPage = ({
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
           {displayTitle}
         </h2>
 
         {/* Message */}
-        <p className="text-gray-600 mb-8">
+        <p className="text-gray-600 dark:text-gray-400 mb-8">
           {displayMessage}
         </p>
 
         {/* Error details in development */}
         {process.env.NODE_ENV === 'development' && error && (
-          <div className="mb-6 p-4 bg-gray-100 rounded-lg text-left">
-            <p className="text-xs font-medium text-gray-700 mb-1">
+          <div className="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-left">
+            <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
               Error Details:
             </p>
-            <pre className="text-xs text-gray-600 overflow-auto max-h-24">
+            <pre className="text-xs text-gray-600 dark:text-gray-400 overflow-auto max-h-24">
               {error.stack || error.toString()}
             </pre>
           </div>
@@ -124,7 +124,7 @@ const ErrorPage = ({
           {showBackButton && (
             <button
               onClick={() => window.history.back()}
-              className="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             >
               <FiArrowLeft className="h-5 w-5 mr-2" />
               Go Back
@@ -134,7 +134,7 @@ const ErrorPage = ({
           {showHomeButton && (
             <Link
               to="/"
-              className="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             >
               <FiHome className="h-5 w-5 mr-2" />
               Go Home

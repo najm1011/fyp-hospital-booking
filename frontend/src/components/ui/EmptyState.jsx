@@ -19,13 +19,13 @@ const EmptyState = ({
   return (
     <div className="flex flex-col items-center justify-center py-12 px-4">
       {Icon && (
-        <div className="bg-gray-50 border border-gray-100 p-4 rounded-xl mb-4">
-          <Icon className="h-8 w-8 text-gray-400" />
+        <div className="bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 p-4 rounded-xl mb-4">
+          <Icon className="h-8 w-8 text-gray-400 dark:text-gray-500" />
         </div>
       )}
-      <h3 className="text-base font-semibold text-gray-900 mb-1">{title}</h3>
+      <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-1">{title}</h3>
       {description && (
-        <p className="text-sm text-gray-500 text-center max-w-xs mb-5">
+        <p className="text-sm text-gray-500 dark:text-gray-400 text-center max-w-xs mb-5">
           {description}
         </p>
       )}

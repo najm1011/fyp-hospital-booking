@@ -66,7 +66,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-primary-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-primary-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-400/10 rounded-full blur-3xl"></div>
@@ -98,7 +98,7 @@ const Login = () => {
 
       {/* Card */}
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-        <div className="bg-white/80 backdrop-blur-xl py-8 px-4 shadow-soft-lg border border-white/50 sm:rounded-2xl sm:px-10">
+        <div className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-xl py-8 px-4 shadow-soft-lg border border-white/50 dark:border-gray-700/50 sm:rounded-2xl sm:px-10">
 
           {/* Step 1: Role Selection */}
           {!selectedRole && (
@@ -106,9 +106,9 @@ const Login = () => {
               <div className="grid grid-cols-2 gap-4">
                 <button
                   onClick={() => setSelectedRole('PATIENT')}
-                  className="flex flex-col items-center p-6 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-primary-500 hover:bg-primary-50/50 transition-all duration-200 group"
+                  className="flex flex-col items-center p-6 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 hover:border-primary-500 hover:bg-primary-50/50 dark:hover:bg-primary-900/30 transition-all duration-200 group"
                 >
-                  <div className="bg-primary-100 group-hover:bg-primary-200 p-4 rounded-xl transition-colors duration-200">
+                  <div className="bg-primary-100 dark:bg-primary-900/50 group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 p-4 rounded-xl transition-colors duration-200">
                     <FiUser className="h-8 w-8 text-primary-600" />
                   </div>
                   <span className="mt-3 text-sm font-semibold text-gray-900 dark:text-gray-100">I'm a Patient</span>
@@ -117,9 +117,9 @@ const Login = () => {
 
                 <button
                   onClick={() => setSelectedRole('DOCTOR')}
-                  className="flex flex-col items-center p-6 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-primary-500 hover:bg-primary-50/50 transition-all duration-200 group"
+                  className="flex flex-col items-center p-6 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 hover:border-primary-500 hover:bg-primary-50/50 dark:hover:bg-primary-900/30 transition-all duration-200 group"
                 >
-                  <div className="bg-primary-100 group-hover:bg-primary-200 p-4 rounded-xl transition-colors duration-200">
+                  <div className="bg-primary-100 dark:bg-primary-900/50 group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 p-4 rounded-xl transition-colors duration-200">
                     <FiUserCheck className="h-8 w-8 text-primary-600" />
                   </div>
                   <span className="mt-3 text-sm font-semibold text-gray-900 dark:text-gray-100">I'm a Doctor</span>
@@ -134,7 +134,7 @@ const Login = () => {
                     <div className="w-full border-t border-gray-200 dark:border-gray-600" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-3 bg-white/80 text-gray-500 dark:text-gray-400 rounded-full">
+                    <span className="px-3 bg-white/80 dark:bg-gray-800/80 text-gray-500 dark:text-gray-400 rounded-full">
                       New to MediBook?
                     </span>
                   </div>
@@ -273,7 +273,7 @@ const Login = () => {
                     <div className="w-full border-t border-gray-200 dark:border-gray-600" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-3 bg-white/80 text-gray-500 dark:text-gray-400 rounded-full">
+                    <span className="px-3 bg-white/80 dark:bg-gray-800/80 text-gray-500 dark:text-gray-400 rounded-full">
                       New to MediBook?
                     </span>
                   </div>

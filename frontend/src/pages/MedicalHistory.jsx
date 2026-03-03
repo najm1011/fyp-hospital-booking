@@ -155,20 +155,20 @@ const MedicalHistory = () => {
   const getStatusConfig = (status) => {
     const config = {
       COMPLETED: {
-        bg: 'bg-success-100',
-        text: 'text-success-700',
+        bg: 'bg-success-100 dark:bg-success-900/30',
+        text: 'text-success-700 dark:text-success-300',
         icon: FiCheckCircle,
         label: 'Completed',
       },
       CANCELLED: {
-        bg: 'bg-error-100',
-        text: 'text-error-700',
+        bg: 'bg-error-100 dark:bg-error-900/30',
+        text: 'text-error-700 dark:text-error-300',
         icon: FiXCircle,
         label: 'Cancelled',
       },
       NO_SHOW: {
-        bg: 'bg-orange-100',
-        text: 'text-orange-700',
+        bg: 'bg-orange-100 dark:bg-orange-900/30',
+        text: 'text-orange-700 dark:text-orange-300',
         icon: FiAlertCircle,
         label: 'No Show',
       },
@@ -335,7 +335,7 @@ const MedicalHistory = () => {
           My Records
           {records.length > 0 && (
             <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
-              mainTab === 'records' ? 'bg-primary-100 text-primary-600' : 'bg-gray-200 text-gray-600 dark:text-gray-400'
+              mainTab === 'records' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300' : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
             }`}>
               {records.length}
             </span>
@@ -353,7 +353,7 @@ const MedicalHistory = () => {
           Appointment History
           {stats.total > 0 && (
             <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
-              mainTab === 'history' ? 'bg-primary-100 text-primary-600' : 'bg-gray-200 text-gray-600 dark:text-gray-400'
+              mainTab === 'history' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300' : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
             }`}>
               {stats.total}
             </span>
@@ -427,7 +427,7 @@ const MedicalHistory = () => {
                   value={uploadDescription}
                   onChange={(e) => setUploadDescription(e.target.value)}
                   placeholder="e.g., Blood test results from January 2026"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   maxLength={500}
                 />
               </div>
@@ -483,8 +483,8 @@ const MedicalHistory = () => {
                         {/* File Icon */}
                         <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${
                           record.fileType?.startsWith('image/')
-                            ? 'bg-purple-50 border border-purple-200'
-                            : 'bg-red-50 border border-red-200'
+                            ? 'bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800'
+                            : 'bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800'
                         }`}>
                           <FileIcon className={`h-6 w-6 ${
                             record.fileType?.startsWith('image/') ? 'text-purple-500' : 'text-red-500'
@@ -654,8 +654,8 @@ const MedicalHistory = () => {
                 <span
                   className={`ml-2 px-2 py-0.5 rounded-full text-xs font-semibold ${
                     statusFilter === tab.value
-                      ? 'bg-primary-100 text-primary-600'
-                      : 'bg-gray-200 text-gray-600 dark:text-gray-400'
+                      ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300'
+                      : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
                   }`}
                 >
                   {tab.count}
@@ -674,7 +674,7 @@ const MedicalHistory = () => {
                   placeholder="Search by doctor name or specialty..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                 />
               </div>
               <div className="sm:w-48">
@@ -799,12 +799,12 @@ const MedicalHistory = () => {
                               <p className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">Notes</p>
                               <div className="space-y-3">
                                 {appointment.doctorNotes && (
-                                  <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
-                                    <p className="text-xs font-medium text-blue-700 mb-1 flex items-center">
+                                  <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 rounded-lg p-3">
+                                    <p className="text-xs font-medium text-blue-700 dark:text-blue-300 mb-1 flex items-center">
                                       <FiFileText className="h-3 w-3 mr-1" />
                                       Doctor Notes
                                     </p>
-                                    <p className="text-sm text-blue-800">{appointment.doctorNotes}</p>
+                                    <p className="text-sm text-blue-800 dark:text-blue-200">{appointment.doctorNotes}</p>
                                   </div>
                                 )}
                                 {appointment.patientNotes && (
@@ -817,12 +817,12 @@ const MedicalHistory = () => {
                                   </div>
                                 )}
                                 {appointment.cancellationReason && (
-                                  <div className="bg-red-50 border border-red-100 rounded-lg p-3">
-                                    <p className="text-xs font-medium text-red-700 mb-1 flex items-center">
+                                  <div className="bg-red-50 dark:bg-red-900/30 border border-red-100 dark:border-red-800 rounded-lg p-3">
+                                    <p className="text-xs font-medium text-red-700 dark:text-red-300 mb-1 flex items-center">
                                       <FiXCircle className="h-3 w-3 mr-1" />
                                       Cancellation Reason
                                     </p>
-                                    <p className="text-sm text-red-800">{appointment.cancellationReason}</p>
+                                    <p className="text-sm text-red-800 dark:text-red-200">{appointment.cancellationReason}</p>
                                   </div>
                                 )}
                                 {!appointment.doctorNotes && !appointment.patientNotes && !appointment.cancellationReason && (

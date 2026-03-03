@@ -212,7 +212,7 @@ const DoctorDetail = () => {
                             key={day}
                             className={`p-3 rounded-lg text-center ${
                               slots.length > 0
-                                ? 'bg-success-50 border border-success-200'
+                                ? 'bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800'
                                 : 'bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-600'
                             }`}
                           >
@@ -239,7 +239,7 @@ const DoctorDetail = () => {
                     {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day) => (
                       <div
                         key={day}
-                        className="p-3 rounded-lg text-center bg-success-50 border border-success-200"
+                        className="p-3 rounded-lg text-center bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800"
                       >
                         <p className="text-xs font-medium text-gray-700 dark:text-gray-300">{day}</p>
                         <FiCheckCircle className="h-4 w-4 text-success-500 mx-auto mt-1" />
@@ -276,7 +276,7 @@ const DoctorDetail = () => {
               </div>
 
               {/* Fee Card */}
-              <div className="bg-gradient-to-br from-success-50 to-emerald-50 rounded-xl p-5 border border-success-100">
+              <div className="bg-gradient-to-br from-success-50 to-emerald-50 dark:from-success-900/20 dark:to-emerald-900/20 rounded-xl p-5 border border-success-100 dark:border-success-800">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 dark:text-gray-400">Consultation Fee</p>

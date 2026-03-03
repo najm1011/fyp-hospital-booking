@@ -41,7 +41,7 @@ const HospitalCard = ({ hospital, onViewDetails }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 group">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100/80 dark:border-gray-700/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 group">
       {/* Card Header */}
       <div className={`bg-gradient-to-br ${getGradient(hospital.id)} px-6 py-5`}>
         <div className="flex items-center space-x-4">
@@ -82,11 +82,11 @@ const HospitalCard = ({ hospital, onViewDetails }) => {
 
         {/* Stats */}
         <div className="flex items-center gap-3 mb-4">
-          <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-teal-50 text-teal-700 border border-teal-100">
+          <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 border border-teal-100 dark:border-teal-800">
             <FiUsers className="h-3 w-3 mr-1.5" />
             {hospital.doctorCount} {hospital.doctorCount === 1 ? 'Doctor' : 'Doctors'}
           </span>
-          <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-100">
+          <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 border border-sky-100 dark:border-sky-800">
             <FiGrid className="h-3 w-3 mr-1.5" />
             {hospital.departmentCount} {hospital.departmentCount === 1 ? 'Dept' : 'Depts'}
           </span>

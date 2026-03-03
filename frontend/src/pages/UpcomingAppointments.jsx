@@ -123,16 +123,16 @@ const UpcomingAppointments = () => {
   const getStatusConfig = (status) => {
     const configs = {
       SCHEDULED: {
-        bg: 'bg-blue-100',
-        text: 'text-blue-700',
-        border: 'border-blue-200',
+        bg: 'bg-blue-100 dark:bg-blue-900/30',
+        text: 'text-blue-700 dark:text-blue-300',
+        border: 'border-blue-200 dark:border-blue-800',
         icon: FiClock,
         label: 'Scheduled',
       },
       CONFIRMED: {
-        bg: 'bg-success-100',
-        text: 'text-success-700',
-        border: 'border-success-200',
+        bg: 'bg-success-100 dark:bg-success-900/30',
+        text: 'text-success-700 dark:text-success-300',
+        border: 'border-success-200 dark:border-success-800',
         icon: FiCheckCircle,
         label: 'Confirmed',
       },
@@ -144,16 +144,16 @@ const UpcomingAppointments = () => {
         label: 'Completed',
       },
       CANCELLED: {
-        bg: 'bg-error-100',
-        text: 'text-error-700',
-        border: 'border-error-200',
+        bg: 'bg-error-100 dark:bg-error-900/30',
+        text: 'text-error-700 dark:text-error-300',
+        border: 'border-error-200 dark:border-error-800',
         icon: FiXCircle,
         label: 'Cancelled',
       },
       NO_SHOW: {
-        bg: 'bg-orange-100',
-        text: 'text-orange-700',
-        border: 'border-orange-200',
+        bg: 'bg-orange-100 dark:bg-orange-900/30',
+        text: 'text-orange-700 dark:text-orange-300',
+        border: 'border-orange-200 dark:border-orange-800',
         icon: FiAlertCircle,
         label: 'No Show',
       },
@@ -312,7 +312,7 @@ const UpcomingAppointments = () => {
         {/* Patient */}
         <td className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
-            <div className="h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center mr-3">
+            <div className="h-10 w-10 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mr-3">
               <FiUser className="h-5 w-5 text-primary-600" />
             </div>
             <div>
@@ -356,7 +356,7 @@ const UpcomingAppointments = () => {
               <button
                 onClick={() => handleMarkCompleted(appointment.id)}
                 disabled={isLoading}
-                className="p-2 text-success-600 hover:bg-success-50 rounded-lg transition-colors disabled:opacity-50"
+                className="p-2 text-success-600 hover:bg-success-50 dark:hover:bg-success-900/20 rounded-lg transition-colors disabled:opacity-50"
                 title="Mark as Completed"
               >
                 {isLoading === 'complete' ? (
@@ -368,7 +368,7 @@ const UpcomingAppointments = () => {
               <button
                 onClick={() => handleMarkNoShow(appointment.id)}
                 disabled={isLoading}
-                className="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors disabled:opacity-50"
+                className="p-2 text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-lg transition-colors disabled:opacity-50"
                 title="Mark as No-Show"
               >
                 {isLoading === 'noshow' ? (
@@ -380,7 +380,7 @@ const UpcomingAppointments = () => {
               <button
                 onClick={() => handleCancelAppointment(appointment.id)}
                 disabled={isLoading}
-                className="p-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors disabled:opacity-50"
+                className="p-2 text-error-600 hover:bg-error-50 dark:hover:bg-error-900/20 rounded-lg transition-colors disabled:opacity-50"
                 title="Cancel Appointment"
               >
                 {isLoading === 'cancel' ? (
@@ -431,7 +431,7 @@ const UpcomingAppointments = () => {
         <div className="p-4">
           {/* Date Badge */}
           <div className="mb-3">
-            <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-primary-50 text-primary-700 border border-primary-100">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 border border-primary-100 dark:border-primary-800">
               <FiCalendar className="h-3.5 w-3.5 mr-1.5" />
               {formatShortDate(appointment.appointmentDate)} - {getRelativeDate(appointment.appointmentDate)}
             </span>
@@ -439,7 +439,7 @@ const UpcomingAppointments = () => {
 
           {/* Patient Info */}
           <div className="flex items-start mb-4">
-            <div className="h-12 w-12 bg-primary-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+            <div className="h-12 w-12 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
               <FiUser className="h-6 w-6 text-primary-600" />
             </div>
             <div className="flex-1 min-w-0">
@@ -473,7 +473,7 @@ const UpcomingAppointments = () => {
                 <button
                   onClick={() => handleMarkCompleted(appointment.id)}
                   disabled={isLoading}
-                  className="flex-1 flex items-center justify-center py-2 text-success-600 hover:bg-success-50 rounded-lg transition-colors disabled:opacity-50 mr-2"
+                  className="flex-1 flex items-center justify-center py-2 text-success-600 hover:bg-success-50 dark:hover:bg-success-900/20 rounded-lg transition-colors disabled:opacity-50 mr-2"
                 >
                   {isLoading === 'complete' ? (
                     <LoadingSpinner size="small" />
@@ -487,7 +487,7 @@ const UpcomingAppointments = () => {
                 <button
                   onClick={() => handleMarkNoShow(appointment.id)}
                   disabled={isLoading}
-                  className="flex-1 flex items-center justify-center py-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors disabled:opacity-50 mr-2"
+                  className="flex-1 flex items-center justify-center py-2 text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-lg transition-colors disabled:opacity-50 mr-2"
                 >
                   {isLoading === 'noshow' ? (
                     <LoadingSpinner size="small" />
@@ -501,7 +501,7 @@ const UpcomingAppointments = () => {
                 <button
                   onClick={() => handleCancelAppointment(appointment.id)}
                   disabled={isLoading}
-                  className="p-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors disabled:opacity-50"
+                  className="p-2 text-error-600 hover:bg-error-50 dark:hover:bg-error-900/20 rounded-lg transition-colors disabled:opacity-50"
                   title="Cancel"
                 >
                   {isLoading === 'cancel' ? (
@@ -560,25 +560,25 @@ const UpcomingAppointments = () => {
           <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.total}</p>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Total</p>
         </div>
-        <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 text-center">
+        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800 text-center">
           <p className="text-2xl font-bold text-blue-600">{stats.scheduled}</p>
-          <p className="text-xs text-blue-600 mt-1">Scheduled</p>
+          <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">Scheduled</p>
         </div>
-        <div className="bg-success-50 rounded-xl p-4 border border-success-100 text-center">
+        <div className="bg-success-50 dark:bg-success-900/20 rounded-xl p-4 border border-success-100 dark:border-success-800 text-center">
           <p className="text-2xl font-bold text-success-600">{stats.confirmed}</p>
-          <p className="text-xs text-success-600 mt-1">Confirmed</p>
+          <p className="text-xs text-success-600 dark:text-success-400 mt-1">Confirmed</p>
         </div>
         <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 border border-gray-200 dark:border-gray-600 text-center">
           <p className="text-2xl font-bold text-gray-600 dark:text-gray-400">{stats.completed}</p>
           <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Completed</p>
         </div>
-        <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-100 text-center">
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-4 border border-yellow-100 dark:border-yellow-800 text-center">
           <p className="text-2xl font-bold text-yellow-600">{stats.noShow}</p>
-          <p className="text-xs text-yellow-600 mt-1">No Show</p>
+          <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-1">No Show</p>
         </div>
-        <div className="bg-primary-50 rounded-xl p-4 border border-primary-100 text-center">
+        <div className="bg-primary-50 dark:bg-primary-900/20 rounded-xl p-4 border border-primary-100 dark:border-primary-800 text-center">
           <p className="text-2xl font-bold text-primary-600">{stats.thisWeek}</p>
-          <p className="text-xs text-primary-600 mt-1">This Week</p>
+          <p className="text-xs text-primary-600 dark:text-primary-400 mt-1">This Week</p>
         </div>
       </div>
 
@@ -593,7 +593,7 @@ const UpcomingAppointments = () => {
               placeholder="Search by patient name or email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             />
           </div>
 
@@ -679,7 +679,7 @@ const UpcomingAppointments = () => {
                 className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 <div className="flex items-center">
-                  <div className="bg-primary-100 p-2 rounded-lg mr-3">
+                  <div className="bg-primary-100 dark:bg-primary-900/30 p-2 rounded-lg mr-3">
                     <FiCalendar className="h-5 w-5 text-primary-600" />
                   </div>
                   <div className="text-left">
@@ -721,7 +721,7 @@ const UpcomingAppointments = () => {
 
                             {/* Patient Info */}
                             <div className="flex items-start">
-                              <div className="h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center mr-3">
+                              <div className="h-10 w-10 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mr-3">
                                 <FiUser className="h-5 w-5 text-primary-600" />
                               </div>
                               <div>
@@ -758,7 +758,7 @@ const UpcomingAppointments = () => {
                                 <button
                                   onClick={() => handleMarkCompleted(appointment.id)}
                                   disabled={isLoading}
-                                  className="p-2 text-success-600 hover:bg-success-50 rounded-lg transition-colors disabled:opacity-50"
+                                  className="p-2 text-success-600 hover:bg-success-50 dark:hover:bg-success-900/20 rounded-lg transition-colors disabled:opacity-50"
                                   title="Mark as Completed"
                                 >
                                   {isLoading === 'complete' ? (
@@ -770,7 +770,7 @@ const UpcomingAppointments = () => {
                                 <button
                                   onClick={() => handleMarkNoShow(appointment.id)}
                                   disabled={isLoading}
-                                  className="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors disabled:opacity-50"
+                                  className="p-2 text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-lg transition-colors disabled:opacity-50"
                                   title="Mark as No-Show"
                                 >
                                   {isLoading === 'noshow' ? (
@@ -782,7 +782,7 @@ const UpcomingAppointments = () => {
                                 <button
                                   onClick={() => handleCancelAppointment(appointment.id)}
                                   disabled={isLoading}
-                                  className="p-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors disabled:opacity-50"
+                                  className="p-2 text-error-600 hover:bg-error-50 dark:hover:bg-error-900/20 rounded-lg transition-colors disabled:opacity-50"
                                   title="Cancel Appointment"
                                 >
                                   {isLoading === 'cancel' ? (

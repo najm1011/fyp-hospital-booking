@@ -104,7 +104,7 @@ const Home = () => {
       <section className="py-24">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 bg-primary-50 text-primary-700 text-sm font-medium rounded-full mb-4">
+            <span className="inline-block px-4 py-1.5 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium rounded-full mb-4">
               Our Benefits
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 tracking-tight">
@@ -119,7 +119,7 @@ const Home = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-soft border border-gray-100/60 hover:shadow-soft-md hover:-translate-y-1 transition-all duration-300"
+                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-soft border border-gray-100/60 dark:border-gray-700/60 hover:shadow-soft-md hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="bg-primary-500 w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-primary-sm">
                   <feature.icon className="h-6 w-6 text-white" />
@@ -137,7 +137,7 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gradient-to-br from-gray-50 dark:from-gray-800 to-gray-100/80 py-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-gray-50 dark:from-gray-800 to-gray-100/80 dark:to-gray-900/80 py-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center p-6">

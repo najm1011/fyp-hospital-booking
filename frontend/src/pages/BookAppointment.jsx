@@ -370,8 +370,8 @@ const BookAppointment = () => {
                 onClick={() => handleSelectHospital(hospital)}
                 className={`p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                   selectedHospital?.id === hospital.id
-                    ? 'border-teal-500 bg-teal-50 shadow-sm'
-                    : 'border-gray-200 dark:border-gray-600 hover:border-teal-200 hover:shadow-soft'
+                    ? 'border-teal-500 bg-teal-50 dark:bg-teal-900/30 shadow-sm'
+                    : 'border-gray-200 dark:border-gray-600 hover:border-teal-200 dark:hover:border-teal-700 hover:shadow-soft'
                 }`}
               >
                 <div className="flex items-start space-x-3">
@@ -379,14 +379,14 @@ const BookAppointment = () => {
                     className={`p-3 rounded-xl flex-shrink-0 ${
                       selectedHospital?.id === hospital.id
                         ? 'bg-teal-500'
-                        : 'bg-teal-100'
+                        : 'bg-teal-100 dark:bg-teal-900/30'
                     }`}
                   >
                     <FiMapPin
                       className={`h-5 w-5 ${
                         selectedHospital?.id === hospital.id
                           ? 'text-white'
-                          : 'text-teal-600'
+                          : 'text-teal-600 dark:text-teal-400'
                       }`}
                     />
                   </div>
@@ -401,11 +401,11 @@ const BookAppointment = () => {
                       </p>
                     )}
                     <div className="flex items-center gap-3 mt-2">
-                      <span className="text-xs font-medium text-teal-700 bg-teal-50 px-2 py-0.5 rounded-lg">
+                      <span className="text-xs font-medium text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-900/30 px-2 py-0.5 rounded-lg">
                         {hospital.doctorCount} doctor
                         {hospital.doctorCount !== 1 ? 's' : ''}
                       </span>
-                      <span className="text-xs font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-lg">
+                      <span className="text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded-lg">
                         {hospital.departmentCount} dept
                         {hospital.departmentCount !== 1 ? 's' : ''}
                       </span>
@@ -446,7 +446,7 @@ const BookAppointment = () => {
         </h2>
         <p className="text-gray-600 dark:text-gray-400">
           Showing doctors at{' '}
-          <span className="font-medium text-teal-700">
+          <span className="font-medium text-teal-700 dark:text-teal-400">
             {selectedHospital?.name}
           </span>
         </p>
@@ -454,20 +454,20 @@ const BookAppointment = () => {
 
       {/* Symptom match info banner */}
       {symptomMatchData && (
-        <div className="bg-success-50 border border-success-200 rounded-xl p-4">
+        <div className="bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800 rounded-xl p-4">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-success-800">
+              <p className="text-sm font-medium text-success-800 dark:text-success-300">
                 Doctors matched to your symptoms
               </p>
-              <p className="text-sm text-success-700 mt-1">
+              <p className="text-sm text-success-700 dark:text-success-400 mt-1">
                 Based on: {symptomMatchData.selectedSymptoms.join(', ')}.
                 {' '}Recommended: {symptomMatchData.matchedDepartments.join(', ')}.
               </p>
             </div>
             <button
               onClick={() => setSymptomMatchData(null)}
-              className="text-success-600 hover:text-success-800 text-sm font-medium flex-shrink-0 ml-4"
+              className="text-success-600 dark:text-success-400 hover:text-success-800 dark:hover:text-success-300 text-sm font-medium flex-shrink-0 ml-4"
             >
               Clear
             </button>
@@ -506,14 +506,14 @@ const BookAppointment = () => {
               onClick={() => setSelectedDoctor(doctor)}
               className={`relative p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                 selectedDoctor?.id === doctor.id
-                  ? 'border-primary-500 bg-primary-50 shadow-primary-sm'
-                  : 'border-gray-200 dark:border-gray-600 hover:border-primary-200 hover:shadow-soft'
+                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 shadow-primary-sm'
+                  : 'border-gray-200 dark:border-gray-600 hover:border-primary-200 dark:hover:border-primary-700 hover:shadow-soft'
               }`}
             >
               {/* Recommended badge */}
               {symptomMatchData?.recommendedDoctorIds?.includes(doctor.id) && (
                 <div className="mb-2">
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-semibold bg-success-100 text-success-700 border border-success-200">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-semibold bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-300 border border-success-200 dark:border-success-800">
                     Recommended
                   </span>
                 </div>
@@ -531,7 +531,7 @@ const BookAppointment = () => {
                   className={`h-12 w-12 rounded-xl flex-shrink-0 items-center justify-center ${
                     selectedDoctor?.id === doctor.id
                       ? 'bg-primary-500'
-                      : 'bg-primary-100'
+                      : 'bg-primary-100 dark:bg-primary-900/30'
                   }`}
                   style={{ display: doctor.photoUrl ? 'none' : 'flex' }}
                 >
@@ -539,7 +539,7 @@ const BookAppointment = () => {
                     className={`h-6 w-6 ${
                       selectedDoctor?.id === doctor.id
                         ? 'text-white'
-                        : 'text-primary-600'
+                        : 'text-primary-600 dark:text-primary-400'
                     }`}
                   />
                 </div>
@@ -592,7 +592,7 @@ const BookAppointment = () => {
         <p className="text-gray-600 dark:text-gray-400">
           Booking with{' '}
           <span className="font-medium">Dr. {selectedDoctor?.fullName}</span> at{' '}
-          <span className="font-medium text-teal-700">
+          <span className="font-medium text-teal-700 dark:text-teal-400">
             {selectedHospital?.name}
           </span>
         </p>
@@ -633,7 +633,7 @@ const BookAppointment = () => {
             onChange={(e) => setPatientNotes(e.target.value)}
             placeholder="Describe your symptoms or reason for visit..."
             rows={3}
-            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
+            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           />
         </div>
       )}
@@ -650,7 +650,7 @@ const BookAppointment = () => {
       <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 sm:p-6 space-y-4 border border-gray-100 dark:border-gray-700">
         <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-600 gap-2">
           <span className="text-gray-500 dark:text-gray-400 flex-shrink-0">Hospital</span>
-          <span className="font-medium text-teal-700 text-right truncate">
+          <span className="font-medium text-teal-700 dark:text-teal-400 text-right truncate">
             {selectedHospital?.name}
           </span>
         </div>
@@ -711,7 +711,7 @@ const BookAppointment = () => {
   // Step 5: Success
   const renderSuccess = () => (
     <div className="text-center space-y-6">
-      <div className="inline-flex items-center justify-center w-16 h-16 bg-success-100 rounded-2xl">
+      <div className="inline-flex items-center justify-center w-16 h-16 bg-success-100 dark:bg-success-900/30 rounded-2xl">
         <FiCheck className="h-8 w-8 text-success-600" />
       </div>
       <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
@@ -729,7 +729,7 @@ const BookAppointment = () => {
           </div>
           <div className="flex justify-between">
             <span className="text-gray-500 dark:text-gray-400">Hospital</span>
-            <span className="font-medium text-teal-700">
+            <span className="font-medium text-teal-700 dark:text-teal-400">
               {selectedHospital?.name}
             </span>
           </div>
@@ -868,7 +868,7 @@ const BookAppointment = () => {
               <span
                 className={`ml-2 text-sm hidden sm:inline ${
                   step >= s.num
-                    ? 'text-primary-700 font-medium'
+                    ? 'text-primary-700 dark:text-primary-300 font-medium'
                     : 'text-gray-500 dark:text-gray-400'
                 }`}
               >
@@ -877,7 +877,7 @@ const BookAppointment = () => {
               {index < progressSteps.length - 1 && (
                 <div
                   className={`w-5 sm:w-12 h-1 mx-1.5 sm:mx-4 rounded-full transition-colors duration-200 ${
-                    step > s.num ? 'bg-primary-500' : 'bg-gray-200'
+                    step > s.num ? 'bg-primary-500' : 'bg-gray-200 dark:bg-gray-700'
                   }`}
                 />
               )}

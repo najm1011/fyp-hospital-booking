@@ -290,9 +290,9 @@ const UserManagement = () => {
 
   const getRoleBadge = (role) => {
     const styles = {
-      ADMIN: 'bg-purple-100 text-purple-700',
-      DOCTOR: 'bg-blue-100 text-blue-700',
-      PATIENT: 'bg-primary-100 text-primary-700',
+      ADMIN: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
+      DOCTOR: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+      PATIENT: 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300',
     };
     return styles[role] || 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300';
   };
@@ -415,7 +415,7 @@ const UserManagement = () => {
               placeholder="Search by name, email, or phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             />
           </div>
 
@@ -519,8 +519,8 @@ const UserManagement = () => {
                       <span
                         className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${
                           user.isActive
-                            ? 'bg-success-100 text-success-700'
-                            : 'bg-error-100 text-error-700'
+                            ? 'bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-300'
+                            : 'bg-error-100 dark:bg-error-900/30 text-error-700 dark:text-error-300'
                         }`}
                       >
                         {user.isActive ? (
@@ -546,8 +546,8 @@ const UserManagement = () => {
                             togglingUserId === user.id
                               ? 'opacity-50 cursor-not-allowed'
                               : user.isActive
-                              ? 'text-orange-600 hover:bg-orange-50'
-                              : 'text-success-600 hover:bg-success-50'
+                              ? 'text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20'
+                              : 'text-success-600 hover:bg-success-50 dark:hover:bg-success-900/20'
                           }`}
                           title={user.isActive ? 'Deactivate' : 'Activate'}
                         >
@@ -561,14 +561,14 @@ const UserManagement = () => {
                         </button>
                         <button
                           onClick={() => openEditModal(user)}
-                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                           title="Edit"
                         >
                           <FiEdit2 className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => openDeleteModal(user)}
-                          className="p-2 text-error-600 hover:bg-error-50 rounded-lg transition-colors"
+                          className="p-2 text-error-600 hover:bg-error-50 dark:hover:bg-error-900/20 rounded-lg transition-colors"
                           title="Delete"
                         >
                           <FiTrash2 className="h-5 w-5" />
@@ -608,7 +608,7 @@ const UserManagement = () => {
                     type="text"
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
                       formErrors.firstName ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                     }`}
                     placeholder="Enter first name"
@@ -625,7 +625,7 @@ const UserManagement = () => {
                     type="text"
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
                       formErrors.lastName ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                     }`}
                     placeholder="Enter last name"
@@ -642,7 +642,7 @@ const UserManagement = () => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
                     formErrors.email ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                   placeholder="user@example.com"
@@ -658,7 +658,7 @@ const UserManagement = () => {
                   type="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
                     formErrors.password ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                   placeholder="Min. 6 characters"
@@ -676,7 +676,7 @@ const UserManagement = () => {
                   type="tel"
                   value={formData.phoneNumber}
                   onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
                     formErrors.phoneNumber ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                   placeholder="+44 7700 900000"
@@ -748,7 +748,7 @@ const UserManagement = () => {
                     type="text"
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
                       formErrors.firstName ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                     }`}
                   />
@@ -764,7 +764,7 @@ const UserManagement = () => {
                     type="text"
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                    className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
                       formErrors.lastName ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                     }`}
                   />
@@ -780,7 +780,7 @@ const UserManagement = () => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
                     formErrors.email ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                 />
@@ -797,7 +797,7 @@ const UserManagement = () => {
                   type="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
                     formErrors.password ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                   placeholder="Leave empty to keep current"
@@ -815,7 +815,7 @@ const UserManagement = () => {
                   type="tel"
                   value={formData.phoneNumber}
                   onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 ${
+                  className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
                     formErrors.phoneNumber ? 'border-error-300' : 'border-gray-200 dark:border-gray-600'
                   }`}
                 />
@@ -866,7 +866,7 @@ const UserManagement = () => {
         <div className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-md">
             <div className="p-6">
-              <div className="flex items-center justify-center w-12 h-12 bg-error-100 rounded-full mx-auto mb-4">
+              <div className="flex items-center justify-center w-12 h-12 bg-error-100 dark:bg-error-900/30 rounded-full mx-auto mb-4">
                 <FiAlertCircle className="h-6 w-6 text-error-600" />
               </div>
               <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 text-center mb-2">

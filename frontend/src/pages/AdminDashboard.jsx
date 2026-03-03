@@ -96,11 +96,11 @@ const AdminDashboard = () => {
   // Get status badge styling
   const getStatusBadge = (status) => {
     const styles = {
-      SCHEDULED: 'bg-blue-100 text-blue-700',
-      CONFIRMED: 'bg-success-100 text-success-700',
+      SCHEDULED: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+      CONFIRMED: 'bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-300',
       COMPLETED: 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300',
-      CANCELLED: 'bg-error-100 text-error-700',
-      NO_SHOW: 'bg-orange-100 text-orange-700',
+      CANCELLED: 'bg-error-100 dark:bg-error-900/30 text-error-700 dark:text-error-300',
+      NO_SHOW: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
     };
     return styles[status] || 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300';
   };
@@ -228,54 +228,54 @@ const AdminDashboard = () => {
       <Card className="p-6">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">At a Glance</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-          <div className="p-4 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl">
+          <div className="p-4 bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-900/20 rounded-xl">
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-indigo-200 rounded-lg">
-                <FiUsers className="h-5 w-5 text-indigo-700" />
+              <div className="p-2 bg-indigo-200 dark:bg-indigo-800 rounded-lg">
+                <FiUsers className="h-5 w-5 text-indigo-700 dark:text-indigo-300" />
               </div>
-              <span className="text-sm font-medium text-indigo-900">All Users</span>
+              <span className="text-sm font-medium text-indigo-900 dark:text-indigo-200">All Users</span>
             </div>
-            <p className="text-3xl font-bold text-indigo-900">{stats?.totalUsers || 0}</p>
+            <p className="text-3xl font-bold text-indigo-900 dark:text-indigo-100">{stats?.totalUsers || 0}</p>
           </div>
 
-          <div className="p-4 bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl">
+          <div className="p-4 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-900/20 rounded-xl">
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-amber-200 rounded-lg">
-                <FiLayers className="h-5 w-5 text-amber-700" />
+              <div className="p-2 bg-amber-200 dark:bg-amber-800 rounded-lg">
+                <FiLayers className="h-5 w-5 text-amber-700 dark:text-amber-300" />
               </div>
-              <span className="text-sm font-medium text-amber-900">Departments</span>
+              <span className="text-sm font-medium text-amber-900 dark:text-amber-200">Departments</span>
             </div>
-            <p className="text-3xl font-bold text-amber-900">{stats?.totalDepartments || 0}</p>
+            <p className="text-3xl font-bold text-amber-900 dark:text-amber-100">{stats?.totalDepartments || 0}</p>
           </div>
 
-          <div className="p-4 bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl">
+          <div className="p-4 bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-900/20 rounded-xl">
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-primary-200 rounded-lg">
-                <FiBarChart2 className="h-5 w-5 text-primary-700" />
+              <div className="p-2 bg-primary-200 dark:bg-primary-800 rounded-lg">
+                <FiBarChart2 className="h-5 w-5 text-primary-700 dark:text-primary-300" />
               </div>
-              <span className="text-sm font-medium text-primary-900">This Week</span>
+              <span className="text-sm font-medium text-primary-900 dark:text-primary-200">This Week</span>
             </div>
-            <p className="text-3xl font-bold text-primary-900">{stats?.weekCount || 0}</p>
+            <p className="text-3xl font-bold text-primary-900 dark:text-primary-100">{stats?.weekCount || 0}</p>
           </div>
 
-          <div className="p-4 bg-gradient-to-br from-rose-50 to-rose-100 rounded-xl">
+          <div className="p-4 bg-gradient-to-br from-rose-50 to-rose-100 dark:from-rose-900/30 dark:to-rose-900/20 rounded-xl">
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-rose-200 rounded-lg">
-                <FiCalendar className="h-5 w-5 text-rose-700" />
+              <div className="p-2 bg-rose-200 dark:bg-rose-800 rounded-lg">
+                <FiCalendar className="h-5 w-5 text-rose-700 dark:text-rose-300" />
               </div>
-              <span className="text-sm font-medium text-rose-900">This Month</span>
+              <span className="text-sm font-medium text-rose-900 dark:text-rose-200">This Month</span>
             </div>
-            <p className="text-3xl font-bold text-rose-900">{stats?.monthCount || 0}</p>
+            <p className="text-3xl font-bold text-rose-900 dark:text-rose-100">{stats?.monthCount || 0}</p>
           </div>
 
-          <div className="p-4 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl">
+          <div className="p-4 bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/30 dark:to-emerald-900/20 rounded-xl">
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-emerald-200 rounded-lg">
-                <FiTrendingUp className="h-5 w-5 text-emerald-700" />
+              <div className="p-2 bg-emerald-200 dark:bg-emerald-800 rounded-lg">
+                <FiTrendingUp className="h-5 w-5 text-emerald-700 dark:text-emerald-300" />
               </div>
-              <span className="text-sm font-medium text-emerald-900">All Time</span>
+              <span className="text-sm font-medium text-emerald-900 dark:text-emerald-200">All Time</span>
             </div>
-            <p className="text-3xl font-bold text-emerald-900">{stats?.total || 0}</p>
+            <p className="text-3xl font-bold text-emerald-900 dark:text-emerald-100">{stats?.total || 0}</p>
           </div>
         </div>
       </Card>
@@ -284,7 +284,7 @@ const AdminDashboard = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-100 rounded-lg">
+            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
               <FiClock className="h-5 w-5 text-blue-600" />
             </div>
             <div>
@@ -296,7 +296,7 @@ const AdminDashboard = () => {
 
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-error-100 rounded-lg">
+            <div className="p-2 bg-error-100 dark:bg-error-900/30 rounded-lg">
               <FiXCircle className="h-5 w-5 text-error-600" />
             </div>
             <div>
@@ -308,7 +308,7 @@ const AdminDashboard = () => {
 
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-orange-100 rounded-lg">
+            <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
               <FiAlertCircle className="h-5 w-5 text-orange-600" />
             </div>
             <div>
@@ -320,7 +320,7 @@ const AdminDashboard = () => {
 
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary-100 rounded-lg">
+            <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
               <FiTrendingUp className="h-5 w-5 text-primary-600" />
             </div>
             <div>
@@ -337,60 +337,60 @@ const AdminDashboard = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <Link
             to="/admin/users"
-            className="flex flex-col items-center gap-2 p-4 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-colors group"
+            className="flex flex-col items-center gap-2 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors group"
           >
-            <div className="p-3 bg-indigo-100 rounded-xl group-hover:bg-indigo-200 transition-colors">
-              <FiUsers className="h-6 w-6 text-indigo-600" />
+            <div className="p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl group-hover:bg-indigo-200 dark:group-hover:bg-indigo-900/50 transition-colors">
+              <FiUsers className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
             </div>
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Manage Users</span>
           </Link>
 
           <Link
             to="/admin/doctors"
-            className="flex flex-col items-center gap-2 p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors group"
+            className="flex flex-col items-center gap-2 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group"
           >
-            <div className="p-3 bg-blue-100 rounded-xl group-hover:bg-blue-200 transition-colors">
-              <FiUserPlus className="h-6 w-6 text-blue-600" />
+            <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl group-hover:bg-blue-200 dark:group-hover:bg-blue-900/50 transition-colors">
+              <FiUserPlus className="h-6 w-6 text-blue-600 dark:text-blue-400" />
             </div>
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Manage Doctors</span>
           </Link>
 
           <Link
             to="/admin/patients"
-            className="flex flex-col items-center gap-2 p-4 bg-primary-50 rounded-xl hover:bg-primary-100 transition-colors group"
+            className="flex flex-col items-center gap-2 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors group"
           >
-            <div className="p-3 bg-primary-100 rounded-xl group-hover:bg-primary-200 transition-colors">
-              <FiUser className="h-6 w-6 text-primary-600" />
+            <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-xl group-hover:bg-primary-200 dark:group-hover:bg-primary-900/50 transition-colors">
+              <FiUser className="h-6 w-6 text-primary-600 dark:text-primary-400" />
             </div>
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Manage Patients</span>
           </Link>
 
           <Link
             to="/admin/appointments"
-            className="flex flex-col items-center gap-2 p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors group"
+            className="flex flex-col items-center gap-2 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors group"
           >
-            <div className="p-3 bg-purple-100 rounded-xl group-hover:bg-purple-200 transition-colors">
-              <FiCalendar className="h-6 w-6 text-purple-600" />
+            <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl group-hover:bg-purple-200 dark:group-hover:bg-purple-900/50 transition-colors">
+              <FiCalendar className="h-6 w-6 text-purple-600 dark:text-purple-400" />
             </div>
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">All Appointments</span>
           </Link>
 
           <Link
             to="/admin/departments"
-            className="flex flex-col items-center gap-2 p-4 bg-amber-50 rounded-xl hover:bg-amber-100 transition-colors group"
+            className="flex flex-col items-center gap-2 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors group"
           >
-            <div className="p-3 bg-amber-100 rounded-xl group-hover:bg-amber-200 transition-colors">
-              <FiActivity className="h-6 w-6 text-amber-600" />
+            <div className="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-xl group-hover:bg-amber-200 dark:group-hover:bg-amber-900/50 transition-colors">
+              <FiActivity className="h-6 w-6 text-amber-600 dark:text-amber-400" />
             </div>
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Departments</span>
           </Link>
 
           <Link
             to="/admin/analytics"
-            className="flex flex-col items-center gap-2 p-4 bg-rose-50 rounded-xl hover:bg-rose-100 transition-colors group"
+            className="flex flex-col items-center gap-2 p-4 bg-rose-50 dark:bg-rose-900/20 rounded-xl hover:bg-rose-100 dark:hover:bg-rose-900/30 transition-colors group"
           >
-            <div className="p-3 bg-rose-100 rounded-xl group-hover:bg-rose-200 transition-colors">
-              <FiBarChart2 className="h-6 w-6 text-rose-600" />
+            <div className="p-3 bg-rose-100 dark:bg-rose-900/30 rounded-xl group-hover:bg-rose-200 dark:group-hover:bg-rose-900/50 transition-colors">
+              <FiBarChart2 className="h-6 w-6 text-rose-600 dark:text-rose-400" />
             </div>
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Analytics</span>
           </Link>
@@ -429,7 +429,7 @@ const AdminDashboard = () => {
                     <th className="pb-3 font-medium">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50">
+                <tbody className="divide-y divide-gray-50 dark:divide-gray-700">
                   {recentAppointments.map((appointment) => (
                     <tr key={appointment.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <td className="py-3">
@@ -525,40 +525,40 @@ const AdminDashboard = () => {
       <Card className="p-6">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Booking Overview</h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <div className="text-center p-4 bg-blue-50 rounded-xl">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+          <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-2">
               <FiClock className="h-6 w-6 text-blue-600" />
             </div>
             <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.scheduled || stats?.upcoming || 0}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">Upcoming</p>
           </div>
 
-          <div className="text-center p-4 bg-success-50 rounded-xl">
-            <div className="w-12 h-12 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-2">
+          <div className="text-center p-4 bg-success-50 dark:bg-success-900/20 rounded-xl">
+            <div className="w-12 h-12 bg-success-100 dark:bg-success-900/30 rounded-full flex items-center justify-center mx-auto mb-2">
               <FiCheckCircle className="h-6 w-6 text-success-600" />
             </div>
             <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.completed || 0}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">Completed</p>
           </div>
 
-          <div className="text-center p-4 bg-error-50 rounded-xl">
-            <div className="w-12 h-12 bg-error-100 rounded-full flex items-center justify-center mx-auto mb-2">
+          <div className="text-center p-4 bg-error-50 dark:bg-error-900/20 rounded-xl">
+            <div className="w-12 h-12 bg-error-100 dark:bg-error-900/30 rounded-full flex items-center justify-center mx-auto mb-2">
               <FiXCircle className="h-6 w-6 text-error-600" />
             </div>
             <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.cancelled || 0}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">Cancelled</p>
           </div>
 
-          <div className="text-center p-4 bg-orange-50 rounded-xl">
-            <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
+          <div className="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl">
+            <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mx-auto mb-2">
               <FiAlertCircle className="h-6 w-6 text-orange-600" />
             </div>
             <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.noShow || 0}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">Missed</p>
           </div>
 
-          <div className="text-center p-4 bg-purple-50 rounded-xl">
-            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
+          <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
+            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-2">
               <FiCalendar className="h-6 w-6 text-purple-600" />
             </div>
             <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats?.todayCount || 0}</p>

@@ -124,17 +124,17 @@ const AppointmentCard = ({
   const getStatusConfig = (status) => {
     const config = {
       SCHEDULED: {
-        bg: 'bg-blue-100',
-        text: 'text-blue-700',
-        border: 'border-blue-200',
+        bg: 'bg-blue-100 dark:bg-blue-900/30',
+        text: 'text-blue-700 dark:text-blue-300',
+        border: 'border-blue-200 dark:border-blue-800',
         icon: FiClock,
         label: 'Scheduled',
         color: 'blue',
       },
       CONFIRMED: {
-        bg: 'bg-success-100',
-        text: 'text-success-700',
-        border: 'border-success-200',
+        bg: 'bg-success-100 dark:bg-success-900/30',
+        text: 'text-success-700 dark:text-success-300',
+        border: 'border-success-200 dark:border-success-800',
         icon: FiCheckCircle,
         label: 'Confirmed',
         color: 'green',
@@ -148,25 +148,25 @@ const AppointmentCard = ({
         color: 'gray',
       },
       CANCELLED: {
-        bg: 'bg-error-100',
-        text: 'text-error-700',
-        border: 'border-error-200',
+        bg: 'bg-error-100 dark:bg-error-900/30',
+        text: 'text-error-700 dark:text-error-300',
+        border: 'border-error-200 dark:border-error-800',
         icon: FiXCircle,
         label: 'Cancelled',
         color: 'red',
       },
       NO_SHOW: {
-        bg: 'bg-orange-100',
-        text: 'text-orange-700',
-        border: 'border-orange-200',
+        bg: 'bg-orange-100 dark:bg-orange-900/30',
+        text: 'text-orange-700 dark:text-orange-300',
+        border: 'border-orange-200 dark:border-orange-800',
         icon: FiAlertCircle,
         label: 'No Show',
         color: 'orange',
       },
       PENDING: {
-        bg: 'bg-yellow-100',
-        text: 'text-yellow-700',
-        border: 'border-yellow-200',
+        bg: 'bg-yellow-100 dark:bg-yellow-900/30',
+        text: 'text-yellow-700 dark:text-yellow-300',
+        border: 'border-yellow-200 dark:border-yellow-800',
         icon: FiClock,
         label: 'Pending',
         color: 'yellow',
@@ -288,7 +288,7 @@ const AppointmentCard = ({
 
   // Default variant - full card
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-0.5 transition-all duration-300 ${className}`}>
+    <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100/80 dark:border-gray-700/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-0.5 transition-all duration-300 ${className}`}>
       {/* Card Header with Status Indicator */}
       <div className={`px-4 py-3 border-b ${statusConfig.border} ${statusConfig.bg}`}>
         <div className="flex items-center justify-between">

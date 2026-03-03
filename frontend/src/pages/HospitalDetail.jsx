@@ -122,7 +122,7 @@ const HospitalDetail = () => {
               {isAuthenticated && user?.role === 'PATIENT' && (
                 <button
                   onClick={() => navigate(`/appointments/book?hospitalId=${hospital.id}`)}
-                  className="mt-4 inline-flex items-center px-5 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-gray-800 text-teal-700 hover:bg-teal-50 shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="mt-4 inline-flex items-center px-5 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-gray-800 text-teal-700 dark:text-teal-300 hover:bg-teal-50 dark:hover:bg-teal-900/30 shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   <FiCalendar className="h-4 w-4 mr-2" />
                   Book at this Hospital
@@ -203,7 +203,7 @@ const HospitalDetail = () => {
           </div>
         ) : (
           <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-soft">
-            <div className="bg-amber-50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="bg-amber-50 dark:bg-amber-900/20 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <FiUser className="h-10 w-10 text-amber-400" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">No doctors registered yet</h3>

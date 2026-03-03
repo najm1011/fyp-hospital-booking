@@ -61,10 +61,10 @@ const TimeSlotPicker = ({
       className={`
         relative px-3 py-2.5 text-sm font-medium rounded-lg border-2 transition-all duration-200
         ${!slot.available
-          ? 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed line-through'
+          ? 'border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 text-gray-300 dark:text-gray-600 cursor-not-allowed line-through'
           : isSelected(slot)
             ? 'border-primary-500 bg-primary-500 text-white shadow-md'
-            : 'border-gray-200 bg-white text-gray-700 hover:border-primary-300 hover:bg-primary-50 hover:shadow-sm'
+            : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-primary-300 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:shadow-sm'
         }
       `}
     >
@@ -98,15 +98,15 @@ const TimeSlotPicker = ({
     return (
       <div className={className}>
         {label && (
-          <label className="block text-sm font-medium text-gray-700 mb-3">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
             <FiClock className="inline mr-2" />
             {label}
           </label>
         )}
-        <div className="bg-gray-50 rounded-xl p-8">
+        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-8">
           <div className="flex flex-col items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500 mb-3" />
-            <p className="text-sm text-gray-500">Loading available slots...</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Loading available slots...</p>
           </div>
         </div>
       </div>
@@ -118,15 +118,15 @@ const TimeSlotPicker = ({
     return (
       <div className={className}>
         {label && (
-          <label className="block text-sm font-medium text-gray-700 mb-3">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
             <FiClock className="inline mr-2" />
             {label}
           </label>
         )}
-        <div className="bg-gray-50 rounded-xl p-8 text-center">
-          <FiClock className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500">{emptyMessage}</p>
-          <p className="text-sm text-gray-400 mt-1">Please select another date.</p>
+        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-8 text-center">
+          <FiClock className="h-12 w-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
+          <p className="text-gray-500 dark:text-gray-400">{emptyMessage}</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">Please select another date.</p>
         </div>
       </div>
     );
@@ -137,7 +137,7 @@ const TimeSlotPicker = ({
   return (
     <div className={className}>
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
           <FiClock className="inline mr-2" />
           {label}
         </label>
@@ -145,14 +145,14 @@ const TimeSlotPicker = ({
 
       {/* Selected Slot Summary */}
       {selectedSlot && (
-        <div className="mb-4 p-3 bg-primary-50 rounded-lg border border-primary-200">
+        <div className="mb-4 p-3 bg-primary-50 dark:bg-primary-900/30 rounded-lg border border-primary-200 dark:border-primary-800">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <FiClock className="h-4 w-4 text-primary-600 mr-2" />
-              <span className="text-sm text-primary-800">
+              <FiClock className="h-4 w-4 text-primary-600 dark:text-primary-400 mr-2" />
+              <span className="text-sm text-primary-800 dark:text-primary-200">
                 Selected: <span className="font-semibold">{formatTime(selectedSlot.startTime)}</span>
                 {selectedSlot.endTime && (
-                  <span className="text-primary-600"> - {formatTime(selectedSlot.endTime)}</span>
+                  <span className="text-primary-600 dark:text-primary-400"> - {formatTime(selectedSlot.endTime)}</span>
                 )}
               </span>
             </div>
@@ -168,7 +168,7 @@ const TimeSlotPicker = ({
       )}
 
       {/* Slots Grid */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-600 p-4">
         {showPeriodSections ? (
           <>
             {renderPeriodSection(
@@ -197,13 +197,13 @@ const TimeSlotPicker = ({
         )}
 
         {/* Slots Count */}
-        <div className="mt-4 pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500">
+        <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500 dark:text-gray-400">
           <span>
             {slots.filter(s => s.available !== false).length} available slots
           </span>
           <div className="flex items-center gap-3">
             <div className="flex items-center">
-              <span className="h-3 w-3 rounded border-2 border-gray-200 bg-white mr-1" />
+              <span className="h-3 w-3 rounded border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 mr-1" />
               Available
             </div>
             <div className="flex items-center">
@@ -211,7 +211,7 @@ const TimeSlotPicker = ({
               Selected
             </div>
             <div className="flex items-center">
-              <span className="h-3 w-3 rounded bg-gray-100 mr-1" />
+              <span className="h-3 w-3 rounded bg-gray-100 dark:bg-gray-700 mr-1" />
               Booked
             </div>
           </div>

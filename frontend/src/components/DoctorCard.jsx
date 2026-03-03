@@ -91,7 +91,7 @@ const DoctorCard = ({
               <FiStar className="h-3 w-3 text-amber-400 fill-current mr-0.5" />
               <span className="text-gray-600 dark:text-gray-400 font-medium">4.8</span>
             </span>
-            <span className="text-xs text-success-600 font-semibold bg-success-50 px-2 py-0.5 rounded-full">
+            <span className="text-xs text-success-600 dark:text-success-400 font-semibold bg-success-50 dark:bg-success-900/30 px-2 py-0.5 rounded-full">
               £{doctor.consultationFee}
             </span>
           </div>
@@ -183,7 +183,7 @@ const DoctorCard = ({
                 <p className="text-sm text-gray-900 dark:text-gray-100">{doctor.phoneNumber}</p>
               </div>
             </div>
-            <div className="flex items-center p-3 bg-success-50 rounded-xl">
+            <div className="flex items-center p-3 bg-success-50 dark:bg-success-900/30 rounded-xl">
               <LuPoundSterling className="h-5 w-5 text-success-500 mr-3" />
               <div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Consultation Fee</p>
@@ -208,7 +208,7 @@ const DoctorCard = ({
 
   // Default variant - card for grid layout
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 group">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100/80 dark:border-gray-700/80 overflow-hidden hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 group">
       {/* Card Header */}
       <div className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 px-6 py-5">
         <div className="flex items-center space-x-4">
@@ -238,14 +238,14 @@ const DoctorCard = ({
       <div className="p-6">
         {/* Department & Rating */}
         <div className="flex items-center justify-between mb-4">
-          <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-primary-50 text-primary-700 border border-primary-100">
+          <span className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border border-primary-100 dark:border-primary-800">
             <FiMapPin className="h-3 w-3 mr-1.5" />
             {doctor.departmentName}
           </span>
-          <div className="flex items-center bg-amber-50 px-2.5 py-1 rounded-lg">
+          <div className="flex items-center bg-amber-50 dark:bg-amber-900/30 px-2.5 py-1 rounded-lg">
             <FiStar className="h-4 w-4 text-amber-400 fill-current" />
-            <span className="ml-1 text-sm font-bold text-amber-700">4.8</span>
-            <span className="ml-1 text-xs text-amber-600">(120)</span>
+            <span className="ml-1 text-sm font-bold text-amber-700 dark:text-amber-300">4.8</span>
+            <span className="ml-1 text-xs text-amber-600 dark:text-amber-400">(120)</span>
           </div>
         </div>
 

@@ -10,35 +10,30 @@ const StatsCard = ({
   // Refined colour palette with better visual hierarchy
   const colors = {
     blue: {
-      bg: 'bg-gradient-to-br from-primary-50 via-primary-50 to-primary-100/80',
       iconBg: 'bg-primary-500',
       icon: 'text-white',
       accent: 'border-l-primary-500',
       shadow: 'shadow-primary-sm',
     },
     green: {
-      bg: 'bg-gradient-to-br from-success-50 via-emerald-50 to-success-100/80',
       iconBg: 'bg-success-500',
       icon: 'text-white',
       accent: 'border-l-success-500',
       shadow: 'shadow-success-sm',
     },
     yellow: {
-      bg: 'bg-gradient-to-br from-warning-50 via-amber-50 to-warning-100/80',
       iconBg: 'bg-warning-500',
       icon: 'text-white',
       accent: 'border-l-warning-500',
       shadow: 'shadow-soft-sm',
     },
     purple: {
-      bg: 'bg-gradient-to-br from-violet-50 via-purple-50 to-violet-100/80',
       iconBg: 'bg-violet-500',
       icon: 'text-white',
       accent: 'border-l-violet-500',
       shadow: 'shadow-soft-sm',
     },
     red: {
-      bg: 'bg-gradient-to-br from-error-50 via-rose-50 to-error-100/80',
       iconBg: 'bg-error-500',
       icon: 'text-white',
       accent: 'border-l-error-500',
@@ -50,12 +45,12 @@ const StatsCard = ({
 
   if (loading) {
     return (
-      <div className="bg-white p-5 rounded-xl shadow-soft border border-gray-100 animate-pulse">
+      <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-soft border border-gray-100 dark:border-gray-700 animate-pulse">
         <div className="flex items-start gap-4">
-          <div className="bg-gray-100 p-3 rounded-lg h-12 w-12 flex-shrink-0"></div>
+          <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg h-12 w-12 flex-shrink-0"></div>
           <div className="flex-1 pt-0.5">
-            <div className="h-3.5 bg-gray-100 rounded w-24 mb-3"></div>
-            <div className="h-8 bg-gray-100 rounded w-16"></div>
+            <div className="h-3.5 bg-gray-100 dark:bg-gray-700 rounded w-24 mb-3"></div>
+            <div className="h-8 bg-gray-100 dark:bg-gray-700 rounded w-16"></div>
           </div>
         </div>
       </div>
@@ -64,7 +59,7 @@ const StatsCard = ({
 
   return (
     <div className={`
-      relative bg-white p-5 rounded-xl border border-gray-100/80
+      relative bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-100/80 dark:border-gray-700/80
       shadow-soft hover:shadow-soft-md
       transition-all duration-300 ease-out
       hover:-translate-y-0.5
@@ -84,18 +79,18 @@ const StatsCard = ({
         </div>
 
         <div className="flex-1 min-w-0">
-          <p className="text-sm text-gray-500 font-medium truncate mb-1">{label}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-1">{label}</p>
           <div className="flex items-baseline gap-2 flex-wrap">
-            <p className="text-2xl font-bold text-gray-900 tracking-tight">{value}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 tracking-tight">{value}</p>
             {trend && (
               <span
                 className={`
                   inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-md
                   ${trendDirection === 'up'
-                    ? 'text-success-700 bg-success-50'
+                    ? 'text-success-700 dark:text-success-400 bg-success-50 dark:bg-success-900/30'
                     : trendDirection === 'down'
-                    ? 'text-error-700 bg-error-50'
-                    : 'text-gray-600 bg-gray-100'
+                    ? 'text-error-700 dark:text-error-400 bg-error-50 dark:bg-error-900/30'
+                    : 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700'
                   }
                 `}
               >

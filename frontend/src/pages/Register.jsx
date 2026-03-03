@@ -157,7 +157,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-900 dark:to-gray-800 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
@@ -281,7 +281,7 @@ const Register = () => {
             {values.password && (
               <div className="mb-4 -mt-2">
                 <div className="flex items-center gap-2">
-                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                     <div
                       className={`h-full transition-all duration-300 ${passwordStrength.color}`}
                       style={{ width: `${(passwordStrength.strength / 5) * 100}%` }}
@@ -368,8 +368,8 @@ const Register = () => {
           </div>
 
           {/* Doctor Notice */}
-          <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-sm text-blue-800">
+          <div className="mt-6 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+            <p className="text-sm text-blue-800 dark:text-blue-300">
               <span className="font-semibold">Are you a healthcare professional?</span>{' '}
               Doctor accounts are created by hospital administrators. Please contact your hospital's admin team to get your account set up.
             </p>

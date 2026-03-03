@@ -301,8 +301,8 @@ const MyAppointments = () => {
             <span
               className={`ml-2 px-2 py-0.5 rounded-full text-xs font-semibold ${
                 dateFilter === tab.value
-                  ? 'bg-primary-100 text-primary-600'
-                  : 'bg-gray-200 text-gray-600 dark:text-gray-400'
+                  ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
               }`}
             >
               {tab.count}
@@ -322,7 +322,7 @@ const MyAppointments = () => {
               placeholder="Search by doctor, department, or confirmation #..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             />
           </div>
 
@@ -398,7 +398,7 @@ const MyAppointments = () => {
           <div className="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
             <span className="text-sm text-gray-500 dark:text-gray-400">Active filters:</span>
             {searchTerm && (
-              <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-primary-50 text-primary-700">
+              <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300">
                 Search: {searchTerm}
                 <button onClick={() => setSearchTerm('')} className="ml-1.5 hover:text-primary-900">
                   &times;
@@ -406,7 +406,7 @@ const MyAppointments = () => {
               </span>
             )}
             {statusFilter !== 'all' && (
-              <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-primary-50 text-primary-700">
+              <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300">
                 Status: {statusOptions.find((s) => s.value === statusFilter)?.label}
                 <button onClick={() => setStatusFilter('all')} className="ml-1.5 hover:text-primary-900">
                   &times;

@@ -94,7 +94,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
           <button
             onClick={onClose}
             aria-label="Close"
-            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
           >
             <FiX className="h-5 w-5" />
           </button>
@@ -196,7 +196,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
                       key={day}
                       className={`p-3 rounded-lg text-center ${
                         slots.length > 0
-                          ? 'bg-success-50 border border-success-200'
+                          ? 'bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800'
                           : 'bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-600'
                       }`}
                     >
@@ -218,7 +218,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
                   {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day) => (
                     <div
                       key={day}
-                      className="p-3 rounded-lg text-center bg-success-50 border border-success-200"
+                      className="p-3 rounded-lg text-center bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800"
                     >
                       <p className="text-xs font-medium text-gray-700 dark:text-gray-300">{day}</p>
                       <p className="text-xs text-success-600 mt-1">
@@ -232,7 +232,7 @@ const DoctorDetailModal = ({ doctor, isOpen, onClose }) => {
             </div>
 
             {/* Consultation Fee */}
-            <div className="bg-gradient-to-r from-success-50 to-emerald-50 rounded-xl p-4 mb-6">
+            <div className="bg-gradient-to-r from-success-50 to-emerald-50 dark:from-success-900/20 dark:to-emerald-900/20 rounded-xl p-4 mb-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Consultation Fee</p>
