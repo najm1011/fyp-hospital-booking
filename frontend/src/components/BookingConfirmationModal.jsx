@@ -137,36 +137,36 @@ const BookingConfirmationModal = ({
 
         {/* Appointment Details */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between py-3 border-b border-gray-100">
-            <div className="flex items-center text-gray-600">
-              <FiCalendar className="h-4 w-4 mr-2" />
+          <div className="flex items-center justify-between py-3 border-b border-gray-100 gap-2">
+            <div className="flex items-center text-gray-600 flex-shrink-0">
+              <FiCalendar className="h-4 w-4 mr-2 flex-shrink-0" />
               <span>Date</span>
             </div>
-            <span className="font-medium text-gray-900">{formatDate(appointmentDate)}</span>
+            <span className="font-medium text-gray-900 text-right text-sm">{formatDate(appointmentDate)}</span>
           </div>
 
-          <div className="flex items-center justify-between py-3 border-b border-gray-100">
-            <div className="flex items-center text-gray-600">
-              <FiClock className="h-4 w-4 mr-2" />
+          <div className="flex items-center justify-between py-3 border-b border-gray-100 gap-2">
+            <div className="flex items-center text-gray-600 flex-shrink-0">
+              <FiClock className="h-4 w-4 mr-2 flex-shrink-0" />
               <span>Time</span>
             </div>
-            <span className="font-medium text-gray-900">
+            <span className="font-medium text-gray-900 text-right">
               {formatTime(timeSlot?.startTime)}
               {timeSlot?.endTime && ` - ${formatTime(timeSlot.endTime)}`}
             </span>
           </div>
 
-          <div className="flex items-center justify-between py-3 border-b border-gray-100">
-            <div className="flex items-center text-gray-600">
-              <FiMapPin className="h-4 w-4 mr-2" />
+          <div className="flex items-center justify-between py-3 border-b border-gray-100 gap-2">
+            <div className="flex items-center text-gray-600 flex-shrink-0">
+              <FiMapPin className="h-4 w-4 mr-2 flex-shrink-0" />
               <span>Department</span>
             </div>
-            <span className="font-medium text-gray-900">{doctor?.departmentName}</span>
+            <span className="font-medium text-gray-900 text-right truncate">{doctor?.departmentName}</span>
           </div>
 
-          <div className="flex items-center justify-between py-3 border-b border-gray-100">
-            <div className="flex items-center text-gray-600">
-              <LuPoundSterling className="h-4 w-4 mr-2" />
+          <div className="flex items-center justify-between py-3 border-b border-gray-100 gap-2">
+            <div className="flex items-center text-gray-600 flex-shrink-0">
+              <LuPoundSterling className="h-4 w-4 mr-2 flex-shrink-0" />
               <span>Consultation Fee</span>
             </div>
             <span className="font-semibold text-success-600">£{doctor?.consultationFee}</span>

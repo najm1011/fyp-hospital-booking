@@ -638,28 +638,28 @@ const BookAppointment = () => {
         Confirm Your Appointment
       </h2>
 
-      <div className="bg-gray-50 rounded-xl p-6 space-y-4 border border-gray-100">
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-          <span className="text-gray-500">Hospital</span>
-          <span className="font-medium text-teal-700">
+      <div className="bg-gray-50 rounded-xl p-4 sm:p-6 space-y-4 border border-gray-100">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
+          <span className="text-gray-500 flex-shrink-0">Hospital</span>
+          <span className="font-medium text-teal-700 text-right truncate">
             {selectedHospital?.name}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-          <span className="text-gray-500">Doctor</span>
-          <span className="font-medium text-gray-900">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
+          <span className="text-gray-500 flex-shrink-0">Doctor</span>
+          <span className="font-medium text-gray-900 text-right truncate">
             Dr. {selectedDoctor?.fullName}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-          <span className="text-gray-500">Specialty</span>
-          <span className="font-medium text-gray-900">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
+          <span className="text-gray-500 flex-shrink-0">Specialty</span>
+          <span className="font-medium text-gray-900 text-right truncate">
             {selectedDoctor?.specialty}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-          <span className="text-gray-500">Department</span>
-          <span className="font-medium text-primary-600">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
+          <span className="text-gray-500 flex-shrink-0">Department</span>
+          <span className="font-medium text-primary-600 text-right truncate">
             {selectedDoctor?.departmentName}
           </span>
         </div>
@@ -674,15 +674,15 @@ const BookAppointment = () => {
             })}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-          <span className="text-gray-500">Time</span>
-          <span className="font-medium text-gray-900">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
+          <span className="text-gray-500 flex-shrink-0">Time</span>
+          <span className="font-medium text-gray-900 text-right">
             {formatTime(selectedSlot?.startTime)} -{' '}
             {formatTime(selectedSlot?.endTime)}
           </span>
         </div>
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-          <span className="text-gray-500">Consultation Fee</span>
+        <div className="flex justify-between items-center pb-4 border-b border-gray-200 gap-2">
+          <span className="text-gray-500 flex-shrink-0">Consultation Fee</span>
           <span className="font-semibold text-success-600">
             £{selectedDoctor?.consultationFee}
           </span>
@@ -843,12 +843,12 @@ const BookAppointment = () => {
     ];
 
     return (
-      <div className="mb-8 overflow-x-auto">
-        <div className="flex items-center justify-center min-w-0">
+      <div className="mb-8">
+        <div className="flex items-center justify-center">
           {progressSteps.map((s, index) => (
-            <div key={s.num} className="flex items-center flex-shrink-0">
+            <div key={s.num} className="flex items-center">
               <div
-                className={`flex items-center justify-center w-9 h-9 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
                   step >= s.num
                     ? 'bg-primary-600 text-white shadow-primary-sm'
                     : 'bg-gray-100 text-gray-500'
@@ -867,7 +867,7 @@ const BookAppointment = () => {
               </span>
               {index < progressSteps.length - 1 && (
                 <div
-                  className={`w-8 sm:w-12 h-1 mx-2 sm:mx-4 rounded-full transition-colors duration-200 ${
+                  className={`w-5 sm:w-12 h-1 mx-1.5 sm:mx-4 rounded-full transition-colors duration-200 ${
                     step > s.num ? 'bg-primary-500' : 'bg-gray-200'
                   }`}
                 />

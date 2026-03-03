@@ -111,7 +111,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                         className="fixed inset-0 z-10"
                         onClick={() => setIsNotificationsOpen(false)}
                       />
-                      <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-80 bg-white rounded-2xl shadow-soft-lg border border-gray-100/80 z-20 overflow-hidden animate-fade-in-down">
+                      <div className="fixed left-4 right-4 top-[4.5rem] sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-80 bg-white rounded-2xl shadow-soft-lg border border-gray-100/80 z-20 overflow-hidden animate-fade-in-down">
                         <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                           <h3 className="text-sm font-semibold text-gray-900">
                             Notifications
@@ -159,7 +159,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                         className="fixed inset-0 z-10"
                         onClick={() => setIsProfileOpen(false)}
                       />
-                      <div className="absolute right-0 mt-2 w-64 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-soft-lg border border-gray-100/80 z-20 overflow-hidden animate-fade-in-down">
+                      <div className="fixed left-4 right-4 top-[4.5rem] sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-64 bg-white rounded-2xl shadow-soft-lg border border-gray-100/80 z-20 overflow-hidden animate-fade-in-down">
                         <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                           <p className="text-sm font-semibold text-gray-900">
                             {user?.firstName} {user?.lastName}

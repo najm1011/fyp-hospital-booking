@@ -63,7 +63,7 @@ const TimeSlotPicker = ({
         ${!slot.available
           ? 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed line-through'
           : isSelected(slot)
-            ? 'border-primary-500 bg-primary-500 text-white shadow-md transform scale-105'
+            ? 'border-primary-500 bg-primary-500 text-white shadow-md'
             : 'border-gray-200 bg-white text-gray-700 hover:border-primary-300 hover:bg-primary-50 hover:shadow-sm'
         }
       `}
@@ -197,21 +197,21 @@ const TimeSlotPicker = ({
         )}
 
         {/* Slots Count */}
-        <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+        <div className="mt-4 pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500">
           <span>
             {slots.filter(s => s.available !== false).length} available slots
           </span>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <div className="flex items-center">
-              <span className="h-3 w-3 rounded border-2 border-gray-200 bg-white mr-1.5" />
+              <span className="h-3 w-3 rounded border-2 border-gray-200 bg-white mr-1" />
               Available
             </div>
             <div className="flex items-center">
-              <span className="h-3 w-3 rounded bg-primary-500 mr-1.5" />
+              <span className="h-3 w-3 rounded bg-primary-500 mr-1" />
               Selected
             </div>
             <div className="flex items-center">
-              <span className="h-3 w-3 rounded bg-gray-100 mr-1.5" />
+              <span className="h-3 w-3 rounded bg-gray-100 mr-1" />
               Booked
             </div>
           </div>

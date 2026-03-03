@@ -214,7 +214,7 @@ const DatePicker = ({
 
       {/* Calendar Dropdown */}
       {isOpen && (
-        <div className="absolute z-50 mt-2 bg-white rounded-2xl shadow-soft-lg border border-gray-100 p-4 w-72">
+        <div className="absolute left-0 z-50 mt-2 bg-white rounded-2xl shadow-soft-lg border border-gray-100 p-3 sm:p-4 w-[calc(100vw-2rem)] sm:w-72">
           {/* Month Navigation */}
           <div className="flex items-center justify-between mb-4">
             <button
