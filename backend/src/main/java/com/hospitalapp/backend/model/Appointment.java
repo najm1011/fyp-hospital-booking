@@ -19,9 +19,6 @@ import java.util.Objects;
         @Index(name = "idx_status", columnList = "status"),
         @Index(name = "idx_created", columnList = "created_at"),
         @Index(name = "idx_composite", columnList = "doctor_id, appointment_date, start_time")
-    },
-    uniqueConstraints = {
-        @UniqueConstraint(name = "unique_doctor_slot", columnNames = {"doctor_id", "appointment_date", "start_time"})
     }
 )
 public class Appointment {
