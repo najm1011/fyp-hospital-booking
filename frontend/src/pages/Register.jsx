@@ -331,25 +331,6 @@ const Register = () => {
               required
             />
 
-            {/* Terms Agreement */}
-            <div className="flex items-start mb-6">
-              <div className="flex items-center h-5">
-                <input
-                  id="terms"
-                  name="terms"
-                  type="checkbox"
-                  required
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded cursor-pointer"
-                />
-              </div>
-              <label htmlFor="terms" className="ml-2 block text-sm text-gray-700 cursor-pointer">
-                I agree to the{' '}
-                <span className="text-primary-600">Terms of Service</span>{' '}
-                and{' '}
-                <span className="text-primary-600">Privacy Policy</span>
-              </label>
-            </div>
-
             {/* Submit Button */}
             <Button
               type="submit"
