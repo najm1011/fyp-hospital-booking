@@ -4,10 +4,6 @@ import {
   FiMail,
   FiPhone,
   FiMapPin,
-  FiFacebook,
-  FiTwitter,
-  FiInstagram,
-  FiLinkedin,
 } from 'react-icons/fi';
 
 const Footer = () => {
@@ -28,13 +24,6 @@ const Footer = () => {
     { name: 'Pediatrics' },
     { name: 'Dermatology' },
     { name: 'General Medicine' },
-  ];
-
-  const socialLinks = [
-    { name: 'Facebook', icon: FiFacebook, url: 'https://facebook.com' },
-    { name: 'Twitter', icon: FiTwitter, url: 'https://twitter.com' },
-    { name: 'Instagram', icon: FiInstagram, url: 'https://instagram.com' },
-    { name: 'LinkedIn', icon: FiLinkedin, url: 'https://linkedin.com' },
   ];
 
   return (
@@ -134,27 +123,10 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="bg-gray-950 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            {/* Copyright */}
-            <p className="text-sm text-gray-500 mb-4 md:mb-0">
+          <div className="text-center">
+            <p className="text-sm text-gray-500">
               © {currentYear} Hospital Booking System. All rights reserved.
             </p>
-
-            {/* Social Links */}
-            <div className="flex items-center space-x-3">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 bg-gray-800 rounded-xl hover:bg-primary-600 transition-all duration-200"
-                  aria-label={social.name}
-                >
-                  <social.icon className="h-4 w-4" />
-                </a>
-              ))}
-            </div>
           </div>
         </div>
       </div>
