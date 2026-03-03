@@ -28,7 +28,7 @@ public class JwtService {
     @Value("${jwt.refresh-expiration:604800000}")
     private long refreshTokenExpiration;
 
-    // ==================== TOKEN GENERATION ====================
+    // --- TOKEN GENERATION ---
 
     public String generateAccessToken(UserDetails userDetails) {
         return generateAccessToken(new HashMap<>(), userDetails);
@@ -55,7 +55,7 @@ public class JwtService {
                 .compact();
     }
 
-    // ==================== TOKEN EXTRACTION ====================
+    // --- TOKEN EXTRACTION ---
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -86,7 +86,7 @@ public class JwtService {
                 .getPayload();
     }
 
-    // ==================== TOKEN VALIDATION ====================
+    // --- TOKEN VALIDATION ---
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         try {
@@ -131,7 +131,7 @@ public class JwtService {
         }
     }
 
-    // ==================== TOKEN REFRESH ====================
+    // --- TOKEN REFRESH ---
 
     public String refreshAccessToken(String refreshToken, UserDetails userDetails) {
         if (!canTokenBeRefreshed(refreshToken)) {
@@ -146,7 +146,7 @@ public class JwtService {
         return generateAccessToken(userDetails);
     }
 
-    // ==================== EXPIRATION TIMES ====================
+    // --- EXPIRATION TIMES ---
 
     public long getAccessTokenExpiration() {
         return accessTokenExpiration;
@@ -166,7 +166,7 @@ public class JwtService {
         }
     }
 
-    // ==================== HELPER METHODS ====================
+    // --- HELPER METHODS ---
 
     private SecretKey getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);

@@ -123,7 +123,7 @@ class AppointmentRepositoryTest {
         appointment3.setDoctorNotes("ECG normal. Advised lifestyle changes.");
     }
 
-    // ==================== CREATE TESTS ====================
+    // --- CREATE TESTS ---
 
     @Test
     @DisplayName("Should create a new appointment")
@@ -165,7 +165,7 @@ class AppointmentRepositoryTest {
         assertThat(saved.getDoctorNotes()).isEqualTo("ECG normal. Advised lifestyle changes.");
     }
 
-    // ==================== READ TESTS ====================
+    // --- READ TESTS ---
 
     @Test
     @DisplayName("Should find appointment by ID")
@@ -345,7 +345,7 @@ class AppointmentRepositoryTest {
         assertThat(found.get().getDoctor()).isNotNull();
     }
 
-    // ==================== UPDATE TESTS ====================
+    // --- UPDATE TESTS ---
 
     @Test
     @DisplayName("Should update appointment status")
@@ -409,7 +409,7 @@ class AppointmentRepositoryTest {
         assertThat(updated.getStatus()).isEqualTo(Appointment.Status.NO_SHOW);
     }
 
-    // ==================== DELETE TESTS ====================
+    // --- DELETE TESTS ---
 
     @Test
     @DisplayName("Should delete appointment by ID")
@@ -447,7 +447,7 @@ class AppointmentRepositoryTest {
         assertThat(appointments).isEmpty();
     }
 
-    // ==================== HELPER METHOD TESTS ====================
+    // --- HELPER METHOD TESTS ---
 
     @Test
     @DisplayName("Should generate confirmation number")

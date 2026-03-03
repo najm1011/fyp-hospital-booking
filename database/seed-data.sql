@@ -1,19 +1,19 @@
--- =============================================================================
+-- ---
 -- Hospital Booking System - Seed Data for Testing
--- =============================================================================
+-- ---
 -- Project: Hospital Appointment Booking System
 -- Student: Najm (2356070)
 -- Purpose: Sample data for development and testing
--- =============================================================================
+-- ---
 
 USE hospital_booking;
 
--- =============================================================================
+-- ---
 -- SAMPLE USERS (Patients)
--- =============================================================================
+-- ---
 -- All passwords: Patient123!
 -- BCrypt hash: $2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYVjHpIZmWu
--- =============================================================================
+-- ---
 
 INSERT INTO users (email, password_hash, first_name, last_name, phone_number, role, is_active) VALUES
 ('sarah.chen@example.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYVjHpIZmWu', 'Sarah', 'Chen', '+44 7700 900001', 'PATIENT', TRUE),
@@ -27,12 +27,12 @@ INSERT INTO users (email, password_hash, first_name, last_name, phone_number, ro
 ('sophia.martinez@example.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYVjHpIZmWu', 'Sophia', 'Martinez', '+44 7700 900009', 'PATIENT', TRUE),
 ('william.johnson@example.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYVjHpIZmWu', 'William', 'Johnson', '+44 7700 900010', 'PATIENT', TRUE);
 
--- =============================================================================
+-- ---
 -- SAMPLE USERS (Doctors)
--- =============================================================================
+-- ---
 -- All passwords: Doctor123!
 -- BCrypt hash: $2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYVjHpIZmWu
--- =============================================================================
+-- ---
 
 INSERT INTO users (email, password_hash, first_name, last_name, phone_number, role, is_active) VALUES
 ('dr.emily.thompson@hospital.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYVjHpIZmWu', 'Emily', 'Thompson', '+44 20 7123 4501', 'DOCTOR', TRUE),
@@ -46,9 +46,9 @@ INSERT INTO users (email, password_hash, first_name, last_name, phone_number, ro
 ('dr.jennifer.harris@hospital.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYVjHpIZmWu', 'Jennifer', 'Harris', '+44 20 7123 4509', 'DOCTOR', TRUE),
 ('dr.christopher.kim@hospital.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYVjHpIZmWu', 'Christopher', 'Kim', '+44 20 7123 4510', 'DOCTOR', TRUE);
 
--- =============================================================================
+-- ---
 -- DOCTOR PROFILES
--- =============================================================================
+-- ---
 
 INSERT INTO doctors (user_id, department_id, specialty, qualifications, bio, consultation_fee) VALUES
 -- Cardiology (Department ID: 1)
@@ -71,9 +71,9 @@ INSERT INTO doctors (user_id, department_id, specialty, qualifications, bio, con
 (19, 5, 'General Pediatrics', 'MBBS, MD (Paeds), MRCPCH', 'Dr. Harris provides comprehensive care for children from infancy through adolescence.', 100.00),
 (20, 5, 'Pediatric Cardiology', 'MD (Paeds), DM (Card)', 'Dr. Kim specializes in pediatric cardiology, treating heart conditions in children.', 170.00);
 
--- =============================================================================
+-- ---
 -- DOCTOR TIME SLOTS (Availability Schedules)
--- =============================================================================
+-- ---
 
 -- Dr. Emily Thompson (Cardiology) - Monday to Friday, 9 AM - 5 PM
 INSERT INTO time_slots (doctor_id, day_of_week, start_time, end_time, is_available) VALUES
@@ -170,11 +170,11 @@ INSERT INTO time_slots (doctor_id, day_of_week, start_time, end_time, is_availab
 (10, 'THURSDAY', '10:00:00', '16:00:00', TRUE),
 (10, 'SATURDAY', '10:00:00', '14:00:00', TRUE);
 
--- =============================================================================
+-- ---
 -- SAMPLE APPOINTMENTS
--- =============================================================================
+-- ---
 -- Note: Update dates to future dates for testing
--- =============================================================================
+-- ---
 
 -- Future appointments (Scheduled)
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, end_time, status, patient_notes) VALUES
@@ -206,9 +206,9 @@ INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, e
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, end_time, status, patient_notes) VALUES
 (8, 6, DATE_SUB(CURDATE(), INTERVAL 2 DAY), '09:00:00', '09:30:00', 'NO_SHOW', 'Follow-up appointment');
 
--- =============================================================================
+-- ---
 -- VERIFICATION
--- =============================================================================
+-- ---
 
 SELECT 'Seed data inserted successfully' AS status;
 
@@ -223,6 +223,6 @@ SELECT
     (SELECT COUNT(*) FROM appointments WHERE status = 'SCHEDULED') AS scheduled_appointments,
     (SELECT COUNT(*) FROM appointments WHERE status = 'COMPLETED') AS completed_appointments;
 
--- =============================================================================
+-- ---
 -- END OF SEED DATA
--- =============================================================================
+-- ---

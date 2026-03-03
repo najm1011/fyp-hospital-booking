@@ -95,7 +95,7 @@ class TimeSlotRepositoryTest {
         tuesdaySlot.setIsAvailable(true);
     }
 
-    // ==================== CREATE TESTS ====================
+    // --- CREATE TESTS ---
 
     @Test
     @DisplayName("Should create a new time slot")
@@ -132,7 +132,7 @@ class TimeSlotRepositoryTest {
         assertThat(slots).hasSize(3);
     }
 
-    // ==================== READ TESTS ====================
+    // --- READ TESTS ---
 
     @Test
     @DisplayName("Should find time slot by ID")
@@ -266,7 +266,7 @@ class TimeSlotRepositoryTest {
         assertThat(notExists).isFalse();
     }
 
-    // ==================== UPDATE TESTS ====================
+    // --- UPDATE TESTS ---
 
     @Test
     @DisplayName("Should update time slot availability")
@@ -304,7 +304,7 @@ class TimeSlotRepositoryTest {
         assertThat(updated.getDayOfWeek()).isEqualTo(DayOfWeek.WEDNESDAY);
     }
 
-    // ==================== DELETE TESTS ====================
+    // --- DELETE TESTS ---
 
     @Test
     @DisplayName("Should delete time slot by ID")

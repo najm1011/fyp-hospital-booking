@@ -1,14 +1,14 @@
--- =============================================================================
+-- ---
 -- Hospital Booking System - Seed Data
--- =============================================================================
+-- ---
 -- Project: Hospital Appointment Booking System
 -- Student: Najm (2356070)
 -- Purpose: Comprehensive sample data for development and testing
--- =============================================================================
+-- ---
 
--- =============================================================================
+-- ---
 -- DEPARTMENTS (10 departments)
--- =============================================================================
+-- ---
 INSERT INTO departments (name, description, created_at) VALUES
 ('Cardiology', 'Heart and cardiovascular system diagnosis and treatment', CURRENT_TIMESTAMP),
 ('Dermatology', 'Skin, hair, and nail conditions treatment', CURRENT_TIMESTAMP),
@@ -21,9 +21,9 @@ INSERT INTO departments (name, description, created_at) VALUES
 ('Psychiatry', 'Mental health diagnosis and treatment', CURRENT_TIMESTAMP),
 ('Gynecology', 'Women health and reproductive system care', CURRENT_TIMESTAMP);
 
--- =============================================================================
+-- ---
 -- USERS (Admin, Doctors, Patients)
--- =============================================================================
+-- ---
 -- Password for all users: "password" (BCrypt hashed with strength 12)
 -- BCrypt hash: $2a$12$yhVaRgEzok4tG81fwQJ0F.laHOaBD7w74rlqS3Gzqj/uGbRYDIaD6
 
@@ -72,9 +72,9 @@ INSERT INTO users (email, password_hash, first_name, last_name, phone_number, ro
 ('harper.mitchell@email.com', '$2a$12$yhVaRgEzok4tG81fwQJ0F.laHOaBD7w74rlqS3Gzqj/uGbRYDIaD6', 'Harper', 'Mitchell', '+44 79 2020 2020', 'PATIENT', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('james.roberts@email.com', '$2a$12$yhVaRgEzok4tG81fwQJ0F.laHOaBD7w74rlqS3Gzqj/uGbRYDIaD6', 'James', 'Roberts', '+44 79 2121 2121', 'PATIENT', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- =============================================================================
+-- ---
 -- DOCTORS (14 doctor profiles linked to doctor users)
--- =============================================================================
+-- ---
 -- User IDs: Admins=1-2, Doctors=3-16, Patients=17-36
 -- Department IDs: Cardiology=1, Dermatology=2, Neurology=3, Orthopedics=4,
 --                 Pediatrics=5, General Medicine=6, Ophthalmology=7, ENT=8,
@@ -115,9 +115,9 @@ INSERT INTO doctors (user_id, department_id, specialty, qualifications, bio, con
 -- Gynecology (1 doctor)
 (16, 10, 'Obstetrics and Gynecology', 'MBBS, MD (OB/GYN), FRCOG', 'Dr. Carlos Martinez provides comprehensive women''s health services including prenatal care, gynecological surgery, and fertility treatments. He has delivered over 2000 babies.', 130.00, CURRENT_TIMESTAMP);
 
--- =============================================================================
+-- ---
 -- TIME SLOTS (Weekly availability for each doctor)
--- =============================================================================
+-- ---
 -- Doctor Profile IDs: 1-14
 
 -- Dr. James Smith (Cardiology) - ID: 1 - Monday, Wednesday, Friday
@@ -358,14 +358,14 @@ INSERT INTO time_slots (doctor_id, day_of_week, start_time, end_time, is_availab
 (14, 'THURSDAY', '14:00:00', '14:30:00', true, CURRENT_TIMESTAMP),
 (14, 'THURSDAY', '14:30:00', '15:00:00', true, CURRENT_TIMESTAMP);
 
--- =============================================================================
+-- ---
 -- SAMPLE APPOINTMENTS (35+ appointments)
--- =============================================================================
+-- ---
 -- Patient IDs: 17-36, Doctor Profile IDs: 1-14
 
--- =============================================================================
+-- ---
 -- UPCOMING APPOINTMENTS (Scheduled for future dates)
--- =============================================================================
+-- ---
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, end_time, status, patient_notes, created_at, updated_at) VALUES
 -- Tomorrow
 (17, 1, CURRENT_DATE + 1, '09:00:00', '09:30:00', 'SCHEDULED', 'Annual heart checkup. Have been experiencing occasional chest tightness.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
@@ -401,9 +401,9 @@ INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, e
 (35, 3, CURRENT_DATE + 14, '15:00:00', '15:30:00', 'SCHEDULED', 'Psoriasis flare-up assessment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (36, 11, CURRENT_DATE + 14, '14:30:00', '15:00:00', 'SCHEDULED', 'Pre-LASIK consultation and eligibility assessment.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- =============================================================================
+-- ---
 -- COMPLETED APPOINTMENTS (Past appointments with doctor notes)
--- =============================================================================
+-- ---
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, end_time, status, patient_notes, doctor_notes, created_at, updated_at) VALUES
 -- Yesterday
 (17, 10, CURRENT_DATE - 1, '09:00:00', '09:30:00', 'COMPLETED', 'Feeling fatigued and low energy.', 'Patient shows signs of vitamin D deficiency. Prescribed supplements 1000 IU daily. Blood test scheduled for follow-up in 4 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
@@ -436,25 +436,25 @@ INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, e
 (30, 14, CURRENT_DATE - 30, '09:00:00', '09:30:00', 'COMPLETED', 'Irregular menstrual cycles for 4 months.', 'Ultrasound shows polycystic ovaries. PCOS likely diagnosis. Hormonal panel ordered. Lifestyle modifications discussed. Metformin considered.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (31, 10, CURRENT_DATE - 30, '14:30:00', '15:00:00', 'COMPLETED', 'Chronic fatigue and weight gain.', 'Thyroid function tests ordered. TSH elevated suggesting hypothyroidism. Started on levothyroxine 50mcg. Recheck in 6 weeks.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- =============================================================================
+-- ---
 -- CANCELLED APPOINTMENTS
--- =============================================================================
+-- ---
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, end_time, status, patient_notes, cancellation_reason, created_at, updated_at) VALUES
 (32, 5, CURRENT_DATE - 3, '14:00:00', '14:30:00', 'CANCELLED', 'Dizziness and balance issues.', 'Patient had work emergency and could not attend.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (33, 11, CURRENT_DATE - 2, '10:00:00', '10:30:00', 'CANCELLED', 'Annual eye examination.', 'Doctor unavailable due to medical conference.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (34, 8, CURRENT_DATE - 4, '09:30:00', '10:00:00', 'CANCELLED', 'Child wellness checkup.', 'Family had to travel unexpectedly.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (35, 1, CURRENT_DATE - 6, '09:00:00', '09:30:00', 'CANCELLED', 'Follow-up for hypertension.', 'Patient feeling much better, requested to postpone.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- =============================================================================
+-- ---
 -- NO-SHOW APPOINTMENTS (Patients who didn't attend)
--- =============================================================================
+-- ---
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, end_time, status, patient_notes, created_at, updated_at) VALUES
 (36, 3, CURRENT_DATE - 8, '15:00:00', '15:30:00', 'NO_SHOW', 'Rash on arms and legs.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (17, 12, CURRENT_DATE - 12, '14:00:00', '14:30:00', 'NO_SHOW', 'Persistent sore throat.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- =============================================================================
+-- ---
 -- END OF SEED DATA
--- =============================================================================
+-- ---
 -- Summary:
 -- - 10 Departments
 -- - 2 Admin users
@@ -467,4 +467,4 @@ INSERT INTO appointments (patient_id, doctor_id, appointment_date, start_time, e
 -- - Admin: admin@hospital.com
 -- - Doctor: dr.smith@hospital.com (or any dr.* email)
 -- - Patient: john.doe@email.com (or any patient email)
--- =============================================================================
+-- ---

@@ -116,7 +116,7 @@ public class DoctorService {
                 .collect(Collectors.toList());
     }
 
-    // ==================== AVAILABILITY METHODS ====================
+    // --- AVAILABILITY METHODS ---
 
     /**
      * Get doctor's full availability information
@@ -254,7 +254,7 @@ public class DoctorService {
         return Math.max(0, totalSlots - bookedSlots);
     }
 
-    // ==================== HELPER METHODS ====================
+    // --- HELPER METHODS ---
 
     /**
      * Calculate total number of appointment slots from time ranges
@@ -293,7 +293,7 @@ public class DoctorService {
         return pastSlots;
     }
 
-    // ==================== AVAILABILITY MANAGEMENT METHODS ====================
+    // --- AVAILABILITY MANAGEMENT METHODS ---
 
     /**
      * Get doctor by user ID

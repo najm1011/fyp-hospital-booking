@@ -40,7 +40,7 @@ const Input = ({
               ? 'text-error-600'
               : isFocused
                 ? 'text-primary-600'
-                : 'text-gray-700'
+                : 'text-gray-700 dark:text-gray-300'
           }`}
         >
           {label}
@@ -79,12 +79,12 @@ const Input = ({
             ${Icon ? 'pl-11' : 'pl-4'}
             ${isPassword || hasError ? 'pr-11' : 'pr-4'}
             py-3
-            text-base text-gray-900 placeholder-gray-400
+            text-base text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500
             ${hasError
-              ? 'border-error-300 bg-error-50/50 focus:border-error-500 focus:ring-4 focus:ring-error-500/10'
-              : 'border-gray-200 bg-white hover:border-gray-300 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10'
+              ? 'border-error-300 bg-error-50/50 focus:border-error-500 focus:ring-4 focus:ring-error-500/10 dark:border-error-500/50 dark:bg-error-900/20'
+              : 'border-gray-200 bg-white hover:border-gray-300 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500 dark:focus:border-primary-400'
             }
-            ${disabled ? 'bg-gray-50 cursor-not-allowed opacity-60' : ''}
+            ${disabled ? 'bg-gray-50 dark:bg-gray-800/50 cursor-not-allowed opacity-60' : ''}
             focus:outline-none
           `}
         />
@@ -114,7 +114,7 @@ const Input = ({
         </p>
       )}
       {helpText && !hasError && (
-        <p id={`${name}-help`} className="mt-1.5 text-sm text-gray-500">{helpText}</p>
+        <p id={`${name}-help`} className="mt-1.5 text-sm text-gray-500 dark:text-gray-400">{helpText}</p>
       )}
     </div>
   );

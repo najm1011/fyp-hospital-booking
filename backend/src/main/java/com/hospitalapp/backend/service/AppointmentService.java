@@ -472,7 +472,7 @@ public class AppointmentService {
         return !appointmentRepository.existsByDoctorDateAndTime(doctorId, date, startTime);
     }
 
-    // ==================== STATISTICS ====================
+    // --- STATISTICS ---
 
     /**
      * Get appointment statistics for a patient
@@ -707,7 +707,7 @@ public class AppointmentService {
         return new ArrayList<>(statsMap.values());
     }
 
-    // ==================== COMMON OPERATIONS ====================
+    // --- COMMON OPERATIONS ---
 
     /**
      * Get a single appointment by ID
@@ -718,7 +718,7 @@ public class AppointmentService {
         return AppointmentResponse.fromEntity(appointment);
     }
 
-    // ==================== HELPER METHODS ====================
+    // --- HELPER METHODS ---
 
     private Appointment getAppointmentById(Long appointmentId) {
         return appointmentRepository.findByIdWithPatientAndDoctor(appointmentId)
@@ -864,7 +864,7 @@ public class AppointmentService {
                 patientId, date, startTime, endTime, excludeAppointmentId);
     }
 
-    // ==================== EMAIL NOTIFICATIONS ====================
+    // --- EMAIL NOTIFICATIONS ---
 
     /**
      * Send booking confirmation email to patient
@@ -912,7 +912,7 @@ public class AppointmentService {
         }
     }
 
-    // ==================== IN-APP NOTIFICATION HELPERS ====================
+    // --- IN-APP NOTIFICATION HELPERS ---
 
     private void sendBookingNotifications(Appointment appointment) {
         try {

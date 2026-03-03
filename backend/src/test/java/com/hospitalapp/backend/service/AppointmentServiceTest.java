@@ -131,7 +131,7 @@ class AppointmentServiceTest {
         createRequest.setPatientNotes("Regular checkup");
     }
 
-    // ==================== BOOK APPOINTMENT TESTS ====================
+    // --- BOOK APPOINTMENT TESTS ---
 
     @Nested
     @DisplayName("Book Appointment Tests")
@@ -273,7 +273,7 @@ class AppointmentServiceTest {
         }
     }
 
-    // ==================== DOUBLE BOOKING PREVENTION TESTS ====================
+    // --- DOUBLE BOOKING PREVENTION TESTS ---
 
     @Nested
     @DisplayName("Double Booking Prevention Tests")
@@ -335,7 +335,7 @@ class AppointmentServiceTest {
         }
     }
 
-    // ==================== CANCEL APPOINTMENT TESTS ====================
+    // --- CANCEL APPOINTMENT TESTS ---
 
     @Nested
     @DisplayName("Cancel Appointment Tests")
@@ -424,7 +424,7 @@ class AppointmentServiceTest {
         }
     }
 
-    // ==================== RESCHEDULE APPOINTMENT TESTS ====================
+    // --- RESCHEDULE APPOINTMENT TESTS ---
 
     @Nested
     @DisplayName("Reschedule Appointment Tests")
@@ -516,7 +516,7 @@ class AppointmentServiceTest {
         }
     }
 
-    // ==================== DOCTOR OPERATIONS TESTS ====================
+    // --- DOCTOR OPERATIONS TESTS ---
 
     @Nested
     @DisplayName("Doctor Operations Tests")
@@ -601,7 +601,7 @@ class AppointmentServiceTest {
         }
     }
 
-    // ==================== PATIENT OPERATIONS TESTS ====================
+    // --- PATIENT OPERATIONS TESTS ---
 
     @Nested
     @DisplayName("Patient Operations Tests")
@@ -629,7 +629,7 @@ class AppointmentServiceTest {
         }
     }
 
-    // ==================== ADMIN OPERATIONS TESTS ====================
+    // --- ADMIN OPERATIONS TESTS ---
 
     @Nested
     @DisplayName("Admin Operations Tests")
@@ -671,7 +671,7 @@ class AppointmentServiceTest {
         }
     }
 
-    // ==================== AVAILABLE SLOTS TESTS ====================
+    // --- AVAILABLE SLOTS TESTS ---
 
     @Nested
     @DisplayName("Available Slots Tests")
@@ -759,7 +759,7 @@ class AppointmentServiceTest {
         }
     }
 
-    // ==================== STATISTICS TESTS ====================
+    // --- STATISTICS TESTS ---
 
     @Nested
     @DisplayName("Statistics Tests")
@@ -831,7 +831,7 @@ class AppointmentServiceTest {
         }
     }
 
-    // ==================== GET APPOINTMENT BY ID TESTS ====================
+    // --- GET APPOINTMENT BY ID TESTS ---
 
     @Nested
     @DisplayName("Get Appointment By ID Tests")

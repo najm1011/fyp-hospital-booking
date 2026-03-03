@@ -1,11 +1,11 @@
--- =============================================================================
+-- ---
 -- Hospital Booking System - PostgreSQL Database Schema
--- =============================================================================
+-- ---
 -- Project: Hospital Appointment Booking System
 -- Student: Najm (2356070)
 -- Database: PostgreSQL 14+
 -- Encoding: UTF-8
--- =============================================================================
+-- ---
 
 -- Drop existing database if exists (WARNING: This will delete all data!)
 -- DROP DATABASE IF EXISTS hospital_booking;
@@ -16,11 +16,11 @@
 -- Connect to the database
 -- \c hospital_booking;
 
--- =============================================================================
+-- ---
 -- TABLE: users
--- =============================================================================
+-- ---
 -- Stores all user accounts (patients, doctors, admins)
--- =============================================================================
+-- ---
 
 CREATE TABLE users (
     id BIGSERIAL PRIMARY KEY,
@@ -41,11 +41,11 @@ CREATE INDEX idx_users_active ON users(is_active);
 CREATE INDEX idx_users_created ON users(created_at);
 CREATE INDEX idx_users_role_active ON users(role, is_active);
 
--- =============================================================================
+-- ---
 -- TABLE: departments
--- =============================================================================
+-- ---
 -- Medical departments (Cardiology, Dermatology, etc.)
--- =============================================================================
+-- ---
 
 CREATE TABLE departments (
     id BIGSERIAL PRIMARY KEY,
@@ -56,11 +56,11 @@ CREATE TABLE departments (
 
 CREATE INDEX idx_departments_name ON departments(name);
 
--- =============================================================================
+-- ---
 -- TABLE: doctors
--- =============================================================================
+-- ---
 -- Doctor-specific profile information
--- =============================================================================
+-- ---
 
 CREATE TABLE doctors (
     id BIGSERIAL PRIMARY KEY,
@@ -78,11 +78,11 @@ CREATE INDEX idx_doctors_user ON doctors(user_id);
 CREATE INDEX idx_doctors_department ON doctors(department_id);
 CREATE INDEX idx_doctors_specialty ON doctors(specialty);
 
--- =============================================================================
+-- ---
 -- TABLE: time_slots
--- =============================================================================
+-- ---
 -- Doctor availability schedule (recurring weekly slots)
--- =============================================================================
+-- ---
 
 CREATE TABLE time_slots (
     id BIGSERIAL PRIMARY KEY,
@@ -100,11 +100,11 @@ CREATE INDEX idx_timeslots_doctor ON time_slots(doctor_id);
 CREATE INDEX idx_timeslots_day ON time_slots(day_of_week);
 CREATE INDEX idx_timeslots_available ON time_slots(is_available);
 
--- =============================================================================
+-- ---
 -- TABLE: appointments
--- =============================================================================
+-- ---
 -- Patient appointment bookings
--- =============================================================================
+-- ---
 
 CREATE TABLE appointments (
     id BIGSERIAL PRIMARY KEY,
@@ -135,9 +135,9 @@ CREATE INDEX idx_appointments_composite ON appointments(doctor_id, appointment_d
 CREATE INDEX idx_appointments_upcoming ON appointments(status, appointment_date, start_time)
     WHERE status = 'SCHEDULED';
 
--- =============================================================================
+-- ---
 -- INITIAL DATA: Departments
--- =============================================================================
+-- ---
 
 INSERT INTO departments (name, description) VALUES
 ('Cardiology', 'Heart and cardiovascular system treatment'),
@@ -146,19 +146,19 @@ INSERT INTO departments (name, description) VALUES
 ('Orthopedics', 'Bone, joint, and muscle treatment'),
 ('Pediatrics', 'Healthcare for infants, children, and adolescents');
 
--- =============================================================================
+-- ---
 -- INITIAL DATA: Admin User
--- =============================================================================
+-- ---
 -- Password: Admin123! (BCrypt hash with cost factor 12)
 -- IMPORTANT: Change this password immediately after first login
--- =============================================================================
+-- ---
 
 INSERT INTO users (email, password_hash, first_name, last_name, role, is_active) VALUES
 ('admin@hospital-booking.com', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYVjHpIZmWu', 'System', 'Administrator', 'ADMIN', TRUE);
 
--- =============================================================================
+-- ---
 -- DATABASE VIEWS
--- =============================================================================
+-- ---
 
 -- View: Active appointments with patient and doctor details
 CREATE OR REPLACE VIEW active_appointments AS
@@ -204,9 +204,9 @@ JOIN departments dep ON d.department_id = dep.id
 LEFT JOIN appointments a ON d.id = a.doctor_id
 GROUP BY d.id, u.first_name, u.last_name, dep.name, d.specialty;
 
--- =============================================================================
+-- ---
 -- FUNCTIONS (PostgreSQL equivalent of stored procedures)
--- =============================================================================
+-- ---
 
 -- Function: Get available time slots for a doctor on a specific date
 CREATE OR REPLACE FUNCTION get_available_slots(
@@ -317,9 +317,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- =============================================================================
+-- ---
 -- TRIGGER FUNCTIONS
--- =============================================================================
+-- ---
 
 -- Trigger function: Auto-update updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -338,11 +338,11 @@ CREATE TRIGGER trigger_appointments_updated_at
     BEFORE UPDATE ON appointments
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
--- =============================================================================
+-- ---
 -- GRANTS AND PERMISSIONS
--- =============================================================================
+-- ---
 -- Create application user with limited privileges
--- =============================================================================
+-- ---
 
 -- Create application database user
 -- IMPORTANT: Change the password in production
@@ -353,9 +353,9 @@ CREATE TRIGGER trigger_appointments_updated_at
 -- GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO hospital_app;
 -- GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO hospital_app;
 
--- =============================================================================
+-- ---
 -- VERIFICATION QUERIES
--- =============================================================================
+-- ---
 
 -- Verify schema creation
 SELECT 'Database schema created successfully' AS status;
@@ -371,6 +371,6 @@ SELECT 'time_slots', COUNT(*) FROM time_slots
 UNION ALL
 SELECT 'appointments', COUNT(*) FROM appointments;
 
--- =============================================================================
+-- ---
 -- END OF SCHEMA
--- =============================================================================
+-- ---

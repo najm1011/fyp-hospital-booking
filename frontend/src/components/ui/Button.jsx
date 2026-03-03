@@ -12,7 +12,7 @@ const Button = ({
   const baseStyles = `
     inline-flex items-center justify-center font-medium rounded-lg
     transition-all duration-200 ease-out
-    focus:outline-none focus:ring-2 focus:ring-offset-2
+    focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900
     disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none
     active:scale-[0.98]
   `;
@@ -27,11 +27,15 @@ const Button = ({
       bg-gray-100 text-gray-700
       hover:bg-gray-200 hover:text-gray-900
       focus:ring-gray-400
+      dark:bg-gray-700 dark:text-gray-200
+      dark:hover:bg-gray-600 dark:hover:text-white
     `,
     outline: `
       border border-gray-300 text-gray-700 bg-white
       hover:border-primary-500 hover:text-primary-600 hover:bg-primary-50
       focus:ring-primary-500
+      dark:border-gray-600 dark:text-gray-300 dark:bg-gray-800
+      dark:hover:border-primary-400 dark:hover:text-primary-400 dark:hover:bg-primary-900/30
     `,
     danger: `
       bg-error-600 text-white
@@ -47,12 +51,15 @@ const Button = ({
       text-gray-600 bg-transparent
       hover:bg-gray-100 hover:text-gray-900
       focus:ring-gray-400
+      dark:text-gray-400
+      dark:hover:bg-gray-800 dark:hover:text-gray-100
     `,
-    // New: subtle variant for secondary actions
     subtle: `
       text-primary-600 bg-primary-50
       hover:bg-primary-100 hover:text-primary-700
       focus:ring-primary-500
+      dark:text-primary-400 dark:bg-primary-900/30
+      dark:hover:bg-primary-900/50 dark:hover:text-primary-300
     `,
   };
 

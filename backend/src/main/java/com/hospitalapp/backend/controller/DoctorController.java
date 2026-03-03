@@ -105,7 +105,7 @@ public class DoctorController {
         return ResponseEntity.ok(doctors);
     }
 
-    // ==================== AVAILABILITY ENDPOINTS ====================
+    // --- AVAILABILITY ENDPOINTS ---
 
     /**
      * Get doctor's full availability information (Public)
@@ -158,7 +158,7 @@ public class DoctorController {
         return ResponseEntity.ok(slots);
     }
 
-    // ==================== DOCTOR'S OWN AVAILABILITY MANAGEMENT ====================
+    // --- DOCTOR'S OWN AVAILABILITY MANAGEMENT ---
 
     /**
      * Get current doctor's time slots (Doctor only)
@@ -244,7 +244,7 @@ public class DoctorController {
         return ResponseEntity.ok(responses);
     }
 
-    // ==================== HELPER METHODS ====================
+    // --- HELPER METHODS ---
 
     private Long getDoctorIdFromUser(Long userId) {
         Doctor doctor = doctorRepository.findByUserId(userId)

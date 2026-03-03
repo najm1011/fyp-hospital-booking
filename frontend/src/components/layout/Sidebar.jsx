@@ -70,7 +70,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-64 bg-white/95 backdrop-blur-lg border-r border-gray-100/80
+          fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-r border-gray-100/80 dark:border-gray-800/80
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0
@@ -89,13 +89,13 @@ const Sidebar = ({ isOpen, onClose }) => {
                   `flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                     isActive
                       ? 'bg-primary-600 text-white shadow-sm shadow-primary-sm'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100'
                   }`
                 }
               >
                 {({ isActive }) => (
                   <>
-                    <item.icon className={`h-5 w-5 mr-3 ${isActive ? '' : 'text-gray-400'}`} />
+                    <item.icon className={`h-5 w-5 mr-3 ${isActive ? '' : 'text-gray-400 dark:text-gray-500'}`} />
                     {item.name}
                   </>
                 )}
@@ -104,7 +104,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           </nav>
 
           {/* Bottom section */}
-          <div className="p-3 border-t border-gray-100">
+          <div className="p-3 border-t border-gray-100 dark:border-gray-800">
             <NavLink
               to="/settings"
               onClick={onClose}
@@ -112,13 +112,13 @@ const Sidebar = ({ isOpen, onClose }) => {
                 `flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                   isActive
                     ? 'bg-primary-600 text-white shadow-sm shadow-primary-sm'
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100'
                 }`
               }
             >
               {({ isActive }) => (
                 <>
-                  <FiSettings className={`h-5 w-5 mr-3 ${isActive ? '' : 'text-gray-400'}`} />
+                  <FiSettings className={`h-5 w-5 mr-3 ${isActive ? '' : 'text-gray-400 dark:text-gray-500'}`} />
                   Settings
                 </>
               )}

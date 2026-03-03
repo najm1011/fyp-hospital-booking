@@ -91,7 +91,7 @@ class DoctorRepositoryTest {
         doctor2.setConsultationFee(new BigDecimal("120.00"));
     }
 
-    // ==================== CREATE TESTS ====================
+    // --- CREATE TESTS ---
 
     @Test
     @DisplayName("Should create a new doctor")
@@ -124,7 +124,7 @@ class DoctorRepositoryTest {
         assertThat(saved.getDepartment().getName()).isEqualTo("Cardiology");
     }
 
-    // ==================== READ TESTS ====================
+    // --- READ TESTS ---
 
     @Test
     @DisplayName("Should find doctor by ID")
@@ -243,7 +243,7 @@ class DoctorRepositoryTest {
         assertThat(found.get().getDepartment().getName()).isEqualTo("Cardiology");
     }
 
-    // ==================== UPDATE TESTS ====================
+    // --- UPDATE TESTS ---
 
     @Test
     @DisplayName("Should update doctor specialty")
@@ -290,7 +290,7 @@ class DoctorRepositoryTest {
         assertThat(updated.getQualifications()).isEqualTo("MBBS, MD, FRCP, PhD");
     }
 
-    // ==================== DELETE TESTS ====================
+    // --- DELETE TESTS ---
 
     @Test
     @DisplayName("Should delete doctor by ID")
@@ -327,7 +327,7 @@ class DoctorRepositoryTest {
         assertThat(doctors).isEmpty();
     }
 
-    // ==================== HELPER METHOD TESTS ====================
+    // --- HELPER METHOD TESTS ---
 
     @Test
     @DisplayName("Should return doctor name from user")

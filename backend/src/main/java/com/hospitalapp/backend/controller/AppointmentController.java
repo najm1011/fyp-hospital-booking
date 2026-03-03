@@ -30,7 +30,7 @@ public class AppointmentController {
         this.doctorRepository = doctorRepository;
     }
 
-    // ==================== PATIENT ENDPOINTS ====================
+    // --- PATIENT ENDPOINTS ---
 
     /**
      * Book a new appointment (Patient only)
@@ -115,7 +115,7 @@ public class AppointmentController {
         return ResponseEntity.ok(stats);
     }
 
-    // ==================== DOCTOR ENDPOINTS ====================
+    // --- DOCTOR ENDPOINTS ---
 
     /**
      * Get all appointments for the current doctor
@@ -259,7 +259,7 @@ public class AppointmentController {
         return ResponseEntity.ok(stats);
     }
 
-    // ==================== ADMIN ENDPOINTS ====================
+    // --- ADMIN ENDPOINTS ---
 
     /**
      * Get all appointments (Admin only)
@@ -412,7 +412,7 @@ public class AppointmentController {
         return ResponseEntity.ok(stats);
     }
 
-    // ==================== PUBLIC/SHARED ENDPOINTS ====================
+    // --- PUBLIC/SHARED ENDPOINTS ---
 
     /**
      * Get available slots for a doctor on a specific date (Public)
@@ -458,7 +458,7 @@ public class AppointmentController {
         return ResponseEntity.ok(appointment);
     }
 
-    // ==================== HELPER METHODS ====================
+    // --- HELPER METHODS ---
 
     private Long getDoctorIdFromUser(Long userId) {
         Doctor doctor = doctorRepository.findByUserId(userId)

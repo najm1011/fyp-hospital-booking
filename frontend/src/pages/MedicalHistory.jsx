@@ -30,7 +30,7 @@ const MedicalHistory = () => {
   // Main tab: 'history' or 'records'
   const [mainTab, setMainTab] = useState('records');
 
-  // ==================== APPOINTMENT HISTORY STATE ====================
+  // --- APPOINTMENT HISTORY STATE ---
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -47,7 +47,7 @@ const MedicalHistory = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // ==================== MEDICAL RECORDS STATE ====================
+  // --- MEDICAL RECORDS STATE ---
   const [records, setRecords] = useState([]);
   const [recordsLoading, setRecordsLoading] = useState(true);
   const [recordsError, setRecordsError] = useState(null);
@@ -64,7 +64,7 @@ const MedicalHistory = () => {
     fetchRecords();
   }, []);
 
-  // ==================== APPOINTMENT HISTORY LOGIC ====================
+  // --- APPOINTMENT HISTORY LOGIC ---
 
   const fetchAppointments = async () => {
     setLoading(true);
@@ -183,7 +183,7 @@ const MedicalHistory = () => {
     { value: 'NO_SHOW', label: 'No Show', count: stats.noShow },
   ];
 
-  // ==================== MEDICAL RECORDS LOGIC ====================
+  // --- MEDICAL RECORDS LOGIC ---
 
   const fetchRecords = async () => {
     setRecordsLoading(true);
@@ -311,7 +311,7 @@ const MedicalHistory = () => {
     });
   };
 
-  // ==================== RENDER ====================
+  // --- RENDER ---
 
   return (
     <div>
@@ -361,7 +361,7 @@ const MedicalHistory = () => {
         </button>
       </div>
 
-      {/* ==================== MEDICAL RECORDS TAB ==================== */}
+      {/* --- MEDICAL RECORDS TAB --- */}
       {mainTab === 'records' && (
         <div>
           {/* Upload Section */}
@@ -622,7 +622,7 @@ const MedicalHistory = () => {
         </div>
       )}
 
-      {/* ==================== APPOINTMENT HISTORY TAB ==================== */}
+      {/* --- APPOINTMENT HISTORY TAB --- */}
       {mainTab === 'history' && (
         <div>
           {/* Error Alert */}

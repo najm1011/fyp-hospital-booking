@@ -319,7 +319,7 @@ const BookAppointment = () => {
     return `${displayHour}:${minutes} ${ampm}`;
   };
 
-  // ==================== STEP RENDERERS ====================
+  // --- STEP RENDERERS ---
 
   // Step 0: Select Hospital
   const renderHospitalSelection = () => (
@@ -765,7 +765,7 @@ const BookAppointment = () => {
     </div>
   );
 
-  // ==================== NAVIGATION ====================
+  // --- NAVIGATION ---
 
   const renderNavigation = () => {
     if (step === 5) return null;
@@ -838,7 +838,7 @@ const BookAppointment = () => {
     );
   };
 
-  // ==================== PROGRESS BAR ====================
+  // --- PROGRESS BAR ---
 
   const renderProgress = () => {
     if (step === 5) return null;
@@ -888,7 +888,7 @@ const BookAppointment = () => {
     );
   };
 
-  // ==================== MAIN RENDER ====================
+  // --- MAIN RENDER ---
 
   return (
     <div className="max-w-4xl mx-auto">

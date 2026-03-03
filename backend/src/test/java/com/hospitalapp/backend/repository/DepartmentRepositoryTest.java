@@ -42,7 +42,7 @@ class DepartmentRepositoryTest {
         neurology.setDescription("Brain, spinal cord, and nervous system disorders");
     }
 
-    // ==================== CREATE TESTS ====================
+    // --- CREATE TESTS ---
 
     @Test
     @DisplayName("Should create a new department")
@@ -68,7 +68,7 @@ class DepartmentRepositoryTest {
         assertThat(departments).hasSize(3);
     }
 
-    // ==================== READ TESTS ====================
+    // --- READ TESTS ---
 
     @Test
     @DisplayName("Should find department by ID")
@@ -150,7 +150,7 @@ class DepartmentRepositoryTest {
         assertThat(results).hasSize(1);
     }
 
-    // ==================== UPDATE TESTS ====================
+    // --- UPDATE TESTS ---
 
     @Test
     @DisplayName("Should update department name")
@@ -175,7 +175,7 @@ class DepartmentRepositoryTest {
         assertThat(updated.getDescription()).isEqualTo("Updated description for heart department");
     }
 
-    // ==================== DELETE TESTS ====================
+    // --- DELETE TESTS ---
 
     @Test
     @DisplayName("Should delete department by ID")
@@ -213,7 +213,7 @@ class DepartmentRepositoryTest {
         assertThat(departments).isEmpty();
     }
 
-    // ==================== COUNT TESTS ====================
+    // --- COUNT TESTS ---
 
     @Test
     @DisplayName("Should count total departments")

@@ -295,7 +295,7 @@ public class EmailService {
         sendHtmlEmail(email, subject, htmlContent);
     }
 
-    // ==================== FALLBACK TEMPLATES ====================
+    // --- FALLBACK TEMPLATES ---
 
     private String buildFallbackConfirmationEmail(Map<String, String> vars) {
         return """

@@ -57,7 +57,7 @@ class UserRepositoryTest {
         testAdmin.setIsActive(true);
     }
 
-    // ==================== CREATE TESTS ====================
+    // --- CREATE TESTS ---
 
     @Test
     @DisplayName("Should create a new patient user")
@@ -91,7 +91,7 @@ class UserRepositoryTest {
         assertThat(savedUser.getRole()).isEqualTo(User.Role.ADMIN);
     }
 
-    // ==================== READ TESTS ====================
+    // --- READ TESTS ---
 
     @Test
     @DisplayName("Should find user by ID")
@@ -208,7 +208,7 @@ class UserRepositoryTest {
         assertThat(doctorCount).isEqualTo(1);
     }
 
-    // ==================== UPDATE TESTS ====================
+    // --- UPDATE TESTS ---
 
     @Test
     @DisplayName("Should update user email")
@@ -258,7 +258,7 @@ class UserRepositoryTest {
         assertThat(updatedUser.getPhoneNumber()).isEqualTo("079-9999-8888");
     }
 
-    // ==================== DELETE TESTS ====================
+    // --- DELETE TESTS ---
 
     @Test
     @DisplayName("Should delete user by ID")
@@ -296,7 +296,7 @@ class UserRepositoryTest {
         assertThat(users).isEmpty();
     }
 
-    // ==================== HELPER METHOD TESTS ====================
+    // --- HELPER METHOD TESTS ---
 
     @Test
     @DisplayName("Should return full name correctly")

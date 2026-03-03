@@ -47,42 +47,42 @@ const Toast = ({
   const typeConfig = {
     success: {
       icon: FiCheckCircle,
-      bgColor: 'bg-white',
-      borderColor: 'border-success-200',
-      iconBg: 'bg-success-100',
+      bgColor: 'bg-white dark:bg-gray-800',
+      borderColor: 'border-success-200 dark:border-success-800',
+      iconBg: 'bg-success-100 dark:bg-success-900/30',
       iconColor: 'text-success-600',
-      titleColor: 'text-gray-900',
-      messageColor: 'text-gray-600',
+      titleColor: 'text-gray-900 dark:text-gray-100',
+      messageColor: 'text-gray-600 dark:text-gray-400',
       progressColor: 'bg-gradient-to-r from-success-400 to-success-500',
     },
     error: {
       icon: FiXCircle,
-      bgColor: 'bg-white',
-      borderColor: 'border-error-200',
-      iconBg: 'bg-error-100',
+      bgColor: 'bg-white dark:bg-gray-800',
+      borderColor: 'border-error-200 dark:border-error-800',
+      iconBg: 'bg-error-100 dark:bg-error-900/30',
       iconColor: 'text-error-600',
-      titleColor: 'text-gray-900',
-      messageColor: 'text-gray-600',
+      titleColor: 'text-gray-900 dark:text-gray-100',
+      messageColor: 'text-gray-600 dark:text-gray-400',
       progressColor: 'bg-gradient-to-r from-error-400 to-error-500',
     },
     warning: {
       icon: FiAlertCircle,
-      bgColor: 'bg-white',
-      borderColor: 'border-amber-200',
-      iconBg: 'bg-amber-100',
+      bgColor: 'bg-white dark:bg-gray-800',
+      borderColor: 'border-amber-200 dark:border-amber-800',
+      iconBg: 'bg-amber-100 dark:bg-amber-900/30',
       iconColor: 'text-amber-600',
-      titleColor: 'text-gray-900',
-      messageColor: 'text-gray-600',
+      titleColor: 'text-gray-900 dark:text-gray-100',
+      messageColor: 'text-gray-600 dark:text-gray-400',
       progressColor: 'bg-gradient-to-r from-amber-400 to-amber-500',
     },
     info: {
       icon: FiInfo,
-      bgColor: 'bg-white',
-      borderColor: 'border-primary-200',
-      iconBg: 'bg-primary-100',
+      bgColor: 'bg-white dark:bg-gray-800',
+      borderColor: 'border-primary-200 dark:border-primary-800',
+      iconBg: 'bg-primary-100 dark:bg-primary-900/30',
       iconColor: 'text-primary-600',
-      titleColor: 'text-gray-900',
-      messageColor: 'text-gray-600',
+      titleColor: 'text-gray-900 dark:text-gray-100',
+      messageColor: 'text-gray-600 dark:text-gray-400',
       progressColor: 'bg-gradient-to-r from-primary-400 to-primary-500',
     },
   };
@@ -119,7 +119,7 @@ const Toast = ({
           <div className="ml-4 flex-shrink-0">
             <button
               onClick={handleClose}
-              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200"
+              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-500 dark:hover:text-gray-300 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200"
             >
               <span className="sr-only">Close</span>
               <FiX className="h-4 w-4" />
@@ -130,7 +130,7 @@ const Toast = ({
 
       {/* Progress bar for auto-dismiss */}
       {duration > 0 && (
-        <div className="h-1 w-full bg-gray-100">
+        <div className="h-1 w-full bg-gray-100 dark:bg-gray-700">
           <div
             className={`h-full ${config.progressColor} transition-all ease-linear`}
             style={{
