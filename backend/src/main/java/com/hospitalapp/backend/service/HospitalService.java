@@ -44,8 +44,10 @@ public class HospitalService {
 
     @Transactional(readOnly = true)
     public List<HospitalResponse> getAllHospitals() {
+        long doctorCount = doctorRepository.countAllActiveDoctors();
+        long departmentCount = doctorRepository.countAllActiveDepartments();
         return hospitalRepository.findAllActive().stream()
-                .map(this::toResponseWithCounts)
+                .map(h -> toResponseWithCounts(h, doctorCount, departmentCount))
                 .collect(Collectors.toList());
     }
 
@@ -53,14 +55,18 @@ public class HospitalService {
     public HospitalResponse getHospitalById(Long id) {
         Hospital hospital = hospitalRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Hospital", "id", id));
-        return toResponseWithCounts(hospital);
+        return toResponseWithCounts(hospital,
+                doctorRepository.countAllActiveDoctors(),
+                doctorRepository.countAllActiveDepartments());
     }
 
     @Transactional(readOnly = true)
     public HospitalResponse getHospitalByOdsCode(String odsCode) {
         Hospital hospital = hospitalRepository.findByOdsCode(odsCode)
                 .orElseThrow(() -> new ResourceNotFoundException("Hospital", "odsCode", odsCode));
-        return toResponseWithCounts(hospital);
+        return toResponseWithCounts(hospital,
+                doctorRepository.countAllActiveDoctors(),
+                doctorRepository.countAllActiveDepartments());
     }
 
     @Transactional(readOnly = true)
@@ -68,8 +74,10 @@ public class HospitalService {
         if (query == null || query.trim().isEmpty()) {
             return getAllHospitals();
         }
+        long doctorCount = doctorRepository.countAllActiveDoctors();
+        long departmentCount = doctorRepository.countAllActiveDepartments();
         return hospitalRepository.searchHospitals(query.trim()).stream()
-                .map(this::toResponseWithCounts)
+                .map(h -> toResponseWithCounts(h, doctorCount, departmentCount))
                 .collect(Collectors.toList());
     }
 
@@ -226,11 +234,10 @@ public class HospitalService {
         return sb.toString();
     }
 
-    private HospitalResponse toResponseWithCounts(Hospital hospital) {
+    private HospitalResponse toResponseWithCounts(Hospital hospital, long doctorCount, long departmentCount) {
         HospitalResponse response = HospitalResponse.fromEntity(hospital);
-        // Prototype: show total doctors/departments across platform for every hospital
-        response.setDoctorCount(doctorRepository.countAllActiveDoctors());
-        response.setDepartmentCount(doctorRepository.countAllActiveDepartments());
+        response.setDoctorCount(doctorCount);
+        response.setDepartmentCount(departmentCount);
         return response;
     }
 }
