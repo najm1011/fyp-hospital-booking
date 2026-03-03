@@ -33,6 +33,7 @@ public class AppointmentService {
     private final TimeSlotRepository timeSlotRepository;
     private final DepartmentRepository departmentRepository;
     private final EmailService emailService;
+    private final NotificationService notificationService;
 
     @Value("${app.appointment.slot-duration:30}")
     private int slotDurationMinutes;
@@ -52,13 +53,15 @@ public class AppointmentService {
             UserRepository userRepository,
             TimeSlotRepository timeSlotRepository,
             DepartmentRepository departmentRepository,
-            EmailService emailService) {
+            EmailService emailService,
+            NotificationService notificationService) {
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
         this.userRepository = userRepository;
         this.timeSlotRepository = timeSlotRepository;
         this.departmentRepository = departmentRepository;
         this.emailService = emailService;
+        this.notificationService = notificationService;
     }
 
     // ---------------- PATIENT OPERATIONS --------------
@@ -154,6 +157,9 @@ public class AppointmentService {
 
         // Send confirmation email
         sendBookingConfirmationEmail(savedAppointment);
+
+        // In-app notifications
+        sendBookingNotifications(savedAppointment);
 
         return AppointmentResponse.fromEntity(savedAppointment);
     }
@@ -754,6 +760,9 @@ public class AppointmentService {
         // Send cancellation email
         sendCancellationEmail(savedAppointment, reason);
 
+        // In-app notifications
+        sendCancellationNotifications(savedAppointment);
+
         return AppointmentResponse.fromEntity(savedAppointment);
     }
 
@@ -799,6 +808,10 @@ public class AppointmentService {
         appointment.setEndTime(newEndTime);
 
         Appointment savedAppointment = appointmentRepository.save(appointment);
+
+        // In-app notifications
+        sendRescheduleNotifications(savedAppointment);
+
         return AppointmentResponse.fromEntity(savedAppointment);
     }
 
@@ -897,5 +910,108 @@ public class AppointmentService {
         } catch (Exception e) {
             logger.error("Failed to send cancellation email: {}", e.getMessage());
         }
+    }
+
+    // ==================== IN-APP NOTIFICATION HELPERS ====================
+
+    private void sendBookingNotifications(Appointment appointment) {
+        try {
+            User patient = appointment.getPatient();
+            Doctor doctor = appointment.getDoctor();
+            String doctorName = "Dr. " + doctor.getUser().getFirstName() + " " + doctor.getUser().getLastName();
+            String patientName = patient.getFirstName() + " " + patient.getLastName();
+            String date = appointment.getAppointmentDate().toString();
+            String time = formatTimeForNotification(appointment.getStartTime());
+
+            // Notify patient
+            notificationService.createNotification(
+                    patient,
+                    Notification.Type.APPOINTMENT_BOOKED,
+                    "Appointment Confirmed",
+                    "Your appointment with " + doctorName + " on " + date + " at " + time + " has been confirmed.",
+                    appointment.getId()
+            );
+
+            // Notify doctor
+            notificationService.createNotification(
+                    doctor.getUser(),
+                    Notification.Type.APPOINTMENT_BOOKED,
+                    "New Appointment",
+                    patientName + " has booked an appointment on " + date + " at " + time + ".",
+                    appointment.getId()
+            );
+        } catch (Exception e) {
+            logger.error("Failed to send booking notifications: {}", e.getMessage());
+        }
+    }
+
+    private void sendCancellationNotifications(Appointment appointment) {
+        try {
+            User patient = appointment.getPatient();
+            Doctor doctor = appointment.getDoctor();
+            String doctorName = "Dr. " + doctor.getUser().getFirstName() + " " + doctor.getUser().getLastName();
+            String patientName = patient.getFirstName() + " " + patient.getLastName();
+            String date = appointment.getAppointmentDate().toString();
+            String time = formatTimeForNotification(appointment.getStartTime());
+
+            // Notify patient
+            notificationService.createNotification(
+                    patient,
+                    Notification.Type.APPOINTMENT_CANCELLED,
+                    "Appointment Cancelled",
+                    "Your appointment with " + doctorName + " on " + date + " at " + time + " has been cancelled.",
+                    appointment.getId()
+            );
+
+            // Notify doctor
+            notificationService.createNotification(
+                    doctor.getUser(),
+                    Notification.Type.APPOINTMENT_CANCELLED,
+                    "Appointment Cancelled",
+                    patientName + "'s appointment on " + date + " at " + time + " has been cancelled.",
+                    appointment.getId()
+            );
+        } catch (Exception e) {
+            logger.error("Failed to send cancellation notifications: {}", e.getMessage());
+        }
+    }
+
+    private void sendRescheduleNotifications(Appointment appointment) {
+        try {
+            User patient = appointment.getPatient();
+            Doctor doctor = appointment.getDoctor();
+            String doctorName = "Dr. " + doctor.getUser().getFirstName() + " " + doctor.getUser().getLastName();
+            String patientName = patient.getFirstName() + " " + patient.getLastName();
+            String date = appointment.getAppointmentDate().toString();
+            String time = formatTimeForNotification(appointment.getStartTime());
+
+            // Notify patient
+            notificationService.createNotification(
+                    patient,
+                    Notification.Type.APPOINTMENT_RESCHEDULED,
+                    "Appointment Rescheduled",
+                    "Your appointment with " + doctorName + " has been rescheduled to " + date + " at " + time + ".",
+                    appointment.getId()
+            );
+
+            // Notify doctor
+            notificationService.createNotification(
+                    doctor.getUser(),
+                    Notification.Type.APPOINTMENT_RESCHEDULED,
+                    "Appointment Rescheduled",
+                    patientName + "'s appointment has been rescheduled to " + date + " at " + time + ".",
+                    appointment.getId()
+            );
+        } catch (Exception e) {
+            logger.error("Failed to send reschedule notifications: {}", e.getMessage());
+        }
+    }
+
+    private String formatTimeForNotification(LocalTime time) {
+        int hour = time.getHour();
+        String ampm = hour >= 12 ? "PM" : "AM";
+        int displayHour = hour % 12;
+        if (displayHour == 0) displayHour = 12;
+        return String.format("%d:%02d %s", displayHour, time.getMinute(), ampm);
     }
 }

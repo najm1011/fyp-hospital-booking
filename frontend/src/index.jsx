@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
+import { NotificationProvider } from './context/NotificationContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import './index.css';
 import App from './App';
@@ -13,9 +14,11 @@ root.render(
     <ErrorBoundary>
       <BrowserRouter>
         <AuthProvider>
-          <ToastProvider position="top-right">
-            <App />
-          </ToastProvider>
+          <NotificationProvider>
+            <ToastProvider position="top-right">
+              <App />
+            </ToastProvider>
+          </NotificationProvider>
         </AuthProvider>
       </BrowserRouter>
     </ErrorBoundary>

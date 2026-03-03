@@ -9,12 +9,18 @@ import {
   FiSettings,
   FiChevronDown,
   FiBell,
+  FiCalendar,
+  FiXCircle,
+  FiRefreshCw,
+  FiCheck,
 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
+import { useNotifications } from '../../context/NotificationContext';
 
 const Navbar = ({ onMenuClick, isSidebarOpen }) => {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
+  const { notifications, unreadCount, loading: notificationsLoading, fetchNotifications, markAsRead, markAllAsRead } = useNotifications();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
@@ -93,15 +99,24 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                 {/* Notifications */}
                 <div className="relative">
                   <button
-                    onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+                    onClick={() => {
+                      const opening = !isNotificationsOpen;
+                      setIsNotificationsOpen(opening);
+                      if (opening) fetchNotifications();
+                    }}
                     aria-label="Notifications"
                     aria-expanded={isNotificationsOpen}
                     aria-haspopup="true"
                     className="p-2.5 rounded-xl text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500/40 relative transition-colors"
                   >
                     <FiBell className="h-5 w-5" />
-                    {/* Notification badge */}
-                    <span className="absolute top-1.5 right-1.5 h-2 w-2 bg-error-500 rounded-full ring-2 ring-white"></span>
+                    {unreadCount > 0 && (
+                      <span className="absolute -top-0.5 -right-0.5 h-5 w-5 bg-error-500 rounded-full ring-2 ring-white flex items-center justify-center">
+                        <span className="text-[10px] font-bold text-white">
+                          {unreadCount > 9 ? '9+' : unreadCount}
+                        </span>
+                      </span>
+                    )}
                   </button>
 
                   {/* Notifications dropdown */}
@@ -111,17 +126,77 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                         className="fixed inset-0 z-10"
                         onClick={() => setIsNotificationsOpen(false)}
                       />
-                      <div className="fixed left-4 right-4 top-[4.5rem] sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-80 bg-white rounded-2xl shadow-soft-lg border border-gray-100/80 z-20 overflow-hidden animate-fade-in-down">
-                        <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+                      <div className="fixed left-4 right-4 top-[4.5rem] sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-96 bg-white rounded-2xl shadow-soft-lg border border-gray-100/80 z-20 overflow-hidden animate-fade-in-down">
+                        <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex items-center justify-between">
                           <h3 className="text-sm font-semibold text-gray-900">
                             Notifications
                           </h3>
+                          {unreadCount > 0 && (
+                            <button
+                              onClick={markAllAsRead}
+                              className="text-xs text-primary-600 hover:text-primary-700 font-medium"
+                            >
+                              Mark all as read
+                            </button>
+                          )}
                         </div>
-                        <div className="p-6 text-sm text-gray-500 text-center">
-                          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <FiBell className="h-5 w-5 text-gray-400" />
-                          </div>
-                          No new notifications
+                        <div className="max-h-80 overflow-y-auto">
+                          {notificationsLoading ? (
+                            <div className="p-6 text-sm text-gray-500 text-center">
+                              Loading...
+                            </div>
+                          ) : notifications.length === 0 ? (
+                            <div className="p-6 text-sm text-gray-500 text-center">
+                              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <FiBell className="h-5 w-5 text-gray-400" />
+                              </div>
+                              No notifications yet
+                            </div>
+                          ) : (
+                            notifications.map((notification) => {
+                              const icon = notification.type === 'APPOINTMENT_BOOKED' ? FiCalendar
+                                : notification.type === 'APPOINTMENT_CANCELLED' ? FiXCircle
+                                : FiRefreshCw;
+                              const iconColor = notification.type === 'APPOINTMENT_BOOKED' ? 'text-success-600 bg-success-50'
+                                : notification.type === 'APPOINTMENT_CANCELLED' ? 'text-error-600 bg-error-50'
+                                : 'text-primary-600 bg-primary-50';
+                              const Icon = icon;
+
+                              return (
+                                <button
+                                  key={notification.id}
+                                  onClick={() => {
+                                    if (!notification.read) markAsRead(notification.id);
+                                  }}
+                                  className={`w-full text-left p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors ${
+                                    !notification.read ? 'bg-primary-50/30' : ''
+                                  }`}
+                                >
+                                  <div className="flex items-start gap-3">
+                                    <div className={`p-2 rounded-lg flex-shrink-0 ${iconColor}`}>
+                                      <Icon className="h-4 w-4" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <div className="flex items-center gap-2">
+                                        <p className={`text-sm ${!notification.read ? 'font-semibold text-gray-900' : 'font-medium text-gray-700'}`}>
+                                          {notification.title}
+                                        </p>
+                                        {!notification.read && (
+                                          <span className="h-2 w-2 bg-primary-500 rounded-full flex-shrink-0" />
+                                        )}
+                                      </div>
+                                      <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">
+                                        {notification.message}
+                                      </p>
+                                      <p className="text-xs text-gray-400 mt-1">
+                                        {notification.timeAgo}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </button>
+                              );
+                            })
+                          )}
                         </div>
                       </div>
                     </>
