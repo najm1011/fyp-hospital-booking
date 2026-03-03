@@ -46,12 +46,19 @@ public class EmailService {
     @Value("${app.email.enabled:false}")
     private boolean emailEnabled;
 
+    @Value("${spring.mail.username:NOT_SET}")
+    private String smtpUsername;
+
+    @Value("${spring.mail.host:NOT_SET}")
+    private String smtpHost;
+
     public EmailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
     @PostConstruct
     public void init() {
+        logger.info("EMAIL CONFIG => host={}, username={}, enabled={}", smtpHost, smtpUsername, emailEnabled);
         loadTemplates();
     }
 
