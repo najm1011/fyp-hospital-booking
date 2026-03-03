@@ -385,6 +385,14 @@ const Register = () => {
               </Link>
             </div>
           </div>
+
+          {/* Doctor Notice */}
+          <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <p className="text-sm text-blue-800">
+              <span className="font-semibold">Are you a healthcare professional?</span>{' '}
+              Doctor accounts are created by hospital administrators. Please contact your hospital's admin team to get your account set up.
+            </p>
+          </div>
         </div>
       </div>
     </div>
