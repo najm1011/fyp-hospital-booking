@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   FiActivity,
@@ -23,6 +23,22 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
   const { notifications, unreadCount, loading: notificationsLoading, fetchNotifications, markAsRead, markAllAsRead } = useNotifications();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const notificationRef = useRef(null);
+  const profileRef = useRef(null);
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (notificationRef.current && !notificationRef.current.contains(e.target)) {
+        setIsNotificationsOpen(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Close dropdowns on Escape key
   useEffect(() => {
@@ -97,7 +113,7 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
             {isAuthenticated ? (
               <>
                 {/* Notifications */}
-                <div className="relative">
+                <div className="relative" ref={notificationRef}>
                   <button
                     onClick={() => {
                       const opening = !isNotificationsOpen;
@@ -121,11 +137,6 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
 
                   {/* Notifications dropdown */}
                   {isNotificationsOpen && (
-                    <>
-                      <div
-                        className="fixed inset-0 z-10"
-                        onClick={() => setIsNotificationsOpen(false)}
-                      />
                       <div className="fixed left-4 right-4 top-[4.5rem] sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-96 bg-white rounded-2xl shadow-soft-lg border border-gray-100/80 z-20 overflow-hidden animate-fade-in-down">
                         <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex items-center justify-between">
                           <h3 className="text-sm font-semibold text-gray-900">
@@ -199,12 +210,11 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                           )}
                         </div>
                       </div>
-                    </>
                   )}
                 </div>
 
                 {/* Profile dropdown */}
-                <div className="relative">
+                <div className="relative" ref={profileRef}>
                   <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                     aria-label="User menu"
@@ -229,11 +239,6 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
 
                   {/* Profile dropdown menu */}
                   {isProfileOpen && (
-                    <>
-                      <div
-                        className="fixed inset-0 z-10"
-                        onClick={() => setIsProfileOpen(false)}
-                      />
                       <div className="fixed left-4 right-4 top-[4.5rem] sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-64 bg-white rounded-2xl shadow-soft-lg border border-gray-100/80 z-20 overflow-hidden animate-fade-in-down">
                         <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                           <p className="text-sm font-semibold text-gray-900">
@@ -278,7 +283,6 @@ const Navbar = ({ onMenuClick, isSidebarOpen }) => {
                           </button>
                         </div>
                       </div>
-                    </>
                   )}
                 </div>
               </>
