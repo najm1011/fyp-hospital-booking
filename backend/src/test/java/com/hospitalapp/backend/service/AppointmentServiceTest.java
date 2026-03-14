@@ -47,6 +47,15 @@ class AppointmentServiceTest {
     @Mock
     private TimeSlotRepository timeSlotRepository;
 
+    @Mock
+    private DepartmentRepository departmentRepository;
+
+    @Mock
+    private EmailService emailService;
+
+    @Mock
+    private NotificationService notificationService;
+
     @InjectMocks
     private AppointmentService appointmentService;
 
@@ -772,10 +781,14 @@ class AppointmentServiceTest {
 
             Appointment scheduled = new Appointment();
             scheduled.setStatus(Appointment.Status.SCHEDULED);
+            scheduled.setAppointmentDate(futureDate);
+            scheduled.setDoctor(doctor);
             appointments.add(scheduled);
 
             Appointment completed = new Appointment();
             completed.setStatus(Appointment.Status.COMPLETED);
+            completed.setAppointmentDate(LocalDate.now().minusDays(7));
+            completed.setDoctor(doctor);
             appointments.add(completed);
 
             when(appointmentRepository.findByPatientId(1L)).thenReturn(appointments);
@@ -795,14 +808,20 @@ class AppointmentServiceTest {
 
             Appointment completed1 = new Appointment();
             completed1.setStatus(Appointment.Status.COMPLETED);
+            completed1.setAppointmentDate(LocalDate.now().minusDays(7));
+            completed1.setPatient(patient);
             appointments.add(completed1);
 
             Appointment completed2 = new Appointment();
             completed2.setStatus(Appointment.Status.COMPLETED);
+            completed2.setAppointmentDate(LocalDate.now().minusDays(3));
+            completed2.setPatient(patient);
             appointments.add(completed2);
 
             Appointment cancelled = new Appointment();
             cancelled.setStatus(Appointment.Status.CANCELLED);
+            cancelled.setAppointmentDate(LocalDate.now().minusDays(1));
+            cancelled.setPatient(patient);
             appointments.add(cancelled);
 
             when(appointmentRepository.findByDoctorId(1L)).thenReturn(appointments);
@@ -821,6 +840,13 @@ class AppointmentServiceTest {
             when(appointmentRepository.countByStatus(Appointment.Status.COMPLETED)).thenReturn(50L);
             when(appointmentRepository.countByStatus(Appointment.Status.CANCELLED)).thenReturn(5L);
             when(appointmentRepository.countByStatus(Appointment.Status.NO_SHOW)).thenReturn(3L);
+            when(appointmentRepository.countByAppointmentDate(any(LocalDate.class))).thenReturn(4L);
+            when(appointmentRepository.countByAppointmentDateAndStatus(any(LocalDate.class), any())).thenReturn(2L);
+            when(appointmentRepository.countByAppointmentDateBetween(any(LocalDate.class), any(LocalDate.class))).thenReturn(20L);
+            when(doctorRepository.count()).thenReturn(8L);
+            when(userRepository.countByRole(User.Role.PATIENT)).thenReturn(100L);
+            when(departmentRepository.count()).thenReturn(5L);
+            when(userRepository.count()).thenReturn(120L);
 
             AppointmentStatsResponse stats = appointmentService.getOverallStats();
 

@@ -5,6 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
  * constraint with a partial unique index that excludes cancelled appointments.
  *
  * This allows a slot to be rebooked after cancellation.
+ * Skipped in test profile since H2 doesn't support PostgreSQL partial indexes.
  */
 @Component
+@Profile("!test")
 public class SchemaFixMigration {
 
     private static final Logger log = LoggerFactory.getLogger(SchemaFixMigration.class);
