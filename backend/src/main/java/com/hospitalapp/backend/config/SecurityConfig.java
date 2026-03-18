@@ -53,6 +53,7 @@ public class SecurityConfig {
                         // Public endpoints
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/manifest.json", "/favicon.ico", "/static/**").permitAll()
 
                         // Public read access to departments, doctors, and hospitals
                         .requestMatchers(HttpMethod.GET, "/api/v1/departments/**").permitAll()
