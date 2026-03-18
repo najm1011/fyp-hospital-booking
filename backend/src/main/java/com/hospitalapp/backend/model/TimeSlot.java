@@ -11,9 +11,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "time_slots", indexes = {
-    @Index(name = "idx_doctor", columnList = "doctor_id"),
-    @Index(name = "idx_day", columnList = "day_of_week"),
-    @Index(name = "idx_available", columnList = "is_available")
+    @Index(name = "idx_timeslot_doctor", columnList = "doctor_id"),
+    @Index(name = "idx_timeslot_day", columnList = "day_of_week"),
+    @Index(name = "idx_timeslot_available", columnList = "is_available")
 })
 public class TimeSlot {
 

@@ -13,11 +13,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "appointments",
     indexes = {
-        @Index(name = "idx_patient", columnList = "patient_id"),
-        @Index(name = "idx_doctor", columnList = "doctor_id"),
-        @Index(name = "idx_date", columnList = "appointment_date"),
-        @Index(name = "idx_status", columnList = "status"),
-        @Index(name = "idx_created", columnList = "created_at"),
+        @Index(name = "idx_appt_patient", columnList = "patient_id"),
+        @Index(name = "idx_appt_doctor", columnList = "doctor_id"),
+        @Index(name = "idx_appt_date", columnList = "appointment_date"),
+        @Index(name = "idx_appt_status", columnList = "status"),
+        @Index(name = "idx_appointments_created", columnList = "created_at"),
         @Index(name = "idx_composite", columnList = "doctor_id, appointment_date, start_time")
     }
 )

@@ -15,7 +15,7 @@ import java.util.Objects;
     @Index(name = "idx_email", columnList = "email"),
     @Index(name = "idx_role", columnList = "role"),
     @Index(name = "idx_active", columnList = "is_active"),
-    @Index(name = "idx_created", columnList = "created_at")
+    @Index(name = "idx_users_created", columnList = "created_at")
 })
 public class User {
 
