@@ -88,7 +88,7 @@ public class DataSeeder implements CommandLineRunner {
                 "Isabella", "Lucy", "Claire", "Fiona", "Megan", "Karen", "Grace"
         );
 
-        List<Doctor> doctorsWithoutPhotos = doctorRepository.findAll().stream()
+        List<Doctor> doctorsWithoutPhotos = doctorRepository.findAllWithAssociations().stream()
                 .filter(d -> d.getPhotoUrl() == null || d.getPhotoUrl().isBlank())
                 .toList();
 
