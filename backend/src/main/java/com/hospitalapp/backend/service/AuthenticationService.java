@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,9 @@ public class AuthenticationService {
     private static final SecureRandom secureRandom = new SecureRandom();
     private static final int RESET_TOKEN_LENGTH = 32;
     private static final int RESET_TOKEN_EXPIRY_HOURS = 1;
+
+    @Value("${app.frontend.url}")
+    private String frontendUrl;
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -144,7 +148,7 @@ public class AuthenticationService {
         userRepository.save(user);
 
         // Build reset link and send email
-        String resetLink = "http://localhost:3000/reset-password?token=" + token;
+        String resetLink = frontendUrl + "/reset-password?token=" + token;
         emailService.sendPasswordResetEmail(user.getEmail(), user.getFirstName(), resetLink);
 
         logger.info("Password reset email sent to: {}", email);
