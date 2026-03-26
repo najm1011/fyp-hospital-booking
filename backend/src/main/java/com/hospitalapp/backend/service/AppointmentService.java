@@ -113,8 +113,7 @@ public class AppointmentService {
             );
         }
 
-        // ----------------- DOUBLE BOOKING PREVENTION -------------------
-
+        // ----------------- DOUBLE BOOKING PREVENTION ------------------
         // 1. Check if doctor's slot is already booked (existing check)
         if (!isSlotAvailable(doctor.getId(), request.getAppointmentDate(), request.getStartTime())) {
             throw new AppointmentException("This time slot is already booked with this doctor",

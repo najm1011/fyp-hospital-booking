@@ -1,5 +1,13 @@
 {
+  "headers": [
+    {
+      "source": "/manifest.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/manifest+json" }
+      ]
+    }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!manifest\\.json|favicon\\.ico|assets/).*)", "destination": "/index.html" }
   ]
 }
