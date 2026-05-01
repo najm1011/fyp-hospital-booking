@@ -24,7 +24,7 @@ hospital-booking-system/
 - Node.js 18+
 - Java 17+
 - Maven 3.8+
-- MySQL 8.0+
+- PostgreSQL 8.0+
 
 ### Running the Frontend
 ```bash
