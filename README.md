@@ -4,39 +4,38 @@ A full-stack web application for managing hospital appointments, designed to red
 
 **Live demo:** [fyp-hospital-booking.vercel.app](https://fyp-hospital-booking.vercel.app)
 
-<!-- TODO: add 2–3 screenshots here: login, booking flow, admin dashboard -->
-<!-- ![Booking flow](docs/screenshots/booking.png) -->
-
 ## Features
 
-- Patient registration and JWT-based authentication
+- Patient registration and JWT authentication with refresh tokens
 - Role-based access control (patient / doctor / admin)
-- Appointment booking, rescheduling, and cancellation
-- Doctor schedule management
-- Automated email notifications for upcoming appointments
+- Appointment booking, rescheduling and cancellation
+- Double-booking prevention (service-level checks + partial unique index)
+- Doctor availability management
+- Automated email reminders for upcoming appointments
+- AI symptom checker (Gemini) to suggest a department
 - Admin dashboard with analytics
 
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
-| Frontend | React.js, Tailwind CSS, shadcn/ui |
-| Backend | Spring Boot 3.4 (Java 17), REST API |
-| Database | PostgreSQL (production), H2 (development/testing) |
-| Auth | JWT, role-based access control |
-| Deployment | Vercel (frontend) <!-- TODO: add backend host --> |
+| Frontend | React 19, Vite, Tailwind CSS, React Router, Axios, Recharts |
+| Backend | Spring Boot 3.4 (Java 17), Spring Security, Spring Data JPA |
+| Database | PostgreSQL (H2 for tests) |
+| Auth | JWT (access + refresh tokens), role-based access control |
+| Deployment | Vercel (frontend) |
 
 ## Architecture
 
 ```
-hospital-booking-system/
+fyp-hospital-booking/
 ├── frontend/    # React application
 ├── backend/     # Spring Boot REST API
-├── database/    # Schema and migrations
+├── database/    # Schema and seed data
 └── docs/        # Documentation
 ```
 
-The backend follows a layered architecture (controller → service → repository) with clear separation between the API, business logic, and data access layers.
+The backend uses a layered architecture (controller → service → repository) with DTOs separating the API from the data model.
 
 ## Getting Started
 
@@ -44,36 +43,50 @@ The backend follows a layered architecture (controller → service → repositor
 
 - Node.js 18+
 - Java 17+
-- Maven 3.8+
-- PostgreSQL 14+
+- Docker (for PostgreSQL)
 
-### Running the Frontend
+### 1. Start the database
 
 ```bash
-cd frontend
-npm install
-npm start
+docker run -d --name medibook-db -e POSTGRES_DB=medibook -e POSTGRES_PASSWORD=dev -p 5432:5432 postgres:16
 ```
 
-Opens at http://localhost:3000
+### 2. Configure the backend
 
-### Running the Backend
+Create `backend/.env`:
+
+```properties
+JWT_SECRET=<output of: openssl rand -base64 32>
+DB_USERNAME=postgres
+DB_PASSWORD=dev
+DB_SSLMODE=disable
+```
+
+### 3. Run the backend
 
 ```bash
 cd backend
 ./mvnw spring-boot:run
 ```
 
-Runs at http://localhost:8080 (uses H2 in-memory database by default for local development)
+Runs at http://localhost:8080
 
-<!-- TODO once tests are added:
+### 4. Run the frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Opens at http://localhost:3000
+
 ## Tests
 
 ```bash
 cd backend
 ./mvnw test
 ```
--->
 
 ## About
 
